@@ -1,9 +1,11 @@
 import { css, Global } from '@emotion/react'
+import fontStyles from './font'
 
 const GlobalStyle = () => {
   return (
     <Global
       styles={css`
+        ${fontStyles}
         html,
         body,
         div,
@@ -107,6 +109,7 @@ const GlobalStyle = () => {
         }
         body {
           line-height: 1;
+          font-family: 'NotoSansKR', sans-serif;
         }
         ol,
         ul {
