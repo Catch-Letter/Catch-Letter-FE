@@ -1,18 +1,15 @@
-import { colors } from '#/styles/color'
-import styled from '@emotion/styled'
+import { Home, Test } from '#/pages'
+import { BrowserRouter, Route, Routes } from 'react-router'
 
 const App = () => {
   return (
-    <Container>
-      <div className='exam'>환영합니다 *^^*</div>
-    </Container>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/test' element={<Test />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
 export default App
-
-const Container = styled.div`
-  .exam {
-    color: ${colors.violet[5]};
-  }
-`
