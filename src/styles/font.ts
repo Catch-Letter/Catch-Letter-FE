@@ -1,12 +1,14 @@
-import Thin from '../assets/fonts/NotoSansKR-Thin.woff'
-import SemiBold from '../assets/fonts/NotoSansKR-SemiBold.woff'
-import Regular from '../assets/fonts/NotoSansKR-Regular.woff'
-import Bold from '../assets/fonts/NotoSansKR-Bold.woff'
-import Medium from '../assets/fonts/NotoSansKR-Medium.woff'
-import Light from '../assets/fonts/NotoSansKR-Light.woff'
-import ExtraLight from '../assets/fonts/NotoSansKR-ExtraLight.woff'
-import ExtraBold from '../assets/fonts/NotoSansKR-ExtraBold.woff'
-import BlackBold from '../assets/fonts/NotoSansKR-Black.woff'
+import {
+  BlackBold,
+  Bold,
+  ExtraBold,
+  ExtraLight,
+  Light,
+  Medium,
+  Regular,
+  SemiBold,
+  Thin,
+} from '#/assets/fonts'
 import { css } from '@emotion/react'
 
 const fontStyles = css`
