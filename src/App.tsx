@@ -1,4 +1,4 @@
-import { colors } from './styles/color'
+import { colors } from '#/styles/color'
 import styled from '@emotion/styled'
 
 const App = () => {
