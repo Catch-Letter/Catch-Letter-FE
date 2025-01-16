@@ -32,7 +32,7 @@ const InputField: FC<Props> = ({
   }, [])
 
   return (
-    <>
+    <div>
       {label && (
         <label
           htmlFor={`${label}-input`}
@@ -64,7 +64,7 @@ const InputField: FC<Props> = ({
           {helpMessage}
         </small>
       )}
-    </>
+    </div>
   )
 }
 
