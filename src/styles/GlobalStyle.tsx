@@ -8,6 +8,11 @@ const GlobalStyle = () => {
       styles={css`
         ${resetCSS}
         ${fontStyles}
+        
+        body {
+          line-height: 140%;
+          letter-spacing: -2.5%;
+        }
       `}
     />
   )
