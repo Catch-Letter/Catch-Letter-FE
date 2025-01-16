@@ -12,11 +12,15 @@ import {
 interface Props extends ComponentProps<'input'> {
   label?: string
   invalid?: boolean
+  validMessage?: string
+  invalidMessage?: string
   helpMessage?: string
 }
 
 const InputField: FC<Props> = ({
   label,
+  validMessage,
+  invalidMessage,
   helpMessage,
   value,
   onChange,
@@ -61,7 +65,7 @@ const InputField: FC<Props> = ({
             used ? (invalid ? helpMessageInalidStyles : helpMessageValidStyles) : helpMessageStyles
           }
         >
-          {helpMessage}
+          {used ? (invalid ? invalidMessage : validMessage) : helpMessage}
         </small>
       )}
     </div>
