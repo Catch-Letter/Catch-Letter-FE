@@ -1,12 +1,14 @@
+import { colors } from '#/styles/color'
 import { css } from '@emotion/react'
 
 export const headerStyles = css`
   position: relative;
   display: flex;
   align-items: center;
-  border: 1px solid red;
   height: 48px;
   padding: 12px 16px;
+  color: ${colors.grey[1]};
+  box-sizing: border-box;
 
   .left {
     margin-right: auto;

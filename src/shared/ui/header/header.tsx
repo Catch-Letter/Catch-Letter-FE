@@ -1,5 +1,5 @@
-import { headerStyles } from './header.styles'
 import { ComponentProps, FC, ReactNode } from 'react'
+import { headerStyles } from './header.styles'
 
 interface Props extends ComponentProps<'header'> {
   Left?: ReactNode
