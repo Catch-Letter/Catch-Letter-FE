@@ -4,8 +4,8 @@ const Test = () => {
   return (
     <div
       css={css`
-        height: 300px;
-        background-color: sandybrown;
+        height: 100vh;
+        background-color: #444;
       `}
     >
       test playground
