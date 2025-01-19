@@ -17,13 +17,13 @@ export const LetterWriteStyles = css`
     display: flex;
     flex-direction: column;
     gap: 12px;
-    padding: 0px 16px;
+    padding: 16px;
   }
 
   .explain-area {
-    padding: 0 14px;
+    padding: 0 30px;
     font-size: 14px;
-    font-weight: 500px;
+    font-weight: 500;
     color: ${colors.grey[7]};
 
     .title {
@@ -32,7 +32,7 @@ export const LetterWriteStyles = css`
 
     ul {
       list-style: disc;
-      padding-left: 20px;
+      padding-left: 30px;
     }
   }
 `
