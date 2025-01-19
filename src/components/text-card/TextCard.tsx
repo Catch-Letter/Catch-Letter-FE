@@ -7,7 +7,7 @@ export interface CardProps extends ComponentProps<'textarea'> {
   rounded?: boolean
 }
 
-const Card = ({ color, border, rounded, value, onChange, ...props }: CardProps) => {
+const TextCard = ({ color, border, rounded, value, onChange, ...props }: CardProps) => {
   return (
     <textarea
       css={CardStyles({ color, border, rounded })}
@@ -18,4 +18,4 @@ const Card = ({ color, border, rounded, value, onChange, ...props }: CardProps) 
   )
 }
 
-export default Card
+export default TextCard
