@@ -1,5 +1,6 @@
 import { Input } from '#/shared/ui'
-import { ComponentProps, FC, FocusEventHandler, useCallback, useState } from 'react'
+import { InputProps } from '#/shared/ui/input/input'
+import { FC, FocusEventHandler, useCallback, useState } from 'react'
 import {
   helpMessageInalidStyles,
   helpMessageStyles,
@@ -9,9 +10,8 @@ import {
   labelValidStyles,
 } from './input-filed.styles'
 
-interface Props extends ComponentProps<'input'> {
+interface Props extends InputProps {
   label?: string
-  invalid?: boolean
   validMessage?: string
   invalidMessage?: string
   helpMessage?: string
@@ -24,15 +24,13 @@ const InputField: FC<Props> = ({
   helpMessage,
   value,
   onChange,
-  invalid = false,
+  isInvalid = false,
   placeholder,
   ...props
 }) => {
-  const [, setIsInvalid] = useState(false)
-  const [used, setUsed] = useState(false)
+  const [isUsed, setIsUsed] = useState(false)
   const onBlur: FocusEventHandler<HTMLInputElement> = useCallback(() => {
-    setUsed(true)
-    setIsInvalid(invalid)
+    setIsUsed(true)
   }, [])
 
   return (
@@ -40,7 +38,7 @@ const InputField: FC<Props> = ({
       {label && (
         <label
           htmlFor={`${label}-input`}
-          css={used ? (invalid ? labelInvalidStyles : labelValidStyles) : labelStyles}
+          css={isUsed ? (isInvalid ? labelInvalidStyles : labelValidStyles) : labelStyles}
         >
           {label}
         </label>
@@ -52,20 +50,23 @@ const InputField: FC<Props> = ({
         onChange={onChange}
         placeholder={placeholder}
         onBlur={onBlur}
-        invalid={invalid}
+        isInvalid={isInvalid}
         aria-describedby={helpMessage && 'help-message'}
         {...props}
       />
 
       {helpMessage && (
         <small
-          id='help-message'
-          role={invalid ? 'alert' : undefined}
+          role={isInvalid ? 'alert' : undefined}
           css={
-            used ? (invalid ? helpMessageInalidStyles : helpMessageValidStyles) : helpMessageStyles
+            isUsed
+              ? isInvalid
+                ? helpMessageInalidStyles
+                : helpMessageValidStyles
+              : helpMessageStyles
           }
         >
-          {used ? (invalid ? invalidMessage : validMessage) : helpMessage}
+          {isUsed ? (isInvalid ? invalidMessage : validMessage) : helpMessage}
         </small>
       )}
     </div>
