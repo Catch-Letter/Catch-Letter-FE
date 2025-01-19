@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes, ReactNode } from 'react'
 
 type ButtonVariant = 'primary' | 'secondary'
 
-export interface buttonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode
   variant?: ButtonVariant
   width?: number
@@ -16,7 +16,7 @@ const Button = ({
   width = 245,
   disabled = false,
   ...props
-}: buttonProps) => {
+}: ButtonProps) => {
   return (
     <button css={buttonStyle({ variant, width })} disabled={disabled} {...props}>
       {children}

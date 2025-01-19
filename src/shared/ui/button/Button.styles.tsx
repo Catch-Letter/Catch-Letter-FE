@@ -1,8 +1,8 @@
 import { css } from '@emotion/react'
 import { colors } from '#/styles/color'
-import { buttonProps } from '#/shared/ui/button/Button'
+import { ButtonProps } from '#/shared/ui/button/Button'
 
-export const buttonStyle = ({ variant, width }: buttonProps) => css`
+export const buttonStyle = ({ variant, width }: ButtonProps) => css`
   padding: 12px 24px;
   justify-content: center;
   align-items: center;
