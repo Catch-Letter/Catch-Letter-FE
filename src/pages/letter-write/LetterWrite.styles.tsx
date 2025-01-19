@@ -4,7 +4,6 @@ import { css } from '@emotion/react'
 export const LetterWriteStyles = css`
   display: flex;
   flex-direction: column;
-  width: 375px;
   height: 100vh;
   background-color: ${colors.grey[13]};
 
@@ -12,11 +11,6 @@ export const LetterWriteStyles = css`
     background-color: pink;
     height: 48px;
     width: 100%;
-  }
-
-  input {
-    height: 40px;
-    border-radius: 8px;
   }
 
   .content {
