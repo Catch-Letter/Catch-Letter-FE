@@ -1,15 +1,22 @@
 import { ComponentProps, FC, FocusEventHandler, useCallback, useState } from 'react'
 import { inputStyles } from './input.styles'
 
-interface Props extends ComponentProps<'input'> {
-  invalid?: boolean
+export interface InputProps extends ComponentProps<'input'> {
+  isInvalid?: boolean
 }
 
-const Input: FC<Props> = ({ value, onChange, invalid = false, placeholder, onBlur, ...props }) => {
-  const [isInvalid, setIsInvalid] = useState(false)
+const Input: FC<InputProps> = ({
+  value,
+  onChange,
+  isInvalid = false,
+  placeholder,
+  onBlur,
+  ...props
+}) => {
+  const [isUsed, setIsUsed] = useState(false)
   const handleOnBlur: FocusEventHandler<HTMLInputElement> = useCallback((e) => {
+    setIsUsed(true)
     onBlur?.(e)
-    setIsInvalid(invalid)
   }, [])
 
   return (
@@ -18,7 +25,7 @@ const Input: FC<Props> = ({ value, onChange, invalid = false, placeholder, onBlu
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      aria-invalid={isInvalid}
+      aria-invalid={isUsed && isInvalid}
       onBlur={handleOnBlur}
       {...props}
     />
