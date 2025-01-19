@@ -1,14 +1,7 @@
 import { Input } from '#/shared/ui'
 import { InputProps } from '#/shared/ui/input/input'
 import { FC, FocusEventHandler, useCallback, useState } from 'react'
-import {
-  helpMessageInalidStyles,
-  helpMessageStyles,
-  helpMessageValidStyles,
-  labelInvalidStyles,
-  labelStyles,
-  labelValidStyles,
-} from './input-filed.styles'
+import { initialStyles, invalidStyles, validStyles } from './input-filed.styles'
 
 interface Props extends InputProps {
   label?: string
@@ -34,12 +27,9 @@ const InputField: FC<Props> = ({
   }, [])
 
   return (
-    <div>
+    <div css={isUsed ? (isInvalid ? invalidStyles : validStyles) : initialStyles}>
       {label && (
-        <label
-          htmlFor={`${label}-input`}
-          css={isUsed ? (isInvalid ? labelInvalidStyles : labelValidStyles) : labelStyles}
-        >
+        <label htmlFor={`${label}-input`} className='input-field-label'>
           {label}
         </label>
       )}
@@ -56,16 +46,7 @@ const InputField: FC<Props> = ({
       />
 
       {helpMessage && (
-        <small
-          role={isInvalid ? 'alert' : undefined}
-          css={
-            isUsed
-              ? isInvalid
-                ? helpMessageInalidStyles
-                : helpMessageValidStyles
-              : helpMessageStyles
-          }
-        >
+        <small className='input-field-help-message' role={isInvalid ? 'alert' : undefined}>
           {isUsed ? (isInvalid ? invalidMessage : validMessage) : helpMessage}
         </small>
       )}
