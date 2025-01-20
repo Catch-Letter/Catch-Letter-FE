@@ -1,0 +1,92 @@
+import { colors } from '#/styles/color'
+import { css } from '@emotion/react'
+
+const patternColors = {
+  violet: colors.violet[2],
+  blue: colors.blue[100],
+  pink: colors.pink[2],
+  green: colors.green[2],
+  grey: colors.grey[2],
+} as const
+
+const letterBackground = (color: keyof typeof patternColors) => ({
+  default: 'inherit',
+  line: `background-image: linear-gradient(to bottom, ${patternColors[color]} 1px, transparent 0);
+          background-size: 30px 30px;`,
+  dot: `background-image: radial-gradient(${patternColors[color]} 3px, transparent 3px), 
+          radial-gradient(${patternColors[color]} 3px, transparent 3px);
+          background-position: 0 0, 30px 30px;
+          background-size: 50px 50px;
+          opacity:0.5;`,
+  grid: `background-image: linear-gradient(to bottom, ${patternColors[color]} 1px, transparent 0), linear-gradient(to right, ${patternColors[color]} 1px, transparent 0);
+          background-size: 30px 30px;
+          opacity:0.5;`,
+})
+
+type LetterBackgroundPatterns = ReturnType<typeof letterBackground>
+
+export const LetterContentStyle = (
+  pattern: keyof LetterBackgroundPatterns,
+  color: keyof typeof patternColors
+) => css`
+  display: flex;
+  width: 100%;
+  height: 100%;
+
+  .letter-area {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .to,
+    .from {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .to {
+      margin-bottom: 25px;
+    }
+
+    .from {
+      margin-top: 25px;
+    }
+
+    .letter {
+      position: relative;
+      min-height: 293px;
+      white-space: pre-wrap;
+      overflow-y: auto;
+      line-height: 30px;
+      letter-spacing: 0.3px;
+      z-index: 1;
+
+      scrollbar-width: thin;
+      scrollbar-color: ${patternColors[color]} transparent;
+
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: ${patternColors[color]};
+        border-radius: 4px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: transparent;
+      }
+    }
+
+    .letter::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      ${letterBackground(color)[pattern]};
+      z-index: 0;
+    }
+  }
+`
