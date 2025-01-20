@@ -1,10 +1,11 @@
-import { useState } from 'react'
-import { ColorStyle, SelectColorStyle } from './selectColor.styles'
+import { ColorStyle, SelectColorStyle } from './SelectColor.styles'
+import { useColorStore } from '#/store/colorStore'
 
 export const colors = ['grey', 'pink', 'violet', 'green', 'blue'] as const
 
 const SelectColor = () => {
-  const [selectedColor, setSelectedColor] = useState('grey')
+  const selectedColor = useColorStore((state) => state.selectedColor)
+  const setSelectedColor = useColorStore((state) => state.setSelectedColor)
 
   return (
     <div css={SelectColorStyle}>
