@@ -16,7 +16,8 @@ export const separateInput = css`
   text-align: center;
   padding: 8px;
   border: none;
-  border-bottom: 1px solid black;
+  border: 1px solid black;
   font-size: 28px;
+  border-radius: 5px;
   background-color: transparent;
 `

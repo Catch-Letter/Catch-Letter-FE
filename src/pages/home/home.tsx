@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <Container>
       <div className='exam'>환영합니다 *^^*</div>
-      <SeparatedInput length={6} label='인증번호' />
+      <SeparatedInput length={6} label='정답 입력' />
     </Container>
   )
 }
