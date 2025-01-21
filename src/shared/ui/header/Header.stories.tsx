@@ -1,10 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import Header from './header'
 import { css } from '@emotion/react'
+import { MobileSize } from '#/shared/utils/storybook'
 
 const meta = {
   title: 'base/Header',
   component: Header,
+  decorators: [
+    (Story) => (
+      <MobileSize>
+        <Story />
+      </MobileSize>
+    ),
+  ],
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
   parameters: {
