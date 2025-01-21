@@ -10,3 +10,14 @@ export const fireBlurToInputByName =
     await userEvent.click(input)
     await userEvent.tab()
   }
+
+export const fireTypeBylabel =
+  (label: string, text: string) =>
+  async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement)
+
+    const input = canvas.getByLabelText(label)
+
+    await userEvent.type(input, text)
+    await userEvent.tab()
+  }
