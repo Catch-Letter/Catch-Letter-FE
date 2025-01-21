@@ -22,7 +22,7 @@ const SelectPattern = () => {
             className={selectedPattern === pattern ? 'active' : ''}
             onClick={() => setSelectedPattern(pattern as keyof typeof patterns)}
           >
-            <img src={patterns[pattern as keyof typeof patterns]} alt='패턴' />
+            <img src={patterns[pattern as keyof typeof patterns]} alt={pattern} />
           </li>
         ))}
       </ul>

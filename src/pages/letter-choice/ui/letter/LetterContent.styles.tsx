@@ -6,7 +6,7 @@ const patternColors = {
   blue: colors.blue[100],
   pink: colors.pink[2],
   green: colors.green[2],
-  grey: colors.grey[2],
+  grey: colors.grey[5],
 } as const
 
 const letterBackground = (color: keyof typeof patternColors) => ({
@@ -17,10 +17,10 @@ const letterBackground = (color: keyof typeof patternColors) => ({
           radial-gradient(${patternColors[color]} 3px, transparent 3px);
           background-position: 0 0, 30px 30px;
           background-size: 50px 50px;
-          opacity:0.5;`,
+         `,
   grid: `background-image: linear-gradient(to bottom, ${patternColors[color]} 1px, transparent 0), linear-gradient(to right, ${patternColors[color]} 1px, transparent 0);
           background-size: 30px 30px;
-          opacity:0.5;`,
+         `,
 })
 
 type LetterBackgroundPatterns = ReturnType<typeof letterBackground>
@@ -59,7 +59,8 @@ export const LetterContentStyle = (
       overflow-y: auto;
       line-height: 30px;
       letter-spacing: 0.3px;
-      z-index: 1;
+      background-attachment: local;
+      ${letterBackground(color)[pattern]};
 
       scrollbar-width: thin;
       scrollbar-color: ${patternColors[color]} transparent;
@@ -76,17 +77,6 @@ export const LetterContentStyle = (
       &::-webkit-scrollbar-track {
         background-color: transparent;
       }
-    }
-
-    .letter::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      ${letterBackground(color)[pattern]};
-      z-index: 0;
     }
   }
 `
