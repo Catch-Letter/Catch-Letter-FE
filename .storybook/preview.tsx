@@ -4,6 +4,14 @@ import GlobalStyles from '../src/styles/GlobalStyles.tsx'
 
 const preview: Preview = {
   parameters: {
+    backgrounds: {
+      default: 'Dark',
+      values: [
+        // 👇 Default values
+        { name: 'Dark', value: '#333' },
+        { name: 'Light', value: '#F7F9F2' },
+      ],
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
