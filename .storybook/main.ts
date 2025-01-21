@@ -7,10 +7,14 @@ const config: StorybookConfig = {
     '@storybook/addon-essentials',
     '@chromatic-com/storybook',
     '@storybook/addon-interactions',
+    '@storybook/addon-themes',
   ],
   framework: {
     name: '@storybook/react-vite',
     options: {},
+  },
+  features: {
+    // backgroundsStoryGlobals: true,
   },
 }
 export default config
