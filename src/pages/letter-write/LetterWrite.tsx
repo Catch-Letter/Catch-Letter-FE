@@ -1,25 +1,29 @@
 import { TextCard } from '#/components/text-card'
-import { LetterWriteStyles } from './LetterWrite.styles'
+import { LetterWriteStyle } from './LetterWrite.styles'
+import { Input, Button } from '#/shared/ui'
 import { WRITE_LETTER, WRITE_LETTER_EXPLAIN } from '#/shared/constants/letter'
-import { Input } from '#/shared/ui'
-import { BackHeader } from '#/components'
+import { WriteDesc } from '#/pages/letter-write/ui'
 
 const LetterWrite = () => {
   return (
-    <div css={LetterWriteStyles}>
-      <BackHeader Center='비밀편지 쓰기' Right='한영키' />
+    <div css={LetterWriteStyle}>
       <div className='content'>
-        <Input placeholder={WRITE_LETTER.TO} />
+        <div className='input-to'>
+          <label className='input-label'>TO</label>
+          <Input placeholder={WRITE_LETTER.TO} />
+        </div>
         <TextCard color='#f4f4f5' placeholder={WRITE_LETTER.CONTENT} />
-        <Input placeholder={WRITE_LETTER.FROM} />
+        <div className='input-from'>
+          <label className='input-label'>FROM</label>
+          <Input placeholder={WRITE_LETTER.FROM} />
+        </div>
       </div>
-      <div className='explain-area'>
-        <div className='title'>{WRITE_LETTER.HELP}</div>
-        <ul>
-          {WRITE_LETTER_EXPLAIN.map((item, idx) => (
-            <li key={idx}>{item}</li>
-          ))}
-        </ul>
+      <WriteDesc title={WRITE_LETTER.HELP} descs={WRITE_LETTER_EXPLAIN} />
+      <div className='button-area'>
+        <Button variant='secondary' width={82}>
+          이전
+        </Button>
+        <Button>편지 선택하기!</Button>
       </div>
     </div>
   )
