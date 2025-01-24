@@ -1,5 +1,6 @@
-import { BackHeader, LetterCard, Tab } from '#/components'
+import { LetterCard, Tab } from '#/components'
 import { SelectFont, SelectPattern, SelectColor, LetterContent } from '#/pages/letter-choice/ui'
+import { Button } from '#/shared/ui/button'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { ChoiceLetterStyle } from './ChoiceLetter.styles'
 
@@ -27,7 +28,6 @@ const ChoiceLetter = () => {
 
   return (
     <div css={ChoiceLetterStyle}>
-      <BackHeader Center='편지지 고르기' Right='한영키' />
       <div className='content'>
         <LetterCard type={selectedColor}>
           <LetterContent
@@ -41,6 +41,12 @@ const ChoiceLetter = () => {
         </LetterCard>
       </div>
       <Tab items={tabItem} renderChildren={renderItem} />
+      <div className='button-area'>
+        <Button variant='secondary' width={82}>
+          이전
+        </Button>
+        <Button width={245}>편지 보내기</Button>
+      </div>
     </div>
   )
 }
