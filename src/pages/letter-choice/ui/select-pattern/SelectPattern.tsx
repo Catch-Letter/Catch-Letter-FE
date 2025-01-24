@@ -1,5 +1,5 @@
+import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { PatternStyle, SelectPatternStyle } from './SelectPattern.styles'
-import { usePatternStore } from '#/store/colorStore'
 
 const patterns = {
   default: '/redline.svg',
@@ -9,8 +9,7 @@ const patterns = {
 } as const
 
 const SelectPattern = () => {
-  const selectedPattern = usePatternStore((state) => state.selectedPattern)
-  const setSelectedPattern = usePatternStore((state) => state.setSelectedPattern)
+  const { selectedPattern, setSelectedPattern } = useLetterCreationStore()
 
   return (
     <div css={SelectPatternStyle}>

@@ -1,4 +1,4 @@
-import { ColorType, PatternType } from '#/store/colorStore'
+import { ColorType, FontType, PatternType } from '#/store/letterCreateStore'
 import { LetterContentStyle } from './LetterContent.styles'
 
 interface LetterProps {
@@ -7,11 +7,12 @@ interface LetterProps {
   from: string
   pattern: PatternType
   color: ColorType
+  font: FontType
 }
 
-const LetterContent = ({ to, content, from, pattern, color }: LetterProps) => {
+const LetterContent = ({ to, content, from, pattern, color, font }: LetterProps) => {
   return (
-    <div css={LetterContentStyle(pattern, color)}>
+    <div css={LetterContentStyle(pattern, color, font)}>
       <div className='letter-area'>
         <div className='to'>To. {to}</div>
         <div className='letter'>{content}</div>

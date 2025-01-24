@@ -1,5 +1,6 @@
 import { Home, Test } from '#/pages'
 import ChoiceLetter from '#/pages/letter-choice/ChoiceLetter'
+import SendLetter from '#/pages/letter-send/SendLetter'
 import { BrowserRouter, Route, Routes } from 'react-router'
 
 const App = () => {
@@ -9,6 +10,7 @@ const App = () => {
         <Route path='/' element={<Home />} />
         <Route path='/test' element={<Test />} />
         <Route path='/choiceletter' element={<ChoiceLetter />} />
+        <Route path='/sendletter' element={<SendLetter />} />
       </Routes>
     </BrowserRouter>
   )

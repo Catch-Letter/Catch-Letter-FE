@@ -1,18 +1,14 @@
-import { useState } from 'react'
+import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { FontItem, SelectFontStyle } from './SelectFont.styles'
 
 const fonts = [
-  { name: '기본', style: 'NotoSansKR' },
-  { name: '류류', style: 'Ownglyph_ryurue-Rg' },
-  { name: '의연', style: 'Uiyeun' },
+  { name: '기본', style: 'NotoSansKR', type: 'default' as const },
+  { name: '손글씨1', style: 'Ownglyph EuiyeonChae', type: 'ownglyph' as const },
+  { name: '손글씨2', style: 'NanumPen', type: 'nanum' as const },
 ]
 
 const SelectFont = () => {
-  const [selectedFont, setSelectedFont] = useState(fonts[0].name)
-
-  const handleClickFont = (font: string) => {
-    setSelectedFont(font)
-  }
+  const { selectedFont, setSelectedFont } = useLetterCreationStore()
 
   return (
     <div css={SelectFontStyle}>
@@ -21,8 +17,8 @@ const SelectFont = () => {
           <li
             key={idx}
             css={FontItem(font.style)}
-            className={selectedFont === font.name ? 'active' : ''}
-            onClick={() => handleClickFont(font.name)}
+            className={selectedFont === font.type ? 'active' : ''}
+            onClick={() => setSelectedFont(font.type)}
           >
             {font.name}
           </li>

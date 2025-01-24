@@ -1,8 +1,6 @@
-import { BackHeader } from '#/components'
-import { Tab } from '#/components'
-import { Card } from '#/shared/ui'
+import { BackHeader, LetterCard, Tab } from '#/components'
 import { SelectFont, SelectPattern, SelectColor, LetterContent } from '#/pages/letter-choice/ui'
-import { useColorStore, usePatternStore } from '#/store/colorStore'
+import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { ChoiceLetterStyle } from './ChoiceLetter.styles'
 
 const data = {
@@ -14,8 +12,7 @@ const data = {
 
 const ChoiceLetter = () => {
   const tabItem = ['색상', '패턴', '글꼴']
-  const selectedColor = useColorStore((state) => state.selectedColor)
-  const selectedPattern = usePatternStore((state) => state.selectedPattern)
+  const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
 
   const renderItem = (selectedItem: string) => {
     switch (selectedItem) {
@@ -32,15 +29,16 @@ const ChoiceLetter = () => {
     <div css={ChoiceLetterStyle}>
       <BackHeader Center='편지지 고르기' Right='한영키' />
       <div className='content'>
-        <Card type={selectedColor}>
+        <LetterCard type={selectedColor}>
           <LetterContent
             to={data.to}
             content={data.content}
             from={data.from}
             color={selectedColor}
             pattern={selectedPattern}
+            font={selectedFont}
           />
-        </Card>
+        </LetterCard>
       </div>
       <Tab items={tabItem} renderChildren={renderItem} />
     </div>

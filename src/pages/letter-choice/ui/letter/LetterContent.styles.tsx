@@ -23,15 +23,23 @@ const letterBackground = (color: keyof typeof patternColors) => ({
          `,
 })
 
+const letterFonts = {
+  default: 'inherit',
+  ownglyph: 'Ownglyph EuiyeonChae',
+  nanum: 'NanumPen',
+}
+
 type LetterBackgroundPatterns = ReturnType<typeof letterBackground>
 
 export const LetterContentStyle = (
   pattern: keyof LetterBackgroundPatterns,
-  color: keyof typeof patternColors
+  color: keyof typeof patternColors,
+  font: keyof typeof letterFonts
 ) => css`
   display: flex;
   width: 100%;
   height: 100%;
+  font-family: ${letterFonts[font]};
 
   .letter-area {
     display: flex;
