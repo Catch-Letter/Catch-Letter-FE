@@ -1,16 +1,21 @@
 import { ReactNode } from 'react'
 import { CardStyle } from './Card.styles'
-
-type CardType = 'violet' | 'pink' | 'green' | 'blue' | 'grey'
+import { Interpolation, Theme } from '@emotion/react'
 
 export interface CardProps {
-  type: CardType
   children?: ReactNode
+  background?: string
   height?: string
+  width?: string
+  css?: Interpolation<Theme>
 }
 
-const Card = ({ type, children }: CardProps) => {
-  return <div css={CardStyle({ type })}>{children}</div>
+const Card = ({ background, height, width, children, ...props }: CardProps) => {
+  return (
+    <div css={CardStyle({ height, width, background })} {...props}>
+      {children}
+    </div>
+  )
 }
 
 export default Card
