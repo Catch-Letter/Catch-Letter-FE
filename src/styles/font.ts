@@ -5,6 +5,8 @@ import {
   ExtraLight,
   Light,
   Medium,
+  NanumPen,
+  OwnglyphEuiyeon,
   Regular,
   SemiBold,
   Thin,
@@ -56,6 +58,14 @@ const fontStyles = css`
     font-family: 'NotoSansKR';
     font-weight: 900;
     src: url(${BlackBold}) format(woff);
+  }
+  @font-face {
+    font-family: 'NanumPen';
+    src: url(${NanumPen}) format(woff);
+  }
+  @font-face {
+    font-family: 'Ownglyph EuiyeonChae';
+    src: url(${OwnglyphEuiyeon}) format(woff);
   }
 `
 export default fontStyles
