@@ -1,8 +1,7 @@
-import { TextCard } from '#/components/text-card'
 import { LetterWriteStyle } from './LetterWrite.styles'
 import { Input, Button } from '#/shared/ui'
 import { WRITE_LETTER, WRITE_LETTER_EXPLAIN } from '#/shared/constants/letter'
-import { WriteDesc } from '#/pages/letter-write/ui'
+import { WriteDesc, TextCard } from '#/components/letter-write'
 
 const LetterWrite = () => {
   return (
