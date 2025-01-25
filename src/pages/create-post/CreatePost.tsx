@@ -1,8 +1,10 @@
 import { TurnCard } from '#/pages/create-post/ui/turn-card'
 import { Button, Header } from '#/shared/ui'
+import { useNavigate } from 'react-router'
 import { CreatePostStyle } from './CreatePost.styles'
 
 const CreatePost = () => {
+  const navigate = useNavigate()
   return (
     <div css={CreatePostStyle}>
       <Header />
@@ -11,7 +13,14 @@ const CreatePost = () => {
         <div className='sub-title'>그림을 맞추고 상대방의 마음을 확인해요!</div>
       </div>
       <TurnCard />
-      <Button width={343}>내 우체통 만들기</Button>
+      <Button
+        width={343}
+        onClick={() => {
+          navigate('/postform')
+        }}
+      >
+        내 우체통 만들기
+      </Button>
     </div>
   )
 }
