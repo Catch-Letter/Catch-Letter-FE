@@ -1,7 +1,8 @@
 import * as Letters from '#/assets/letters'
 import { FallingLetters, TextSection } from '#/components/inbox'
 import { Header } from '#/shared/ui'
-import { css } from '@emotion/react'
+import { Button } from '#/shared/ui/button'
+import { bottomButtonStyles, containerStyles, headerStyles } from './LetterReceiving.styles'
 
 const LetterReciving = () => {
   const time_left = '13:10:09'
@@ -9,25 +10,10 @@ const LetterReciving = () => {
   const letters = Object.values(Letters).concat(Object.values(Letters).slice(3))
 
   return (
-    <div
-      css={css`
-        width: 375px;
-        position: relative;
-        background-color: transparent;
-      `}
-    >
+    <div css={containerStyles}>
       <Header
-        Left={
-          <span
-            css={css`
-              font-size: 24px;
-              font-weight: 700;
-              margin-left: 13px;
-            `}
-          >
-            catch letter
-          </span>
-        }
+        css={headerStyles}
+        Left={<span className='left'>catch letter</span>}
         Right={<button>한/영</button>}
       />
 
@@ -37,6 +23,10 @@ const LetterReciving = () => {
         title2='지금까지 받은 편지'
         value2={total_received_letter}
       />
+
+      <Button onClick={() => {}} width={343} css={bottomButtonStyles}>
+        SNS 공유하기
+      </Button>
 
       <FallingLetters letters={letters} />
     </div>

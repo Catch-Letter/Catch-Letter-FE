@@ -1,2 +1,1 @@
-export { default as LetterReciving } from './letter-receicing'
-// export { default as LetterReceived } from './letter-received'
+export * from './LetterReceiving'

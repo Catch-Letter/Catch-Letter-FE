@@ -11,7 +11,7 @@ const GlobalStyle = () => {
         
         * {
           line-height: 140%;
-          letter-spacing: -2.5%;
+          letter-spacing: -0.0025rem;
         }
       `}
     />

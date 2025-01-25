@@ -1,6 +1,7 @@
-import useFallingLetters, { FallingLettersHookArgs } from './useFallingLetters'
+import { ZIndex } from '#/shared/config'
 import { css } from '@emotion/react'
 import { useRef } from 'react'
+import useFallingLetters, { FallingLettersHookArgs } from './useFallingLetters'
 
 type Props = Pick<FallingLettersHookArgs, 'letters'>
 
@@ -17,6 +18,8 @@ const FallingLetters = ({ letters }: Props) => {
         right: 0;
         left: 0;
         bottom: 0;
+        z-index: ${ZIndex.fallingLetter};
+        pointer-events: none;
       `}
       ref={containerRef}
     />

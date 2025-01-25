@@ -1,3 +1,4 @@
+import { ZIndex } from '#/shared/config'
 import { colors } from '#/styles/color'
 import { css } from '@emotion/react'
 
@@ -6,6 +7,8 @@ export const textSectionStyles = css`
   color: ${colors.grey[1]};
   margin-top: 24px;
   margin-left: 26px;
+  position: relative;
+  z-index: ${ZIndex.letterInboxUI};
 
   .title1 {
     font-size: 18px;
