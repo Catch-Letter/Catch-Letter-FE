@@ -1,4 +1,5 @@
 import { Home, Test } from '#/pages'
+import { CreatePost } from '#/pages/create-post'
 import { BrowserRouter, Route, Routes } from 'react-router'
 
 const App = () => {
@@ -7,6 +8,7 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/test' element={<Test />} />
+        <Route path='/create' element={<CreatePost />} />
       </Routes>
     </BrowserRouter>
   )

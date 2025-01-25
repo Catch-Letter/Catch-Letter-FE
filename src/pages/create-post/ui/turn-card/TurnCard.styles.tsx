@@ -75,10 +75,10 @@ export const TurnCardStyle = css`
         transform: translateZ(0) rotateY(180deg);
       }
       70% {
-        transform: translateZ(-20px) translateY(-20px) translateX(40px) rotateZ(deg);
+        transform: translateZ(-20px) rotateY(0deg) translateY(-20px) translateX(40px) rotateZ(deg);
       }
       100% {
-        transform: translateZ(-20px) translateY(-20px) translateX(60px) rotateZ(10deg);
+        transform: translateZ(-20px) rotateY(0deg) translateY(-20px) translateX(60px) rotateZ(10deg);
       }
     }
   }
