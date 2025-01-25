@@ -1,3 +1,3 @@
 export * from './back-header'
-export * from './tab'
+export * from './letter-choice'
 export * from './letter-card'

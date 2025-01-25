@@ -1,5 +1,11 @@
-import { LetterCard, Tab } from '#/components'
-import { SelectFont, SelectPattern, SelectColor, LetterContent } from '#/pages/letter-choice/ui'
+import { LetterCard } from '#/components'
+import {
+  SelectFont,
+  SelectPattern,
+  SelectColor,
+  LetterContent,
+  Tab,
+} from '#/components/letter-choice'
 import { Button } from '#/shared/ui/button'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { ChoiceLetterStyle } from './ChoiceLetter.styles'

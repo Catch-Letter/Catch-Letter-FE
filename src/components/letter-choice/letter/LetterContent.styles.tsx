@@ -40,6 +40,7 @@ export const LetterContentStyle = (
   width: 100%;
   height: 100%;
   font-family: ${letterFonts[font]};
+  font-size: ${font === 'default' ? '16px' : '20px'};
 
   .letter-area {
     display: flex;
@@ -48,7 +49,6 @@ export const LetterContentStyle = (
 
     .to,
     .from {
-      font-size: 16px;
       font-weight: 700;
     }
 

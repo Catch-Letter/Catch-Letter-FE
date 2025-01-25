@@ -1,7 +1,7 @@
 import { Header } from '#/shared/ui'
 import { SendLetterStyle } from './SendLetter.styles'
 import { Button } from '#/shared/ui/button'
-import { SendCard, SendDesc } from '#/pages/letter-send/ui'
+import { SendCard, SendDesc } from '#/components/letter-send'
 
 const desc = {
   TITLE: '친구에게 편지가 보내졌어요!',
