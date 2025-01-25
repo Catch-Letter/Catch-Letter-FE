@@ -1,4 +1,4 @@
-import { CardProps } from '#/components/text-card/TextCard'
+import { CardProps } from './TextCard'
 import { colors } from '#/styles/color'
 import { css } from '@emotion/react'
 

@@ -1,4 +1,4 @@
-import { CardStyles } from '#/components/text-card/TextCard.styles'
+import { CardStyles } from './TextCard.styles'
 import { ComponentProps } from 'react'
 
 export interface CardProps extends ComponentProps<'textarea'> {
