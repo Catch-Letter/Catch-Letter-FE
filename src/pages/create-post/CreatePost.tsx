@@ -1,4 +1,4 @@
-import { TurnCard } from '#/pages/create-post/ui/turn-card'
+import { TurnCard } from '#/components/create-post'
 import { Button, Header } from '#/shared/ui'
 import { useNavigate } from 'react-router'
 import { CreatePostStyle } from './CreatePost.styles'
