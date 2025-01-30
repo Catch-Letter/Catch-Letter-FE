@@ -1,3 +1,4 @@
+import { colors } from '#/styles/color'
 import { css } from '@emotion/react'
 
 export const separatedInputContainer = css`
@@ -19,5 +20,10 @@ export const separateInput = css`
   border: 1px solid black;
   font-size: 28px;
   border-radius: 5px;
-  background-color: transparent;
+  background-color: ${colors.grey[1]};
+`
+export const labels = css`
+  font-size: 18px;
+  font-weight: 700;
+  color: ${colors.grey[1]};
 `

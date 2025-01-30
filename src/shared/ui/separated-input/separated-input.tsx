@@ -2,7 +2,8 @@ import {
   separatedInputContainer,
   separateInputs,
   separateInput,
-} from '#/shared/ui/separated-input/separated-input.styles'
+  labels,
+} from './separated-input.styles'
 import { InputHTMLAttributes, useRef, useState } from 'react'
 
 interface SeparatedInputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -10,12 +11,12 @@ interface SeparatedInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string
 }
 
-export default function SeparatedInput({ label, length }: SeparatedInputProps) {
+const SeparatedInput: React.FC<SeparatedInputProps> = ({ label, length }) => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([])
   const [isComposing, setIsComposing] = useState(false)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
-    const value = e.target.value
+    const { value } = e.target
 
     if (isComposing) return
 
@@ -61,8 +62,10 @@ export default function SeparatedInput({ label, length }: SeparatedInputProps) {
 
   return (
     <div css={separatedInputContainer}>
-      {label && <label>{label}</label>}
+      {label && <label css={labels}>{label}</label>}
       <div css={separateInputs}>{inputs}</div>
     </div>
   )
 }
+
+export default SeparatedInput
