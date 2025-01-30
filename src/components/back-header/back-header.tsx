@@ -1,5 +1,5 @@
-import { Header } from '#/shared/ui'
-import { ComponentProps, FC, ReactNode } from 'react'
+import { Header, LanguageSwitcher } from '#/shared/ui'
+import { ComponentProps, FC, ReactNode, useCallback } from 'react'
 import { IoIosArrowBack } from 'react-icons/io'
 import { useNavigate } from 'react-router'
 import { iconStyles } from './back-header.styles'
@@ -9,9 +9,9 @@ interface Props extends ComponentProps<'header'> {
   Right?: ReactNode
 }
 
-const BackHeader: FC<Props> = ({ Center, Right, ...props }) => {
+const BackHeader: FC<Props> = ({ Center, Right = <LanguageSwitcher />, ...props }) => {
   const navigate = useNavigate()
-  const goBack = navigate.bind(null, -1)
+  const goBack = useCallback(navigate.bind(null, -1), [])
 
   return (
     <Header
