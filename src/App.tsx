@@ -1,7 +1,10 @@
-import { Home, Test, LetterWrite } from '#/pages'
+import { Home, Test } from '#/pages'
+import { lazy } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router'
 
 const App = () => {
+  const LetterWrite = lazy(() => import('#/pages/letter-write/LetterWrite'))
+
   return (
     <BrowserRouter>
       <Routes>

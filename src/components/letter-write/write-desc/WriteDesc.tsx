@@ -9,8 +9,8 @@ const WriteDesc = ({ title, descs }: WriteDescProps) => {
     <div css={WriteDescStyle}>
       <div className='title'>{title}</div>
       <ul>
-        {descs.map((item, idx) => (
-          <li key={idx}>{item}</li>
+        {descs.map((item) => (
+          <li key={item}>{item}</li>
         ))}
       </ul>
     </div>
