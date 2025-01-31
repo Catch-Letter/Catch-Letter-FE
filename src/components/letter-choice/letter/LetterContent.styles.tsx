@@ -1,3 +1,4 @@
+import { FontType } from '#/store/letterCreateStore'
 import { colors } from '#/styles/color'
 import { css } from '@emotion/react'
 
@@ -23,24 +24,18 @@ const letterBackground = (color: keyof typeof patternColors) => ({
          `,
 })
 
-const letterFonts = {
-  default: 'inherit',
-  ownglyph: 'Ownglyph EuiyeonChae',
-  nanum: 'NanumPen',
-}
-
 type LetterBackgroundPatterns = ReturnType<typeof letterBackground>
 
 export const LetterContentStyle = (
   pattern: keyof LetterBackgroundPatterns,
   color: keyof typeof patternColors,
-  font: keyof typeof letterFonts
+  font: FontType
 ) => css`
   display: flex;
   width: 100%;
   height: 100%;
-  font-family: ${letterFonts[font]};
-  font-size: ${font === 'default' ? '16px' : '20px'};
+  font-family: ${font};
+  font-size: ${font === 'NotoSansKR' ? '16px' : '20px'};
 
   .letter-area {
     display: flex;

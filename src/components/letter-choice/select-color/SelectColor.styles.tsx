@@ -1,13 +1,13 @@
 import { colors } from '#/styles/color'
 import { css } from '@emotion/react'
 
-const backgroundColors = {
+export const backgroundColors = {
   violet: colors.violet[4],
   blue: colors.blue[400],
   pink: colors.pink[5],
   green: colors.green[4],
   grey: colors.grey[4],
-} as const
+}
 
 export const SelectColorStyle = css`
   display: flex;

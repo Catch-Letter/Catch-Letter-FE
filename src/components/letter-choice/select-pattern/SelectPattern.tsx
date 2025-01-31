@@ -3,10 +3,10 @@ import { PatternStyle, SelectPatternStyle } from './SelectPattern.styles'
 
 const patterns = {
   default: '/redline.svg',
-  line: '/Mask1.svg',
-  dot: '/Mask2.svg',
-  grid: '/Mask3.svg',
-} as const
+  line: '/line.svg',
+  dot: '/dot.svg',
+  grid: '/grid.svg',
+}
 
 const SelectPattern = () => {
   const { selectedPattern, setSelectedPattern } = useLetterCreationStore()
@@ -14,10 +14,10 @@ const SelectPattern = () => {
   return (
     <div css={SelectPatternStyle}>
       <ul>
-        {Object.keys(patterns).map((pattern, idx) => (
+        {Object.keys(patterns).map((pattern) => (
           <li
             css={PatternStyle}
-            key={idx}
+            key={pattern}
             className={selectedPattern === pattern ? 'active' : ''}
             onClick={() => setSelectedPattern(pattern as keyof typeof patterns)}
           >

@@ -1,7 +1,7 @@
-import { useLetterCreationStore } from '#/store/letterCreateStore'
-import { ColorStyle, SelectColorStyle } from './SelectColor.styles'
+import { ColorType, useLetterCreationStore } from '#/store/letterCreateStore'
+import { ColorStyle, SelectColorStyle, backgroundColors } from './SelectColor.styles'
 
-export const colors = ['grey', 'pink', 'violet', 'green', 'blue'] as const
+export const colors = Object.keys(backgroundColors) as ColorType[]
 
 const SelectColor = () => {
   const { selectedColor, setSelectedColor } = useLetterCreationStore()
@@ -9,10 +9,10 @@ const SelectColor = () => {
   return (
     <div css={SelectColorStyle}>
       <ul>
-        {colors.map((color, idx) => (
+        {colors.map((color) => (
           <li
             css={ColorStyle(color)}
-            key={idx}
+            key={color}
             className={selectedColor === color ? 'active' : ''}
             onClick={() => setSelectedColor(color)}
           />

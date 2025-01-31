@@ -1,11 +1,5 @@
 import { LetterCard } from '#/components'
-import {
-  SelectFont,
-  SelectPattern,
-  SelectColor,
-  LetterContent,
-  Tab,
-} from '#/components/letter-choice'
+import { LetterContent, Tab } from '#/components/letter-choice'
 import { Button } from '#/shared/ui/button'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { ChoiceLetterStyle } from './ChoiceLetter.styles'
@@ -18,19 +12,7 @@ const data = {
 }
 
 const ChoiceLetter = () => {
-  const tabItem = ['색상', '패턴', '글꼴']
   const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
-
-  const renderItem = (selectedItem: string) => {
-    switch (selectedItem) {
-      case '색상':
-        return <SelectColor />
-      case '패턴':
-        return <SelectPattern />
-      case '글꼴':
-        return <SelectFont />
-    }
-  }
 
   return (
     <div css={ChoiceLetterStyle}>
@@ -46,7 +28,7 @@ const ChoiceLetter = () => {
           />
         </LetterCard>
       </div>
-      <Tab items={tabItem} renderChildren={renderItem} />
+      <Tab />
       <div className='button-area'>
         <Button variant='secondary' width={82}>
           이전

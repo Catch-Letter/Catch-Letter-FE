@@ -16,7 +16,7 @@ export const TabStyle = css`
   }
 `
 export const TabItem = css`
-  color: #fff;
+  color: ${colors.white};
   text-align: center;
   padding: 8px 12px;
   font-size: 18px;

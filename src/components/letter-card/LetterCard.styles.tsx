@@ -19,6 +19,6 @@ const borderColors = {
 }
 
 export const LetterCardStyle = ({ type }: LetterCardProps) => css`
-  background: ${backgroundColors[type] || backgroundColors.grey};
-  border: 1.5px solid ${borderColors[type] || borderColors.grey};
+  background: ${backgroundColors[type]};
+  border: 1.5px solid ${borderColors[type]};
 `

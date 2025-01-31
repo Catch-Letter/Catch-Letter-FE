@@ -16,15 +16,15 @@ export const SelectFontStyle = css`
 `
 
 export const FontItem = (fontStyle: string) => css`
-  color: #fff;
+  color: ${colors.white};
   cursor: pointer;
-  font-size: 18px;
+  font-size: ${fontStyle === 'NotoSansKR' ? '18px' : '20px'};
   font-weight: 400;
   font-family: ${fontStyle};
 
   &.active {
     color: ${colors.neonGreen[5]};
-    font-size: 20px;
+    font-size: ${fontStyle === 'NotoSansKR' ? '20px' : '24px'};
     font-weight: 700;
   }
 `

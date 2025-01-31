@@ -64,7 +64,7 @@ const fontStyles = css`
     src: url(${NanumPen}) format(woff);
   }
   @font-face {
-    font-family: 'Ownglyph EuiyeonChae';
+    font-family: 'Ownglyph';
     src: url(${OwnglyphEuiyeon}) format(woff);
   }
 `
