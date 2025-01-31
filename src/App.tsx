@@ -10,18 +10,13 @@ const App = () => {
   return (
     <I18nextProvider i18n={i18n}>
       <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/test' element={<Test />} />
-          <Route
-            path='/writeletter'
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <LetterWrite />
-              </Suspense>
-            }
-          />
-        </Routes>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/test' element={<Test />} />
+            <Route path='/writeletter' element={<LetterWrite />} />
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </I18nextProvider>
   )
