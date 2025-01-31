@@ -1,7 +1,9 @@
+import { lazy } from 'react'
 import { Home, Test } from '#/pages'
 import ChoiceLetter from '#/pages/letter-choice/ChoiceLetter'
-import SendLetter from '#/pages/letter-send/SendLetter'
 import { BrowserRouter, Route, Routes } from 'react-router'
+
+const SendLetter = lazy(() => import('#/pages/letter-send/SendLetter'))
 
 const App = () => {
   return (
