@@ -1,28 +1,32 @@
 import { LetterWriteStyle } from './LetterWrite.styles'
 import { Input, Button } from '#/shared/ui'
-import { WRITE_LETTER, WRITE_LETTER_EXPLAIN } from '#/shared/constants/letter'
 import { WriteDesc, TextCard } from '#/components/letter-write'
+import { useTranslation } from 'react-i18next'
 
 const LetterWrite = () => {
+  const { t } = useTranslation()
   return (
     <div css={LetterWriteStyle}>
       <div className='content'>
         <div className='input-to'>
           <label className='input-label'>TO</label>
-          <Input placeholder={WRITE_LETTER.TO} />
+          <Input placeholder={t('write.to')} />
         </div>
-        <TextCard color='#f4f4f5' placeholder={WRITE_LETTER.CONTENT} />
+        <TextCard color='#f4f4f5' placeholder={t('write.content')} />
         <div className='input-from'>
           <label className='input-label'>FROM</label>
-          <Input placeholder={WRITE_LETTER.FROM} />
+          <Input placeholder={t('write.from')} />
         </div>
       </div>
-      <WriteDesc title={WRITE_LETTER.HELP} descs={WRITE_LETTER_EXPLAIN} />
+      <WriteDesc
+        title={t('write.help')}
+        descs={t('write.explain', { returnObjects: true }) as string[]}
+      />
       <div className='button-area'>
         <Button variant='secondary' width={82}>
-          이전
+          {t('before')}
         </Button>
-        <Button>편지 선택하기!</Button>
+        <Button>{t('write.theme')}</Button>
       </div>
     </div>
   )
