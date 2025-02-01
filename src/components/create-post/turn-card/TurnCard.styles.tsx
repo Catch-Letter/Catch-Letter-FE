@@ -6,7 +6,7 @@ export const TurnCardStyle = css`
   height: 303px;
   transform-style: preserve-3d;
   perspective: 800px;
-  animation: rotate-and-separate 3s ease-in-out forwards;
+  animation: rotate-and-separate 4s ease-in-out forwards;
 
   .front-card {
     display: flex;
@@ -25,16 +25,15 @@ export const TurnCardStyle = css`
       rgba(96, 145, 209, 0.8) 102.24%
     );
     border: 1px solid #fff;
-    backface-visibility: hidden;
     transform-origin: center;
-    animation: front-card-move 3s ease-in-out forwards;
+    animation: front-card-move 4s ease-in-out forwards;
 
     @keyframes front-card-move {
       0% {
-        transform: translateZ(0) rotateY(0deg);
+        transform: translateZ(0);
       }
       50% {
-        transform: translateZ(0) rotateY(0deg);
+        transform: translateZ(0);
       }
       70% {
         transform: translateZ(20px) translateY(30px) translateX(-30px) rotateZ(-10deg);
@@ -62,23 +61,21 @@ export const TurnCardStyle = css`
     height: 100%;
     background-color: #d9d9d9;
     border: 1px solid #fff;
-    transform: rotateY(180deg);
     backface-visibility: hidden;
-    transform-origin: center;
-    animation: back-card-move 3s ease-in-out forwards;
+    animation: back-card-move 4s ease-in-out forwards;
 
     @keyframes back-card-move {
       0% {
-        transform: translateZ(0) rotateY(180deg);
+        transform: translateZ(0);
       }
       50% {
-        transform: translateZ(0) rotateY(180deg);
+        transform: translateZ(0);
       }
       70% {
-        transform: translateZ(-20px) rotateY(0deg) translateY(-20px) translateX(40px) rotateZ(deg);
+        transform: translateZ(-20px) translateY(-20px) translateX(40px) rotateZ(10deg);
       }
       100% {
-        transform: translateZ(-20px) rotateY(0deg) translateY(-20px) translateX(60px) rotateZ(10deg);
+        transform: translateZ(-20px) translateY(-20px) translateX(60px) rotateZ(10deg);
       }
     }
   }
@@ -88,13 +85,13 @@ export const TurnCardStyle = css`
       transform: rotateY(0deg) rotateX(0deg);
     }
     50% {
-      transform: rotateY(360deg) rotateX(20deg);
+      transform: rotateY(720deg) rotateX(0deg);
     }
     70% {
-      transform: rotateY(360deg) rotateX(20deg);
+      transform: rotateY(720deg) rotateX(20deg);
     }
     100% {
-      transform: rotateY(360deg) rotateX(20deg);
+      transform: rotateY(720deg) rotateX(20deg);
     }
   }
 `
