@@ -9,7 +9,7 @@ const TurnCard = () => {
         <div className='bottom'>편지를 읽을 수 있어요!</div>
       </div>
       <div className='back-card'>
-        <img src='/santa.png' alt='santa' />
+        <img src='/santa.svg' alt='santa' />
       </div>
     </div>
   )

@@ -1,4 +1,4 @@
-import { lazy } from 'react'
+import { lazy, Suspense } from 'react'
 import { Home, Test } from '#/pages'
 import ChoiceLetter from '#/pages/letter-choice/ChoiceLetter'
 import { CreatePost } from '#/pages/create-post'
@@ -13,15 +13,17 @@ const App = () => {
   return (
     <I18nextProvider i18n={i18n}>
       <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/test' element={<Test />} />
-          <Route path='/choiceletter' element={<ChoiceLetter />} />
-          <Route path='/sendletter' element={<SendLetter />} />
-          <Route path='/create' element={<CreatePost />} />
-          <Route path='/postform' element={<CreatePostForm />} />
-          <Route path='/success' element={<Success />} />
-        </Routes>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/test' element={<Test />} />
+            <Route path='/choiceletter' element={<ChoiceLetter />} />
+            <Route path='/sendletter' element={<SendLetter />} />
+            <Route path='/create' element={<CreatePost />} />
+            <Route path='/postform' element={<CreatePostForm />} />
+            <Route path='/success' element={<Success />} />
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </I18nextProvider>
   )
