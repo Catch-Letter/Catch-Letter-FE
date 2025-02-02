@@ -1,7 +1,12 @@
+import { lazy } from 'react'
 import { CheckAnswer, Home, Test } from '#/pages'
+import ChoiceLetter from '#/pages/letter-choice/ChoiceLetter'
 import { BrowserRouter, Route, Routes } from 'react-router'
 import { I18nextProvider } from 'react-i18next'
 import i18n from './utils/i18n'
+
+const SendLetter = lazy(() => import('#/pages/letter-send/SendLetter'))
+
 const App = () => {
   return (
     <I18nextProvider i18n={i18n}>
@@ -9,7 +14,6 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/test' element={<Test />} />
-          <Route path='/checkAnswer' element={<CheckAnswer />} />
         </Routes>
       </BrowserRouter>
     </I18nextProvider>
