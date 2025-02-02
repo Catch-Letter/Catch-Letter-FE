@@ -74,6 +74,7 @@ export const colors = {
     800: '#40608c',
     900: '#314a6b',
   },
+  white: '#fff',
   success: '#39E7BA',
   error: '#f8596a',
 } as const
