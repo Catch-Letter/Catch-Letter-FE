@@ -1,4 +1,4 @@
-import { Home, Test } from '#/pages'
+import { CheckAnswer, Home, Test } from '#/pages'
 import { BrowserRouter, Route, Routes } from 'react-router'
 import { I18nextProvider } from 'react-i18next'
 import i18n from './utils/i18n'
@@ -9,6 +9,7 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/test' element={<Test />} />
+          <Route path='/checkAnswer' element={<CheckAnswer />} />
         </Routes>
       </BrowserRouter>
     </I18nextProvider>
