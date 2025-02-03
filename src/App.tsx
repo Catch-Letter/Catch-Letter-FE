@@ -14,6 +14,9 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/test' element={<Test />} />
+          <Route path='/choiceletter' element={<ChoiceLetter />} />
+          <Route path='/sendletter' element={<SendLetter />} />
+          <Route path='/checkanswer' element={<CheckAnswer />} />
         </Routes>
       </BrowserRouter>
     </I18nextProvider>
