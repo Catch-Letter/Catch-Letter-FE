@@ -1,16 +1,17 @@
-import { TurnCardStyle } from './TurnCard.styles'
+import { Card } from '#/shared/ui'
+import { FrontCard, BackCard, TurnCardStyle } from './TurnCard.styles'
 
 const TurnCard = () => {
   return (
     <div css={TurnCardStyle}>
-      <div className='front-card'>
+      <Card css={FrontCard}>
         <img src='/lock.png' alt='lock' width={50} />
         <div className='top'>그림을 맞추면</div>
         <div className='bottom'>편지를 읽을 수 있어요!</div>
-      </div>
-      <div className='back-card'>
+      </Card>
+      <Card css={BackCard}>
         <img src='/santa.svg' alt='santa' />
-      </div>
+      </Card>
     </div>
   )
 }
