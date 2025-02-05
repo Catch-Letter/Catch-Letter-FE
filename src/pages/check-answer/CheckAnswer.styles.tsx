@@ -1,7 +1,7 @@
 import { colors } from '#/styles/color'
 import { css } from '@emotion/react'
 
-export const ChekAnswerStyles = css`
+export const ChekAnswerStyles = (isFlipped: boolean) => css`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,13 +13,10 @@ export const ChekAnswerStyles = css`
     display: grid;
     position: relative;
     transition: transform 0.3s;
-    transform: perspective(800px) rotateY(0deg);
+    transform: perspective(800px) rotateY(${isFlipped ? '180deg' : '0deg'});
     transform-style: preserve-3d;
     height: 473px;
-  }
-
-  .content:hover {
-    transform: perspective(800px) rotateY(180deg);
+    cursor: pointer;
   }
 
   .cardFront,
