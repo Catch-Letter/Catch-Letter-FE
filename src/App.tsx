@@ -1,6 +1,7 @@
+import { lazy, Suspense } from 'react'
 import { Layout } from '#/app/layout'
 import { Home, Test } from '#/pages'
-import { lazy, Suspense } from 'react'
+import ChoiceLetter from '#/pages/letter-choice/ChoiceLetter'
 import { I18nextProvider } from 'react-i18next'
 import { BrowserRouter, Route, Routes } from 'react-router'
 import i18n from './utils/i18n'
