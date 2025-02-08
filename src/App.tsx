@@ -9,6 +9,7 @@ import i18n from './utils/i18n'
 
 const App = () => {
   const SendLetter = lazy(() => import('#/pages/letter-send/SendLetter'))
+  const LetterWrite = lazy(() => import('#/pages/letter-write/LetterWrite'))
   const Success = lazy(() => import('#/pages/success/Success'))
   return (
     <I18nextProvider i18n={i18n}>
@@ -17,6 +18,7 @@ const App = () => {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/test' element={<Test />} />
+            <Route path='/writeletter' element={<LetterWrite />} />
             <Route path='/choiceletter' element={<ChoiceLetter />} />
             <Route path='/sendletter' element={<SendLetter />} />
             <Route path='/create' element={<CreatePost />} />
