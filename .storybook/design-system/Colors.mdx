@@ -1,0 +1,38 @@
+import { Meta, ColorPalette, ColorItem } from '@storybook/blocks';
+import { colors } from '../../src/styles/color'
+
+<Meta title="Design System/Colors" />
+
+<h1 style={{ color: 'red' }}>Colors</h1>
+
+<p style={{ marginBottom: '24px' }}>캐치레터에서 사용하는 색상들을 모아놨어요~ ♥^ㅁ^♥</p>
+
+<br/>
+<br/>
+
+<ColorPalette>  
+  <ColorItem
+    title="Grey Scale"
+    colors={colors.grey}
+  />
+  <ColorItem
+    title="Neon Green"
+    colors={colors.neonGreen}
+  />
+  <ColorItem 
+    title="Green" 
+    colors={colors.green} 
+  />
+  <ColorItem 
+    title="Blue" 
+    colors={colors.blue} 
+  />
+  <ColorItem 
+    title="Pink" 
+    colors={colors.pink} 
+  />
+  <ColorItem 
+    title="Violet" 
+    colors={colors.violet} 
+  />
+</ColorPalette>
