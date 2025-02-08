@@ -1,8 +1,9 @@
 import { lazy, Suspense } from 'react'
+import { Layout } from '#/app/layout'
 import { Home, Test } from '#/pages'
 import ChoiceLetter from '#/pages/letter-choice/ChoiceLetter'
-import { BrowserRouter, Route, Routes } from 'react-router'
 import { I18nextProvider } from 'react-i18next'
+import { BrowserRouter, Route, Routes } from 'react-router'
 import i18n from './utils/i18n'
 
 const App = () => {
@@ -14,9 +15,11 @@ const App = () => {
       <BrowserRouter>
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/test' element={<Test />} />
-            <Route path='/writeletter' element={<LetterWrite />} />
+            <Route path='/' element={<Layout />}>
+              <Route path='/' element={<Home />} />
+              <Route path='/test' element={<Test />} />
+              <Route path='/writeletter' element={<LetterWrite />} />
+            </Route>
           </Routes>
         </Suspense>
       </BrowserRouter>
