@@ -2,19 +2,17 @@ import { colors } from '#/styles/color'
 import { css } from '@emotion/react'
 
 export const CreatePostStyle = css`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100vh;
+  height: 100%;
   background-color: ${colors.grey[13]};
 
   .title-area {
     display: flex;
     flex-direction: column;
-    color: #fff;
+    color: ${colors.white};
     gap: 12px;
     margin-bottom: 54px;
   }
+
   .title {
     font-size: 32px;
     font-weight: 700;
@@ -25,7 +23,14 @@ export const CreatePostStyle = css`
     font-weight: 500;
   }
 
-  Button {
+  .create-btn {
     margin-top: 104px;
   }
+`
+
+export const CreateWrapper = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 18px;
 `

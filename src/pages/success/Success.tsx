@@ -1,6 +1,7 @@
-import { SuccessStyle } from './Success.styles'
+import { SuccessStyle, SuccessWrapper } from './Success.styles'
 import { Button } from '#/shared/ui'
 import { TimeArea, DescLink } from '#/components/success'
+import { BackHeader } from '#/components'
 
 const Success = () => {
   const title = '링크가 생성되었어요!'
@@ -10,9 +11,12 @@ const Success = () => {
 
   return (
     <div css={SuccessStyle}>
-      <DescLink title={title} link={link} btnName={btnName} desc={desc} />
-      <TimeArea title='우체통 열람가능 시간' time='24:00:00' />
-      <Button width={343}>내 우체통 공유하기!</Button>
+      <BackHeader />
+      <div css={SuccessWrapper}>
+        <DescLink title={title} link={link} btnName={btnName} desc={desc} />
+        <TimeArea title='우체통 열람가능 시간' time='24:00:00' />
+        <Button width={343}>내 우체통 공유하기!</Button>
+      </div>
     </div>
   )
 }

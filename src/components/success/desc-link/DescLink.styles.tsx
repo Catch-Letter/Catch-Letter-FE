@@ -23,7 +23,7 @@ export const DescLinkStyle = css`
   .desc {
     font-size: 14px;
     margin-top: 12px;
-    margin-bottom: 300px;
+    margin-bottom: 260px;
     white-space: pre-line;
   }
 
