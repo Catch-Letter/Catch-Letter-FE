@@ -1,9 +1,9 @@
 import { lazy, Suspense } from 'react'
-import { Layout } from '#/app/layout'
+import { Layout } from '#/app/ui'
 import { Home, Test } from '#/pages'
 import ChoiceLetter from '#/pages/letter-choice/ChoiceLetter'
 import { BrowserRouter, Route, Routes } from 'react-router'
-import { I18nProvider } from '#/app/config'
+import { I18nProvider } from '#/app/ui'
 
 const App = () => {
   const SendLetter = lazy(() => import('#/pages/letter-send/SendLetter'))
