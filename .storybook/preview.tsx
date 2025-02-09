@@ -1,6 +1,8 @@
 import { withThemeFromJSXProvider } from '@storybook/addon-themes'
 import type { Preview } from '@storybook/react'
 import GlobalStyles from '../src/styles/GlobalStyles.tsx'
+import { I18nProvider } from '../src/app/config'
+import React from 'react'
 
 const preview: Preview = {
   parameters: {
@@ -21,6 +23,11 @@ const preview: Preview = {
 }
 
 export const decorators = [
+  (Story) => (
+    <I18nProvider>
+      <Story />
+    </I18nProvider>
+  ),
   withThemeFromJSXProvider({
     GlobalStyles, // Adds your GlobalStyles component to all stories
   }),
