@@ -6,7 +6,7 @@ export const ChoiceLetterStyle = css`
   flex-direction: column;
   align-items: center;
   background-color: ${colors.grey[13]};
-  height: 100vh;
+  height: 100%;
 
   .content {
     padding: 16px 63px 34px;
