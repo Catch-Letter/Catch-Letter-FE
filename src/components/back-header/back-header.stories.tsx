@@ -16,10 +16,8 @@ const meta = {
       </BrowserRouter>
     ),
   ],
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
   parameters: {
-    // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
     layout: 'fullscreen',
   },
 } satisfies Meta<typeof BackHeader>
@@ -39,6 +37,5 @@ const titleStyles = css`
 export const WithItems: Story = {
   args: {
     Center: <h1 css={titleStyles}>우체통발급</h1>,
-    Right: <button>한/영</button>,
   },
 }
