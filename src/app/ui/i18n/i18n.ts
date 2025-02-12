@@ -1,14 +1,14 @@
+import { LANGUAGE } from '#/app/config'
 import i18n from 'i18next'
-import { initReactI18next } from 'react-i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
-import usTranslations from '../translations/en_US.json'
-import krTranslations from '../translations/ko_KR.json'
+import { initReactI18next } from 'react-i18next'
+import { krTranslations, usTranslations } from './translations'
 
 const resources = {
-  en_US: {
+  [LANGUAGE.EN]: {
     translation: usTranslations,
   },
-  ko_KR: {
+  [LANGUAGE.KO]: {
     translation: krTranslations,
   },
 }
@@ -18,8 +18,8 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: 'ko_KR',
-    fallbackLng: 'ko_KR',
+    lng: LANGUAGE.KO,
+    fallbackLng: LANGUAGE.KO,
     debug: true,
     interpolation: { escapeValue: false },
   })
