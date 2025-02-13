@@ -4,9 +4,8 @@ import { css } from '@emotion/react'
 export const LetterWriteStyle = css`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   background-color: ${colors.grey[13]};
-  padding: 0 16px;
 
   .input-to,
   .input-from {
@@ -16,6 +15,7 @@ export const LetterWriteStyle = css`
       position: absolute;
       font-size: 16px;
       font-weight: 900;
+      color: ${colors.grey[13]};
       top: 8px;
       left: 15px;
     }
@@ -46,4 +46,9 @@ export const LetterWriteStyle = css`
     gap: 12px;
     margin: 20px auto 0;
   }
+`
+
+export const letterWriteWrapper = css`
+  margin-top: 18px;
+  padding: 0 16px;
 `

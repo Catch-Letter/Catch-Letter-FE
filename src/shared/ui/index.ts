@@ -1,6 +1,7 @@
 export * from './input'
 export * from './input-field'
 export * from './header'
+export * from './button'
 export * from './modal'
 export * from './languageSwitcher'
 export * from './button'
