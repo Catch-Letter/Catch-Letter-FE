@@ -13,6 +13,12 @@ const meta = {
       </MobileSize>
     ),
   ],
+  argTypes: {
+    Right: {
+      options: [null, undefined],
+      control: 'radio',
+    },
+  },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
   parameters: {
@@ -26,17 +32,12 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    Left: <div>left</div>,
-    Center: <div>center</div>,
-    Right: <div>right</div>,
+    Left: 'left',
+    Center: 'center',
   },
 }
 
-export const NoBack: Story = {
-  args: {
-    Right: <button>한/영</button>,
-  },
-}
+export const NoBack: Story = {}
 
 const logoStyles = css`
   font-size: 24px;
@@ -46,6 +47,5 @@ const logoStyles = css`
 export const WithLogo: Story = {
   args: {
     Left: <span css={logoStyles}>Catch Letter</span>,
-    Right: <button>한/영</button>,
   },
 }

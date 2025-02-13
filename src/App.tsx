@@ -1,12 +1,7 @@
 import { lazy, Suspense } from 'react'
-import { Layout } from '#/app/layout'
-import { Home, Test } from '#/pages'
-import ChoiceLetter from '#/pages/letter-choice/ChoiceLetter'
-import { I18nextProvider } from 'react-i18next'
-import { CreatePost } from '#/pages/create-post'
-import CreatePostForm from '#/pages/create-postfrom/CreatePostForm'
 import { BrowserRouter, Route, Routes } from 'react-router'
-import i18n from './utils/i18n'
+import { Layout, I18nProvider } from '#/app/ui'
+import { Home, Test, CreatePost, CreatePostForm, ChoiceLetter } from '#/pages'
 
 const App = () => {
   const SendLetter = lazy(() => import('#/pages/letter-send/SendLetter'))
@@ -14,7 +9,7 @@ const App = () => {
   const Success = lazy(() => import('#/pages/success/Success'))
 
   return (
-    <I18nextProvider i18n={i18n}>
+    <I18nProvider>
       <BrowserRouter>
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
@@ -31,7 +26,7 @@ const App = () => {
           </Routes>
         </Suspense>
       </BrowserRouter>
-    </I18nextProvider>
+    </I18nProvider>
   )
 }
 
