@@ -1,0 +1,14 @@
+<svg width="51" height="50" viewBox="0 0 51 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Mask group">
+<mask id="mask0_609_6425" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="51" height="50">
+<circle id="Ellipse 10" cx="25.5" cy="25" r="25" fill="#FFDB45"/>
+</mask>
+<g mask="url(#mask0_609_6425)">
+<rect id="Rectangle 32913" x="-9.91681" y="4.16604" width="70.8333" height="2.08333" fill="white"/>
+<rect id="Rectangle 32914" x="-9.91681" y="14.5823" width="70.8333" height="2.08333" fill="white"/>
+<rect id="Rectangle 32915" x="-9.91681" y="24.9995" width="70.8333" height="2.08333" fill="white"/>
+<rect id="Rectangle 32916" x="-9.91681" y="35.4162" width="70.8333" height="2.08333" fill="white"/>
+<rect id="Rectangle 32917" x="-9.91681" y="45.8325" width="70.8333" height="2.08333" fill="white"/>
+</g>
+</g>
+</svg>

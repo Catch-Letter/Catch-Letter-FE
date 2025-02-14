@@ -1,2 +1,7 @@
 export * from './home'
+export * from './inbox'
 export * from './test'
+export * from './letter-write'
+export * from './letter-choice'
+export * from './create-post'
+export * from './create-postform'

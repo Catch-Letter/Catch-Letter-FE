@@ -1,0 +1,19 @@
+<svg width="51" height="50" viewBox="0 0 51 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Mask group">
+<mask id="mask0_609_6432" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="51" height="50">
+<circle id="Ellipse 10" cx="25.5" cy="25" r="25" fill="#FFDB45"/>
+</mask>
+<g mask="url(#mask0_609_6432)">
+<rect id="Rectangle 32913" x="-9.9165" y="4.16604" width="70.8333" height="2.08333" fill="white"/>
+<rect id="Rectangle 32914" x="-9.9165" y="14.5823" width="70.8333" height="2.08333" fill="white"/>
+<rect id="Rectangle 32915" x="-9.9165" y="24.9995" width="70.8333" height="2.08333" fill="white"/>
+<rect id="Rectangle 32916" x="-9.9165" y="35.4162" width="70.8333" height="2.08333" fill="white"/>
+<rect id="Rectangle 32917" x="-9.9165" y="45.8325" width="70.8333" height="2.08333" fill="white"/>
+<rect id="Rectangle 32918" x="47.375" y="-9.37604" width="70.8333" height="2.08333" transform="rotate(90 47.375 -9.37604)" fill="white"/>
+<rect id="Rectangle 32919" x="36.9585" y="-9.37604" width="70.8333" height="2.08333" transform="rotate(90 36.9585 -9.37604)" fill="white"/>
+<rect id="Rectangle 32920" x="26.5418" y="-9.37604" width="70.8333" height="2.08333" transform="rotate(90 26.5418 -9.37604)" fill="white"/>
+<rect id="Rectangle 32921" x="16.125" y="-9.37604" width="70.8333" height="2.08333" transform="rotate(90 16.125 -9.37604)" fill="white"/>
+<rect id="Rectangle 32922" x="5.70844" y="-9.37604" width="70.8333" height="2.08333" transform="rotate(90 5.70844 -9.37604)" fill="white"/>
+</g>
+</g>
+</svg>
