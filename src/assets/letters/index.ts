@@ -1,0 +1,5 @@
+export { default as Letter0 } from './letter0.png'
+export { default as Letter1 } from './letter1.png'
+export { default as Letter2 } from './letter2.png'
+export { default as Letter3 } from './letter3.png'
+export { default as Letter4 } from './letter4.png'
