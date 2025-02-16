@@ -4,38 +4,12 @@ import { Button } from '#/shared/ui/button'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { useLocation, useNavigate } from 'react-router'
 import { ChoiceLetterStyle } from './ChoiceLetter.styles'
-import { apiClient } from '#/api/apiClient'
-import { API_ENDPOINTS } from '#/api/apiEndpoints'
 
 const ChoiceLetter = () => {
-  //TODO:tempId는 추후 params로 받아오는걸로 교체 필요, letterId는 그림작성 페이지에서 상태값 받아와야됨
   const navigate = useNavigate()
   const location = useLocation()
   const letterInfo = location.state
-  const { selectedColor, selectedFont, selectedPattern, resetStore } = useLetterCreationStore()
-  const tempId = '0292b67c-970e-445a-9ba0-2dd47ae7d95a'
-  const letterId = 7
-
-  const handleSendLetter = async (uuid: string, letterId: number) => {
-    try {
-      const res = await apiClient.post(API_ENDPOINTS.SEND_LETTER(uuid, letterId), {
-        to: letterInfo.to,
-        from: letterInfo.from,
-        contents: letterInfo.content,
-        etc: JSON.stringify({
-          color: selectedColor,
-          font: selectedFont,
-          pattern: selectedPattern,
-        }),
-      })
-
-      navigate('/sendsuccess')
-      resetStore()
-      return res.data
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
 
   const handlePrev = () => {
     navigate('/writeletter', {
@@ -66,9 +40,7 @@ const ChoiceLetter = () => {
         <Button variant='secondary' width={82} onClick={handlePrev}>
           이전
         </Button>
-        <Button width={245} onClick={() => handleSendLetter(tempId, letterId)}>
-          편지 보내기
-        </Button>
+        <Button width={245}>편지 보내기</Button>
       </div>
     </div>
   )
