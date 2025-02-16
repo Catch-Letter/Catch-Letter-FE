@@ -1,5 +1,5 @@
 import { lazy } from 'react'
-import { Home, Test } from '#/pages'
+import { Home, Test, TryAnswer } from '#/pages'
 import ChoiceLetter from '#/pages/letter-choice/ChoiceLetter'
 import { BrowserRouter, Route, Routes } from 'react-router'
 import { I18nextProvider } from 'react-i18next'
@@ -16,6 +16,7 @@ const App = () => {
           <Route path='/test' element={<Test />} />
           <Route path='/choiceletter' element={<ChoiceLetter />} />
           <Route path='/sendletter' element={<SendLetter />} />
+          <Route path='/tryAnswer' element={<TryAnswer />} />
         </Routes>
       </BrowserRouter>
     </I18nextProvider>
