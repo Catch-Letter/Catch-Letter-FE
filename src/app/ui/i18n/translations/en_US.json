@@ -1,0 +1,19 @@
+{
+  "welcome": "Welcome to the Home Page",
+  "hello": "Hello",
+  "correct": "Correct",
+  "write": {
+    "title": "Write a Letter",
+    "to": "Who is the recipient of the letter?",
+    "from": "Who is the writer of the Letter?",
+    "content": "Write a letter to the recipient!",
+    "help": "Letter Guide",
+    "explain": [
+      "Write about a moment you're grateful for or a feeling of thanks.",
+      "Write about your most memorable memory with the recipient.",
+      "Write about something you'd like to do together in the future or a wish."
+    ],
+    "theme": "Choose Letter Theme!"
+  },
+  "before": "Before"
+}

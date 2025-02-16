@@ -12,5 +12,5 @@ export const CardStyle = ({ background, height, width }: CardProps) => css`
   padding: 25px 21px;
 
   background: ${background || colors.grey[3]};
-  border: 1.5px solid fff;
+  border: 1.5px solid #fff;
 `

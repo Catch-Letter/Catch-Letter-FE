@@ -1,25 +1,42 @@
-import { lazy } from 'react'
-import { Home, Test, TryAnswer } from '#/pages'
-import ChoiceLetter from '#/pages/letter-choice/ChoiceLetter'
+import { lazy, Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router'
-import { I18nextProvider } from 'react-i18next'
-import i18n from './utils/i18n'
-
-const SendLetter = lazy(() => import('#/pages/letter-send/SendLetter'))
+import { Layout, I18nProvider } from '#/app/ui'
+import {
+  Home,
+  Test,
+  CreatePost,
+  CreatePostForm,
+  ChoiceLetter,
+  CheckAnswer,
+  TryAnswer,
+} from '#/pages'
 
 const App = () => {
+  const SendLetter = lazy(() => import('#/pages/letter-send/SendLetter'))
+  const LetterWrite = lazy(() => import('#/pages/letter-write/LetterWrite'))
+  const Success = lazy(() => import('#/pages/success/Success'))
+
   return (
-    <I18nextProvider i18n={i18n}>
+    <I18nProvider>
       <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/test' element={<Test />} />
-          <Route path='/choiceletter' element={<ChoiceLetter />} />
-          <Route path='/sendletter' element={<SendLetter />} />
-          <Route path='/tryAnswer' element={<TryAnswer />} />
-        </Routes>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            <Route path='/' element={<Layout />}>
+              <Route path='/' element={<Home />} />
+              <Route path='/test' element={<Test />} />
+              <Route path='/writeletter' element={<LetterWrite />} />
+              <Route path='/choiceletter' element={<ChoiceLetter />} />
+              <Route path='/sendletter' element={<SendLetter />} />
+              <Route path='/create' element={<CreatePost />} />
+              <Route path='/postform' element={<CreatePostForm />} />
+              <Route path='/success' element={<Success />} />
+            </Route>
+            <Route path='/checkanswer' element={<CheckAnswer />} />
+            <Route path='/tryAnswer' element={<TryAnswer />} />
+          </Routes>
+        </Suspense>
       </BrowserRouter>
-    </I18nextProvider>
+    </I18nProvider>
   )
 }
 
