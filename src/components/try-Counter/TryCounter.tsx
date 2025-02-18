@@ -1,27 +1,19 @@
-import { Button } from '#/shared/ui/button'
-import { useState } from 'react'
+import { TryCounterStyle } from '#/components/try-Counter/TryCounter.styles'
 
-const emojis = ['😵', '😊', '😊😊']
+interface TryCounterProps {
+  chances: number
+}
 
-const TryCounter = () => {
-  const maxChances = 3
-  const [chances, setChances] = useState(maxChances)
+const emojis = ['😵', '😊', '😊😊', '😊😊😊']
 
-  const handleWrongAttempt = () => {
-    if (chances > 0) {
-      setChances(chances - 1)
-    }
-  }
-
+const TryCounter: React.FC<TryCounterProps> = ({ chances }) => {
   return (
-    <div className='flex flex-col items-center space-y-4 p-4 border rounded-lg shadow-md'>
-      <div className='text-2xl'>{emojis[chances - 1] || '😵'}</div>
-      <p className='text-lg font-semibold'>{chances}번의 기회가 남았어요!</p>
-      <Button onClick={handleWrongAttempt} disabled={chances === 0}>
-        틀렸어요!
-      </Button>
+    <div css={TryCounterStyle}>
+      <div className='Emoji'>{emojis[chances] || '😵'}</div>
+      <p className='Text'>
+        {chances === 0 ? '잠시 후 다시 시도해주세요' : `${chances}번의 기회가 남았어요!`}
+      </p>
     </div>
   )
 }
-
 export default TryCounter

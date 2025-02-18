@@ -7,4 +7,13 @@ export const TryAnswerStyle = css`
   align-items: center;
   background-color: ${colors.grey[13]};
   height: 100vh;
+
+  .Input-area {
+    margin-top: 16px;
+  }
+
+  .button-area {
+    display: flex;
+    margin-top: 20px;
+  }
 `

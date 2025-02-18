@@ -30,9 +30,9 @@ const App = () => {
               <Route path='/create' element={<CreatePost />} />
               <Route path='/postform' element={<CreatePostForm />} />
               <Route path='/success' element={<Success />} />
+              <Route path='/checkanswer' element={<CheckAnswer />} />
+              <Route path='/tryAnswer' element={<TryAnswer />} />
             </Route>
-            <Route path='/checkanswer' element={<CheckAnswer />} />
-            <Route path='/tryAnswer' element={<TryAnswer />} />
           </Routes>
         </Suspense>
       </BrowserRouter>
