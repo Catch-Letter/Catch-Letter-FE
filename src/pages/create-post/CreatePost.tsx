@@ -2,11 +2,13 @@ import { TurnCard } from '#/components/create-post'
 import { Button, Header } from '#/shared/ui'
 import { useNavigate } from 'react-router'
 import { CreatePostStyle, CreateWrapper } from './CreatePost.styles'
+import { Background } from '#/shared/ui/background'
 
 const CreatePost = () => {
   const navigate = useNavigate()
   return (
     <div css={CreatePostStyle}>
+      <Background animated gradientType='blueGradient' />
       <Header />
       <div css={CreateWrapper}>
         <div className='title-area'>

@@ -3,7 +3,6 @@ import { css } from '@emotion/react'
 
 export const CreatePostStyle = css`
   height: 100%;
-  background-color: ${colors.grey[13]};
 
   .title-area {
     display: flex;
