@@ -1,7 +1,8 @@
-import { LetterCard, LetterContent } from '#/components'
+import { BackHeader, LetterCard, LetterContent } from '#/components'
 import { TryCounter } from '#/components/try-Counter'
 import { TryAnswerStyle } from '#/pages/tryAnswer/TryAnswer.styles'
 import { Button } from '#/shared/ui'
+import { Background } from '#/shared/ui/background'
 import SeparatedInput from '#/shared/ui/separated-input/separated-input'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { useState } from 'react'
@@ -26,27 +27,31 @@ const TryAnswer = () => {
   }
 
   return (
-    <div css={TryAnswerStyle}>
-      <TryCounter chances={chances} />
-      <LetterCard type={selectedColor}>
-        <LetterContent
-          to={data.to}
-          content={data.content}
-          from={data.from}
-          color={selectedColor}
-          pattern={selectedPattern}
-          font={selectedFont}
-        />
-      </LetterCard>
-      <div className='Input-area'>
-        <SeparatedInput length={6} />
+    <>
+      <Background color='grey' />
+      <BackHeader />
+      <div css={TryAnswerStyle}>
+        <TryCounter chances={chances} />
+        <LetterCard type={selectedColor}>
+          <LetterContent
+            to={data.to}
+            content={data.content}
+            from={data.from}
+            color={selectedColor}
+            pattern={selectedPattern}
+            font={selectedFont}
+          />
+        </LetterCard>
+        <div className='Input-area'>
+          <SeparatedInput length={6} />
+        </div>
+        <div className='button-area'>
+          <Button onClick={handleWrongAttempt} disabled={chances === 0} width={142}>
+            확인
+          </Button>
+        </div>
       </div>
-      <div className='button-area'>
-        <Button onClick={handleWrongAttempt} disabled={chances === 0} width={142}>
-          확인
-        </Button>
-      </div>
-    </div>
+    </>
   )
 }
 
