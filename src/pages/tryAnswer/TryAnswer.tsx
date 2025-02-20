@@ -19,10 +19,13 @@ const TryAnswer = () => {
 
   const maxChances = 3
   const [chances, setChances] = useState<number>(maxChances)
+  const [isShaking, setIsShaking] = useState(false)
 
   const handleWrongAttempt = () => {
     if (chances > 0) {
       setChances(chances - 1)
+      setIsShaking(true)
+      setTimeout(() => setIsShaking(false), 500)
     }
   }
 
@@ -32,16 +35,18 @@ const TryAnswer = () => {
       <BackHeader />
       <div css={TryAnswerStyle}>
         <TryCounter chances={chances} />
-        <LetterCard type={selectedColor}>
-          <LetterContent
-            to={data.to}
-            content={data.content}
-            from={data.from}
-            color={selectedColor}
-            pattern={selectedPattern}
-            font={selectedFont}
-          />
-        </LetterCard>
+        <div className={`LetterCard-container ${isShaking ? 'shake' : ''}`}>
+          <LetterCard type={selectedColor}>
+            <LetterContent
+              to={data.to}
+              content={data.content}
+              from={data.from}
+              color={selectedColor}
+              pattern={selectedPattern}
+              font={selectedFont}
+            />
+          </LetterCard>
+        </div>
         <div className='Input-area'>
           <SeparatedInput length={6} />
         </div>
