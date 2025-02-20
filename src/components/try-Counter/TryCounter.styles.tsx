@@ -9,6 +9,7 @@ export const TryCounterStyle = css`
   .Emoji {
     display: flex;
     justify-content: center;
+    gap: 12px;
   }
 
   .Text {

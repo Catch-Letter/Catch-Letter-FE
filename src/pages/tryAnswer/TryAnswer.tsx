@@ -28,7 +28,7 @@ const TryAnswer = () => {
 
   return (
     <>
-      <Background color='grey' />
+      <Background color='pink' />
       <BackHeader />
       <div css={TryAnswerStyle}>
         <TryCounter chances={chances} />
