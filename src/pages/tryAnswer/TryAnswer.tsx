@@ -5,7 +5,7 @@ import { Button } from '#/shared/ui'
 import { Background } from '#/shared/ui/background'
 import SeparatedInput from '#/shared/ui/separated-input/separated-input'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const data = {
   to: '친구',
@@ -20,6 +20,22 @@ const TryAnswer = () => {
   const maxChances = 3
   const [chances, setChances] = useState<number>(maxChances)
   const [isShaking, setIsShaking] = useState(false)
+  const [timeLeft, setTimeLeft] = useState<number | null>(null)
+
+  useEffect(() => {
+    if (chances === 0) {
+      setTimeLeft(180)
+      const timer = setInterval(() => {
+        setTimeLeft((prev) => {
+          if (prev && prev > 0) return prev - 1
+          clearInterval(timer)
+          setChances(maxChances)
+          return null
+        })
+      }, 1000)
+      return () => clearInterval(timer)
+    }
+  }, [chances])
 
   const handleWrongAttempt = () => {
     if (chances > 0) {
@@ -34,7 +50,7 @@ const TryAnswer = () => {
       <Background color='pink' />
       <BackHeader />
       <div css={TryAnswerStyle}>
-        <TryCounter chances={chances} />
+        <TryCounter chances={chances} timeLeft={timeLeft} />
         <div className={`LetterCard-container ${isShaking ? 'shake' : ''}`}>
           <LetterCard type={selectedColor}>
             <LetterContent
