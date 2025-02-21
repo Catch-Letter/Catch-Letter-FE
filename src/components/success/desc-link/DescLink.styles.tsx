@@ -4,10 +4,11 @@ import { css } from '@emotion/react'
 export const DescLinkStyle = css`
   display: flex;
   flex-direction: column;
-  width: 375px;
+  width: 280px;
   color: #fff;
-  padding: 44px 60px 0 35px;
+  margin: 42px 67px 0 35px;
   box-sizing: border-box;
+  flex-wrap: wrap;
 
   .title {
     font-size: 24px;
@@ -18,6 +19,7 @@ export const DescLinkStyle = css`
   .link {
     font-weight: 700;
     margin-bottom: 8px;
+    word-break: break-word;
   }
 
   .desc {
@@ -28,7 +30,6 @@ export const DescLinkStyle = css`
   }
 
   .btn-copy {
-    align-self: flex-start;
     display: flex;
     padding: 8px;
     justify-content: center;
