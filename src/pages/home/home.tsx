@@ -1,4 +1,5 @@
 import { LanguageSwitcher } from '#/shared/ui/languageSwitcher'
+import SeparatedInput from '#/shared/ui/separated-input/separated-input'
 import { colors } from '#/styles/color'
 import styled from '@emotion/styled'
 import { useTranslation } from 'react-i18next'
@@ -11,6 +12,7 @@ const Home = () => {
       <div>{t('hello')}</div>
       <div>{t('correct')}</div>
       <LanguageSwitcher />
+      <SeparatedInput length={4} label='Separated Input' />
     </Container>
   )
 }
