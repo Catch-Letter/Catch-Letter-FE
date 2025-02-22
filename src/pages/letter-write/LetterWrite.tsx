@@ -1,11 +1,10 @@
+import React, { useState } from 'react'
+import { BackHeader } from '#/components'
+import { useLocation, useNavigate } from 'react-router'
 import { LetterWriteStyle, LetterWriteWrapper } from './LetterWrite.styles'
 import { Input, Button } from '#/shared/ui'
 import { WriteDesc, TextCard } from '#/components/letter-write'
 import { useTranslation } from 'react-i18next'
-import { BackHeader } from '#/components'
-import React, { useState } from 'react'
-import { useLocation, useNavigate } from 'react-router'
-import { BackHeader } from '#/components'
 
 const LetterWrite = () => {
   const { t } = useTranslation()
@@ -57,6 +56,7 @@ const LetterWrite = () => {
           </div>
         </div>
         <WriteDesc
+          className='desc'
           title={t('write.help')}
           descs={t('write.explain', { returnObjects: true }) as string[]}
         />

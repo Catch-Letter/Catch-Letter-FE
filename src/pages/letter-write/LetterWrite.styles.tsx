@@ -2,13 +2,12 @@ import { colors } from '#/styles/color'
 import { css } from '@emotion/react'
 
 export const LetterWriteWrapper = css`
+  background-color: ${colors.grey[13]};
   display: flex;
   flex-direction: column;
-  height: 100%;
-  background-color: ${colors.grey[13]};
 `
 export const LetterWriteStyle = css`
-  padding: 0 16px;
+  padding: 16px;
   color: ${colors.grey[13]};
 
   .input-to,
@@ -42,12 +41,31 @@ export const LetterWriteStyle = css`
   .content {
     display: flex;
     flex-direction: column;
+    margin: 0 auto;
     gap: 12px;
   }
 
   .button-area {
     display: flex;
+    justify-content: center;
     gap: 12px;
-    margin: 20px auto 0;
+    margin-top: 20px;
+  }
+
+  @media (width>= 700px) {
+    .content {
+      width: 90%;
+    }
+
+    .button-area {
+      width: 100%;
+      button {
+        width: 30%;
+      }
+    }
+
+    .desc {
+      margin-left: 28%;
+    }
   }
 `
