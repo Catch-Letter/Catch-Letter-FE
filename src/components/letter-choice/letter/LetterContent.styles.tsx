@@ -32,6 +32,7 @@ export const LetterContentStyle = (
   font: FontType
 ) => css`
   display: flex;
+  min-width: 250px;
   width: 100%;
   height: 100%;
   font-family: ${font};
@@ -41,6 +42,7 @@ export const LetterContentStyle = (
     display: flex;
     flex-direction: column;
     width: 100%;
+    color: ${colors.grey[13]};
 
     .to,
     .from {

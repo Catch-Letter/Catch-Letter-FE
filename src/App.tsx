@@ -7,6 +7,7 @@ import {
   CreatePost,
   CreatePostForm,
   ChoiceLetter,
+  LetterReceived,
   CheckAnswer,
   TryAnswer,
 } from '#/pages'
@@ -30,6 +31,7 @@ const App = () => {
               <Route path='/create' element={<CreatePost />} />
               <Route path='/postform' element={<CreatePostForm />} />
               <Route path='/success' element={<Success />} />
+              <Route path='/receivedletter/:uuid' element={<LetterReceived />} />
               <Route path='/checkanswer' element={<CheckAnswer />} />
               <Route path='/tryAnswer' element={<TryAnswer />} />
             </Route>

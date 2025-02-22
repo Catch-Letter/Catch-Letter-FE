@@ -2,6 +2,7 @@ import { Header } from '#/shared/ui'
 import { SendLetterStyle } from './SendLetter.styles'
 import { Button } from '#/shared/ui/button'
 import { SendCard, SendDesc } from '#/components/letter-send'
+import { useNavigate } from 'react-router'
 
 const desc = {
   TITLE: '친구에게 편지가 보내졌어요!',
@@ -9,13 +10,20 @@ const desc = {
 }
 
 const SendLetter = () => {
+  const navigate = useNavigate()
+  const handleCreatePost = () => {
+    navigate('/')
+  }
+
   return (
     <div css={SendLetterStyle}>
       <Header />
       <SendDesc title={desc.TITLE} subTitle={desc.SUBTITLE} />
       <SendCard content='/santa.svg' />
       <div className='button-area'>
-        <Button width={339}>나도 우체통 발급</Button>
+        <Button width={339} onClick={handleCreatePost}>
+          나도 우체통 발급
+        </Button>
         <Button width={339} variant='secondary'>
           확인
         </Button>

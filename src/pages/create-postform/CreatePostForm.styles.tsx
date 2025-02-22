@@ -19,4 +19,9 @@ export const FormWrapper = css`
   flex-direction: column;
   align-items: center;
   margin-top: 55px;
+
+  .notice {
+    font-size: 14px;
+    color: ${colors.blue[500]};
+  }
 `
