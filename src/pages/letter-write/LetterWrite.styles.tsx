@@ -4,7 +4,7 @@ import { css } from '@emotion/react'
 export const LetterWriteWrapper = css`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   background-color: ${colors.grey[13]};
 `
 export const LetterWriteStyle = css`
@@ -19,6 +19,7 @@ export const LetterWriteStyle = css`
       position: absolute;
       font-size: 16px;
       font-weight: 900;
+      color: ${colors.grey[13]};
       top: 8px;
       left: 15px;
     }

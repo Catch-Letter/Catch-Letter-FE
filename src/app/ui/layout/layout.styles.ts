@@ -1,9 +1,9 @@
 import { css } from '@emotion/react'
 
 export const containerStyles = css`
-  width: 375px;
-  height: 812px;
+  width: 100%;
+  max-width: 768px;
+  height: 100vh;
   margin: 0 auto;
-  overflow-y: auto;
   position: relative;
 `
