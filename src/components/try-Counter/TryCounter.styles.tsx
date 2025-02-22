@@ -14,5 +14,13 @@ export const TryCounterStyle = css`
 
   .Text {
     font-size: 16px;
+    margin-top: 10px;
+  }
+
+  .correct-message,
+  .timer {
+    font-size: 32px;
+    color: black;
+    font-weight: bold;
   }
 `
