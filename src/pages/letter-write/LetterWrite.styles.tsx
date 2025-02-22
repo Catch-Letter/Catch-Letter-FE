@@ -1,12 +1,15 @@
 import { colors } from '#/styles/color'
 import { css } from '@emotion/react'
 
-export const LetterWriteStyle = css`
+export const LetterWriteWrapper = css`
   display: flex;
   flex-direction: column;
   height: 100vh;
   background-color: ${colors.grey[13]};
+`
+export const LetterWriteStyle = css`
   padding: 0 16px;
+  color: ${colors.grey[13]};
 
   .input-to,
   .input-from {
