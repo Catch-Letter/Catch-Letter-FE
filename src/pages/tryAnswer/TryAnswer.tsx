@@ -27,6 +27,7 @@ const TryAnswer = () => {
   const [timeLeft, setTimeLeft] = useState<number | null>(null)
   const [inputValue, setInputValue] = useState<string>('')
   const [isCorrect, setIsCorrect] = useState<boolean>(false)
+  const [responseMessage, setResponseMessage] = useState<string | null>(null)
 
   useEffect(() => {
     if (chances === 0) {
@@ -55,20 +56,38 @@ const TryAnswer = () => {
     setInputValue(value)
   }
 
-  const handleConfirm = () => {
-    if (inputValue === correctAnswer) {
-      setIsCorrect(true)
-    } else {
-      handleWrongAttempt()
-    }
-  }
-
   const handleTryAnswer = async (uuid: string, letterId: number) => {
+    if (chances === 0 || isCorrect) return
+
     try {
-      const res = await apiClient.post(API_ENDPOINTS.TRY_ANSWER(uuid, letterId), {
-        answer: inputValue,
-      })
-      return res.data
+      // 실제 API 요청 대신 목데이터 사용
+      const mockResponse = {
+        message: '정답입니다!',
+        data: null,
+        result: 'failed',
+      }
+
+      // 비동기 요청처럼 보이도록 500ms 지연
+      setTimeout(() => {
+        if (mockResponse.result === 'success') {
+          setIsCorrect(true)
+          setResponseMessage(mockResponse.message)
+        } else {
+          handleWrongAttempt()
+        }
+      }, 500)
+
+      // 실제 API 요청 (서버 연결 후 활성화)
+      // const res = await apiClient.post(API_ENDPOINTS.TRY_ANSWER(uuid, letterId), {
+      //   answer: inputValue,
+      // })
+      //
+      // if (res.data?.result === 'success') {
+      //   setIsCorrect(true)
+      //   setResponseMessage(res.data?.message ?? '정답입니다!')
+      // } else {
+      //   handleWrongAttempt()
+      // }
     } catch (error) {
       console.error(error)
     }
@@ -79,7 +98,12 @@ const TryAnswer = () => {
       <Background color='pink' />
       <BackHeader />
       <div css={TryAnswerStyle}>
-        <TryCounter chances={chances} timeLeft={timeLeft} isCorrect={isCorrect} />
+        <TryCounter
+          chances={chances}
+          timeLeft={timeLeft}
+          isCorrect={isCorrect}
+          message={responseMessage}
+        />
         <div
           className={`LetterCard-container ${isShaking ? 'shake' : ''} ${isCorrect ? 'glowing' : ''}`}
         >
@@ -98,7 +122,11 @@ const TryAnswer = () => {
           <SeparatedInput length={6} onChangeValue={handleInputChange} />
         </div>
         <div className='button-area'>
-          <Button onClick={handleConfirm} disabled={chances === 0 || isCorrect} width={142}>
+          <Button
+            onClick={() => handleTryAnswer('6d80386b-5d40-4289-a827-77c1a78e29ad', 5)} //임의로 넣은 uuid, letterId
+            disabled={chances === 0 || isCorrect}
+            width={142}
+          >
             확인
           </Button>
         </div>

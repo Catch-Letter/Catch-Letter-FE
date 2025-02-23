@@ -4,10 +4,11 @@ import { TryCounterStyle } from '#/components/try-Counter/TryCounter.styles'
 interface TryCounterProps {
   chances: number
   timeLeft: number | null
-  isCorrect: boolean // 정답 여부 추가
+  isCorrect: boolean
+  message: string | null
 }
 
-const TryCounter: React.FC<TryCounterProps> = ({ chances, timeLeft, isCorrect }) => {
+const TryCounter: React.FC<TryCounterProps> = ({ chances, timeLeft, isCorrect, message }) => {
   const emojiArray = Array(3 - chances)
     .fill(failedEmoji)
     .concat(Array(chances).fill(successEmoji))
@@ -16,7 +17,7 @@ const TryCounter: React.FC<TryCounterProps> = ({ chances, timeLeft, isCorrect })
     <div css={TryCounterStyle}>
       <div className='Emoji'>
         {isCorrect ? ( // 정답일 경우
-          <span className='correct-message'>정답입니다!</span>
+          <span className='correct-message'>{message}</span>
         ) : chances > 0 ? ( // 기회가 남아 있을 경우
           emojiArray.map((emoji, index) => (
             <img key={index} src={emoji} alt='emoji' width={24} height={24} />
