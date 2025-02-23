@@ -67,7 +67,9 @@ const TryAnswer = () => {
       <BackHeader />
       <div css={TryAnswerStyle}>
         <TryCounter chances={chances} timeLeft={timeLeft} isCorrect={isCorrect} />
-        <div className={`LetterCard-container ${isShaking ? 'shake' : ''}`}>
+        <div
+          className={`LetterCard-container ${isShaking ? 'shake' : ''} ${isCorrect ? 'glowing' : ''}`}
+        >
           <LetterCard type={selectedColor}>
             <LetterContent
               to={data.to}
