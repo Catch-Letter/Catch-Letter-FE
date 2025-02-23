@@ -24,12 +24,12 @@ const App = () => {
             <Route path='/' element={<Layout />}>
               <Route path='/' element={<Home />} />
               <Route path='/test' element={<Test />} />
-              <Route path='/writeletter' element={<LetterWrite />} />
-              <Route path='/choiceletter' element={<ChoiceLetter />} />
+              <Route path='/writeletter/:uuid' element={<LetterWrite />} />
+              <Route path='/choiceletter/:uuid' element={<ChoiceLetter />} />
               <Route path='/sendletter' element={<SendLetter />} />
               <Route path='/create' element={<CreatePost />} />
               <Route path='/postform' element={<CreatePostForm />} />
-              <Route path='/success' element={<Success />} />
+              <Route path='/sendsuccess' element={<Success />} />
               <Route path='/receivedletter/:uuid' element={<LetterReceived />} />
             </Route>
             <Route path='/checkanswer' element={<CheckAnswer />} />

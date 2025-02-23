@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { BackHeader } from '#/components'
-import { useLocation, useNavigate } from 'react-router'
+import { useLocation, useNavigate, useParams } from 'react-router'
 import { LetterWriteStyle, LetterWriteWrapper } from './LetterWrite.styles'
 import { Input, Button } from '#/shared/ui'
 import { WriteDesc, TextCard } from '#/components/letter-write'
@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next'
 
 const LetterWrite = () => {
   const { t } = useTranslation()
+  const { uuid } = useParams()
   const navigate = useNavigate()
   const location = useLocation()
   const [recipient, setRecipient] = useState(location.state?.to || '')
@@ -15,7 +16,7 @@ const LetterWrite = () => {
   const [content, setContent] = useState(location.state?.content || '')
 
   const handleChoiceLetter = () => {
-    navigate('/choiceletter', {
+    navigate(`/choiceletter/${uuid}`, {
       state: {
         to: recipient,
         content,
@@ -23,6 +24,9 @@ const LetterWrite = () => {
       },
     })
   }
+
+  if (!uuid) return <>페이지가 존재하지 않습니다.</>
+
   return (
     <div css={LetterWriteWrapper}>
       <BackHeader Center='비밀편지 쓰기' />

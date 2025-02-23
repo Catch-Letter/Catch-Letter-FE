@@ -54,18 +54,11 @@ export const LetterWriteStyle = css`
 
   @media (width>= 700px) {
     .content {
-      width: 90%;
-    }
-
-    .button-area {
-      width: 100%;
-      button {
-        width: 30%;
-      }
+      width: 60%;
     }
 
     .desc {
-      margin-left: 28%;
+      margin-left: 19%;
     }
   }
 `
