@@ -1,3 +1,5 @@
+import { apiClient } from '#/api/apiClient'
+import { API_ENDPOINTS } from '#/api/apiEndpoints'
 import { BackHeader, LetterCard, LetterContent } from '#/components'
 import { TryCounter } from '#/components/try-Counter'
 import { TryAnswerStyle } from '#/pages/tryAnswer/TryAnswer.styles'
@@ -58,6 +60,17 @@ const TryAnswer = () => {
       setIsCorrect(true)
     } else {
       handleWrongAttempt()
+    }
+  }
+
+  const handleTryAnswer = async (uuid: string, letterId: number) => {
+    try {
+      const res = await apiClient.post(API_ENDPOINTS.TRY_ANSWER(uuid, letterId), {
+        answer: inputValue,
+      })
+      return res.data
+    } catch (error) {
+      console.error(error)
     }
   }
 
