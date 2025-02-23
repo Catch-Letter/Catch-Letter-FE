@@ -1,10 +1,11 @@
-import { LetterCard } from '#/components'
+import { BackHeader, LetterCard } from '#/components'
 import { LetterContent } from '#/components/letter-choice'
 import SeparatedInput from '#/shared/ui/separated-input/separated-input'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { IoTriangle } from 'react-icons/io5'
-import { ChekAnswerStyles } from './CheckAnswer.styles'
+import { CheckAnswerStyles } from './CheckAnswer.styles'
 import { useState } from 'react'
+import { Background } from '#/shared/ui/background'
 
 const CheckAnswer = () => {
   const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
@@ -27,39 +28,43 @@ const CheckAnswer = () => {
   }
 
   return (
-    <div css={ChekAnswerStyles(isFlipped)}>
-      <SeparatedInput length={6} />
-      <div className='content' onClick={handleCardClick}>
-        <div className='cardFront'>
-          <LetterCard type={selectedColor}>
-            <LetterContent
-              to={data2.to}
-              content={data2.content}
-              from={data2.from}
-              color={selectedColor}
-              pattern={selectedPattern}
-              font={selectedFont}
-            />
-          </LetterCard>
+    <>
+      <Background color='grey' />
+      <BackHeader />
+      <div css={CheckAnswerStyles(isFlipped)}>
+        <SeparatedInput length={6} />
+        <div className='content' onClick={handleCardClick}>
+          <div className='cardFront'>
+            <LetterCard type={selectedColor}>
+              <LetterContent
+                to={data2.to}
+                content={data2.content}
+                from={data2.from}
+                color={selectedColor}
+                pattern={selectedPattern}
+                font={selectedFont}
+              />
+            </LetterCard>
+          </div>
+          <div className='cardBack'>
+            <LetterCard type={selectedColor}>
+              <LetterContent
+                to={data1.to}
+                content={data1.content}
+                from={data1.from}
+                color={selectedColor}
+                pattern={selectedPattern}
+                font={selectedFont}
+              />
+            </LetterCard>
+          </div>
         </div>
-        <div className='cardBack'>
-          <LetterCard type={selectedColor}>
-            <LetterContent
-              to={data1.to}
-              content={data1.content}
-              from={data1.from}
-              color={selectedColor}
-              pattern={selectedPattern}
-              font={selectedFont}
-            />
-          </LetterCard>
+        <div className='notice-area'>
+          <IoTriangle size={16} />
+          <p>카드를 눌러 뒤집어보세요!</p>
         </div>
       </div>
-      <div className='notice-area'>
-        <IoTriangle size={16} />
-        <p>카드를 눌러 뒤집어보세요!</p>
-      </div>
-    </div>
+    </>
   )
 }
 

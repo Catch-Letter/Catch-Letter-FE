@@ -9,6 +9,7 @@ import {
   ChoiceLetter,
   LetterReceived,
   CheckAnswer,
+  TryAnswer,
 } from '#/pages'
 
 const App = () => {
@@ -29,10 +30,11 @@ const App = () => {
               <Route path='/sendletter' element={<SendLetter />} />
               <Route path='/create' element={<CreatePost />} />
               <Route path='/postform' element={<CreatePostForm />} />
-              <Route path='/sendsuccess' element={<Success />} />
+              <Route path='/success' element={<Success />} />
               <Route path='/receivedletter/:uuid' element={<LetterReceived />} />
+              <Route path='/checkanswer' element={<CheckAnswer />} />
+              <Route path='/tryAnswer' element={<TryAnswer />} />
             </Route>
-            <Route path='/checkanswer' element={<CheckAnswer />} />
           </Routes>
         </Suspense>
       </BrowserRouter>
