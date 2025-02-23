@@ -16,7 +16,7 @@ const ChoiceLetter = () => {
   const letterInfo = location.state
   const { selectedColor, selectedFont, selectedPattern, resetStore } = useLetterCreationStore()
 
-  const letterId = 15
+  const letterId = 16
 
   const handleSendLetter = async (uuid: string, letterId: number) => {
     try {
@@ -31,7 +31,11 @@ const ChoiceLetter = () => {
         }),
       })
 
-      navigate('/sendletter')
+      navigate('/sendletter', {
+        state: {
+          color: selectedColor,
+        },
+      })
       resetStore()
       return res.data
     } catch (error) {

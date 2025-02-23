@@ -1,8 +1,9 @@
-import { Header } from '#/shared/ui'
 import { SendLetterStyle } from './SendLetter.styles'
 import { Button } from '#/shared/ui/button'
 import { SendCard, SendDesc } from '#/components/letter-send'
-import { useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
+import { Background } from '#/shared/ui/background'
+import { Header } from '#/shared/ui'
 
 const desc = {
   TITLE: '친구에게 편지가 보내졌어요!',
@@ -11,24 +12,29 @@ const desc = {
 
 const SendLetter = () => {
   const navigate = useNavigate()
+  const location = useLocation()
+  const info = location.state
   const handleCreatePost = () => {
-    navigate('/')
+    navigate('/create')
   }
 
   return (
-    <div css={SendLetterStyle}>
+    <>
+      <Background color={info.color} />
       <Header />
-      <SendDesc title={desc.TITLE} subTitle={desc.SUBTITLE} />
-      <SendCard content='/santa.svg' />
-      <div className='button-area'>
-        <Button width={339} onClick={handleCreatePost}>
-          나도 우체통 발급
-        </Button>
-        <Button width={339} variant='secondary'>
-          확인
-        </Button>
+      <div css={SendLetterStyle}>
+        <SendDesc title={desc.TITLE} subTitle={desc.SUBTITLE} />
+        <SendCard content='/santa.svg' />
+        <div className='button-area'>
+          <Button width={339} onClick={handleCreatePost}>
+            나도 우체통 발급
+          </Button>
+          <Button width={339} variant='secondary'>
+            확인
+          </Button>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
