@@ -1,16 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router'
 import { Layout, I18nProvider } from '#/app/ui'
-import {
-  Home,
-  Test,
-  CreatePost,
-  CreatePostForm,
-  ChoiceLetter,
-  CheckAnswer,
-  LetterReceived,
-} from '#/pages'
-import Drawing from '#/pages/drawing/Drawing'
+import { Home, Test, CreatePost, CreatePostForm, Drawing, ChoiceLetter, CheckAnswer } from '#/pages'
 
 const App = () => {
   const SendLetter = lazy(() => import('#/pages/letter-send/SendLetter'))
@@ -31,6 +22,7 @@ const App = () => {
               <Route path='/create' element={<CreatePost />} />
               <Route path='/postform' element={<CreatePostForm />} />
               <Route path='/success' element={<Success />} />
+              <Route path='/drawing' element={<Drawing />} />
             </Route>
             <Route path='/checkanswer' element={<CheckAnswer />} />
           </Routes>
