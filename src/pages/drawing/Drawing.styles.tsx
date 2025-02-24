@@ -14,5 +14,6 @@ export const FormWrapper = css`
 
   .input-wrapper {
     width: 100%;
+    margin-bottom: 12px;
   }
 `
