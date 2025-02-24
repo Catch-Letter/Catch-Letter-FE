@@ -32,6 +32,7 @@ const CheckAnswer = () => {
       <Background color='grey' />
       <BackHeader />
       <div css={CheckAnswerStyles(isFlipped)}>
+        <button className='btn-copy'>우리의 암호</button>
         <SeparatedInput length={6} />
         <div className='content' onClick={handleCardClick}>
           <div className='cardFront'>

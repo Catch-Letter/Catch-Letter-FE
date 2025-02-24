@@ -1,6 +1,11 @@
 import { colors } from '#/styles/color'
-import { css } from '@emotion/react'
+import { css, keyframes } from '@emotion/react'
 
+const floatingText = keyframes`
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0); }
+`
 export const CheckAnswerStyles = (isFlipped: boolean) => css`
   display: flex;
   flex-direction: column;
@@ -44,5 +49,19 @@ export const CheckAnswerStyles = (isFlipped: boolean) => css`
     gap: 4px;
     font-size: 16px;
     margin-top: 16px;
+    animation: ${floatingText} 2s ease-in-out infinite;
+  }
+
+  .btn-copy {
+    display: flex;
+    padding: 8px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    background: #000;
+    color: ${colors.neonGreen[6]};
+    font-size: 13px;
+    border: none;
+    margin-bottom: 12px;
   }
 `
