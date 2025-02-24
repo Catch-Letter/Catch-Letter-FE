@@ -61,10 +61,20 @@ const TryAnswer = () => {
 
     try {
       // 실제 API 요청 대신 목데이터 사용
+      // const mockResponse = {
+      //   message: '정답입니다!',
+      //   data: null,
+      //   result: 'failed',
+      // }
+
       const mockResponse = {
-        message: '정답입니다!',
-        data: null,
-        result: 'failed',
+        message: '2번의 기회가 남았어요!',
+        data: {
+          cycle: 0,
+          try: 1,
+          hints: [],
+        },
+        result: 'fail',
       }
 
       // 비동기 요청처럼 보이도록 500ms 지연
@@ -72,8 +82,9 @@ const TryAnswer = () => {
         if (mockResponse.result === 'success') {
           setIsCorrect(true)
           setResponseMessage(mockResponse.message)
-        } else {
+        } else if (mockResponse.result === 'fail') {
           handleWrongAttempt()
+          setResponseMessage(mockResponse.message)
         }
       }, 500)
 
@@ -85,8 +96,9 @@ const TryAnswer = () => {
       // if (res.data?.result === 'success') {
       //   setIsCorrect(true)
       //   setResponseMessage(res.data?.message ?? '정답입니다!')
-      // } else {
+      // } else if(res.data?.result === 'fail') {
       //   handleWrongAttempt()
+      // setResponseMessage(mockResponse.message)
       // }
     } catch (error) {
       console.error(error)
