@@ -4,6 +4,7 @@ import { colors } from '#/styles/color'
 export const DrawingIntroStyle = css`
   box-sizing: border-box;
   margin: 0;
+  width: 100%;
   height: 600px;
   padding: 192px 64px;
   border-radius: 8px;
