@@ -1,7 +1,15 @@
 import { useRef, useState } from 'react'
 import { Stage, Layer, Line } from 'react-konva'
 import { KonvaEventObject } from 'konva/lib/Node'
-import { CanvasStyle, PaletteWrapper, PaletteStyle } from './Canvas.styles'
+import { FaArrowLeft, FaArrowRight, FaEraser } from 'react-icons/fa'
+import { FaTrashCan } from 'react-icons/fa6'
+import {
+  CanvasStyle,
+  PaletteWrapper,
+  PaletteStyle,
+  ToolWrapper,
+  IconWrapper,
+} from './Canvas.styles'
 
 interface Line {
   points: number[]
@@ -27,9 +35,7 @@ const Canvas = () => {
   const handleMouseDown = (e: KonvaEventObject<MouseEvent>) => {
     isDrawing.current = true
     const stage = e.target.getStage()
-    if (!stage) return
-
-    const pos = stage.getPointerPosition()
+    const pos = stage?.getPointerPosition()
     if (!pos) return
 
     setLines((prevLines) => [...prevLines, { points: [pos.x, pos.y], color: selectedColor }])
@@ -37,10 +43,9 @@ const Canvas = () => {
 
   const handleMouseMove = (e: KonvaEventObject<MouseEvent>) => {
     if (!isDrawing.current) return
-    const stage = e.target.getStage()
-    if (!stage) return
 
-    const point = stage.getPointerPosition()
+    const stage = e.target.getStage()
+    const point = stage?.getPointerPosition()
     if (!point) return
 
     setLines((prevLines) => {
@@ -89,6 +94,25 @@ const Canvas = () => {
           ))}
         </Layer>
       </Stage>
+
+      <div css={ToolWrapper}>
+        <div css={IconWrapper}>
+          <button className='icon' aria-label='Undo'>
+            <FaArrowLeft size={20} />
+          </button>
+          <button className='icon' aria-label='Redo'>
+            <FaArrowRight size={20} />
+          </button>
+        </div>
+        <div css={IconWrapper}>
+          <button className='icon' aria-label='Eraser'>
+            <FaEraser size={20} />
+          </button>
+          <button className='icon' aria-label='Clear Canvas'>
+            <FaTrashCan size={18} />
+          </button>
+        </div>
+      </div>
     </div>
   )
 }
