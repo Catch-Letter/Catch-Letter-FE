@@ -5,6 +5,7 @@ import { CreateFormStyle, FormWrapper } from './CreatePostForm.styles'
 import { apiClient } from '#/api/apiClient'
 import { API_ENDPOINTS } from '#/api/apiEndpoints'
 import { useNavigate } from 'react-router'
+import { Background } from '#/shared/ui/background'
 
 const CreatePostForm = () => {
   const navigate = useNavigate()
@@ -31,6 +32,7 @@ const CreatePostForm = () => {
 
   return (
     <div css={CreateFormStyle}>
+      <Background gradientType='halfGradient' />
       <BackHeader Center='우체통 발급' />
       <div css={FormWrapper}>
         <div className='form'>
