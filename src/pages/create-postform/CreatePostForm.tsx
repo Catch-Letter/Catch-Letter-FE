@@ -6,6 +6,7 @@ import { apiClient } from '#/api/apiClient'
 import { API_ENDPOINTS } from '#/api/apiEndpoints'
 import { useNavigate } from 'react-router'
 import { Background } from '#/shared/ui/background'
+import SeparatedInput from '#/shared/ui/separated-input/separated-input'
 
 const CreatePostForm = () => {
   const navigate = useNavigate()
@@ -30,6 +31,11 @@ const CreatePostForm = () => {
     }
   }
 
+  const onCheckPassword = (value: string) => {
+    if (isNaN(Number(value))) return
+    setPassword(value)
+  }
+
   return (
     <div css={CreateFormStyle}>
       <Background gradientType='halfGradient' />
@@ -42,12 +48,12 @@ const CreatePostForm = () => {
             value={name}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
           />
-          <InputField
+          <SeparatedInput
             label='우체통 비밀번호'
-            placeholder='우체통 이름을 지어주세요.'
+            length={5}
             type='password'
             value={password}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+            onChangeValue={onCheckPassword}
           />
           <span className='notice'>우체통 비밀번호는 우체통을 열때마다 필요해요!</span>
         </div>
