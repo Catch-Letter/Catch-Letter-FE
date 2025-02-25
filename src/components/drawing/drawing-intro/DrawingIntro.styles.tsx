@@ -7,7 +7,7 @@ export const DrawingIntroStyle = css`
   height: 600px;
   padding: 192px 64px;
   border-radius: 8px;
-  background: rgba(88, 89, 92, 0.8);
+  background: rgba(88, 89, 92, 0.9);
   border: 1.5px solid ${colors.grey[8]};
 `
 

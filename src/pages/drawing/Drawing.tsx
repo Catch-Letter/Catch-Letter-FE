@@ -4,7 +4,7 @@ import { Button, InputField } from '#/shared/ui'
 import { useState } from 'react'
 import { DrawingWrapper, FormWrapper } from '#/pages/drawing/Drawing.styles'
 import { useNavigate } from 'react-router'
-import { DrawingIntro } from '#/components/drawing'
+import { Canvas, DrawingIntro } from '#/components/drawing'
 
 const Drawing = () => {
   const [answer, setAnswer] = useState('')
@@ -34,7 +34,7 @@ const Drawing = () => {
             maxLength={8}
           />
         </div>
-        {!isDrawingMode ? <DrawingIntro onStart={() => setIsDrawingMode(true)} /> : <div></div>}
+        {!isDrawingMode ? <DrawingIntro onStart={() => setIsDrawingMode(true)} /> : <Canvas />}
         <Button
           width={142}
           onClick={() => {
