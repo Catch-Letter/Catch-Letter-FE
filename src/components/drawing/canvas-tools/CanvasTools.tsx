@@ -1,6 +1,6 @@
 import { FaArrowLeft, FaArrowRight, FaEraser } from 'react-icons/fa'
 import { FaTrashCan } from 'react-icons/fa6'
-import { ToolWrapper, IconWrapper } from '#/components/drawing/canvas-tools/CanvasTools.styles'
+import { ToolWrapper, IconWrapper } from './CanvasTools.styles'
 
 interface CanvasToolsProps {
   onUndo: () => void

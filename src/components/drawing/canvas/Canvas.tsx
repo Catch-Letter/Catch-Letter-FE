@@ -23,9 +23,14 @@ const paletteColors = [
 
 const Canvas = () => {
   const [selectedColor, setSelectedColor] = useState<string>('#000000')
+
   const [lines, setLines] = useState<Line[]>([])
-  const [isEraser, setIsEraser] = useState<boolean>(false)
   const isDrawing = useRef<boolean>(false)
+
+  const [undoStack, setUndoStack] = useState<Line[][]>([])
+  const [redoStack, setRedoStack] = useState<Line[][]>([])
+
+  const [isEraser, setIsEraser] = useState<boolean>(false)
 
   // 그림 그리기 시작
   const handleMouseDown = (e: KonvaEventObject<MouseEvent>) => {
@@ -65,7 +70,19 @@ const Canvas = () => {
   // 그림 되돌리기
   const handleUndo = () => {
     if (lines.length > 0) {
+      setUndoStack((prev) => [...prev, [...lines]])
+      setRedoStack((prev) => [[...lines], ...prev])
       setLines(lines.slice(0, -1))
+    }
+  }
+
+  // 그림 되살리기
+  const handleRedo = () => {
+    if (redoStack.length > 0) {
+      const lastState = redoStack[0]
+      setRedoStack((prev) => prev.slice(1))
+      setUndoStack((prev) => [...prev, [...lines]])
+      setLines(lastState)
     }
   }
 
@@ -120,7 +137,7 @@ const Canvas = () => {
 
       <CanvasTools
         onUndo={handleUndo}
-        onRedo={() => {}}
+        onRedo={handleRedo}
         onEraser={handleEraser}
         onClear={handleClearCanvas}
       />
