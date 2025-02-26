@@ -3,23 +3,13 @@ import { Stage, Layer, Line } from 'react-konva'
 import { KonvaEventObject } from 'konva/lib/Node'
 import { CanvasStyle, PaletteWrapper, PaletteStyle } from './Canvas.styles'
 import { CanvasTools } from '#/components/drawing/canvas-tools'
+import { paletteColors } from '#/styles/paletteColors'
 
 interface Line {
   points: number[]
   color: string
   isEraser: boolean
 }
-
-const paletteColors = [
-  { color: 'Black', hex: '#000000' },
-  { color: 'White', hex: '#FFFFFF' },
-  { color: 'Red', hex: '#F8596A' },
-  { color: 'Orange', hex: '#FF9061' },
-  { color: 'Yellow', hex: '#FFDE55' },
-  { color: 'Green', hex: '#39E7BA' },
-  { color: 'Blue', hex: '#388CFF' },
-  { color: 'Purple', hex: '#B072F8' },
-]
 
 const Canvas = () => {
   const [selectedColor, setSelectedColor] = useState<string>('#000000')
