@@ -69,6 +69,13 @@ const Canvas = () => {
     isDrawing.current = false
   }
 
+  // 그림 되돌리기
+  const handleUndo = () => {
+    if (lines.length > 0) {
+      setLines(lines.slice(0, -1))
+    }
+  }
+
   // 부분 지우기
   const handleEraser = () => {
     setIsEraser((prev) => !prev)
@@ -120,7 +127,7 @@ const Canvas = () => {
 
       <div css={ToolWrapper}>
         <div css={IconWrapper}>
-          <button className='icon' aria-label='Undo'>
+          <button className='icon' onClick={handleUndo} aria-label='Undo'>
             <FaArrowLeft size={20} />
           </button>
           <button className='icon' aria-label='Redo'>
