@@ -14,6 +14,7 @@ import {
 interface Line {
   points: number[]
   color: string
+  isEraser: boolean
 }
 
 const paletteColors = [
@@ -30,15 +31,20 @@ const paletteColors = [
 const Canvas = () => {
   const [selectedColor, setSelectedColor] = useState<string>('#000000')
   const [lines, setLines] = useState<Line[]>([])
+  const [isEraser, setIsEraser] = useState<boolean>(false)
   const isDrawing = useRef<boolean>(false)
 
+  // 그림 그리기 시작
   const handleMouseDown = (e: KonvaEventObject<MouseEvent>) => {
     isDrawing.current = true
     const stage = e.target.getStage()
     const pos = stage?.getPointerPosition()
     if (!pos) return
 
-    setLines((prevLines) => [...prevLines, { points: [pos.x, pos.y], color: selectedColor }])
+    setLines((prevLines) => [
+      ...prevLines,
+      { points: [pos.x, pos.y], color: selectedColor, isEraser },
+    ])
   }
 
   const handleMouseMove = (e: KonvaEventObject<MouseEvent>) => {
@@ -55,7 +61,7 @@ const Canvas = () => {
       if (!lastLine) return prevLines
       lastLine.points = [...lastLine.points, point.x, point.y]
 
-      return newLines
+      return [...newLines]
     })
   }
 
@@ -63,6 +69,18 @@ const Canvas = () => {
     isDrawing.current = false
   }
 
+  // 부분 지우기
+  const handleEraser = () => {
+    setIsEraser((prev) => !prev)
+  }
+
+  // 색상 변경시 지우개 모드 해제
+  const handleColorChange = (hex: string) => {
+    setIsEraser(false)
+    setSelectedColor(hex)
+  }
+
+  // 그림 전체 삭제
   const handleClearCanvas = () => {
     setLines([])
   }
@@ -74,7 +92,7 @@ const Canvas = () => {
           <button
             key={color}
             css={PaletteStyle(hex, selectedColor)}
-            onClick={() => setSelectedColor(hex)}
+            onClick={() => handleColorChange(hex)}
           />
         ))}
       </div>
@@ -94,6 +112,7 @@ const Canvas = () => {
               stroke={line.color}
               strokeWidth={3}
               lineCap='round'
+              globalCompositeOperation={line.isEraser ? 'destination-out' : 'source-over'}
             />
           ))}
         </Layer>
@@ -109,7 +128,7 @@ const Canvas = () => {
           </button>
         </div>
         <div css={IconWrapper}>
-          <button className='icon' aria-label='Eraser'>
+          <button className='icon' onClick={handleEraser} aria-label='Eraser'>
             <FaEraser size={20} />
           </button>
           <button className='icon' onClick={handleClearCanvas} aria-label='Clear Canvas'>
