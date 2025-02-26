@@ -1,15 +1,8 @@
 import { useRef, useState } from 'react'
 import { Stage, Layer, Line } from 'react-konva'
 import { KonvaEventObject } from 'konva/lib/Node'
-import { FaArrowLeft, FaArrowRight, FaEraser } from 'react-icons/fa'
-import { FaTrashCan } from 'react-icons/fa6'
-import {
-  CanvasStyle,
-  PaletteWrapper,
-  PaletteStyle,
-  ToolWrapper,
-  IconWrapper,
-} from './Canvas.styles'
+import { CanvasStyle, PaletteWrapper, PaletteStyle } from './Canvas.styles'
+import { CanvasTools } from '#/components/drawing/canvas-tools'
 
 interface Line {
   points: number[]
@@ -125,24 +118,12 @@ const Canvas = () => {
         </Layer>
       </Stage>
 
-      <div css={ToolWrapper}>
-        <div css={IconWrapper}>
-          <button className='icon' onClick={handleUndo} aria-label='Undo'>
-            <FaArrowLeft size={20} />
-          </button>
-          <button className='icon' aria-label='Redo'>
-            <FaArrowRight size={20} />
-          </button>
-        </div>
-        <div css={IconWrapper}>
-          <button className='icon' onClick={handleEraser} aria-label='Eraser'>
-            <FaEraser size={20} />
-          </button>
-          <button className='icon' onClick={handleClearCanvas} aria-label='Clear Canvas'>
-            <FaTrashCan size={18} />
-          </button>
-        </div>
-      </div>
+      <CanvasTools
+        onUndo={handleUndo}
+        onRedo={() => {}}
+        onEraser={handleEraser}
+        onClear={handleClearCanvas}
+      />
     </div>
   )
 }
