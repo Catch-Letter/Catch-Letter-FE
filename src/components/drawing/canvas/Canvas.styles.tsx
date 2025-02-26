@@ -51,5 +51,6 @@ export const IconWrapper = css`
     background-color: ${colors.grey[4]};
     border: 2px solid ${colors.grey[7]};
     border-radius: 50%;
+    cursor: pointer;
   }
 `

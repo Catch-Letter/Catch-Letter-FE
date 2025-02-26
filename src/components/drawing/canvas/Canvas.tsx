@@ -63,6 +63,10 @@ const Canvas = () => {
     isDrawing.current = false
   }
 
+  const handleClearCanvas = () => {
+    setLines([])
+  }
+
   return (
     <div css={CanvasStyle}>
       <div css={PaletteWrapper}>
@@ -108,7 +112,7 @@ const Canvas = () => {
           <button className='icon' aria-label='Eraser'>
             <FaEraser size={20} />
           </button>
-          <button className='icon' aria-label='Clear Canvas'>
+          <button className='icon' onClick={handleClearCanvas} aria-label='Clear Canvas'>
             <FaTrashCan size={18} />
           </button>
         </div>
