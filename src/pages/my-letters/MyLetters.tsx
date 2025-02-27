@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router'
 import { BackHeader } from '#/components'
 import {
   MyLettersWrapper,
@@ -7,7 +8,6 @@ import {
   GridContainer,
   LetterCardStyle,
 } from './MyLetters.styles'
-
 const myLettersData = [
   {
     id: 1,
@@ -123,6 +123,7 @@ const myLettersData = [
 
 const MyLetters = () => {
   const [shakingCard, setShakingCard] = useState<number | null>(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -154,7 +155,11 @@ const MyLetters = () => {
 
       <div css={GridContainer}>
         {myLettersData.map((letter) => (
-          <div key={letter.id} css={LetterCardStyle(shakingCard === letter.id)}>
+          <div
+            key={letter.id}
+            css={LetterCardStyle(shakingCard === letter.id)}
+            onClick={() => navigate('/tryAnswer')}
+          >
             {!letter.is_correct && (
               <div className='lock-letter'>
                 <img src='./public/lock.png' alt='잠금 아이콘' />

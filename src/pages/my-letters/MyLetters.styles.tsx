@@ -51,6 +51,7 @@ export const LetterCardStyle = (isCorrect: boolean) => css`
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 
   ${!isCorrect &&
   css`
