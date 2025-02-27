@@ -157,7 +157,7 @@ const MyLetters = () => {
         {myLettersData.map((letter) => (
           <div
             key={letter.id}
-            css={LetterCardStyle(shakingCard === letter.id)}
+            css={LetterCardStyle(shakingCard, letter.id)}
             onClick={() => navigate('/tryAnswer')}
           >
             {!letter.is_correct && (

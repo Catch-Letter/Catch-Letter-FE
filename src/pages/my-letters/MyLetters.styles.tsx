@@ -43,7 +43,7 @@ export const GridContainer = css`
   overflow-y: auto;
 `
 
-export const LetterCardStyle = (isCorrect: boolean) => css`
+export const LetterCardStyle = (shakingCard: number | null, letterId: number) => css`
   width: 100%;
   aspect-ratio: 2 / 3;
   background-color: ${colors.pink[1]};
@@ -53,7 +53,8 @@ export const LetterCardStyle = (isCorrect: boolean) => css`
   justify-content: center;
   cursor: pointer;
 
-  ${!isCorrect &&
+  ${shakingCard !== null &&
+  shakingCard === letterId &&
   css`
     animation: ${shakeAnimation} 0.5s ease-in-out;
   `}
