@@ -42,4 +42,14 @@ export const LetterCardStyle = css`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  .lock-letter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.2);
+  }
 `

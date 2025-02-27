@@ -133,9 +133,17 @@ const MyLetters = () => {
       />
 
       <div css={GridContainer}>
-        {myLettersData.map((letter) => (
-          <div key={letter.id} css={LetterCardStyle}></div>
-        ))}
+        {myLettersData.map((letter) =>
+          letter.is_correct ? (
+            <div key={letter.id} css={LetterCardStyle}></div>
+          ) : (
+            <div key={letter.id} css={LetterCardStyle}>
+              <div className='lock-letter'>
+                <img src='./public/lock.png' alt='' />
+              </div>
+            </div>
+          )
+        )}
       </div>
     </div>
   )
