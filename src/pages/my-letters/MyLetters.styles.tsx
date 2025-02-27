@@ -1,5 +1,14 @@
-import { colors } from '#/styles/color'
 import { css } from '@emotion/react'
+import { keyframes } from '@emotion/react'
+import { colors } from '#/styles/color'
+
+const shakeAnimation = keyframes`
+  0% { transform: rotate(0deg) translateX(0); }
+  25% { transform: rotate(-0.2deg) translateX(-2px); }
+  50% { transform: rotate(0.2deg) translateX(2px); }
+  75% { transform: rotate(-0.2deg) translateX(-2px); }
+  100% { transform: rotate(0deg) translateX(0); }
+`
 
 export const MyLettersWrapper = css`
   height: 100vh;
@@ -34,7 +43,7 @@ export const GridContainer = css`
   overflow-y: auto;
 `
 
-export const LetterCardStyle = css`
+export const LetterCardStyle = (isCorrect: boolean) => css`
   width: 100%;
   aspect-ratio: 2 / 3;
   background-color: ${colors.pink[1]};
@@ -43,6 +52,11 @@ export const LetterCardStyle = css`
   align-items: center;
   justify-content: center;
 
+  ${!isCorrect &&
+  css`
+    animation: ${shakeAnimation} 0.5s ease-in-out;
+  `}
+
   .lock-letter {
     display: flex;
     justify-content: center;
@@ -50,6 +64,7 @@ export const LetterCardStyle = css`
     width: 100%;
     height: 100%;
     border-radius: 16px;
+    backdrop-filter: blur(2px);
     background: rgba(0, 0, 0, 0.2);
   }
 `

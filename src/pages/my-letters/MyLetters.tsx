@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { BackHeader } from '#/components'
 import {
   MyLettersWrapper,
@@ -121,6 +122,25 @@ const myLettersData = [
 ]
 
 const MyLetters = () => {
+  const [shakingCard, setShakingCard] = useState<number | null>(null)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const incorrectCards = myLettersData.filter((letter) => !letter.is_correct)
+
+      if (incorrectCards.length > 0) {
+        const randomCard = incorrectCards[Math.floor(Math.random() * incorrectCards.length)]
+        setShakingCard((prev) => (prev === randomCard.id ? null : randomCard.id))
+
+        setTimeout(() => {
+          setShakingCard(null)
+        }, 500)
+      }
+    }, 1600)
+
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <div css={MyLettersWrapper}>
       <BackHeader
@@ -133,17 +153,15 @@ const MyLetters = () => {
       />
 
       <div css={GridContainer}>
-        {myLettersData.map((letter) =>
-          letter.is_correct ? (
-            <div key={letter.id} css={LetterCardStyle}></div>
-          ) : (
-            <div key={letter.id} css={LetterCardStyle}>
+        {myLettersData.map((letter) => (
+          <div key={letter.id} css={LetterCardStyle(shakingCard === letter.id)}>
+            {!letter.is_correct && (
               <div className='lock-letter'>
-                <img src='./public/lock.png' alt='' />
+                <img src='./public/lock.png' alt='잠금 아이콘' />
               </div>
-            </div>
-          )
-        )}
+            )}
+          </div>
+        ))}
       </div>
     </div>
   )
