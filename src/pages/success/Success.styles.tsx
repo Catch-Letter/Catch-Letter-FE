@@ -2,7 +2,6 @@ import { colors } from '#/styles/color'
 import { css } from '@emotion/react'
 
 export const SuccessStyle = css`
-  background-color: ${colors.grey[13]};
   height: 100%;
   color: ${colors.white};
 `
