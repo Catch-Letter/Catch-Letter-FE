@@ -5,9 +5,13 @@ import { CreateFormStyle, FormWrapper } from './CreatePostForm.styles'
 import { apiClient } from '#/api/apiClient'
 import { API_ENDPOINTS } from '#/api/apiEndpoints'
 import { useNavigate } from 'react-router'
+import { Background } from '#/shared/ui/background'
+import SeparatedInput from '#/shared/ui/separated-input/separated-input'
+import { useTranslation } from 'react-i18next'
 
 const CreatePostForm = () => {
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
 
@@ -29,28 +33,34 @@ const CreatePostForm = () => {
     }
   }
 
+  const onCheckPassword = (value: string) => {
+    if (isNaN(Number(value))) return
+    setPassword(value)
+  }
+
   return (
     <div css={CreateFormStyle}>
+      <Background gradientType='halfGradient' />
       <BackHeader Center='우체통 발급' />
       <div css={FormWrapper}>
         <div className='form'>
           <InputField
-            label='우체통 이름'
-            placeholder='우체통 이름을 지어주세요.'
+            label={t('create.name')}
+            placeholder={t('create.name_desc')}
             value={name}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
           />
-          <InputField
-            label='우체통 비밀번호'
-            placeholder='우체통 이름을 지어주세요.'
+          <SeparatedInput
+            label={t('create.password')}
+            length={5}
             type='password'
             value={password}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+            onChangeValue={onCheckPassword}
           />
-          <span className='notice'>우체통 비밀번호는 우체통을 열때마다 필요해요!</span>
+          <span className='notice'>{t('create.password_desc')}</span>
         </div>
-        <Button width={343} onClick={handleCreatePost} disabled={!name && !password}>
-          확인
+        <Button width={343} onClick={handleCreatePost} disabled={!name || !password}>
+          {t('submit')}
         </Button>
       </div>
     </div>

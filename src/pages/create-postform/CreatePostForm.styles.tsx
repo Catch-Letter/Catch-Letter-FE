@@ -2,7 +2,6 @@ import { colors } from '#/styles/color'
 import { css } from '@emotion/react'
 
 export const CreateFormStyle = css`
-  background-color: ${colors.grey[13]};
   height: 100%;
 
   .form {

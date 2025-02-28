@@ -11,6 +11,7 @@ import {
   LetterReceived,
   CheckAnswer,
   TryAnswer,
+  MyLetters,
 } from '#/pages'
 
 const App = () => {
@@ -26,9 +27,10 @@ const App = () => {
             <Route path='/' element={<Layout />}>
               <Route path='/' element={<Home />} />
               <Route path='/test' element={<Test />} />
-              <Route path='/writeletter' element={<LetterWrite />} />
-              <Route path='/choiceletter' element={<ChoiceLetter />} />
+              <Route path='/writeletter/:uuid' element={<LetterWrite />} />
+              <Route path='/choiceletter/:uuid' element={<ChoiceLetter />} />
               <Route path='/sendletter' element={<SendLetter />} />
+              <Route path='/myletters' element={<MyLetters />} />
               <Route path='/create' element={<CreatePost />} />
               <Route path='/postform' element={<CreatePostForm />} />
               <Route path='/success' element={<Success />} />

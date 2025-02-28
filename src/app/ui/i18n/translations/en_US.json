@@ -2,6 +2,15 @@
   "welcome": "Welcome to the Home Page",
   "hello": "Hello",
   "correct": "Correct",
+  "create": {
+    "name": "Letterbox name",
+    "name_desc": "Please create a letterbox name.",
+    "password": "Letterbox password",
+    "password_desc": "You need the letterbox password every time you open it!",
+    "link": "Link created!",
+    "desc": "The link cannot be resent!\nCopy it and save it somewhere you can remember!",
+    "btncopy": "Copy link"
+  },
   "write": {
     "title": "Write a Letter",
     "to": "Who is the recipient of the letter?",
@@ -15,5 +24,6 @@
     ],
     "theme": "Choose Letter Theme!"
   },
+  "submit": "Submit",
   "before": "Before"
 }
