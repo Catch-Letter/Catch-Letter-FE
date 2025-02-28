@@ -3,10 +3,11 @@ import { WriteDescStyle } from './WriteDesc.styles'
 interface WriteDescProps {
   title: string
   descs: string[]
+  className?: string
 }
-const WriteDesc = ({ title, descs }: WriteDescProps) => {
+const WriteDesc = ({ title, descs, className }: WriteDescProps) => {
   return (
-    <div css={WriteDescStyle}>
+    <div css={WriteDescStyle} className={className}>
       <div className='title'>{title}</div>
       <ul>
         {descs.map((item) => (
