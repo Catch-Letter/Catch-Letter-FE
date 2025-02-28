@@ -20,7 +20,7 @@ i18n
     resources,
     lng: LANGUAGE.KO,
     fallbackLng: LANGUAGE.KO,
-    debug: true,
+    debug: false,
     interpolation: { escapeValue: false },
   })
 

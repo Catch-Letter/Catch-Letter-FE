@@ -14,6 +14,8 @@ const data = {
   from: '친구',
 }
 
+const correctAnswer = '가나다라마바'
+
 const TryAnswer = () => {
   const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
 
@@ -21,6 +23,8 @@ const TryAnswer = () => {
   const [chances, setChances] = useState<number>(maxChances)
   const [isShaking, setIsShaking] = useState(false)
   const [timeLeft, setTimeLeft] = useState<number | null>(null)
+  const [inputValue, setInputValue] = useState<string>('')
+  const [isCorrect, setIsCorrect] = useState<boolean>(false)
 
   useEffect(() => {
     if (chances === 0) {
@@ -45,13 +49,27 @@ const TryAnswer = () => {
     }
   }
 
+  const handleInputChange = (value: string) => {
+    setInputValue(value)
+  }
+
+  const handleConfirm = () => {
+    if (inputValue === correctAnswer) {
+      setIsCorrect(true)
+    } else {
+      handleWrongAttempt()
+    }
+  }
+
   return (
     <>
       <Background color='pink' />
       <BackHeader />
       <div css={TryAnswerStyle}>
-        <TryCounter chances={chances} timeLeft={timeLeft} />
-        <div className={`LetterCard-container ${isShaking ? 'shake' : ''}`}>
+        <TryCounter chances={chances} timeLeft={timeLeft} isCorrect={isCorrect} />
+        <div
+          className={`LetterCard-container ${isShaking ? 'shake' : ''} ${isCorrect ? 'glowing' : ''}`}
+        >
           <LetterCard type={selectedColor}>
             <LetterContent
               to={data.to}
@@ -64,10 +82,10 @@ const TryAnswer = () => {
           </LetterCard>
         </div>
         <div className='Input-area'>
-          <SeparatedInput length={6} />
+          <SeparatedInput length={6} onChangeValue={handleInputChange} />
         </div>
         <div className='button-area'>
-          <Button onClick={handleWrongAttempt} disabled={chances === 0} width={142}>
+          <Button onClick={handleConfirm} disabled={chances === 0 || isCorrect} width={142}>
             확인
           </Button>
         </div>
