@@ -3,13 +3,15 @@ import { Background } from '#/shared/ui/background'
 import { Button, InputField } from '#/shared/ui'
 import { useState } from 'react'
 import { DrawingWrapper, FormWrapper } from '#/pages/drawing/Drawing.styles'
-import { useNavigate } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { Canvas, DrawingIntro } from '#/components/drawing'
+import { requestDrawUpload } from '#/api/draw'
 
 const Drawing = () => {
   const [answer, setAnswer] = useState('')
   const [isDrawingMode, setIsDrawingMode] = useState(false)
   const navigate = useNavigate()
+  const { uuid } = useParams()
   const specialCharRegex = /[^a-zA-Z0-9가-힣]/
   const isInvalid =
     answer.trim().length === 0 || answer.trim().length > 8 || specialCharRegex.test(answer)
@@ -28,6 +30,22 @@ const Drawing = () => {
   }
 
   const invalidMessage = getInvalidMessage(answer)
+
+  const handleSubmit = async () => {
+    if (!uuid) {
+      console.error('uuid 에러')
+      return
+    }
+
+    try {
+      const response = await requestDrawUpload(uuid, answer)
+      console.log('업로드 성공:', response)
+      // navigate(`/${uuid}/images/${response.id}/letters`)
+      navigate(`/writeletter/${uuid}`)
+    } catch (error) {
+      console.error('업로드 실패', error)
+    }
+  }
 
   return (
     <div css={DrawingWrapper}>
@@ -49,9 +67,7 @@ const Drawing = () => {
         {!isDrawingMode ? <DrawingIntro onStart={() => setIsDrawingMode(true)} /> : <Canvas />}
         <Button
           width={142}
-          onClick={() => {
-            navigate('/writeletter')
-          }}
+          onClick={handleSubmit}
           disabled={!answer || isInvalid}
           style={{ marginTop: '20px' }}
         >
