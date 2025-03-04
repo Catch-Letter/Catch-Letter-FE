@@ -27,8 +27,8 @@ const App = () => {
             <Route path='/' element={<Layout />}>
               <Route path='/' element={<Home />} />
               <Route path='/test' element={<Test />} />
-              <Route path='/writeletter/:uuid' element={<LetterWrite />} />
-              <Route path='/choiceletter/:uuid' element={<ChoiceLetter />} />
+              <Route path='/writeletter/:uuid/:id' element={<LetterWrite />} />
+              <Route path='/choiceletter/:uuid/:id' element={<ChoiceLetter />} />
               <Route path='/sendletter' element={<SendLetter />} />
               <Route path='/myletters/:uuid' element={<MyLetters />} />
               <Route path='/create' element={<CreatePost />} />
