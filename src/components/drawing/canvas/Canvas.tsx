@@ -1,9 +1,10 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, forwardRef } from 'react'
 import { Stage, Layer, Line } from 'react-konva'
 import { KonvaEventObject } from 'konva/lib/Node'
 import { CanvasStyle, PaletteWrapper, PaletteStyle } from './Canvas.styles'
 import { CanvasTools } from '#/components/drawing/canvas-tools'
 import { paletteColors } from '#/styles/paletteColors'
+import Konva from 'konva'
 
 interface Line {
   points: number[]
@@ -11,7 +12,11 @@ interface Line {
   isEraser: boolean
 }
 
-const Canvas = () => {
+interface CanvasProps {
+  stageRef: React.RefObject<Konva.Stage>
+}
+
+const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef }, ref) => {
   const [selectedColor, setSelectedColor] = useState<string>('#000000')
 
   const [lines, setLines] = useState<Line[]>([])
@@ -105,6 +110,7 @@ const Canvas = () => {
       </div>
 
       <Stage
+        ref={stageRef}
         width={300}
         height={500}
         onMouseDown={handleMouseDown}
@@ -133,6 +139,6 @@ const Canvas = () => {
       />
     </div>
   )
-}
+})
 
 export default Canvas

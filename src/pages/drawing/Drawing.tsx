@@ -1,15 +1,21 @@
 import { BackHeader } from '#/components'
 import { Background } from '#/shared/ui/background'
 import { Button, InputField } from '#/shared/ui'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { DrawingWrapper, FormWrapper } from '#/pages/drawing/Drawing.styles'
-import { useNavigate } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { Canvas, DrawingIntro } from '#/components/drawing'
+import { requestDrawUpload, uploadImageToPresignedUrl } from '#/api/draw'
+import Konva from 'konva'
 
 const Drawing = () => {
   const [answer, setAnswer] = useState('')
   const [isDrawingMode, setIsDrawingMode] = useState(false)
   const navigate = useNavigate()
+  const { uuid } = useParams()
+
+  const stageRef = useRef<Konva.Stage | null>(null)
+
   const specialCharRegex = /[^a-zA-Z0-9가-힣]/
   const isInvalid =
     answer.trim().length === 0 || answer.trim().length > 8 || specialCharRegex.test(answer)
@@ -29,6 +35,34 @@ const Drawing = () => {
 
   const invalidMessage = getInvalidMessage(answer)
 
+  const handleSubmit = async () => {
+    if (!uuid) {
+      console.error('uuid 에러')
+      return
+    }
+
+    if (!stageRef.current) {
+      console.error('Canvas가 초기화되지 않았습니다.')
+      return
+    }
+
+    try {
+      const stage = stageRef.current
+      const svgDataURL = stage.toDataURL({ mimeType: 'image/svg+xml' })
+
+      const blob = new Blob([svgDataURL], { type: 'image/svg+xml' })
+      const file = new File([blob], 'drawing.svg', { type: 'image/svg+xml' })
+
+      const response = await requestDrawUpload(uuid, answer)
+      const { presigned_url } = response
+
+      await uploadImageToPresignedUrl(presigned_url, file)
+      navigate(`/writeletter/${uuid}`)
+    } catch (error) {
+      console.error('업로드 실패', error)
+    }
+  }
+
   return (
     <div css={DrawingWrapper}>
       <Background color='grey' />
@@ -46,12 +80,14 @@ const Drawing = () => {
             maxLength={8}
           />
         </div>
-        {!isDrawingMode ? <DrawingIntro onStart={() => setIsDrawingMode(true)} /> : <Canvas />}
+        {!isDrawingMode ? (
+          <DrawingIntro onStart={() => setIsDrawingMode(true)} />
+        ) : (
+          <Canvas stageRef={stageRef} />
+        )}
         <Button
           width={142}
-          onClick={() => {
-            navigate('/writeletter')
-          }}
+          onClick={handleSubmit}
           disabled={!answer || isInvalid}
           style={{ marginTop: '20px' }}
         >
