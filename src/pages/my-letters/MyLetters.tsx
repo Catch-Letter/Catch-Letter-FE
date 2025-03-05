@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { BackHeader } from '#/components'
+import { fetchMyLetters } from '#/api/myLetters'
 import {
   MyLettersWrapper,
   TitleStyle,
@@ -8,126 +9,35 @@ import {
   GridContainer,
   LetterCardStyle,
 } from './MyLetters.styles'
-const myLettersData = [
-  {
-    id: 1,
-    recipient_id: 3,
-    is_open: true,
-    is_correct: false,
-    created_at: '2025-02-23T08:42:40.629000Z',
-    updated_at: '2025-02-23T08:42:52.062000Z',
-    deleted_at: null,
-    answer_length: 4,
-    thumbnail_url: null,
-  },
-  {
-    id: 2,
-    recipient_id: 3,
-    is_open: true,
-    is_correct: true,
-    created_at: '2025-02-23T08:42:40.629000Z',
-    updated_at: '2025-02-23T08:42:52.062000Z',
-    deleted_at: null,
-    answer_length: 4,
-    thumbnail_url: null,
-  },
-  {
-    id: 3,
-    recipient_id: 3,
-    is_open: true,
-    is_correct: false,
-    created_at: '2025-02-23T08:42:40.629000Z',
-    updated_at: '2025-02-23T08:42:52.062000Z',
-    deleted_at: null,
-    answer_length: 4,
-    thumbnail_url: null,
-  },
-  {
-    id: 4,
-    recipient_id: 3,
-    is_open: true,
-    is_correct: false,
-    created_at: '2025-02-23T08:42:40.629000Z',
-    updated_at: '2025-02-23T08:42:52.062000Z',
-    deleted_at: null,
-    answer_length: 4,
-    thumbnail_url: null,
-  },
-  {
-    id: 5,
-    recipient_id: 3,
-    is_open: true,
-    is_correct: false,
-    created_at: '2025-02-23T08:42:40.629000Z',
-    updated_at: '2025-02-23T08:42:52.062000Z',
-    deleted_at: null,
-    answer_length: 4,
-    thumbnail_url: null,
-  },
-  {
-    id: 6,
-    recipient_id: 3,
-    is_open: true,
-    is_correct: false,
-    created_at: '2025-02-23T08:42:40.629000Z',
-    updated_at: '2025-02-23T08:42:52.062000Z',
-    deleted_at: null,
-    answer_length: 4,
-    thumbnail_url: null,
-  },
-  {
-    id: 7,
-    recipient_id: 3,
-    is_open: true,
-    is_correct: true,
-    created_at: '2025-02-23T08:42:40.629000Z',
-    updated_at: '2025-02-23T08:42:52.062000Z',
-    deleted_at: null,
-    answer_length: 4,
-    thumbnail_url: null,
-  },
-  {
-    id: 8,
-    recipient_id: 3,
-    is_open: true,
-    is_correct: true,
-    created_at: '2025-02-23T08:42:40.629000Z',
-    updated_at: '2025-02-23T08:42:52.062000Z',
-    deleted_at: null,
-    answer_length: 4,
-    thumbnail_url: null,
-  },
-  {
-    id: 9,
-    recipient_id: 3,
-    is_open: true,
-    is_correct: false,
-    created_at: '2025-02-23T08:42:40.629000Z',
-    updated_at: '2025-02-23T08:42:52.062000Z',
-    deleted_at: null,
-    answer_length: 4,
-    thumbnail_url: null,
-  },
-  {
-    id: 10,
-    recipient_id: 3,
-    is_open: true,
-    is_correct: true,
-    created_at: '2025-02-23T08:42:40.629000Z',
-    updated_at: '2025-02-23T08:42:52.062000Z',
-    deleted_at: null,
-    answer_length: 4,
-    thumbnail_url: null,
-  },
-]
+import { Letter } from '#/types/myLetters'
 
 const MyLetters = () => {
   const [shakingCard, setShakingCard] = useState<number | null>(null)
+  const [letters, setLetters] = useState<Letter[]>([])
   const navigate = useNavigate()
+  const { uuid } = useParams()
+
+  useEffect(() => {
+    const getLetters = async () => {
+      if (!uuid) {
+        console.error('uuid 에러')
+        return
+      }
+
+      try {
+        const response = await fetchMyLetters(uuid, 15)
+        setLetters(response.data)
+      } catch (error) {
+        console.error('편지 데이터를 불러오지 못했습니다.', error)
+      }
+    }
+
+    getLetters()
+  }, [])
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const incorrectCards = myLettersData.filter((letter) => !letter.is_correct)
+      const incorrectCards = letters.filter((letter) => !letter.is_correct)
 
       if (incorrectCards.length > 0) {
         const randomCard = incorrectCards[Math.floor(Math.random() * incorrectCards.length)]
@@ -148,13 +58,13 @@ const MyLetters = () => {
         Center={
           <div css={TitleStyle}>
             편지함
-            <span css={BadgeStyle}>{myLettersData.length}</span>
+            <span css={BadgeStyle}>{letters.length}</span>
           </div>
         }
       />
 
       <div css={GridContainer}>
-        {myLettersData.map((letter) => (
+        {letters.map((letter) => (
           <div
             key={letter.id}
             css={LetterCardStyle(shakingCard, letter.id)}
@@ -162,7 +72,7 @@ const MyLetters = () => {
           >
             {!letter.is_correct && (
               <div className='lock-letter'>
-                <img src='./public/lock.png' alt='잠금 아이콘' />
+                <img src='../public/lock.png' alt='잠금 아이콘' />
               </div>
             )}
           </div>

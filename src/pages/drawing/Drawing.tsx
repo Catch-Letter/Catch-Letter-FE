@@ -56,8 +56,10 @@ const Drawing = () => {
       const response = await requestDrawUpload(uuid, answer)
       const { presigned_url } = response
 
+      console.log(response)
+
       await uploadImageToPresignedUrl(presigned_url, file)
-      navigate(`/writeletter/${uuid}`)
+      navigate(`/writeletter/${uuid}/${response.id}`)
     } catch (error) {
       console.error('업로드 실패', error)
     }

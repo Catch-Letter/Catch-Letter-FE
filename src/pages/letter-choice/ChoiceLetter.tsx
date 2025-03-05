@@ -9,18 +9,15 @@ import { API_ENDPOINTS } from '#/api/apiEndpoints'
 import { Background } from '#/shared/ui/background'
 
 const ChoiceLetter = () => {
-  //TODO:letterId는 그림작성 페이지에서 상태값 받아와야됨
-  const { uuid } = useParams()
+  const { uuid, id } = useParams()
   const navigate = useNavigate()
   const location = useLocation()
   const letterInfo = location.state
   const { selectedColor, selectedFont, selectedPattern, resetStore } = useLetterCreationStore()
 
-  const letterId = 16
-
-  const handleSendLetter = async (uuid: string, letterId: number) => {
+  const handleSendLetter = async (uuid: string, id: number) => {
     try {
-      const res = await apiClient.post(API_ENDPOINTS.SEND_LETTER(uuid, letterId), {
+      const res = await apiClient.post(API_ENDPOINTS.SEND_LETTER(uuid, id), {
         to: letterInfo.to,
         from: letterInfo.from,
         contents: letterInfo.content,
@@ -44,7 +41,7 @@ const ChoiceLetter = () => {
   }
 
   const handlePrev = () => {
-    navigate(`/writeletter/${uuid}`, {
+    navigate(`/writeletter/${uuid}/${id}`, {
       state: {
         to: letterInfo.to,
         content: letterInfo.content,
@@ -77,7 +74,7 @@ const ChoiceLetter = () => {
           <Button variant='secondary' width={82} onClick={handlePrev}>
             이전
           </Button>
-          <Button width={245} onClick={() => handleSendLetter(uuid, letterId)}>
+          <Button width={245} onClick={() => handleSendLetter(uuid, Number(id))}>
             편지 보내기
           </Button>
         </div>

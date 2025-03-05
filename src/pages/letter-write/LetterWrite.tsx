@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next'
 
 const LetterWrite = () => {
   const { t } = useTranslation()
-  const { uuid } = useParams()
+  const { uuid, id } = useParams()
   const navigate = useNavigate()
   const location = useLocation()
   const [recipient, setRecipient] = useState(location.state?.to || '')
@@ -16,7 +16,7 @@ const LetterWrite = () => {
   const [content, setContent] = useState(location.state?.content || '')
 
   const handleChoiceLetter = () => {
-    navigate(`/choiceletter/${uuid}`, {
+    navigate(`/choiceletter/${uuid}/${id}`, {
       state: {
         to: recipient,
         content,
