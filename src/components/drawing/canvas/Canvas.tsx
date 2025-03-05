@@ -83,7 +83,7 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef }, ref) => {
 
   // 부분 지우기
   const handleEraser = () => {
-    setIsEraser((prev) => !prev)
+    setIsEraser(true)
   }
 
   // 색상 변경시 지우개 모드 해제
@@ -103,7 +103,7 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef }, ref) => {
         {paletteColors.map(({ color, hex }) => (
           <button
             key={color}
-            css={PaletteStyle(hex, selectedColor)}
+            css={PaletteStyle(hex, selectedColor === hex && !isEraser)}
             onClick={() => handleColorChange(hex)}
           />
         ))}
@@ -136,6 +136,7 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef }, ref) => {
         onRedo={handleRedo}
         onEraser={handleEraser}
         onClear={handleClearCanvas}
+        isEraser={isEraser}
       />
     </div>
   )

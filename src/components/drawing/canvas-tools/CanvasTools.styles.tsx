@@ -23,5 +23,15 @@ export const IconWrapper = css`
     border: 2px solid ${colors.grey[7]};
     border-radius: 50%;
     cursor: pointer;
+
+    &:hover {
+      background-color: ${colors.white};
+    }
+
+    &.active {
+      border: 3px solid #ccff1b;
+      background-color: ${colors.white};
+      transition: border 0.2s ease-in-out;
+    }
   }
 `

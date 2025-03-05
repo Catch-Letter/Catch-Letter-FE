@@ -7,9 +7,10 @@ interface CanvasToolsProps {
   onRedo: () => void
   onEraser: () => void
   onClear: () => void
+  isEraser: boolean
 }
 
-const CanvasTools = ({ onUndo, onRedo, onEraser, onClear }: CanvasToolsProps) => {
+const CanvasTools = ({ onUndo, onRedo, onEraser, onClear, isEraser }: CanvasToolsProps) => {
   return (
     <div css={ToolWrapper}>
       <div css={IconWrapper}>
@@ -21,7 +22,11 @@ const CanvasTools = ({ onUndo, onRedo, onEraser, onClear }: CanvasToolsProps) =>
         </button>
       </div>
       <div css={IconWrapper}>
-        <button className='icon' onClick={onEraser} aria-label='Eraser'>
+        <button
+          className={`icon ${isEraser ? 'active' : ''}`}
+          onClick={onEraser}
+          aria-label='Eraser'
+        >
           <FaEraser size={20} />
         </button>
         <button className='icon' onClick={onClear} aria-label='Clear Canvas'>

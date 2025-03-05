@@ -20,12 +20,12 @@ export const PaletteWrapper = css`
   gap: 14px;
 `
 
-export const PaletteStyle = (bgColor: string, selectedColor: string) => css`
+export const PaletteStyle = (bgColor: string, isActive: boolean) => css`
   width: 24px;
   height: 24px;
   border-radius: 50%;
   background-color: ${bgColor};
-  border: ${selectedColor === bgColor ? '3px solid #CCFF1B' : `1.5px solid ${colors.white}`};
+  border: ${isActive ? '3px solid #CCFF1B' : `1.5px solid ${colors.white}`};
   cursor: pointer;
   transition: border 0.2s ease-in-out;
 `
