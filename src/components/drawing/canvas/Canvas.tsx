@@ -1,4 +1,4 @@
-import { useRef, useState, forwardRef } from 'react'
+import { useRef, useState, forwardRef, useEffect } from 'react'
 import { Stage, Layer, Line } from 'react-konva'
 import { KonvaEventObject } from 'konva/lib/Node'
 import { CanvasStyle, PaletteWrapper, PaletteStyle } from './Canvas.styles'
@@ -26,6 +26,28 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef }, ref) => {
   const [redoStack, setRedoStack] = useState<Line[][]>([])
 
   const [isEraser, setIsEraser] = useState<boolean>(false)
+
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [canvasSize, setCanvasSize] = useState({ width: 300, height: 500 })
+
+  // 캔버스 크기 조절
+  useEffect(() => {
+    const updateSize = () => {
+      if (containerRef.current) {
+        setCanvasSize({
+          width: containerRef.current.clientWidth,
+          height: containerRef.current.clientHeight,
+        })
+      }
+    }
+
+    updateSize()
+    window.addEventListener('resize', updateSize)
+
+    return () => {
+      window.removeEventListener('resize', updateSize)
+    }
+  }, [])
 
   // 그림 그리기 시작
   const handleMouseDown = (e: KonvaEventObject<MouseEvent>) => {
@@ -109,7 +131,7 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef }, ref) => {
   }
 
   return (
-    <div css={CanvasStyle}>
+    <div css={CanvasStyle} ref={containerRef}>
       <div css={PaletteWrapper}>
         {paletteColors.map(({ color, hex }) => (
           <button
@@ -122,8 +144,8 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef }, ref) => {
 
       <Stage
         ref={stageRef}
-        width={300}
-        height={500}
+        width={canvasSize.width}
+        height={canvasSize.height}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
