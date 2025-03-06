@@ -64,13 +64,11 @@ const LetterWrite = () => {
             color='#f4f4f5'
             placeholder={t('write.content')}
             value={content}
-            onChange={() => {
-              handleContent
-            }}
+            onChange={handleContent}
           />
           <div className='input-from'>
             <label className='input-label'>FROM</label>
-            <Input placeholder={t('write.from')} value={sender} onChange={() => handleSender} />
+            <Input placeholder={t('write.from')} value={sender} onChange={handleSender} />
           </div>
         </div>
         <WriteDesc
