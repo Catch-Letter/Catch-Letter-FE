@@ -60,9 +60,7 @@ const ChoiceLetter = () => {
         <div className='content'>
           <LetterCard type={selectedColor}>
             <LetterContent
-              to={letter.to}
-              content={letter.content}
-              from={letter.from}
+              {...letter}
               color={selectedColor}
               pattern={selectedPattern}
               font={selectedFont}
