@@ -36,7 +36,7 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef }, ref) => {
       if (containerRef.current) {
         setCanvasSize({
           width: containerRef.current.clientWidth,
-          height: containerRef.current.clientHeight,
+          height: containerRef.current.clientHeight - 110,
         })
       }
     }
