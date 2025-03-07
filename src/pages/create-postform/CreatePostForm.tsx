@@ -7,7 +7,6 @@ import { Background } from '#/shared/ui/background'
 import SeparatedInput from '#/shared/ui/separated-input/separated-input'
 import { useTranslation } from 'react-i18next'
 import { submitCreatePost } from '#/api/auth'
-import { fetchAuthToken } from '#/api/auth'
 
 const CreatePostForm = () => {
   const navigate = useNavigate()
@@ -18,9 +17,6 @@ const CreatePostForm = () => {
   const handleCreatePost = async () => {
     const res = await submitCreatePost(name, password)
     if (res) {
-      const authRes = await fetchAuthToken(name, password, res.data.uuid)
-      console.log('토큰 api', authRes)
-
       navigate('/success', {
         state: {
           uuid: res.data.uuid,
