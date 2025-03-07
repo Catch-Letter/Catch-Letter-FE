@@ -36,15 +36,15 @@ const LetterWrite = () => {
     setContent(e.target.value)
   }
 
-  if (!uuid) return <>페이지가 존재하지 않습니다.</>
+  if (!uuid) return
 
   useEffect(() => {
     const getUUID = async () => {
       try {
         const res = await fetchUUID(uuid)
         setRecipient(res.name)
-        return res.data
       } catch (error) {
+        navigate('/create')
         console.log('failed to fetch UUID', error)
       }
     }
