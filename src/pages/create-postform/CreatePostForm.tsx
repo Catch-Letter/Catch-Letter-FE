@@ -2,12 +2,11 @@ import { BackHeader } from '#/components'
 import { Button, InputField } from '#/shared/ui'
 import { useState } from 'react'
 import { CreateFormStyle, FormWrapper } from './CreatePostForm.styles'
-import { apiClient } from '#/api/apiClient'
-import { API_ENDPOINTS } from '#/api/apiEndpoints'
 import { useNavigate } from 'react-router'
 import { Background } from '#/shared/ui/background'
 import SeparatedInput from '#/shared/ui/separated-input/separated-input'
 import { useTranslation } from 'react-i18next'
+import { submitCreatePost } from '#/api/auth'
 
 const CreatePostForm = () => {
   const navigate = useNavigate()
@@ -16,20 +15,14 @@ const CreatePostForm = () => {
   const [password, setPassword] = useState('')
 
   const handleCreatePost = async () => {
-    try {
-      const res = await apiClient.post(API_ENDPOINTS.CREATE, {
-        name,
-        password,
-      })
+    const res = await submitCreatePost(name, password)
+    if (res) {
       navigate('/success', {
         state: {
-          uuid: res.data.data.uuid,
-          expired: res.data.data.expired_at,
+          uuid: res.data.uuid,
+          expired: res.data.expired_at,
         },
       })
-      return res.data
-    } catch (error) {
-      console.error(error)
     }
   }
 
