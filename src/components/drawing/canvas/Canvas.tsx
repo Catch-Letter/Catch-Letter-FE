@@ -1,7 +1,7 @@
 import { useRef, useState, forwardRef, useEffect } from 'react'
 import { Stage, Layer, Line } from 'react-konva'
 import { KonvaEventObject } from 'konva/lib/Node'
-import { CanvasStyle, PaletteWrapper, PaletteStyle } from './Canvas.styles'
+import { CanvasWrapper, PaletteWrapper, PaletteStyle, CanvasStageWrapper } from './Canvas.styles'
 import { CanvasTools } from '#/components/drawing/canvas-tools'
 import { paletteColors } from '#/styles/paletteColors'
 import Konva from 'konva'
@@ -131,7 +131,7 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef }, ref) => {
   }
 
   return (
-    <div css={CanvasStyle} ref={containerRef}>
+    <div css={CanvasWrapper} ref={containerRef}>
       <div css={PaletteWrapper}>
         {paletteColors.map(({ color, hex }) => (
           <button
@@ -142,27 +142,29 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef }, ref) => {
         ))}
       </div>
 
-      <Stage
-        ref={stageRef}
-        width={canvasSize.width}
-        height={canvasSize.height}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-      >
-        <Layer>
-          {lines.map((line, i) => (
-            <Line
-              key={i}
-              points={line.points}
-              stroke={line.color}
-              strokeWidth={3}
-              lineCap='round'
-              globalCompositeOperation={line.isEraser ? 'destination-out' : 'source-over'}
-            />
-          ))}
-        </Layer>
-      </Stage>
+      <div css={CanvasStageWrapper}>
+        <Stage
+          ref={stageRef}
+          width={canvasSize.width}
+          height={canvasSize.height}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+        >
+          <Layer>
+            {lines.map((line, i) => (
+              <Line
+                key={i}
+                points={line.points}
+                stroke={line.color}
+                strokeWidth={3}
+                lineCap='round'
+                globalCompositeOperation={line.isEraser ? 'destination-out' : 'source-over'}
+              />
+            ))}
+          </Layer>
+        </Stage>
+      </div>
 
       <CanvasTools
         onUndo={handleUndo}

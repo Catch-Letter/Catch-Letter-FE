@@ -72,31 +72,30 @@ const Drawing = () => {
       <Background color='grey' />
       <BackHeader Center={<span>{t('draw.header')}</span>} />
       <div css={FormWrapper}>
-        <div className='input-wrapper'>
-          <InputField
-            placeholder={t('draw.placeholder')}
-            value={answer}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAnswer(e.target.value)}
-            isInvalid={isInvalid}
-            helpMessage={t('draw.helpMessage')}
-            validMessage={t('draw.validMessage')}
-            invalidMessage={invalidMessage}
-            maxLength={8}
-          />
+        <InputField
+          placeholder={t('draw.placeholder')}
+          value={answer}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAnswer(e.target.value)}
+          isInvalid={isInvalid}
+          helpMessage={t('draw.helpMessage')}
+          validMessage={t('draw.validMessage')}
+          invalidMessage={invalidMessage}
+          maxLength={8}
+        />
+
+        <div className='canvas-wrapper'>
+          {!isDrawingMode ? (
+            <DrawingIntro onStart={() => setIsDrawingMode(true)} />
+          ) : (
+            <Canvas stageRef={stageRef} />
+          )}
         </div>
-        {!isDrawingMode ? (
-          <DrawingIntro onStart={() => setIsDrawingMode(true)} />
-        ) : (
-          <Canvas stageRef={stageRef} />
-        )}
-        <Button
-          width={142}
-          onClick={handleSubmit}
-          disabled={!answer || isInvalid}
-          style={{ marginTop: '20px' }}
-        >
-          {t('draw.button')}
-        </Button>
+
+        <div className='button-wrapper'>
+          <Button width={142} onClick={handleSubmit} disabled={!answer || isInvalid}>
+            {t('draw.button')}
+          </Button>
+        </div>
       </div>
     </div>
   )
