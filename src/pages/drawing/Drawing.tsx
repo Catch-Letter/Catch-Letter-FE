@@ -5,7 +5,7 @@ import { useState, useRef } from 'react'
 import { DrawingWrapper, FormWrapper } from '#/pages/drawing/Drawing.styles'
 import { useNavigate, useParams } from 'react-router'
 import { Canvas, DrawingIntro } from '#/components/drawing'
-import { requestDrawUpload, uploadImageToPresignedUrl } from '#/api/draw'
+import { requestDrawUpload, uploadImageToPresignedUrl, uploadImageToThumnailUrl } from '#/api/draw'
 import Konva from 'konva'
 import { useTranslation } from 'react-i18next'
 
@@ -50,17 +50,28 @@ const Drawing = () => {
 
     try {
       const stage = stageRef.current
-      const svgDataURL = stage.toDataURL({ mimeType: 'image/svg+xml' })
 
-      const blob = new Blob([svgDataURL], { type: 'image/svg+xml' })
-      const file = new File([blob], 'drawing.svg', { type: 'image/svg+xml' })
+      // svg 변환
+      const svgDataURL = stage.toDataURL({ mimeType: 'image/svg+xml' })
+      const svgBlob = new Blob([svgDataURL], { type: 'image/svg+xml' })
+      const svgFile = new File([svgBlob], 'drawing.svg', { type: 'image/svg+xml' })
+
+      // png 변환
+      const pngBlob = (await stage.toBlob({ mimeType: 'image/png' })) as Blob
+
+      if (!pngBlob) {
+        console.error('png 변환 안됨')
+        return
+      }
+
+      const pngFile = new File([pngBlob], 'thumbnail.png', { type: 'image/png' })
 
       const response = await requestDrawUpload(uuid, answer)
-      const { presigned_url } = response
+      const { presigned_url, thumbnail_presigned_url } = response
 
-      console.log(response)
+      await uploadImageToPresignedUrl(presigned_url, svgFile)
+      await uploadImageToPresignedUrl(thumbnail_presigned_url, pngFile)
 
-      await uploadImageToPresignedUrl(presigned_url, file)
       navigate(`/writeletter/${uuid}/${response.id}`)
     } catch (error) {
       console.error('업로드 실패', error)

@@ -14,7 +14,7 @@ export const requestDrawUpload = async (uuid: string, answer: string) => {
   }
 }
 
-// 그림 이미지 업로드
+// 그림 원본 이미지 업로드
 export const uploadImageToPresignedUrl = async (presignedUrl: string, file: File) => {
   try {
     const response = await axios.put(presignedUrl, file, {
