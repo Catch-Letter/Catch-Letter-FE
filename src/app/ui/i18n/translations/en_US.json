@@ -24,6 +24,7 @@
     ],
     "theme": "Choose Letter Theme!"
   },
+  "myLetters":"My Letters",
   "submit": "Submit",
   "before": "Before"
 }

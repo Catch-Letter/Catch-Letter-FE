@@ -24,6 +24,8 @@
     ],
     "theme": "편지지 선택하기!"
   },
+
+  "myLetters":"편지함",
   "submit": "확인",
   "before": "이전"
 }

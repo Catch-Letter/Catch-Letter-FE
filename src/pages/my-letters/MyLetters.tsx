@@ -10,12 +10,14 @@ import {
   LetterCardStyle,
 } from './MyLetters.styles'
 import { Letter } from '#/types/myLetters'
+import { useTranslation } from 'react-i18next'
 
 const MyLetters = () => {
   const [shakingCard, setShakingCard] = useState<number | null>(null)
   const [letters, setLetters] = useState<Letter[]>([])
   const navigate = useNavigate()
   const { uuid } = useParams()
+  const { t } = useTranslation()
 
   useEffect(() => {
     const getLetters = async () => {
@@ -57,7 +59,7 @@ const MyLetters = () => {
       <BackHeader
         Center={
           <div css={TitleStyle}>
-            편지함
+            {t('myLetters')}
             <span css={BadgeStyle}>{letters.length}</span>
           </div>
         }
