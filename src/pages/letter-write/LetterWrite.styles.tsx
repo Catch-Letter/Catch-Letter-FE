@@ -55,11 +55,22 @@ export const LetterWriteStyle = css`
 
   @media (width>= 700px) {
     .content {
-      width: 60%;
+      width: 80%;
+    }
+
+    .button-area {
+      width: 100%;
+      .before {
+        width: 25%;
+      }
+      .submit {
+        width: 50%;
+      }
     }
 
     .desc {
-      margin-left: 19%;
+      margin-left: 10%;
+      width: 80%;
     }
   }
 `

@@ -77,10 +77,14 @@ const LetterWrite = () => {
           descs={t('write.explain', { returnObjects: true }) as string[]}
         />
         <div className='button-area'>
-          <Button variant='secondary' width={82}>
+          <Button className='before' variant='secondary' width={82}>
             {t('before')}
           </Button>
-          <Button onClick={handleChoiceLetter} disabled={!recipient || !sender || !content}>
+          <Button
+            className='submit'
+            onClick={handleChoiceLetter}
+            disabled={!recipient || !sender || !content}
+          >
             {t('write.theme')}
           </Button>
         </div>
