@@ -29,9 +29,6 @@ const CreatePostForm = () => {
           expired: res.data.expired_at,
         },
       })
-      return res.data
-    } catch (error) {
-      console.error(error)
     }
   }
 
