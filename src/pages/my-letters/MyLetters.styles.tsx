@@ -43,7 +43,12 @@ export const GridContainer = css`
   overflow-y: auto;
 `
 
-export const LetterCardStyle = (shakingCard: number | null, letterId: number) => css`
+export const LetterCardStyle = (
+  shakingCard: number | null,
+  letterId: number,
+  backgroundColor: string,
+  backgroundImage: string
+) => css`
   width: 100%;
   aspect-ratio: 2 / 3;
   background-color: ${colors.pink[1]};
@@ -51,6 +56,11 @@ export const LetterCardStyle = (shakingCard: number | null, letterId: number) =>
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: ${backgroundColor};
+  background-image: url(${backgroundImage});
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
   cursor: pointer;
 
   ${shakingCard !== null &&
@@ -66,7 +76,7 @@ export const LetterCardStyle = (shakingCard: number | null, letterId: number) =>
     width: 100%;
     height: 100%;
     border-radius: 16px;
-    backdrop-filter: blur(2px);
-    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(1.4px);
+    position: relative;
   }
 `

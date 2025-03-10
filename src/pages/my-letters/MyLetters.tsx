@@ -11,6 +11,8 @@ import {
 } from './MyLetters.styles'
 import { Letter } from '#/types/myLetters'
 import { useTranslation } from 'react-i18next'
+import lockImage from '#/assets/create/lock.png'
+import { colors } from '#/styles/color'
 
 const MyLetters = () => {
   const [shakingCard, setShakingCard] = useState<number | null>(null)
@@ -54,6 +56,32 @@ const MyLetters = () => {
     return () => clearInterval(interval)
   }, [])
 
+  const extractColor = (etc: string | null | undefined) => {
+    try {
+      if (!etc) return colors.grey[9]
+
+      const parsedEtc = JSON.parse(etc)
+      const color = parsedEtc.color ?? 'grey'
+
+      switch (color) {
+        case 'green':
+          return colors.green[6]
+        case 'blue':
+          return colors.blue[600]
+        case 'pink':
+          return colors.pink[6]
+        case 'violet':
+          return colors.violet[6]
+        case 'grey':
+        default:
+          return colors.grey[9]
+      }
+    } catch (error) {
+      console.error('JSON 파싱 애러', error)
+      return colors.grey[11]
+    }
+  }
+
   return (
     <div css={MyLettersWrapper}>
       <BackHeader
@@ -69,12 +97,17 @@ const MyLetters = () => {
         {letters.map((letter) => (
           <div
             key={letter.id}
-            css={LetterCardStyle(shakingCard, letter.id)}
+            css={LetterCardStyle(
+              shakingCard,
+              letter.id,
+              extractColor(letter.letter.etc),
+              letter.thumbnail_url ?? lockImage
+            )}
             onClick={() => navigate('/tryAnswer')}
           >
             {!letter.is_correct && (
               <div className='lock-letter'>
-                <img src='../public/lock.png' alt='잠금 아이콘' />
+                <img src={lockImage} alt='lock-icon' />
               </div>
             )}
           </div>
