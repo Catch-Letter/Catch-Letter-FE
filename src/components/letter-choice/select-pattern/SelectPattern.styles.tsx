@@ -8,10 +8,16 @@ export const SelectPatternStyle = css`
 
   ul {
     display: flex;
-    gap: 30px;
     align-items: center;
     justify-content: center;
     align-self: stretch;
+    gap: 30px;
+
+    li {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 `
 export const PatternStyle = css`

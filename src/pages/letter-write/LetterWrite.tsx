@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BackHeader } from '#/components'
 import { useLocation, useNavigate, useParams } from 'react-router'
 import { LetterWriteStyle, LetterWriteWrapper } from './LetterWrite.styles'
 import { Input, Button } from '#/shared/ui'
 import { WriteDesc, TextCard } from '#/components/letter-write'
 import { useTranslation } from 'react-i18next'
+import { fetchUUID } from '#/api/uuid'
 
 const LetterWrite = () => {
   const { t } = useTranslation()
@@ -25,7 +26,30 @@ const LetterWrite = () => {
     })
   }
 
-  if (!uuid) return <>페이지가 존재하지 않습니다.</>
+  const handleSender = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value.length > 15) return
+    setSender(e.target.value)
+  }
+
+  const handleContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (e.target.value.length > 1000) return
+    setContent(e.target.value)
+  }
+
+  if (!uuid) return
+
+  useEffect(() => {
+    const getUUID = async () => {
+      try {
+        const res = await fetchUUID(uuid)
+        setRecipient(res.name)
+      } catch (error) {
+        navigate('/create')
+        console.log('failed to fetch UUID', error)
+      }
+    }
+    getUUID()
+  }, [uuid])
 
   return (
     <div css={LetterWriteWrapper}>
@@ -34,29 +58,17 @@ const LetterWrite = () => {
         <div className='content'>
           <div className='input-to'>
             <label className='input-label'>TO</label>
-            <Input
-              placeholder={t('write.to')}
-              value={recipient}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setRecipient(e.target.value)
-              }}
-            />
+            <Input placeholder={t('write.to')} value={recipient} readOnly />
           </div>
           <TextCard
             color='#f4f4f5'
             placeholder={t('write.content')}
             value={content}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)}
+            onChange={handleContent}
           />
           <div className='input-from'>
             <label className='input-label'>FROM</label>
-            <Input
-              placeholder={t('write.from')}
-              value={sender}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setSender(e.target.value)
-              }}
-            />
+            <Input placeholder={t('write.from')} value={sender} onChange={handleSender} />
           </div>
         </div>
         <WriteDesc
@@ -65,10 +77,14 @@ const LetterWrite = () => {
           descs={t('write.explain', { returnObjects: true }) as string[]}
         />
         <div className='button-area'>
-          <Button variant='secondary' width={82}>
+          <Button className='before' variant='secondary' width={82}>
             {t('before')}
           </Button>
-          <Button onClick={handleChoiceLetter} disabled={!recipient || !sender || !content}>
+          <Button
+            className='submit'
+            onClick={handleChoiceLetter}
+            disabled={!recipient || !sender || !content}
+          >
             {t('write.theme')}
           </Button>
         </div>

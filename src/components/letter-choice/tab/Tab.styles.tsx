@@ -5,6 +5,7 @@ export const TabStyle = css`
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 110px;
   gap: 12px;
 
   ul {
