@@ -1,7 +1,7 @@
-import { useRef, useState, forwardRef } from 'react'
+import { useRef, useState, forwardRef, useEffect } from 'react'
 import { Stage, Layer, Line } from 'react-konva'
 import { KonvaEventObject } from 'konva/lib/Node'
-import { CanvasStyle, PaletteWrapper, PaletteStyle } from './Canvas.styles'
+import { CanvasWrapper, PaletteWrapper, PaletteStyle, CanvasStageWrapper } from './Canvas.styles'
 import { CanvasTools } from '#/components/drawing/canvas-tools'
 import { paletteColors } from '#/styles/paletteColors'
 import Konva from 'konva'
@@ -27,16 +27,39 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef }, ref) => {
 
   const [isEraser, setIsEraser] = useState<boolean>(false)
 
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [canvasSize, setCanvasSize] = useState({ width: 300, height: 500 })
+
+  // 캔버스 크기 조절
+  useEffect(() => {
+    const updateSize = () => {
+      if (containerRef.current) {
+        setCanvasSize({
+          width: containerRef.current.clientWidth,
+          height: containerRef.current.clientHeight - 110,
+        })
+      }
+    }
+
+    updateSize()
+    window.addEventListener('resize', updateSize)
+
+    return () => {
+      window.removeEventListener('resize', updateSize)
+    }
+  }, [])
+
   // 그림 그리기 시작
   const handleMouseDown = (e: KonvaEventObject<MouseEvent>) => {
     isDrawing.current = true
     const stage = e.target.getStage()
-    const pos = stage?.getPointerPosition()
-    if (!pos) return
+    const point = stage?.getPointerPosition()
+
+    if (!point) return
 
     setLines((prevLines) => [
       ...prevLines,
-      { points: [pos.x, pos.y], color: selectedColor, isEraser },
+      { points: [point.x, point.y], color: selectedColor, isEraser },
     ])
   }
 
@@ -45,6 +68,7 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef }, ref) => {
 
     const stage = e.target.getStage()
     const point = stage?.getPointerPosition()
+
     if (!point) return
 
     setLines((prevLines) => {
@@ -52,6 +76,7 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef }, ref) => {
       const lastLine = newLines[newLines.length - 1]
 
       if (!lastLine) return prevLines
+
       lastLine.points = [...lastLine.points, point.x, point.y]
 
       return [...newLines]
@@ -83,7 +108,7 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef }, ref) => {
 
   // 부분 지우기
   const handleEraser = () => {
-    setIsEraser((prev) => !prev)
+    setIsEraser(true)
   }
 
   // 색상 변경시 지우개 모드 해제
@@ -94,48 +119,53 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef }, ref) => {
 
   // 그림 전체 삭제
   const handleClearCanvas = () => {
+    if (lines.length === 0) return
     setLines([])
   }
 
   return (
-    <div css={CanvasStyle}>
+    <div css={CanvasWrapper} ref={containerRef}>
       <div css={PaletteWrapper}>
         {paletteColors.map(({ color, hex }) => (
           <button
             key={color}
-            css={PaletteStyle(hex, selectedColor)}
+            css={PaletteStyle(hex, selectedColor === hex && !isEraser)}
             onClick={() => handleColorChange(hex)}
           />
         ))}
       </div>
 
-      <Stage
-        ref={stageRef}
-        width={300}
-        height={500}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-      >
-        <Layer>
-          {lines.map((line, i) => (
-            <Line
-              key={i}
-              points={line.points}
-              stroke={line.color}
-              strokeWidth={3}
-              lineCap='round'
-              globalCompositeOperation={line.isEraser ? 'destination-out' : 'source-over'}
-            />
-          ))}
-        </Layer>
-      </Stage>
+      <div css={CanvasStageWrapper}>
+        <Stage
+          ref={stageRef}
+          width={canvasSize.width}
+          height={canvasSize.height}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+        >
+          <Layer>
+            {lines.map((line, i) => (
+              <Line
+                key={i}
+                points={line.points}
+                stroke={line.color}
+                strokeWidth={3}
+                lineCap='round'
+                globalCompositeOperation={line.isEraser ? 'destination-out' : 'source-over'}
+              />
+            ))}
+          </Layer>
+        </Stage>
+      </div>
 
       <CanvasTools
         onUndo={handleUndo}
         onRedo={handleRedo}
         onEraser={handleEraser}
         onClear={handleClearCanvas}
+        isEraser={isEraser}
+        undoDisabled={lines.length === 0}
       />
     </div>
   )

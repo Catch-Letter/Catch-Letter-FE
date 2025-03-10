@@ -4,30 +4,30 @@ import { Button } from '#/shared/ui/button'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { useLocation, useNavigate, useParams } from 'react-router'
 import { ChoiceLetterStyle, ChoiceLetterWrapper } from './ChoiceLetter.styles'
-import { apiClient } from '#/api/apiClient'
-import { API_ENDPOINTS } from '#/api/apiEndpoints'
 import { Background } from '#/shared/ui/background'
+import { fetchSendLetter } from '#/api/sendLetter'
 
 const ChoiceLetter = () => {
   const { uuid, id } = useParams()
   const navigate = useNavigate()
   const location = useLocation()
-  const letterInfo = location.state
+  const letter = location.state
   const { selectedColor, selectedFont, selectedPattern, resetStore } = useLetterCreationStore()
 
   const handleSendLetter = async (uuid: string, id: number) => {
-    try {
-      const res = await apiClient.post(API_ENDPOINTS.SEND_LETTER(uuid, id), {
-        to: letterInfo.to,
-        from: letterInfo.from,
-        contents: letterInfo.content,
-        etc: JSON.stringify({
-          color: selectedColor,
-          font: selectedFont,
-          pattern: selectedPattern,
-        }),
-      })
+    const letterData = {
+      to: letter.to,
+      from: letter.from,
+      contents: letter.content,
+      etc: JSON.stringify({
+        color: selectedColor,
+        font: selectedFont,
+        pattern: selectedPattern,
+      }),
+    }
 
+    try {
+      const res = await fetchSendLetter(uuid, id, letterData)
       navigate('/sendletter', {
         state: {
           color: selectedColor,
@@ -43,9 +43,9 @@ const ChoiceLetter = () => {
   const handlePrev = () => {
     navigate(`/writeletter/${uuid}/${id}`, {
       state: {
-        to: letterInfo.to,
-        content: letterInfo.content,
-        from: letterInfo.from,
+        to: letter.to,
+        content: letter.content,
+        from: letter.from,
       },
     })
   }
@@ -60,9 +60,7 @@ const ChoiceLetter = () => {
         <div className='content'>
           <LetterCard type={selectedColor}>
             <LetterContent
-              to={letterInfo.to}
-              content={letterInfo.content}
-              from={letterInfo.from}
+              {...letter}
               color={selectedColor}
               pattern={selectedPattern}
               font={selectedFont}

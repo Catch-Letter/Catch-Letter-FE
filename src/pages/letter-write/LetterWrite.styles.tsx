@@ -4,6 +4,7 @@ import { css } from '@emotion/react'
 export const LetterWriteWrapper = css`
   background-color: ${colors.grey[13]};
   display: flex;
+  min-height: 100vh;
   flex-direction: column;
 `
 export const LetterWriteStyle = css`
@@ -54,11 +55,22 @@ export const LetterWriteStyle = css`
 
   @media (width>= 700px) {
     .content {
-      width: 60%;
+      width: 80%;
+    }
+
+    .button-area {
+      width: 100%;
+      .before {
+        width: 25%;
+      }
+      .submit {
+        width: 50%;
+      }
     }
 
     .desc {
-      margin-left: 19%;
+      margin-left: 10%;
+      width: 80%;
     }
   }
 `

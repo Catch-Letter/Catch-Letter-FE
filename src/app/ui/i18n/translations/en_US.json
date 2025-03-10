@@ -11,6 +11,21 @@
     "desc": "The link cannot be resent!\nCopy it and save it somewhere you can remember!",
     "btncopy": "Copy link"
   },
+  "drawIntro": {
+    "title": "If you guess the picture I drew",
+    "subtitle": "Your friend can read your letter!",
+    "instruction": "Touch the screen to draw a picture"
+  },
+  "draw": {
+    "header": "Picture Questions",
+    "placeholder": "What's the mystery in this picture?",
+    "helpMessage": "* Up to 8 characters in both Korean and English!",
+    "validMessage": "I think this would be a fun password! :)",
+    "button": "Done!",
+    "invalidMessage1": "Please write down your password! :(",
+    "invalidMessage2": "Can't be longer than 8 characters! :(",
+    "invalidMessage3": "You can't use special characters and spaces! :("
+  },
   "write": {
     "title": "Write a Letter",
     "to": "Who is the recipient of the letter?",
