@@ -3,10 +3,8 @@ import { colors } from '#/styles/color'
 
 export const DrawingIntroStyle = css`
   box-sizing: border-box;
-  margin: 0;
   width: 100%;
-  height: 600px;
-  padding: 192px 64px;
+  height: 100%;
   border-radius: 8px;
   background: rgba(88, 89, 92, 0.9);
   border: 1.5px solid ${colors.grey[8]};
@@ -17,6 +15,7 @@ export const IntroWrapper = css`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 80%;
 
   img {
     margin-bottom: 12px;

@@ -1,14 +1,16 @@
 import { DrawingIntroStyle, IntroWrapper } from './DrawingIntro.styles'
 import { PaintPalette } from '#/assets/drawing'
+import { useTranslation } from 'react-i18next'
 
 const DrawingIntro = ({ onStart }: { onStart: () => void }) => {
+  const { t } = useTranslation()
   return (
     <div css={DrawingIntroStyle} onClick={onStart}>
       <div css={IntroWrapper}>
         <img src={PaintPalette} alt='그림 팔레트' />
-        <h2>내가 그린 그림을 맞추면</h2>
-        <h3>친구가 편지를 읽을 수 있어요!</h3>
-        <span>화면을 터치해서 그림을 그려보세요</span>
+        <h2>{t('drawIntro.title')}</h2>
+        <h3>{t('drawIntro.subtitle')}</h3>
+        <span>{t('drawIntro.instruction')}</span>
       </div>
     </div>
   )
