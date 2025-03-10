@@ -5,7 +5,7 @@ import { useState, useRef } from 'react'
 import { DrawingWrapper, FormWrapper } from '#/pages/drawing/Drawing.styles'
 import { useNavigate, useParams } from 'react-router'
 import { Canvas, DrawingIntro } from '#/components/drawing'
-import { requestDrawUpload, uploadImageToPresignedUrl, uploadImageToThumnailUrl } from '#/api/draw'
+import { requestDrawUpload, uploadImageToPresignedUrl } from '#/api/draw'
 import Konva from 'konva'
 import { useTranslation } from 'react-i18next'
 

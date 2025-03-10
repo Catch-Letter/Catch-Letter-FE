@@ -8,6 +8,7 @@ interface CanvasToolsProps {
   onEraser: () => void
   onClear: () => void
   isEraser: boolean
+  undoDisabled: boolean
 }
 
 const CanvasTools = ({ onUndo, onRedo, onEraser, onClear, isEraser }: CanvasToolsProps) => {

@@ -93,11 +93,6 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef }, ref) => {
       setUndoStack((prev) => [...prev, [...lines]])
       setRedoStack((prev) => [[...lines], ...prev])
       setLines(lines.slice(0, -1))
-    } else if (undoStack.length > 0) {
-      const lastState = undoStack[undoStack.length - 1]
-      setUndoStack((prev) => prev.slice(0, -1))
-      setRedoStack((prev) => [[...lines], ...prev])
-      setLines(lastState)
     }
   }
 
@@ -125,8 +120,6 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef }, ref) => {
   // 그림 전체 삭제
   const handleClearCanvas = () => {
     if (lines.length === 0) return
-
-    setUndoStack((prev) => [...prev, [...lines]])
     setLines([])
   }
 
@@ -172,6 +165,7 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef }, ref) => {
         onEraser={handleEraser}
         onClear={handleClearCanvas}
         isEraser={isEraser}
+        undoDisabled={lines.length === 0}
       />
     </div>
   )
