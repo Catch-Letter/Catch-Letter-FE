@@ -2,55 +2,71 @@ import { BackHeader } from '#/components'
 import { Button, InputField } from '#/shared/ui'
 import { useState } from 'react'
 import { CreateFormStyle, FormWrapper } from './CreatePostForm.styles'
-import { apiClient } from '#/api/apiClient'
-import { API_ENDPOINTS } from '#/api/apiEndpoints'
 import { useNavigate } from 'react-router'
+import { Background } from '#/shared/ui/background'
+import SeparatedInput from '#/shared/ui/separated-input/separated-input'
+import { useTranslation } from 'react-i18next'
+import { fetchCreatePost } from '#/api/createPost'
 
 const CreatePostForm = () => {
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
+  const [isInvalid, setIsInvalid] = useState(false)
+
+  const onCheckName = (name: string) => {
+    setName(name)
+    setIsInvalid(name.trim().length === 0)
+  }
 
   const handleCreatePost = async () => {
     try {
-      const res = await apiClient.post(API_ENDPOINTS.CREATE, {
-        name,
-        password,
-      })
+      const res = await fetchCreatePost(name, password)
       navigate('/success', {
         state: {
-          uuid: res.data.data.uuid,
-          expired: res.data.data.expired_at,
+          uuid: res.data.uuid,
+          expired: res.data.expired_at,
         },
       })
-      return res.data
-    } catch (error) {
-      console.error(error)
     }
   }
 
+  const onCheckPassword = (value: string) => {
+    if (isNaN(Number(value))) return
+    setPassword(value)
+  }
+
+  const nameMessage = isInvalid ? '우체통 이름을 입력해주세요 :)' : ''
+
   return (
     <div css={CreateFormStyle}>
+      <Background gradientType='halfGradient' />
       <BackHeader Center='우체통 발급' />
       <div css={FormWrapper}>
         <div className='form'>
           <InputField
-            label='우체통 이름'
-            placeholder='우체통 이름을 지어주세요.'
+            label={t('create.name')}
+            placeholder={t('create.name_desc')}
             value={name}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => onCheckName(e.target.value)}
+            maxLength={15}
+            helpMessage='우체통 이름은 15글자 이내로 입력해주세요.'
+            isInvalid={isInvalid}
+            validMessage={'사용할 수 있는 이름입니다 :)'}
+            invalidMessage={nameMessage}
           />
-          <InputField
-            label='우체통 비밀번호'
-            placeholder='우체통 이름을 지어주세요.'
+          <SeparatedInput
+            label={t('create.password')}
+            length={5}
             type='password'
             value={password}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+            onChangeValue={onCheckPassword}
           />
-          <span className='notice'>우체통 비밀번호는 우체통을 열때마다 필요해요!</span>
+          <span className='notice'>{t('create.password_desc')}</span>
         </div>
-        <Button width={343} onClick={handleCreatePost} disabled={!name && !password}>
-          확인
+        <Button width={343} onClick={handleCreatePost} disabled={!name || !password}>
+          {t('submit')}
         </Button>
       </div>
     </div>

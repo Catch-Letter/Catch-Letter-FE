@@ -3,9 +3,28 @@
   "hello": "안녕하세요",
   "correct": "정답",
   "create": {
+    "name": "우체통 이름",
+    "name_desc": "우체통 이름을 지어주세요.",
+    "password": "우체통 비밀번호",
+    "password_desc": "우체통 비밀번호는 우체통을 열때마다 필요해요!",
     "link": "링크가 생성되었어요!",
     "desc": "링크는 재전송 되지 않아요!\n링크 복사 후 기억할 수 있는 곳에 복사해두세요!",
     "btncopy": "링크복사"
+  },
+  "drawIntro": {
+    "title": "내가 그린 그림을 맞추면",
+    "subtitle": "친구가 편지를 읽을 수 있어요!",
+    "instruction": "화면을 터치해서 그림을 그려보세요"
+  },
+  "draw": {
+    "header": "그림 암호 출제",
+    "placeholder": "이 그림의 정체는 무엇일까요?",
+    "helpMessage": "* 한글 , 영문 모두 8자까지 가능해요!",
+    "validMessage": "재밌는 암호가 될 거 같아요! :)",
+    "button": "다 그렸어요!",
+    "invalidMessage1": "암호를 적어주세요! :(",
+    "invalidMessage2": "8자를 초과할 수 없어요! :(",
+    "invalidMessage3": "특수문자 및 띄어쓰기는 사용할 수 없어요! :("
   },
   "write": {
     "title": "편지 작성하기",
@@ -20,5 +39,7 @@
     ],
     "theme": "편지지 선택하기!"
   },
+
+  "submit": "확인",
   "before": "이전"
 }

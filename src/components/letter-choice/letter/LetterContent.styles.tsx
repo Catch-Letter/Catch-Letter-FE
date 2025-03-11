@@ -32,7 +32,7 @@ export const LetterContentStyle = (
   font: FontType
 ) => css`
   display: flex;
-  min-width: 250px;
+  min-width: 200px;
   width: 100%;
   height: 100%;
   font-family: ${font};

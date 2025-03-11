@@ -6,10 +6,12 @@ import {
   Test,
   CreatePost,
   CreatePostForm,
+  Drawing,
   ChoiceLetter,
   LetterReceived,
   CheckAnswer,
   TryAnswer,
+  MyLetters,
 } from '#/pages'
 
 const App = () => {
@@ -25,15 +27,17 @@ const App = () => {
             <Route path='/' element={<Layout />}>
               <Route path='/' element={<Home />} />
               <Route path='/test' element={<Test />} />
-              <Route path='/writeletter' element={<LetterWrite />} />
-              <Route path='/choiceletter' element={<ChoiceLetter />} />
+              <Route path='/writeletter/:uuid/:id' element={<LetterWrite />} />
+              <Route path='/choiceletter/:uuid/:id' element={<ChoiceLetter />} />
               <Route path='/sendletter' element={<SendLetter />} />
+              <Route path='/myletters/:uuid' element={<MyLetters />} />
               <Route path='/create' element={<CreatePost />} />
               <Route path='/postform' element={<CreatePostForm />} />
               <Route path='/success' element={<Success />} />
               <Route path='/receivedletter/:uuid' element={<LetterReceived />} />
               <Route path='/checkanswer' element={<CheckAnswer />} />
               <Route path='/tryAnswer' element={<TryAnswer />} />
+              <Route path='/:uuid/drawing' element={<Drawing />} />
             </Route>
           </Routes>
         </Suspense>

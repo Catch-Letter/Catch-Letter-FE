@@ -1,11 +1,12 @@
+import { dot, grid, line, redLine } from '#/assets/letterPattern'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { PatternStyle, SelectPatternStyle } from './SelectPattern.styles'
 
 const patterns = {
-  default: '/redline.svg',
-  line: '/line.svg',
-  dot: '/dot.svg',
-  grid: '/grid.svg',
+  default: redLine,
+  line,
+  dot,
+  grid,
 }
 
 const SelectPattern = () => {
