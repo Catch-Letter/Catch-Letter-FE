@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { BackHeader } from '#/components'
-import { fetchMyLetters } from '#/api/myLetters'
 import {
   MyLettersWrapper,
   TitleStyle,
@@ -9,39 +8,52 @@ import {
   GridContainer,
   LetterCardStyle,
 } from './MyLetters.styles'
-import { Letter } from '#/types/myLetters'
 import { useTranslation } from 'react-i18next'
 import lockImage from '#/assets/create/lock.png'
 import { colors } from '#/styles/color'
+import { useMyLettersQuery } from '#/api/myLetters'
 
 const MyLetters = () => {
   const [shakingCard, setShakingCard] = useState<number | null>(null)
-  const [letters, setLetters] = useState<Letter[]>([])
   const navigate = useNavigate()
   const { uuid } = useParams()
   const { t } = useTranslation()
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null)
 
+  const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
+    useMyLettersQuery(uuid ?? '')
+
+  // 무한 스크롤
   useEffect(() => {
-    const getLetters = async () => {
-      if (!uuid) {
-        console.error('uuid 에러')
-        return
-      }
+    const handleScroll = () => {
+      if (!scrollContainerRef.current) return
+      const container = scrollContainerRef.current
 
-      try {
-        const response = await fetchMyLetters(uuid, 15)
-        setLetters(response.data)
-      } catch (error) {
-        console.error('편지 데이터를 불러오지 못했습니다.', error)
+      if (
+        container.scrollTop + container.clientHeight >= container.scrollHeight - 10 &&
+        hasNextPage &&
+        !isFetchingNextPage
+      ) {
+        fetchNextPage()
       }
     }
 
-    getLetters()
-  }, [])
+    const container = scrollContainerRef.current
+    if (container) {
+      container.addEventListener('scroll', handleScroll)
+    }
 
+    return () => {
+      if (container) {
+        container.removeEventListener('scroll', handleScroll)
+      }
+    }
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage])
+
+  // is_correct중 랜덤 카드 선택
   useEffect(() => {
     const interval = setInterval(() => {
-      const incorrectCards = letters.filter((letter) => !letter.is_correct)
+      const incorrectCards = data?.pages[0]?.data?.filter((letter) => !letter.is_correct) ?? []
 
       if (incorrectCards.length > 0) {
         const randomCard = incorrectCards[Math.floor(Math.random() * incorrectCards.length)]
@@ -56,6 +68,7 @@ const MyLetters = () => {
     return () => clearInterval(interval)
   }, [])
 
+  // 편지 배경 색 추출
   const extractColor = (etc: string | null | undefined) => {
     try {
       if (!etc) return colors.grey[9]
@@ -88,30 +101,31 @@ const MyLetters = () => {
         Center={
           <div css={TitleStyle}>
             {t('myLetters')}
-            <span css={BadgeStyle}>{letters.length}</span>
+            <span css={BadgeStyle}>{data?.pages.flatMap((page) => page.data).length ?? 0}</span>
           </div>
         }
       />
-
-      <div css={GridContainer}>
-        {letters.map((letter) => (
-          <div
-            key={letter.id}
-            css={LetterCardStyle(
-              shakingCard,
-              letter.id,
-              extractColor(letter.letter.etc),
-              letter.thumbnail_url ?? lockImage
-            )}
-            onClick={() => navigate('/tryAnswer')}
-          >
-            {!letter.is_correct && (
-              <div className='lock-letter'>
-                <img src={lockImage} alt='lock-icon' />
-              </div>
-            )}
-          </div>
-        ))}
+      <div css={GridContainer} ref={scrollContainerRef}>
+        {data?.pages.flatMap((page, pageIndex) =>
+          page.data.map((letter) => (
+            <div
+              key={`${letter.id}_${pageIndex}`}
+              css={LetterCardStyle(
+                shakingCard,
+                letter.id,
+                extractColor(letter.letter.etc),
+                letter.thumbnail_url ?? lockImage
+              )}
+              onClick={() => navigate('/tryAnswer')}
+            >
+              {!letter.is_correct && (
+                <div className='lock-letter'>
+                  <img src={lockImage} alt='lock-icon' />
+                </div>
+              )}
+            </div>
+          ))
+        )}
       </div>
     </div>
   )

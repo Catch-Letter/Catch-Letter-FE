@@ -34,13 +34,11 @@ export const fetchMyLetters = async ({
 export const useMyLettersQuery = (uuid: string) => {
   return useInfiniteQuery<LettersResponse>({
     queryKey: ['myLetters', uuid],
-    queryFn: ({ pageParam }) => {
-      console.log('pageParam 값 =>', pageParam, '타입 =>', typeof pageParam)
-      return fetchMyLetters({
+    queryFn: ({ pageParam }) =>
+      fetchMyLetters({
         cursor: typeof pageParam === 'string' ? pageParam : null,
         uuid,
-      })
-    },
+      }),
     initialPageParam: null,
     getNextPageParam: (lastPage) => lastPage?.next_cursor ?? null,
   })
