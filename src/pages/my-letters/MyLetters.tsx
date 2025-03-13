@@ -7,6 +7,7 @@ import {
   BadgeStyle,
   GridContainer,
   LetterCardStyle,
+  SkeletonCardStyle,
 } from './MyLetters.styles'
 import { useTranslation } from 'react-i18next'
 import lockImage from '#/assets/create/lock.png'
@@ -106,26 +107,28 @@ const MyLetters = () => {
         }
       />
       <div css={GridContainer} ref={scrollContainerRef}>
-        {data?.pages.flatMap((page, pageIndex) =>
-          page.data.map((letter) => (
-            <div
-              key={`${letter.id}_${pageIndex}`}
-              css={LetterCardStyle(
-                shakingCard,
-                letter.id,
-                extractColor(letter.letter.etc),
-                letter.thumbnail_url ?? lockImage
-              )}
-              onClick={() => navigate(`/tryAnswer/${uuid}/${letter.id}`)}
-            >
-              {!letter.is_correct && (
-                <div className='lock-letter'>
-                  <img src={lockImage} alt='lock-icon' />
+        {isLoading || isFetching
+          ? Array.from({ length: 6 }).map((_, index) => <div key={index} css={SkeletonCardStyle} />)
+          : data?.pages.flatMap((page, pageIndex) =>
+              page.data.map((letter) => (
+                <div
+                  key={`${letter.id}_${pageIndex}`}
+                  css={LetterCardStyle(
+                    shakingCard,
+                    letter.id,
+                    extractColor(letter.letter.etc),
+                    letter.thumbnail_url ?? lockImage
+                  )}
+                  onClick={() => navigate(`/tryAnswer/${uuid}/${letter.id}`)}
+                >
+                  {!letter.is_correct && (
+                    <div className='lock-letter'>
+                      <img src={lockImage} alt='lock-icon' />
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          ))
-        )}
+              ))
+            )}
       </div>
     </div>
   )

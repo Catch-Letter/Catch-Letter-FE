@@ -10,6 +10,15 @@ const shakeAnimation = keyframes`
   100% { transform: rotate(0deg) translateX(0); }
 `
 
+const shimmer = keyframes`
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+`
+
 export const MyLettersWrapper = css`
   height: 100vh;
   display: flex;
@@ -79,4 +88,19 @@ export const LetterCardStyle = (
     backdrop-filter: blur(1.4px);
     position: relative;
   }
+`
+
+export const SkeletonCardStyle = css`
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  border-radius: 16px;
+  background-color: ${colors.grey[8]};
+  background: linear-gradient(
+    90deg,
+    ${colors.grey[8]} 25%,
+    ${colors.grey[7]} 50%,
+    ${colors.grey[8]} 75%
+  );
+  background-size: 200% 100%;
+  animation: ${shimmer} 2s infinite;
 `
