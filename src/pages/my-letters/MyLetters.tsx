@@ -13,9 +13,11 @@ import { useTranslation } from 'react-i18next'
 import lockImage from '#/assets/create/lock.png'
 import { colors } from '#/styles/color'
 import { useMyLettersQuery } from '#/api/myLetters'
+import { fetchUUID } from '#/api/uuid'
 
 const MyLetters = () => {
   const [shakingCard, setShakingCard] = useState<number | null>(null)
+  const [letterCount, setLetterCount] = useState<number | null>(null)
   const navigate = useNavigate()
   const { uuid } = useParams()
   const { t } = useTranslation()
@@ -23,6 +25,23 @@ const MyLetters = () => {
 
   const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
     useMyLettersQuery(uuid ?? '')
+
+  // 편지 전체 갯수 조회
+  useEffect(() => {
+    const fetchMyLettersCount = async () => {
+      if (!uuid) {
+        return
+      }
+      try {
+        const res = await fetchUUID(uuid)
+        setLetterCount(res.letter_count)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    fetchMyLettersCount()
+  }, [uuid])
 
   // 무한 스크롤
   useEffect(() => {
@@ -102,7 +121,8 @@ const MyLetters = () => {
         Center={
           <div css={TitleStyle}>
             {t('myLetters')}
-            <span css={BadgeStyle}>{data?.pages.flatMap((page) => page.data).length ?? 0}</span>
+            {/* <span css={BadgeStyle}>{data?.pages.flatMap((page) => page.data).length ?? 0}</span> */}
+            <span css={BadgeStyle}>{letterCount ?? 0}</span>
           </div>
         }
       />
