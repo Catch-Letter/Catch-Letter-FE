@@ -9,10 +9,11 @@ import { InputHTMLAttributes, useRef, useState } from 'react'
 interface SeparatedInputProps extends InputHTMLAttributes<HTMLInputElement> {
   length: number
   label?: string
+  type?: string
   onChangeValue?: (value: string) => void
 }
 
-const SeparatedInput: React.FC<SeparatedInputProps> = ({ label, length, onChangeValue }) => {
+const SeparatedInput: React.FC<SeparatedInputProps> = ({ label, length, type, onChangeValue }) => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([])
   const [inputValues, setInputValues] = useState<string[]>(Array(length).fill(''))
   const [isComposing, setIsComposing] = useState(false)
@@ -58,12 +59,19 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({ label, length, onChange
       if (currentInput && !currentInput.value && inputRefs.current[index - 1]) {
         inputRefs.current[index - 1]?.focus()
       }
+      return
+    }
+
+    //숫자만 입력 가능한 비밀번호
+    if (type === 'password' && isNaN(Number(e.key))) {
+      e.preventDefault()
     }
   }
 
   const inputs = Array.from({ length }, (_, index) => (
     <input
       key={index}
+      type={type}
       ref={(el) => (inputRefs.current[index] = el)}
       onChange={(e) => handleInputChange(e, index)}
       onCompositionStart={(e) => handleComposition(e, index)}

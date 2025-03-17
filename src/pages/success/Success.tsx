@@ -5,6 +5,7 @@ import { BackHeader } from '#/components'
 import { useLocation } from 'react-router'
 import countTimer from '#/shared/utils/countTimer'
 import { useTranslation } from 'react-i18next'
+import { Background } from '#/shared/ui/background'
 
 const Success = () => {
   const { t } = useTranslation()
@@ -15,6 +16,7 @@ const Success = () => {
 
   return (
     <div css={SuccessStyle}>
+      <Background gradientType='halfGradient' />
       <BackHeader />
       <div css={SuccessWrapper}>
         <DescLink
