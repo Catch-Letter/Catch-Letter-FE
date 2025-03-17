@@ -4,12 +4,36 @@ import SeparatedInput from '#/shared/ui/separated-input/separated-input'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { IoTriangle } from 'react-icons/io5'
 import { CheckAnswerStyles } from './CheckAnswer.styles'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Background } from '#/shared/ui/background'
+import { apiClient } from '#/api/apiClient'
+import { API_ENDPOINTS } from '#/api/apiEndpoints'
+import { useParams } from 'react-router'
 
 const CheckAnswer = () => {
+  const { uuid } = useParams()
   const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
   const [isFlipped, setIsFlipped] = useState(false)
+  const [answerLength, setAnswerLength] = useState(4)
+
+  const letterId = 16 //추후 삭제 및 변경 필요
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!uuid) return
+      try {
+        const response = await apiClient.get(API_ENDPOINTS.GET_LETTER(uuid, letterId))
+        const answerData = response?.data?.[0]
+        if (answerData && answerData.answer_length) {
+          setAnswerLength(answerData.answer_length)
+        }
+      } catch (error) {
+        console.error('Error fetching letter data:', error)
+      }
+    }
+
+    fetchData()
+  }, [uuid, letterId])
 
   const handleCardClick = () => {
     setIsFlipped((prev) => !prev)
@@ -33,7 +57,7 @@ const CheckAnswer = () => {
       <BackHeader />
       <div css={CheckAnswerStyles(isFlipped)}>
         <button className='btn-copy'>우리의 암호</button>
-        <SeparatedInput length={6} />
+        <SeparatedInput length={answerLength} />
         <div className='content' onClick={handleCardClick}>
           <div className='cardFront'>
             <LetterCard type={selectedColor}>

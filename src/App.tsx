@@ -35,7 +35,7 @@ const App = () => {
               <Route path='/postform' element={<CreatePostForm />} />
               <Route path='/success' element={<Success />} />
               <Route path='/receivedletter/:uuid' element={<LetterReceived />} />
-              <Route path='/checkanswer' element={<CheckAnswer />} />
+              <Route path='/checkanswer/:uuid/:letterId' element={<CheckAnswer />} />
               <Route path='/tryAnswer' element={<TryAnswer />} />
               <Route path='/:uuid/drawing' element={<Drawing />} />
             </Route>
