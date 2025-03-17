@@ -10,6 +10,9 @@ export interface Letter {
   deleted_at: string | null
   answer_length: number
   thumbnail_url: string | null
+  letter: {
+    etc: string
+  }
 }
 
 export interface LettersResponse {
