@@ -6,11 +6,13 @@ import { useLocation, useNavigate, useParams } from 'react-router'
 import { ChoiceLetterStyle, ChoiceLetterWrapper } from './ChoiceLetter.styles'
 import { Background } from '#/shared/ui/background'
 import { fetchSendLetter } from '#/api/sendLetter'
+import { useTranslation } from 'react-i18next'
 
 const ChoiceLetter = () => {
   const { uuid, id } = useParams()
   const navigate = useNavigate()
   const location = useLocation()
+  const { t } = useTranslation()
   const letter = location.state
   const { selectedColor, selectedFont, selectedPattern, resetStore } = useLetterCreationStore()
 
@@ -55,7 +57,7 @@ const ChoiceLetter = () => {
   return (
     <div css={ChoiceLetterWrapper}>
       <Background color={selectedColor} />
-      <BackHeader Center='편지지 고르기' />
+      <BackHeader Center={t('theme.title')} />
       <div css={ChoiceLetterStyle}>
         <div className='content'>
           <LetterCard type={selectedColor} height='500px'>
@@ -70,10 +72,10 @@ const ChoiceLetter = () => {
         <Tab />
         <div className='button-area'>
           <Button variant='secondary' width={82} onClick={handlePrev}>
-            이전
+            {t('before')}
           </Button>
           <Button width={245} onClick={() => handleSendLetter(uuid, Number(id))}>
-            편지 보내기
+            {t('theme.sendLetter')}
           </Button>
         </div>
       </div>

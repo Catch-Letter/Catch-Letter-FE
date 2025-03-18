@@ -27,7 +27,7 @@
     "invalidMessage3": "You can't use special characters and spaces! :("
   },
   "write": {
-    "title": "Write a Letter",
+    "title": "Write a Secret Letter",
     "to": "Who is the recipient of the letter?",
     "from": "Who is the writer of the Letter?",
     "content": "Write a letter to the recipient!",
@@ -37,9 +37,25 @@
       "Write about your most memorable memory with the recipient.",
       "Write about something you'd like to do together in the future or a wish."
     ],
-    "theme": "Choose Letter Theme!"
+    "chooseTheme": "Choose Letter Theme!"
   },
-  "myLetters":"My Letters",
+  "theme": {
+    "title": "Choose Letter Theme",
+    "color": "Color",
+    "pattern": "Pattern",
+    "font": "Font",
+    "default": "Default",
+    "handwritten1": "handWritten",
+    "handwritten2": "Cursive",
+    "sendLetter": "Send Letter"
+  },
+  "send": {
+    "desc": "You sent a letter to your friend!",
+    "keydesc": "Your friend needs to unlock the code read your letter!",
+    "createbtn": "Go make my mailbox",
+    "done": "Done"
+  },
+  "myLetters": "My Letters",
   "submit": "Submit",
   "before": "Before"
 }
