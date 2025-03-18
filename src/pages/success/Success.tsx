@@ -19,14 +19,18 @@ const Success = () => {
       <Background gradientType='halfGradient' />
       <BackHeader />
       <div css={SuccessWrapper}>
-        <DescLink
-          title={t('create.link')}
-          link={link}
-          btnName={t('create.btncopy')}
-          desc={t('create.desc')}
-        />
+        <div className='area_desc'>
+          <DescLink
+            title={t('create.link')}
+            link={link}
+            btnName={t('create.btncopy')}
+            desc={t('create.desc')}
+          />
+        </div>
         <TimeArea title='우체통 열람가능 시간' time={leftTime} />
-        <Button width={343}>내 우체통 공유하기!</Button>
+        <Button className='btn_share' width={343}>
+          내 우체통 공유하기!
+        </Button>
       </div>
     </div>
   )
