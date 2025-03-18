@@ -53,7 +53,7 @@ const LetterWrite = () => {
 
   return (
     <div css={LetterWriteWrapper}>
-      <BackHeader Center='비밀편지 쓰기' />
+      <BackHeader Center={t('write.title')} />
       <div css={LetterWriteStyle}>
         <div className='content'>
           <div className='input-to'>
@@ -85,7 +85,7 @@ const LetterWrite = () => {
             onClick={handleChoiceLetter}
             disabled={!recipient || !sender || !content}
           >
-            {t('write.theme')}
+            {t('write.chooseTheme')}
           </Button>
         </div>
       </div>
