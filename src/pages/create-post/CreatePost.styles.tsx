@@ -13,17 +13,29 @@ export const CreatePostStyle = css`
   }
 
   .title {
-    font-size: 32px;
+    font-size: 34px;
     font-weight: 700;
+
+    @media (width<768px) {
+      font-size: 32px;
+    }
   }
 
   .sub-title {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 500;
+
+    @media (width<768px) {
+      font-size: 16px;
+    }
   }
 
   .create-btn {
-    margin-top: 104px;
+    margin-top: 20%;
+
+    @media (width>768px) {
+      width: 50%;
+    }
   }
 `
 
@@ -31,5 +43,5 @@ export const CreateWrapper = css`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 18px;
+  margin-top: 10%;
 `
