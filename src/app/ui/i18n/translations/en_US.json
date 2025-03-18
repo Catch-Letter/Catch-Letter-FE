@@ -3,6 +3,9 @@
   "hello": "Hello",
   "correct": "Correct",
   "create": {
+    "introMessage": "Guess the picture correctly to see their feelings!",
+    "createPost": "Create my letterbox",
+    "cardMessage": "Guess the picture to read the letter",
     "name": "Letterbox name",
     "name_desc": "Please create a letterbox name.",
     "password": "Letterbox password",

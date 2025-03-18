@@ -3,6 +3,9 @@
   "hello": "안녕하세요",
   "correct": "정답",
   "create": {
+    "introMessage": "그림을 맞추고 상대방의 마음을 확인해요!",
+    "cardMessage": "그림을 맞추면 편지를 읽을 수 있어요!",
+    "createPost": "내 우체통 만들기",
     "name": "우체통 이름",
     "name_desc": "우체통 이름을 지어주세요.",
     "password": "우체통 비밀번호",
