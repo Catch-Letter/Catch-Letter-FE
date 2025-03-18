@@ -9,7 +9,18 @@ export const CreateFormStyle = css`
     flex-direction: column;
     gap: 24px;
     width: 343px;
-    margin-bottom: 282px;
+
+    @media (width >= 768px) {
+      width: 60%;
+    }
+  }
+
+  .btn_submit {
+    margin-top: 248px;
+
+    @media (width >= 768px) {
+      width: 60%;
+    }
   }
 `
 
@@ -17,7 +28,7 @@ export const FormWrapper = css`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 55px;
+  margin-top: 10%;
 
   .notice {
     font-size: 14px;

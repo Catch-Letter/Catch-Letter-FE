@@ -4,9 +4,8 @@ import { css } from '@emotion/react'
 export const DescLinkStyle = css`
   display: flex;
   flex-direction: column;
-  width: 280px;
   color: #fff;
-  margin: 42px 67px 0 35px;
+  width: 100%;
   box-sizing: border-box;
   flex-wrap: wrap;
 
@@ -25,7 +24,6 @@ export const DescLinkStyle = css`
   .desc {
     font-size: 14px;
     margin-top: 12px;
-    margin-bottom: 260px;
     white-space: pre-line;
   }
 
