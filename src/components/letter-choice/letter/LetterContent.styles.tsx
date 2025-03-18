@@ -59,7 +59,7 @@ export const LetterContentStyle = (
 
     .letter {
       position: relative;
-      min-height: 293px;
+      min-height: 78%;
       white-space: pre-wrap;
       overflow-y: auto;
       line-height: 30px;

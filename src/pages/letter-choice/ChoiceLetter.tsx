@@ -58,7 +58,7 @@ const ChoiceLetter = () => {
       <BackHeader Center='편지지 고르기' />
       <div css={ChoiceLetterStyle}>
         <div className='content'>
-          <LetterCard type={selectedColor}>
+          <LetterCard type={selectedColor} height='500px'>
             <LetterContent
               {...letter}
               color={selectedColor}
