@@ -6,6 +6,7 @@ import { BackHeader } from '#/components'
 import { Background } from '#/shared/ui/background'
 import { Button, InputField } from '#/shared/ui'
 import { Canvas, DrawingIntro } from '#/components/drawing'
+import { answerValidate, isAnswerInvalid } from '#/shared/utils/answerValidation'
 import { useDrawingSubmit } from '#/hooks/useDrawingSubmit'
 import { useTranslation } from 'react-i18next'
 
@@ -17,24 +18,8 @@ const Drawing = () => {
 
   const stageRef = useRef<Konva.Stage | null>(null)
 
-  const specialCharRegex = /[^a-zA-Z0-9가-힣]/
-  const isInvalid =
-    answer.trim().length === 0 || answer.trim().length > 8 || specialCharRegex.test(answer)
-
-  const getInvalidMessage = (answer: string) => {
-    if (answer.trim().length === 0) {
-      return t('draw.invalidMessage1')
-    }
-    if (answer.trim().length > 8) {
-      return t('draw.invalidMessage2')
-    }
-    if (/[^a-zA-Z0-9가-힣]/.test(answer)) {
-      return t('draw.invalidMessage3')
-    }
-    return ''
-  }
-
-  const invalidMessage = getInvalidMessage(answer)
+  const invalidMessage = answerValidate(answer, t)
+  const isInvalid = isAnswerInvalid(answer)
 
   const { handleUpload } = useDrawingSubmit(uuid, answer, stageRef)
 
