@@ -8,7 +8,7 @@ import { Background } from '#/shared/ui/background'
 import SeparatedInput from '#/shared/ui/separated-input/separated-input'
 // import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { getDraw } from '#/api/getDraw'
 import { getAnswerStatus } from '#/api/getAnswerStatus'
 import { useLocation } from 'react-router'
@@ -16,6 +16,7 @@ import { useLocation } from 'react-router'
 const TryAnswer = () => {
   // const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
   const { uuid, id } = useParams()
+  const navigate = useNavigate()
   const location = useLocation()
   const answerLength = location.state?.answerLength || 6
   const maxChances = 3
@@ -30,7 +31,8 @@ const TryAnswer = () => {
     from: string
     content: string
   } | null>(null)
-  const [imageUrl, setImageUrl] = useState<string | null>(null) // 배경 이미지 URL 상태 추가
+  const [imageUrl, setImageUrl] = useState<string | null>(null)
+  const [buttonText, setButtonText] = useState<string>('확인')
 
   //편지내용 가져오기
   useEffect(() => {
@@ -62,7 +64,6 @@ const TryAnswer = () => {
           const response = await getDraw(uuid, Number(id))
           if (response && response.data && response.data.presigned_url) {
             setImageUrl(response.data.presigned_url)
-            console.log('presigned_url', response.data.presigned_url)
           }
         } catch (error) {
           console.error('getDrawError:', error)
@@ -79,8 +80,15 @@ const TryAnswer = () => {
         try {
           const response = await getAnswerStatus(uuid, Number(id))
           if (response && response.data) {
-            setResponseMessage(response.message)
-            setChances(3 - response.data.try)
+            // response.data가 빈 배열일 경우(이미 맞춘 정답에 접근하는 경우)
+            if (Array.isArray(response.data) && response.data.length === 0) {
+              setIsCorrect(true) // 이미 맞춘 정답 표시
+              setResponseMessage('정답입니다!')
+              setButtonText('편지 확인')
+            } else {
+              setResponseMessage(response.message)
+              setChances(3 - response.data.try)
+            }
           }
         } catch (error) {
           console.error('Error fetching answer status:', error)
@@ -131,6 +139,7 @@ const TryAnswer = () => {
       if (response.success) {
         setIsCorrect(true)
         setResponseMessage(response.message)
+        setButtonText('편지 확인')
       } else {
         handleWrongAttempt()
         setResponseMessage(response.message)
@@ -138,6 +147,12 @@ const TryAnswer = () => {
     } catch (error) {
       console.error(error)
       setResponseMessage('예상치 못한 오류가 발생했습니다.')
+    }
+  }
+
+  const handleNavigate = () => {
+    if (isCorrect) {
+      navigate('/checkAnswer') // 정답일 때만 checkAnswer 페이지로 이동
     }
   }
 
@@ -175,8 +190,12 @@ const TryAnswer = () => {
           <SeparatedInput length={answerLength} onChangeValue={handleInputChange} />
         </div>
         <div className='button-area'>
-          <Button onClick={handleTryAnswer} disabled={chances === 0 || isCorrect} width={142}>
-            확인
+          <Button
+            onClick={isCorrect ? handleNavigate : handleTryAnswer}
+            disabled={chances === 0}
+            width={142}
+          >
+            {buttonText}
           </Button>
         </div>
       </div>
