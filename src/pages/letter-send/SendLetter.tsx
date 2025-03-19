@@ -21,7 +21,7 @@ const SendLetter = () => {
       <Header />
       <div css={SendLetterStyle}>
         <SendDesc title={t('send.desc')} subTitle={t('send.keydesc')} />
-        <SendCard content='/santa.svg' />
+        <SendCard content={location.state?.img} />
         <div className='button-area'>
           <Button width={339} onClick={handleCreatePost}>
             {t('send.createbtn')}

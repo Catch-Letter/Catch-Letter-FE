@@ -33,6 +33,7 @@ const ChoiceLetter = () => {
       navigate('/sendletter', {
         state: {
           color: selectedColor,
+          img: location.state?.img,
         },
       })
       resetStore()

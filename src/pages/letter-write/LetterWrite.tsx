@@ -22,6 +22,7 @@ const LetterWrite = () => {
         to: recipient,
         content,
         from: sender,
+        img: location.state?.img,
       },
     })
   }
