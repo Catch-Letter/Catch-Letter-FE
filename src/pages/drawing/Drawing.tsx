@@ -1,86 +1,27 @@
+import { useState, useRef } from 'react'
+import { useParams } from 'react-router'
+import { DrawingWrapper, FormWrapper } from '#/pages/drawing/Drawing.styles'
+import Konva from 'konva'
 import { BackHeader } from '#/components'
 import { Background } from '#/shared/ui/background'
 import { Button, InputField } from '#/shared/ui'
-import { useState, useRef } from 'react'
-import { DrawingWrapper, FormWrapper } from '#/pages/drawing/Drawing.styles'
-import { useNavigate, useParams } from 'react-router'
 import { Canvas, DrawingIntro } from '#/components/drawing'
-import { requestDrawUpload, uploadImageToPresignedUrl } from '#/api/draw'
-import Konva from 'konva'
+import { answerValidate, isAnswerInvalid } from '#/shared/utils/answerValidation'
+import { useDrawingSubmit } from '#/hooks/useDrawingSubmit'
 import { useTranslation } from 'react-i18next'
 
 const Drawing = () => {
   const [answer, setAnswer] = useState('')
   const [isDrawingMode, setIsDrawingMode] = useState(false)
-  const navigate = useNavigate()
   const { uuid } = useParams()
   const { t } = useTranslation()
 
   const stageRef = useRef<Konva.Stage | null>(null)
 
-  const specialCharRegex = /[^a-zA-Z0-9가-힣]/
-  const isInvalid =
-    answer.trim().length === 0 || answer.trim().length > 8 || specialCharRegex.test(answer)
+  const invalidMessage = answerValidate(answer, t)
+  const isInvalid = isAnswerInvalid(answer)
 
-  const getInvalidMessage = (answer: string) => {
-    if (answer.trim().length === 0) {
-      return t('draw.invalidMessage1')
-    }
-    if (answer.trim().length > 8) {
-      return t('draw.invalidMessage2')
-    }
-    if (/[^a-zA-Z0-9가-힣]/.test(answer)) {
-      return t('draw.invalidMessage3')
-    }
-    return ''
-  }
-
-  const invalidMessage = getInvalidMessage(answer)
-
-  const handleSubmit = async () => {
-    if (!uuid) {
-      console.error('uuid 에러')
-      return
-    }
-
-    if (!stageRef.current) {
-      console.error('Canvas가 초기화되지 않았습니다.')
-      return
-    }
-
-    try {
-      const stage = stageRef.current
-
-      // svg 변환
-      const svgDataURL = stage.toDataURL({ mimeType: 'image/svg+xml' })
-      const svgBlob = new Blob([svgDataURL], { type: 'image/svg+xml' })
-      const svgFile = new File([svgBlob], 'drawing.svg', { type: 'image/svg+xml' })
-
-      // png 변환
-      const pngBlob = (await stage.toBlob({ mimeType: 'image/png' })) as Blob
-
-      if (!pngBlob) {
-        console.error('png 변환 안됨')
-        return
-      }
-
-      const pngFile = new File([pngBlob], 'thumbnail.png', { type: 'image/png' })
-
-      const response = await requestDrawUpload(uuid, answer)
-      const { presigned_url, thumbnail_presigned_url } = response
-
-      await uploadImageToPresignedUrl(presigned_url, svgFile)
-      await uploadImageToPresignedUrl(thumbnail_presigned_url, pngFile)
-
-      navigate(`/writeletter/${uuid}/${response.id}`, {
-        state: {
-          img: presigned_url,
-        },
-      })
-    } catch (error) {
-      console.error('업로드 실패', error)
-    }
-  }
+  const { handleUpload } = useDrawingSubmit(uuid, answer, stageRef)
 
   return (
     <div css={DrawingWrapper}>
@@ -107,7 +48,7 @@ const Drawing = () => {
         </div>
 
         <div className='button-wrapper'>
-          <Button width={142} onClick={handleSubmit} disabled={!answer || isInvalid}>
+          <Button width={142} onClick={handleUpload} disabled={!answer || isInvalid}>
             {t('draw.button')}
           </Button>
         </div>
