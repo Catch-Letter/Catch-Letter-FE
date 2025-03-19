@@ -47,4 +47,5 @@ export const CreateWrapper = css`
   align-items: center;
   justify-content: center;
   flex-grow: 1;
+  margin-bottom: 100px;
 `

@@ -31,7 +31,7 @@ export const FormWrapper = css`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 100px;
+  margin-bottom: 200px;
   flex-grow: 1;
 
   .notice {
