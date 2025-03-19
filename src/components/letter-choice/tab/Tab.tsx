@@ -1,26 +1,33 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { TabItem, TabStyle } from './Tab.styles'
 import { SelectColor, SelectFont, SelectPattern } from '#/components/letter-choice'
-
-const tabItem = ['색상', '패턴', '글꼴'] as const
+import { useTranslation } from 'react-i18next'
 
 const Tab = () => {
-  const [selectedItem, setSelectedItem] = useState<(typeof tabItem)[number]>(tabItem[0])
+  const { t } = useTranslation()
+  const [tabItem, setTabItem] = useState<string[]>([])
+  const [selectedItem, setSelectedItem] = useState<string>('')
 
-  const handleClickItem = (item: (typeof tabItem)[number]) => {
+  const handleClickItem = (item: string) => {
     setSelectedItem(item)
   }
 
-  const renderItem = (selectedItem: (typeof tabItem)[number]) => {
+  const renderItem = (selectedItem: string) => {
     switch (selectedItem) {
-      case '색상':
+      case `${t('theme.color')}`:
         return <SelectColor />
-      case '패턴':
+      case `${t('theme.pattern')}`:
         return <SelectPattern />
-      case '글꼴':
+      case `${t('theme.font')}`:
         return <SelectFont />
     }
   }
+
+  useEffect(() => {
+    const items = [t('theme.color'), t('theme.pattern'), t('theme.font')]
+    setTabItem(items)
+    setSelectedItem(items[0]) // 언어 변경 시 첫 번째 항목 선택
+  }, [t])
 
   return (
     <div css={TabStyle}>

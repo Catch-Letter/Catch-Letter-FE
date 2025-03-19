@@ -8,7 +8,7 @@ export const CardStyle = ({ background, height, width }: CardProps) => css`
   border-radius: 24px;
   box-sizing: border-box;
   width: ${width || '100%'};
-  height: ${height || '473px'};
+  height: ${height || '100%'};
   padding: 25px 21px;
 
   background: ${background || colors.grey[3]};
