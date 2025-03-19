@@ -20,7 +20,6 @@ export const convertStageToSVG = (stage: Konva.Stage | null): string | null => {
                 stroke-width="${child.attrs.strokeWidth ?? 3}" 
                 fill="none" />`
       }
-      return ''
     })
     .join('')
 
