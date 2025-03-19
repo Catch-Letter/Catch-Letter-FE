@@ -49,7 +49,11 @@ export const useDrawingSubmit = (
       await uploadImageToPresignedUrl(presigned_url, svgFile)
       await uploadImageToPresignedUrl(thumbnail_presigned_url, pngFile)
 
-      navigate(`/writeletter/${uuid}/${response.id}`)
+      navigate(`/writeletter/${uuid}/${response.id}`, {
+        state: {
+          img: presigned_url,
+        },
+      })
     } catch (error) {
       console.error('업로드 실패', error)
     }
