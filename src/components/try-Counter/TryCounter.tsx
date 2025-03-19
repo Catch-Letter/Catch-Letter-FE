@@ -9,7 +9,7 @@ interface TryCounterProps {
 }
 
 const TryCounter: React.FC<TryCounterProps> = ({ chances, timeLeft, isCorrect, message }) => {
-  const defaultMessage = '3번의 기회가 남았어요!' // 기본 메시지
+  const defaultMessage = '남은 기회 불러오는중...'
   const displayMessage = message ?? defaultMessage
 
   const emojiArray = Array(3 - chances)
