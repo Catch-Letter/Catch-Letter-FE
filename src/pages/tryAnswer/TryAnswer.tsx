@@ -72,14 +72,15 @@ const TryAnswer = () => {
     getDrawData()
   }, [uuid, id])
 
+  //정답 상태 가져오기
   useEffect(() => {
     if (uuid && id) {
       const fetchAnswerStatus = async () => {
         try {
           const response = await getAnswerStatus(uuid, Number(id))
           if (response && response.data) {
-            console.log('Fetched message:', response.message)
             setResponseMessage(response.message)
+            setChances(3 - response.data.try)
           }
         } catch (error) {
           console.error('Error fetching answer status:', error)
