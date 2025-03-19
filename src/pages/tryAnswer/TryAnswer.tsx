@@ -2,16 +2,17 @@ import { postTryAnswer } from '#/api/postTryAnswer'
 import { letter } from '#/api/letter'
 import { BackHeader, LetterCard, LetterContent } from '#/components'
 import { TryCounter } from '#/components/try-Counter'
-import { TryAnswerStyle } from '#/pages/tryAnswer/TryAnswer.styles'
+import { LetterCardStyle, TryAnswerStyle } from '#/pages/tryAnswer/TryAnswer.styles'
 import { Button } from '#/shared/ui'
 import { Background } from '#/shared/ui/background'
 import SeparatedInput from '#/shared/ui/separated-input/separated-input'
-import { useLetterCreationStore } from '#/store/letterCreateStore'
+// import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
+import { getDraw } from '#/api/getDraw'
 
 const TryAnswer = () => {
-  const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
+  // const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
   const { uuid, id } = useParams()
 
   const maxChances = 3
@@ -26,12 +27,13 @@ const TryAnswer = () => {
     from: string
     content: string
   } | null>(null)
+  const [imageUrl, setImageUrl] = useState<string | null>(null) // 배경 이미지 URL 상태 추가
 
   useEffect(() => {
-    if (uuid && id) {
-      letter(uuid, Number(id))
-        .then((response) => {
-          console.log('API Response:', response) // 응답 확인용 로그 추가
+    const fetchLetterData = async () => {
+      if (uuid && id) {
+        try {
+          const response = await letter(uuid, Number(id))
           if (response && response.data) {
             setLetterData({
               to: response.data.to,
@@ -39,11 +41,30 @@ const TryAnswer = () => {
               content: response.data.contents,
             })
           }
-        })
-        .catch((error) => {
+        } catch (error) {
           console.error('Error fetching letter data:', error)
-        })
+        }
+      }
     }
+
+    fetchLetterData()
+  }, [uuid, id])
+
+  useEffect(() => {
+    const getDrawData = async () => {
+      if (uuid && id) {
+        try {
+          const response = await getDraw(uuid, Number(id))
+          if (response && response.data && response.data.presigned_url) {
+            setImageUrl(response.data.presigned_url)
+            console.log('presigned_url', response.data.presigned_url)
+          }
+        } catch (error) {
+          console.error('getDrawError:', error)
+        }
+      }
+    }
+    getDrawData()
   }, [uuid, id])
 
   useEffect(() => {
@@ -112,16 +133,17 @@ const TryAnswer = () => {
           className={`LetterCard-container ${isShaking ? 'shake' : ''} ${isCorrect ? 'glowing' : ''}`}
         >
           {letterData ? (
-            <LetterCard type={selectedColor}>
-              <LetterContent
-                to={letterData.to}
-                content={letterData.content}
-                from={letterData.from}
-                color={selectedColor}
-                pattern={selectedPattern}
-                font={selectedFont}
-              />
-            </LetterCard>
+            // <LetterCard type={selectedColor}>
+            //   <LetterContent
+            //     to={letterData.to}
+            //     content={letterData.content}
+            //     from={letterData.from}
+            //     color={selectedColor}
+            //     pattern={selectedPattern}
+            //     font={selectedFont}
+            //   />
+            // </LetterCard>
+            <div css={LetterCardStyle(imageUrl || '')}></div>
           ) : (
             <p>편지를 불러오는 중...</p>
           )}

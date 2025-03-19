@@ -1,11 +1,21 @@
 import { apiClient } from '#/api/apiClient'
 import { API_ENDPOINTS } from '#/api/apiEndpoints'
+const TOKEN = import.meta.env.VITE_API_TOKEN
 
 export const postTryAnswer = async (uuid: string, letterId: number, answer: string) => {
   try {
-    const res = await apiClient.post(API_ENDPOINTS.TRY_ANSWER(uuid, letterId), {
-      answer,
-    })
+    console.log('postTryAnswer 요청:', { uuid, letterId, answer })
+    const res = await apiClient.post(
+      API_ENDPOINTS.TRY_ANSWER(uuid, letterId),
+      { answer },
+      {
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+        },
+      }
+    )
+
+    console.log('postTryAnswer 응답:', res.data)
 
     if (res.data?.result === 'success') {
       return {
