@@ -5,7 +5,7 @@ const TOKEN = import.meta.env.VITE_API_TOKEN
 
 export const getAnswerStatus = async (uuid: string, letterId: number) => {
   try {
-    const res = await apiClient.post(API_ENDPOINTS.GET_ANSWER_STATUS(uuid, letterId), {
+    const res = await apiClient.get(API_ENDPOINTS.GET_ANSWER_STATUS(uuid, letterId), {
       headers: {
         Authorization: `Bearer ${TOKEN}`,
       },

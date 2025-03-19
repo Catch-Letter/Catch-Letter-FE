@@ -10,6 +10,7 @@ import SeparatedInput from '#/shared/ui/separated-input/separated-input'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { getDraw } from '#/api/getDraw'
+import { getAnswerStatus } from '#/api/getAnswerStatus'
 
 const TryAnswer = () => {
   // const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
@@ -73,17 +74,18 @@ const TryAnswer = () => {
     if (uuid && id) {
       const fetchAnswerStatus = async () => {
         try {
-          // const response = await getAnswerStatus(uuid, Number(id))
-          // if (response && response.data) {
-          //   setIsCorrect(response.data.is_correct)
-          // }
+          const response = await getAnswerStatus(uuid, Number(id))
+          if (response && response.data) {
+            console.log('Fetched message:', response.message)
+            setResponseMessage(response.message)
+          }
         } catch (error) {
           console.error('Error fetching answer status:', error)
         }
       }
       fetchAnswerStatus()
     }
-  })
+  }, [uuid, id])
 
   useEffect(() => {
     if (chances === 0) {
