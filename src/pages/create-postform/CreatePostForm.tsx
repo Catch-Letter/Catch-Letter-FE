@@ -40,12 +40,12 @@ const CreatePostForm = () => {
     setPassword(value)
   }
 
-  const nameMessage = isInvalid ? '우체통 이름을 입력해주세요 :)' : ''
+  const nameMessage = isInvalid ? `${t('create.invalidMessage')}` : ''
 
   return (
     <div css={CreateFormStyle}>
       <Background gradientType='halfGradient' />
-      <BackHeader Center='우체통 발급' />
+      <BackHeader Center={t('create.title')} />
       <div css={FormWrapper}>
         <div className='form'>
           <InputField
@@ -54,9 +54,9 @@ const CreatePostForm = () => {
             value={name}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onCheckName(e.target.value)}
             maxLength={15}
-            helpMessage='우체통 이름은 15글자 이내로 입력해주세요.'
+            helpMessage={t('create.helpMessage')}
             isInvalid={isInvalid}
-            validMessage={'사용할 수 있는 이름입니다 :)'}
+            validMessage={t('create.validMessage')}
             invalidMessage={nameMessage}
           />
           <SeparatedInput
