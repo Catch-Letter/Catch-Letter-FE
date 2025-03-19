@@ -4,7 +4,7 @@ import Konva from 'konva'
 import { requestDrawUpload, uploadImageToPresignedUrl } from '#/api/draw'
 import { convertStageToSVG } from '#/shared/utils/convertToSvg'
 
-export const useDrawingUpload = (
+export const useDrawingSubmit = (
   uuid: string | undefined,
   answer: string,
   stageRef: React.RefObject<Konva.Stage>

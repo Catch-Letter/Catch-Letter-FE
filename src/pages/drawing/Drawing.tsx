@@ -6,7 +6,7 @@ import { BackHeader } from '#/components'
 import { Background } from '#/shared/ui/background'
 import { Button, InputField } from '#/shared/ui'
 import { Canvas, DrawingIntro } from '#/components/drawing'
-import { useDrawingUpload } from '#/hooks/useDrawingUpload'
+import { useDrawingSubmit } from '#/hooks/useDrawingSubmit'
 import { useTranslation } from 'react-i18next'
 
 const Drawing = () => {
@@ -36,7 +36,7 @@ const Drawing = () => {
 
   const invalidMessage = getInvalidMessage(answer)
 
-  const { handleUpload } = useDrawingUpload(uuid, answer, stageRef)
+  const { handleUpload } = useDrawingSubmit(uuid, answer, stageRef)
 
   return (
     <div css={DrawingWrapper}>
