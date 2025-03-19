@@ -17,7 +17,7 @@ export const convertStageToSVG = (stage: Konva.Stage | null): string | null => {
       if (child.className === 'Line' && child.attrs.points.length > 0) {
         return `<polyline points="${child.attrs.points.join(' ')}" 
                 stroke="${child.attrs.stroke ?? 'black'}" 
-                stroke-width="${child.attrs.strokeWidth ?? 2}" 
+                stroke-width="${child.attrs.strokeWidth ?? 3}" 
                 fill="none" />`
       }
       return ''
