@@ -11,11 +11,13 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { getDraw } from '#/api/getDraw'
 import { getAnswerStatus } from '#/api/getAnswerStatus'
+import { useLocation } from 'react-router'
 
 const TryAnswer = () => {
   // const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
   const { uuid, id } = useParams()
-
+  const location = useLocation()
+  const answerLength = location.state?.answerLength || 6
   const maxChances = 3
   const [chances, setChances] = useState<number>(maxChances)
   const [isShaking, setIsShaking] = useState(false)
@@ -169,7 +171,7 @@ const TryAnswer = () => {
           )}
         </div>
         <div className='Input-area'>
-          <SeparatedInput length={6} onChangeValue={handleInputChange} />
+          <SeparatedInput length={answerLength} onChangeValue={handleInputChange} />
         </div>
         <div className='button-area'>
           <Button onClick={handleTryAnswer} disabled={chances === 0 || isCorrect} width={142}>
