@@ -57,10 +57,7 @@ export const FrontCard = css`
 
   .top {
     font-weight: 700;
-  }
-
-  .bottom {
-    font-weight: 400;
+    padding: 0 16px;
   }
 `
 export const BackCard = css`

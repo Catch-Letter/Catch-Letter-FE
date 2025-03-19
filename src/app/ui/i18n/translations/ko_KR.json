@@ -3,13 +3,22 @@
   "hello": "안녕하세요",
   "correct": "정답",
   "create": {
+    "title": "우체통 발급",
+    "introMessage": "그림을 맞추고 상대방의 마음을 확인해요!",
+    "cardMessage": "그림을 맞추면 편지를 읽을 수 있어요!",
+    "createPost": "내 우체통 만들기",
     "name": "우체통 이름",
     "name_desc": "우체통 이름을 지어주세요.",
+    "helpMessage": "우체통 이름은 15글자 이내로 입력해주세요.",
+    "validMessage": "사용할 수 있는 이름입니다 :)",
+    "invalidMessage": "우체통 이름을 입력해주세요. :(",
     "password": "우체통 비밀번호",
     "password_desc": "우체통 비밀번호는 우체통을 열때마다 필요해요!",
     "link": "링크가 생성되었어요!",
     "desc": "링크는 재전송 되지 않아요!\n링크 복사 후 기억할 수 있는 곳에 복사해두세요!",
-    "btncopy": "링크복사"
+    "btncopy": "링크복사",
+    "opentime": "우체통 열람가능 시간",
+    "btnshare": "내 우체통 공유하기!"
   },
   "drawIntro": {
     "title": "내가 그린 그림을 맞추면",
@@ -27,7 +36,7 @@
     "invalidMessage3": "특수문자 및 띄어쓰기는 사용할 수 없어요! :("
   },
   "write": {
-    "title": "편지 작성하기",
+    "title": "비밀편지 쓰기",
     "to": "편지를 받는 사람은 누구인가요?",
     "from": "편지를 쓰는 사람은 누구인가요?",
     "content": "상대에게 전하고 싶은 내용을 적어주세요!",
@@ -37,10 +46,26 @@
       "상대와의 가장 기억에 남는 추억을 적어보세요.",
       "앞으로 함께 하고 싶은 일이나 소원을 적어보세요."
     ],
-    "theme": "편지지 선택하기!"
+    "chooseTheme": "편지지 선택하기!"
+  },
+  "theme": {
+    "title": "편지지 고르기",
+    "color": "색상",
+    "pattern": "패턴",
+    "font": "글꼴",
+    "default": "기본",
+    "handwritten1": "손글씨1",
+    "handwritten2": "손글씨2",
+    "sendLetter": "편지 보내기"
+  },
+  "send": {
+    "desc": "친구에게 편지가 보내졌어요!",
+    "keydesc": "친구가 암호를 풀어야 내 편지를 확인할 수 있어요!",
+    "createbtn": "나도 우체통 발급",
+    "done": "확인"
   },
 
-  "myLetters":"편지함",
+  "myLetters": "편지함",
 
   "submit": "확인",
   "before": "이전"

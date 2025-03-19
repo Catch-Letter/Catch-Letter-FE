@@ -50,16 +50,18 @@ export const LetterContentStyle = (
     }
 
     .to {
-      margin-bottom: 25px;
+      height: 10%;
     }
 
     .from {
-      margin-top: 25px;
+      display: flex;
+      height: 10%;
+      align-items: end;
     }
 
     .letter {
       position: relative;
-      min-height: 293px;
+      min-height: 78%;
       white-space: pre-wrap;
       overflow-y: auto;
       line-height: 30px;
