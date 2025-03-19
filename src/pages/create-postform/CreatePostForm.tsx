@@ -68,15 +68,15 @@ const CreatePostForm = () => {
           />
           <span className='notice'>{t('create.password_desc')}</span>
         </div>
-        <Button
-          className='btn_submit'
-          width={343}
-          onClick={handleCreatePost}
-          disabled={!name || !password}
-        >
-          {t('submit')}
-        </Button>
       </div>
+      <Button
+        className='btn_submit'
+        width={343}
+        onClick={handleCreatePost}
+        disabled={!name || !password}
+      >
+        {t('submit')}
+      </Button>
     </div>
   )
 }

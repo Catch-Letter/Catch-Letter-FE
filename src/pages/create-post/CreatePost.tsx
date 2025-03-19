@@ -19,16 +19,16 @@ const CreatePost = () => {
           <div className='sub-title'>{t('create.introMessage')}</div>
         </div>
         <TurnCard />
-        <Button
-          className='create-btn'
-          width={343}
-          onClick={() => {
-            navigate('/postform')
-          }}
-        >
-          {t('create.createPost')}
-        </Button>
       </div>
+      <Button
+        className='create-btn'
+        width={343}
+        onClick={() => {
+          navigate('/postform')
+        }}
+      >
+        {t('create.createPost')}
+      </Button>
     </div>
   )
 }

@@ -37,7 +37,7 @@ export const DescLinkStyle = css`
     color: ${colors.neonGreen[6]};
     font-size: 13px;
     border: none;
-    width: 67px;
+    width: 80px;
 
     &:hover {
       cursor: pointer;

@@ -16,7 +16,9 @@
     "password_desc": "You need the letterbox password every time you open it!",
     "link": "Link created!",
     "desc": "The link cannot be resent!\nCopy it and save it somewhere you can remember!",
-    "btncopy": "Copy link"
+    "btncopy": "Copy Link",
+    "opentime": "Mailbox Access Time",
+    "btnshare": "Share My Mailbox!"
   },
   "drawIntro": {
     "title": "If you guess the picture I drew",

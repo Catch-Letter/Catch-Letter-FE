@@ -2,7 +2,9 @@ import { colors } from '#/styles/color'
 import { css } from '@emotion/react'
 
 export const CreateFormStyle = css`
-  height: 100%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
 
   .form {
     display: flex;
@@ -16,7 +18,7 @@ export const CreateFormStyle = css`
   }
 
   .btn_submit {
-    margin-top: 248px;
+    margin: 0 auto;
 
     @media (width >= 768px) {
       width: 60%;
@@ -28,7 +30,9 @@ export const FormWrapper = css`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10%;
+  justify-content: center;
+  margin-bottom: 100px;
+  flex-grow: 1;
 
   .notice {
     font-size: 14px;

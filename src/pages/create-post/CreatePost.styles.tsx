@@ -2,7 +2,9 @@ import { colors } from '#/styles/color'
 import { css } from '@emotion/react'
 
 export const CreatePostStyle = css`
-  height: 100%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
 
   .title-area {
     display: flex;
@@ -31,7 +33,7 @@ export const CreatePostStyle = css`
   }
 
   .create-btn {
-    margin-top: 20%;
+    margin: 0 auto;
 
     @media (width>768px) {
       width: 50%;
@@ -43,5 +45,6 @@ export const CreateWrapper = css`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10%;
+  justify-content: center;
+  flex-grow: 1;
 `
