@@ -1,4 +1,4 @@
-import { SendLetterStyle } from './SendLetter.styles'
+import { SendLetterStyle, sendLetterWrapper } from './SendLetter.styles'
 import { Button } from '#/shared/ui/button'
 import { SendCard, SendDesc } from '#/components/letter-send'
 import { useLocation, useNavigate } from 'react-router'
@@ -16,22 +16,22 @@ const SendLetter = () => {
   }
 
   return (
-    <>
+    <div css={sendLetterWrapper}>
       <Background color={info.color} />
       <Header />
       <div css={SendLetterStyle}>
         <SendDesc title={t('send.desc')} subTitle={t('send.keydesc')} />
         <SendCard content={location.state?.img} />
-        <div className='button-area'>
-          <Button width={339} onClick={handleCreatePost}>
-            {t('send.createbtn')}
-          </Button>
-          <Button width={339} variant='secondary'>
-            {t('send.done')}
-          </Button>
-        </div>
       </div>
-    </>
+      <div className='button-area'>
+        <Button width={339} onClick={handleCreatePost}>
+          {t('send.createbtn')}
+        </Button>
+        <Button width={339} variant='secondary'>
+          {t('send.done')}
+        </Button>
+      </div>
+    </div>
   )
 }
 

@@ -1,18 +1,26 @@
+import { colors } from '#/styles/color'
 import { css } from '@emotion/react'
 
-export const SendLetterStyle = css`
-  margin-top: 89px;
-  width: 100%;
+export const sendLetterWrapper = css`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  color: white;
-  text-align: center;
+  height: 90%;
 
   .button-area {
     display: flex;
     flex-direction: column;
     gap: 14px;
-    margin-top: 160px;
+    margin: 0 auto;
   }
+`
+export const SendLetterStyle = css`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 100px;
+  flex-grow: 1;
+  text-align: center;
+  color: ${colors.white};
 `

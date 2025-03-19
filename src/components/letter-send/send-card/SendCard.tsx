@@ -6,7 +6,6 @@ export interface SendCardProps {
 }
 
 const SendCard = ({ content }: SendCardProps) => {
-  console.log(content)
   return (
     <div css={SendCardStyle}>
       <div className='card-container'>

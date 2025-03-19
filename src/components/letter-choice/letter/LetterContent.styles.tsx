@@ -50,11 +50,13 @@ export const LetterContentStyle = (
     }
 
     .to {
-      margin-bottom: 25px;
+      height: 10%;
     }
 
     .from {
-      margin-top: 25px;
+      display: flex;
+      height: 10%;
+      align-items: end;
     }
 
     .letter {

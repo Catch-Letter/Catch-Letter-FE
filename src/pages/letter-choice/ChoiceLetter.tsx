@@ -61,7 +61,7 @@ const ChoiceLetter = () => {
       <BackHeader Center={t('theme.title')} />
       <div css={ChoiceLetterStyle}>
         <div className='content'>
-          <LetterCard type={selectedColor} height='500px'>
+          <LetterCard type={selectedColor} height='90%'>
             <LetterContent
               {...letter}
               color={selectedColor}
