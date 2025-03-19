@@ -29,6 +29,7 @@ const TryAnswer = () => {
   } | null>(null)
   const [imageUrl, setImageUrl] = useState<string | null>(null) // 배경 이미지 URL 상태 추가
 
+  //편지내용 가져오기
   useEffect(() => {
     const fetchLetterData = async () => {
       if (uuid && id) {
@@ -50,6 +51,7 @@ const TryAnswer = () => {
     fetchLetterData()
   }, [uuid, id])
 
+  //그림가져오기
   useEffect(() => {
     const getDrawData = async () => {
       if (uuid && id) {
@@ -66,6 +68,22 @@ const TryAnswer = () => {
     }
     getDrawData()
   }, [uuid, id])
+
+  useEffect(() => {
+    if (uuid && id) {
+      const fetchAnswerStatus = async () => {
+        try {
+          // const response = await getAnswerStatus(uuid, Number(id))
+          // if (response && response.data) {
+          //   setIsCorrect(response.data.is_correct)
+          // }
+        } catch (error) {
+          console.error('Error fetching answer status:', error)
+        }
+      }
+      fetchAnswerStatus()
+    }
+  })
 
   useEffect(() => {
     if (chances === 0) {
