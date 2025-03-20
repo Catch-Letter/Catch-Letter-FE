@@ -13,8 +13,7 @@ export const fetchMyLetters = async ({
   uuid: string
   perPage?: number
 }) => {
-  const { accessToken } = useAuthStore()
-
+  const { accessToken } = useAuthStore.getState()
   try {
     const res = await apiClient.get<LettersResponse>(API_ENDPOINTS.MY_LETTERS(uuid), {
       params: {
