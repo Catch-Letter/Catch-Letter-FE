@@ -4,12 +4,15 @@ import { css } from '@emotion/react'
 export const LetterWriteWrapper = css`
   background-color: ${colors.grey[13]};
   display: flex;
-  min-height: 100vh;
   flex-direction: column;
+  height: 100vh;
 `
 export const LetterWriteStyle = css`
+  display: flex;
+  flex-direction: column;
   padding: 16px;
   color: ${colors.grey[13]};
+  flex-grow: 1;
 
   .input-to,
   .input-from {
@@ -42,35 +45,14 @@ export const LetterWriteStyle = css`
   .content {
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
+    flex-grow: 1;
     gap: 12px;
   }
 
   .button-area {
     display: flex;
     justify-content: center;
-    gap: 12px;
     margin-top: 20px;
-  }
-
-  @media (width>= 700px) {
-    .content {
-      width: 80%;
-    }
-
-    .button-area {
-      width: 100%;
-      .before {
-        width: 25%;
-      }
-      .submit {
-        width: 50%;
-      }
-    }
-
-    .desc {
-      margin-left: 10%;
-      width: 80%;
-    }
+    gap: 12px;
   }
 `

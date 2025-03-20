@@ -37,7 +37,7 @@ const App = () => {
               <Route path='/inbox/:uuid' element={<Inbox />} />
               <Route path='/checkanswer' element={<CheckAnswer />} />
               <Route path='/tryAnswer/:uuid/:id' element={<TryAnswer />} />
-              <Route path='/:uuid/drawing' element={<Drawing />} />
+              <Route path='/drawing/:uuid' element={<Drawing />} />
             </Route>
           </Routes>
         </Suspense>

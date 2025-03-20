@@ -139,7 +139,11 @@ const MyLetters = () => {
                     extractColor(letter.letter.etc),
                     letter.thumbnail_url ?? lockImage
                   )}
-                  onClick={() => navigate(`/tryAnswer/${uuid}/${letter.id}`)}
+                  onClick={() =>
+                    navigate(`/tryAnswer/${uuid}/${letter.id}`, {
+                      state: { answerLength: letter.answer_length },
+                    })
+                  }
                 >
                   {!letter.is_correct && (
                     <div className='lock-letter'>
