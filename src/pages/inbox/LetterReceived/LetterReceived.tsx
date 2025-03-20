@@ -1,20 +1,45 @@
+// TODO: 비번 value 초기화시에 input ui에 적용되지 않는 문제 있음
 import { FallingLetters, TextSection } from '#/components/inbox'
-import { useInboxStatus, usePasswordModal } from '#/hooks'
+import { PasswordModal } from '#/components/inbox/PasswordModal'
+import { useInboxStatus, useLogin, usePasswordModal } from '#/hooks'
 import { Flex, Header } from '#/shared/ui'
 import { Button } from '#/shared/ui/button'
-import { FC } from 'react'
+import { FC, useCallback } from 'react'
+import { useNavigate } from 'react-router'
 import { containerStyles, headerStyles } from '../Inbox.styles'
 import { bottomButtonStyles } from './LetterReceived.styles'
-import { PasswordModal } from '#/components/inbox/PasswordModal'
+import { useAuthStore } from '#/store/authStore'
 
 interface Props {
   uuid: string
 }
 
 const LetterReciving: FC<Props> = ({ uuid }) => {
-  const { letter_count } = useInboxStatus(uuid)
+  const { letter_count, name } = useInboxStatus(uuid)
   const { isOpen, openModal, closeModal, password, initializePassword, onPasswordChange } =
     usePasswordModal()
+
+  const { accessToken } = useAuthStore()
+  const navigate = useNavigate()
+  // 확인하기 버튼
+  const onClickCheckButton = useCallback(() => {
+    if (accessToken) return navigate(`/myletters/${uuid}`)
+
+    openModal()
+  }, [])
+
+  // modal
+  const onAuthSuccess = useCallback(() => {
+    initializePassword()
+    closeModal()
+    navigate(`/myletters/${uuid}`)
+  }, [])
+  const onAuthFail = useCallback(() => {
+    initializePassword()
+    alert('비번 틀림')
+  }, [])
+
+  const { login } = useLogin({ onAuthSuccess, onAuthFail })
 
   const total_received_letter = '???'
 
@@ -33,19 +58,18 @@ const LetterReciving: FC<Props> = ({ uuid }) => {
         <Button onClick={() => {}} variant='secondary'>
           자랑하기
         </Button>
-        <Button onClick={openModal}>편지 확인하기!</Button>
+        <Button onClick={onClickCheckButton}>편지 확인하기!</Button>
       </Flex>
 
       <PasswordModal
         password={password}
         onChangeValue={onPasswordChange}
         isOpen={isOpen}
-        onClickConfirmButton={(e) => {
-          e.preventDefault()
-          initializePassword()
+        onClickConfirmButton={() => login({ uuid, name, password })}
+        onClickOverlay={() => {
           closeModal()
+          initializePassword()
         }}
-        onClickOverlay={closeModal}
       />
 
       <FallingLetters />

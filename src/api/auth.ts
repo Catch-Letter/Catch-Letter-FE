@@ -2,13 +2,24 @@ import { apiClient } from '#/api/apiClient'
 import { API_ENDPOINTS } from '#/api/apiEndpoints'
 
 // 인증
-export const fetchAuthToken = async (name: string, password: string, uuid: string) => {
+export const fetchAuthToken = async (uuid: string, name: string, password: string) => {
   try {
-    const res = await apiClient.post<{
-      data: { access_token: string; token_type: string; expires_in: number }
-    }>(API_ENDPOINTS.AUTH, { uuid, name, password })
+    const res = await apiClient.post<Response>(API_ENDPOINTS.AUTH, { uuid, name, password })
     return res.data
   } catch (error) {
     console.log('인증 에러', error)
+    throw error
   }
+}
+
+export interface AuthReqParams {
+  uuid: string
+  name: string
+  password: string
+}
+
+interface Response {
+  access_token: string
+  token_type: 'bearer'
+  expires_in: number
 }

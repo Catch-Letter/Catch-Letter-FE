@@ -1,9 +1,8 @@
 import { apiClient } from '#/api/apiClient'
 import { API_ENDPOINTS } from '#/api/apiEndpoints'
+import { useAuthStore } from '#/store/authStore'
 import { LettersResponse } from '#/types/myLetters'
 import { useInfiniteQuery } from '@tanstack/react-query'
-
-const TOKEN = import.meta.env.VITE_API_TOKEN
 
 export const fetchMyLetters = async ({
   cursor,
@@ -14,6 +13,8 @@ export const fetchMyLetters = async ({
   uuid: string
   perPage?: number
 }) => {
+  const { accessToken } = useAuthStore()
+
   try {
     const res = await apiClient.get<LettersResponse>(API_ENDPOINTS.MY_LETTERS(uuid), {
       params: {
@@ -21,7 +22,7 @@ export const fetchMyLetters = async ({
         cursor: cursor ?? undefined,
       },
       headers: {
-        Authorization: `Bearer ${TOKEN}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     })
     return res.data
