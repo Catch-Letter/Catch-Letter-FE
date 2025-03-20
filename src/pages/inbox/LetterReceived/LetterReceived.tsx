@@ -1,14 +1,19 @@
-import * as Letters from '#/assets/letters'
 import { FallingLetters, TextSection } from '#/components/inbox'
+import { useInboxStatus } from '#/hooks'
 import { Flex, Header } from '#/shared/ui'
 import { Button } from '#/shared/ui/button'
+import { FC } from 'react'
 import { containerStyles, headerStyles } from '../Inbox.styles'
 import { bottomButtonStyles } from './LetterReceived.styles'
 
-const LetterReciving = () => {
-  const received_letter = 120
-  const total_received_letter = 120
-  const letters = Object.values(Letters).concat(Object.values(Letters).slice(3))
+interface Props {
+  uuid: string
+}
+
+const LetterReciving: FC<Props> = ({ uuid }) => {
+  const { letter_count } = useInboxStatus(uuid)
+
+  const total_received_letter = '???'
 
   return (
     <div css={containerStyles}>
@@ -16,7 +21,7 @@ const LetterReciving = () => {
 
       <TextSection
         title1='내가 받은 비밀편지는'
-        value1={received_letter}
+        value1={letter_count}
         title2='풀지 못한 편지'
         value2={total_received_letter}
       />
@@ -28,7 +33,7 @@ const LetterReciving = () => {
         <Button onClick={() => {}}>편지 확인하기!</Button>
       </Flex>
 
-      <FallingLetters letters={letters} />
+      <FallingLetters />
     </div>
   )
 }

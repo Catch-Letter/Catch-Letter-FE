@@ -1,4 +1,3 @@
-import * as Letters from '#/assets/letters'
 import { FallingLetters, TextSection } from '#/components/inbox'
 import { useInboxStatus } from '#/hooks'
 import { Header } from '#/shared/ui'
@@ -13,8 +12,6 @@ interface Props {
 
 const LetterReciving: FC<Props> = ({ uuid }) => {
   const { time_left, letter_count } = useInboxStatus(uuid)
-
-  const letters = Object.values(Letters).concat(Object.values(Letters).slice(3))
 
   return (
     <div css={containerStyles}>
@@ -31,7 +28,7 @@ const LetterReciving: FC<Props> = ({ uuid }) => {
         SNS 공유하기
       </Button>
 
-      <FallingLetters letters={letters} />
+      <FallingLetters />
     </div>
   )
 }

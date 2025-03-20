@@ -1,12 +1,14 @@
+import * as Letters from '#/assets/letters'
 import Matter from 'matter-js'
 import { RefObject, useEffect } from 'react'
 
 export interface FallingLettersHookArgs {
   ref: RefObject<HTMLDivElement | null>
-  letters: string[]
 }
 
-const useFallingLetters = ({ ref, letters }: FallingLettersHookArgs) => {
+const useFallingLetters = ({ ref }: FallingLettersHookArgs) => {
+  const letters = Object.values(Letters).concat(Object.values(Letters).slice(3))
+
   useEffect(() => {
     if (!ref.current) return
 

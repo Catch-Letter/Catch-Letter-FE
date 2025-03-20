@@ -1,14 +1,13 @@
+// TODO : resize 이벤트 추가
 import { ZIndex } from '#/shared/config'
 import { css } from '@emotion/react'
 import { useRef } from 'react'
-import useFallingLetters, { FallingLettersHookArgs } from './useFallingLetters'
+import useFallingLetters from './useFallingLetters'
 
-type Props = Pick<FallingLettersHookArgs, 'letters'>
-
-const FallingLetters = ({ letters }: Props) => {
+const FallingLetters = () => {
   const containerRef = useRef<HTMLDivElement | null>(null)
 
-  useFallingLetters({ ref: containerRef, letters })
+  useFallingLetters({ ref: containerRef })
 
   return (
     <div
