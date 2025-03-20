@@ -6,7 +6,7 @@ import {
 } from './separated-input.styles'
 import { InputHTMLAttributes, useRef, useState } from 'react'
 
-interface SeparatedInputProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface SeparatedInputProps extends InputHTMLAttributes<HTMLInputElement> {
   length: number
   label?: string
   type?: string
