@@ -4,7 +4,8 @@ import useInboxStatus from '#/hooks/useInboxStatus'
 import { Header } from '#/shared/ui'
 import { Button } from '#/shared/ui/button'
 import { FC } from 'react'
-import { bottomButtonStyles, containerStyles, headerStyles } from './LetterReceiving.styles'
+import { containerStyles, headerStyles } from '../Inbox.styles'
+import { bottomButtonStyles } from './LetterReceiving.styles'
 
 interface Props {
   uuid: string

@@ -2,7 +2,8 @@ import * as Letters from '#/assets/letters'
 import { FallingLetters, TextSection } from '#/components/inbox'
 import { Flex, Header } from '#/shared/ui'
 import { Button } from '#/shared/ui/button'
-import { bottomButtonStyles, containerStyles, headerStyles } from './LetterReceived.styles'
+import { containerStyles, headerStyles } from '../Inbox.styles'
+import { bottomButtonStyles } from './LetterReceived.styles'
 
 const LetterReciving = () => {
   const received_letter = 120
