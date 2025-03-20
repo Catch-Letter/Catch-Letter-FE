@@ -9,11 +9,11 @@ export const bottomButtonStyles = css`
   bottom: 35.5px;
   margin: 0 auto;
 
-  > :first-child {
+  > :first-of-type {
     flex-grow: 115;
   }
 
-  > :last-child {
+  > :last-of-type {
     flex-grow: 212;
   }
 `
