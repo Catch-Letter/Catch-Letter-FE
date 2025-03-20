@@ -9,8 +9,8 @@ export default function usePasswordModal() {
 
   // password
   const [password, setPassword] = useState('')
-  const initializePassword = setPassword.bind(null, '')
-  const onPasswordChange = (val: string) => setPassword(val)
+  const initializePassword = useCallback(setPassword.bind(null, ''), [])
+  const onPasswordChange = useCallback((val: string) => setPassword(val), [])
 
   return {
     isOpen,

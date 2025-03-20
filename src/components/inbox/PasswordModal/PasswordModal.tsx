@@ -1,3 +1,4 @@
+// ToDO : 모달 열릴 때 input에 focus
 import { lock } from '#/assets/create'
 import { Modal, ModalProps, SeparatedInput } from '#/shared/ui'
 import { Button } from '#/shared/ui/button'
@@ -29,7 +30,12 @@ const PasswordModal: FC<Props> = ({
           value={password}
           onChangeValue={onChangeValue}
         />
-        <Button width={99} onClick={onClickConfirmButton} disabled={password.length < 5}>
+        <Button
+          width={99}
+          onClick={onClickConfirmButton}
+          disabled={password.length < 5}
+          type='button'
+        >
           완료
         </Button>
       </form>
