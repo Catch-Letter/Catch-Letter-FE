@@ -1,5 +1,5 @@
 // TODO:  uuid를 통해 형재 우체통이 유효한지 확인하는 로직 필요.
-import useInboxStatus from '#/hooks/useInboxStatus'
+import { useInboxStatus } from '#/hooks'
 import { useNavigate, useParams } from 'react-router'
 import { LetterReceived, LetterReciving } from '.'
 
@@ -19,7 +19,7 @@ const Inbox = () => {
     return
   }
 
-  return <>{isExpired ? <LetterReceived /> : <LetterReciving uuid={uuid} />}</>
+  return <>{isExpired ? <LetterReceived uuid={uuid} /> : <LetterReciving uuid={uuid} />}</>
 }
 
 export default Inbox

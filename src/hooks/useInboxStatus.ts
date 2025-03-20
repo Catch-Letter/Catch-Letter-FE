@@ -25,7 +25,7 @@ export default function useInboxStatus(uuid: string) {
 
   const { expired_at, letter_count, name } = data
 
-  const isExpired = dayjs().isAfter(expired_at)
+  const isExpired = expired_at === null || dayjs().isAfter(expired_at)
 
   const time_left = dayjs(dayjs(expired_at).diff(dayjs())).utc().format('HH:mm:ss')
 

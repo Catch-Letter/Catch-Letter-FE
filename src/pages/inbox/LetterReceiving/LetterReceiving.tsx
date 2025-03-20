@@ -1,6 +1,6 @@
 import * as Letters from '#/assets/letters'
 import { FallingLetters, TextSection } from '#/components/inbox'
-import useInboxStatus from '#/hooks/useInboxStatus'
+import { useInboxStatus } from '#/hooks'
 import { Header } from '#/shared/ui'
 import { Button } from '#/shared/ui/button'
 import { FC } from 'react'

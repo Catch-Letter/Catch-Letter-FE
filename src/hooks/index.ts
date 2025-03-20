@@ -1,1 +1,1 @@
-export { default as useCheckInboxStatus } from './useInboxStatus'
+export { default as useInboxStatus } from './useInboxStatus'
