@@ -27,7 +27,7 @@ const LetterReciving: FC<Props> = ({ uuid }) => {
         value2={letter_count}
       />
 
-      <Button onClick={() => {}} width={343} css={bottomButtonStyles}>
+      <Button onClick={() => {}} width={'calc(100% - 32px)'} css={bottomButtonStyles}>
         SNS 공유하기
       </Button>
 
