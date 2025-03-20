@@ -36,8 +36,8 @@ const App = () => {
               <Route path='/success' element={<Success />} />
               <Route path='/receivedletter/:uuid' element={<LetterReceived />} />
               <Route path='/checkanswer/:uuid/:letterId' element={<CheckAnswer />} />
-              <Route path='/tryAnswer' element={<TryAnswer />} />
-              <Route path='/:uuid/drawing' element={<Drawing />} />
+              <Route path='/tryAnswer/:uuid/:id' element={<TryAnswer />} />
+              <Route path='/drawing/:uuid' element={<Drawing />} />
             </Route>
           </Routes>
         </Suspense>

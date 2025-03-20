@@ -1,30 +1,102 @@
+import { postTryAnswer } from '#/api/postTryAnswer'
+import { letter } from '#/api/letter'
 import { BackHeader, LetterCard, LetterContent } from '#/components'
 import { TryCounter } from '#/components/try-Counter'
-import { TryAnswerStyle } from '#/pages/tryAnswer/TryAnswer.styles'
+import { LetterCardStyle, TryAnswerStyle } from '#/pages/tryAnswer/TryAnswer.styles'
 import { Button } from '#/shared/ui'
 import { Background } from '#/shared/ui/background'
 import SeparatedInput from '#/shared/ui/separated-input/separated-input'
-import { useLetterCreationStore } from '#/store/letterCreateStore'
+// import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { useEffect, useState } from 'react'
-
-const data = {
-  to: '친구',
-  content: `이 편지는 영국에서 최초로 시작되어 일년에 한바퀴를 돌면서 받는 사람에게 행운을 주었고 지금은 당신에게로 옮겨진 이 편지는 4일 안에 당신 곁을 떠나야 합니다. 이 편지를 포함해서 7통을 행운이 필요한 사람에게 보내 주셔야 합니다. 복사를 해도 좋습니다. 혹 미신이라 하실지 모르지만 사실입니다.
-영국에서 HGXWCH이라는 사람은 1930년에 이 편지를 받았습니다. 그는 비서에게 복사해서 보내라고 했습니다. 며칠 뒤에 복권이 당첨되어 20억을 받았습니다. 어떤 이는 이 편지를 받았으나 96시간 이내 자신의 손에서 떠나야 한다는 사실을 잊었습니다. 그는 곧 사직되었습니다. 나중에야 이 사실을 알고 7통의 편지를 보냈는데 다시 좋은 직장을 얻었습니다. 미국의 케네디 대통령은 이 편지를 받았지만 그냥 버렸습니다. 결국 9일 후 그는 암살당했습니다. 기억해 주세요. 이 편지를 보내면 7년의 행운이 있을 것이고 그렇지 않으면 3년의 불행이 있을 것입니다. 그리고 이 편지를 버리거나 낙서를 해서는 절대로 안됩니다. 7통입니다. 이 편지를 받은 사람은 행운이 깃들 것입니다. 힘들겠지만 좋은 게 좋다고 생각하세요. 7년의 행운을 빌면서...`,
-  from: '친구',
-}
-
-const correctAnswer = '가나다라마바'
+import { useNavigate, useParams } from 'react-router'
+import { getDraw } from '#/api/getDraw'
+import { getAnswerStatus } from '#/api/getAnswerStatus'
+import { useLocation } from 'react-router'
 
 const TryAnswer = () => {
-  const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
-
+  // const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
+  const { uuid, id } = useParams()
+  const navigate = useNavigate()
+  const location = useLocation()
+  const answerLength = location.state?.answerLength || 6
   const maxChances = 3
   const [chances, setChances] = useState<number>(maxChances)
   const [isShaking, setIsShaking] = useState(false)
   const [timeLeft, setTimeLeft] = useState<number | null>(null)
   const [inputValue, setInputValue] = useState<string>('')
   const [isCorrect, setIsCorrect] = useState<boolean>(false)
+  const [responseMessage, setResponseMessage] = useState<string | null>(null)
+  const [letterData, setLetterData] = useState<{
+    to: string
+    from: string
+    content: string
+  } | null>(null)
+  const [imageUrl, setImageUrl] = useState<string | null>(null)
+  const [buttonText, setButtonText] = useState<string>('확인')
+
+  //편지내용 가져오기
+  useEffect(() => {
+    const fetchLetterData = async () => {
+      if (uuid && id) {
+        try {
+          const response = await letter(uuid, Number(id))
+          if (response && response.data) {
+            setLetterData({
+              to: response.data.to,
+              from: response.data.from,
+              content: response.data.contents,
+            })
+          }
+        } catch (error) {
+          console.error('Error fetching letter data:', error)
+        }
+      }
+    }
+
+    fetchLetterData()
+  }, [uuid, id])
+
+  //그림가져오기
+  useEffect(() => {
+    const getDrawData = async () => {
+      if (uuid && id) {
+        try {
+          const response = await getDraw(uuid, Number(id))
+          if (response && response.data && response.data.presigned_url) {
+            setImageUrl(response.data.presigned_url)
+          }
+        } catch (error) {
+          console.error('getDrawError:', error)
+        }
+      }
+    }
+    getDrawData()
+  }, [uuid, id])
+
+  //정답 상태 가져오기
+  useEffect(() => {
+    if (uuid && id) {
+      const fetchAnswerStatus = async () => {
+        try {
+          const response = await getAnswerStatus(uuid, Number(id))
+          if (response && response.data) {
+            // response.data가 빈 배열일 경우(이미 맞춘 정답에 접근하는 경우)
+            if (Array.isArray(response.data) && response.data.length === 0) {
+              setIsCorrect(true) // 이미 맞춘 정답 표시
+              setResponseMessage('정답입니다!')
+              setButtonText('편지 확인')
+            } else {
+              setResponseMessage(response.message)
+              setChances(3 - response.data.try)
+            }
+          }
+        } catch (error) {
+          console.error('Error fetching answer status:', error)
+        }
+      }
+      fetchAnswerStatus()
+    }
+  }, [uuid, id])
 
   useEffect(() => {
     if (chances === 0) {
@@ -53,11 +125,34 @@ const TryAnswer = () => {
     setInputValue(value)
   }
 
-  const handleConfirm = () => {
-    if (inputValue === correctAnswer) {
-      setIsCorrect(true)
-    } else {
-      handleWrongAttempt()
+  const handleTryAnswer = async () => {
+    if (chances === 0 || isCorrect || !uuid || !id) return
+
+    try {
+      const response = await postTryAnswer(uuid, Number(id), inputValue)
+
+      if (!response) {
+        setResponseMessage('서버 응답이 없습니다. 다시 시도해주세요.')
+        return
+      }
+
+      if (response.success) {
+        setIsCorrect(true)
+        setResponseMessage(response.message)
+        setButtonText('편지 확인')
+      } else {
+        handleWrongAttempt()
+        setResponseMessage(response.message)
+      }
+    } catch (error) {
+      console.error(error)
+      setResponseMessage('예상치 못한 오류가 발생했습니다.')
+    }
+  }
+
+  const handleNavigate = () => {
+    if (isCorrect) {
+      navigate('/checkAnswer') // 정답일 때만 checkAnswer 페이지로 이동
     }
   }
 
@@ -66,27 +161,41 @@ const TryAnswer = () => {
       <Background color='pink' />
       <BackHeader />
       <div css={TryAnswerStyle}>
-        <TryCounter chances={chances} timeLeft={timeLeft} isCorrect={isCorrect} />
+        <TryCounter
+          chances={chances}
+          timeLeft={timeLeft}
+          isCorrect={isCorrect}
+          message={responseMessage}
+        />
         <div
           className={`LetterCard-container ${isShaking ? 'shake' : ''} ${isCorrect ? 'glowing' : ''}`}
         >
-          <LetterCard type={selectedColor}>
-            <LetterContent
-              to={data.to}
-              content={data.content}
-              from={data.from}
-              color={selectedColor}
-              pattern={selectedPattern}
-              font={selectedFont}
-            />
-          </LetterCard>
+          {letterData ? (
+            // <LetterCard type={selectedColor}>
+            //   <LetterContent
+            //     to={letterData.to}
+            //     content={letterData.content}
+            //     from={letterData.from}
+            //     color={selectedColor}
+            //     pattern={selectedPattern}
+            //     font={selectedFont}
+            //   />
+            // </LetterCard>
+            <div css={LetterCardStyle(imageUrl || '')}></div>
+          ) : (
+            <p>편지를 불러오는 중...</p>
+          )}
         </div>
         <div className='Input-area'>
-          <SeparatedInput length={6} onChangeValue={handleInputChange} />
+          <SeparatedInput length={answerLength} onChangeValue={handleInputChange} />
         </div>
         <div className='button-area'>
-          <Button onClick={handleConfirm} disabled={chances === 0 || isCorrect} width={142}>
-            확인
+          <Button
+            onClick={isCorrect ? handleNavigate : handleTryAnswer}
+            disabled={chances === 0}
+            width={142}
+          >
+            {buttonText}
           </Button>
         </div>
       </div>

@@ -2,13 +2,13 @@ import { CardProps } from './TextCard'
 import { colors } from '#/styles/color'
 import { css } from '@emotion/react'
 
-export const CardStyles = ({ color, rounded }: CardProps) => css`
+export const CardStyles = ({ color, rounded, height }: CardProps) => css`
   display: flex;
   flex-direction: column;
   font-family: 'NotoSansKR', sans-serif;
   color: ${colors.grey[13]};
   width: 100%;
-  height: 420px;
+  height: ${height ? height : '100%'};
   padding: 18px 14px;
   box-sizing: border-box;
   background-color: ${color};

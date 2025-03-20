@@ -1,14 +1,16 @@
 import { useLetterCreationStore } from '#/store/letterCreateStore'
+import { useTranslation } from 'react-i18next'
 import { FontItem, SelectFontStyle } from './SelectFont.styles'
 
-const fonts = [
-  { name: '기본', style: 'NotoSansKR' },
-  { name: '손글씨1', style: 'Ownglyph' },
-  { name: '손글씨2', style: 'NanumPen' },
-] as const
-
 const SelectFont = () => {
+  const { t } = useTranslation()
   const { selectedFont, setSelectedFont } = useLetterCreationStore()
+
+  const fonts = [
+    { name: `${t('theme.default')}`, style: 'NotoSansKR' },
+    { name: `${t('theme.handwritten1')}`, style: 'Ownglyph' },
+    { name: `${t('theme.handwritten2')}`, style: 'NanumPen' },
+  ] as const
 
   return (
     <div css={SelectFontStyle}>
