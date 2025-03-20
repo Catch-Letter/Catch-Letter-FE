@@ -1,10 +1,11 @@
 import { FallingLetters, TextSection } from '#/components/inbox'
-import { useInboxStatus } from '#/hooks'
+import { useInboxStatus, usePasswordModal } from '#/hooks'
 import { Flex, Header } from '#/shared/ui'
 import { Button } from '#/shared/ui/button'
 import { FC } from 'react'
 import { containerStyles, headerStyles } from '../Inbox.styles'
 import { bottomButtonStyles } from './LetterReceived.styles'
+import { PasswordModal } from '#/components/inbox/PasswordModal'
 
 interface Props {
   uuid: string
@@ -12,6 +13,8 @@ interface Props {
 
 const LetterReciving: FC<Props> = ({ uuid }) => {
   const { letter_count } = useInboxStatus(uuid)
+  const { isOpen, openModal, closeModal, password, initializePassword, onPasswordChange } =
+    usePasswordModal()
 
   const total_received_letter = '???'
 
@@ -30,8 +33,20 @@ const LetterReciving: FC<Props> = ({ uuid }) => {
         <Button onClick={() => {}} variant='secondary'>
           자랑하기
         </Button>
-        <Button onClick={() => {}}>편지 확인하기!</Button>
+        <Button onClick={openModal}>편지 확인하기!</Button>
       </Flex>
+
+      <PasswordModal
+        password={password}
+        onChangeValue={onPasswordChange}
+        isOpen={isOpen}
+        onClickConfirmButton={(e) => {
+          e.preventDefault()
+          initializePassword()
+          closeModal()
+        }}
+        onClickOverlay={closeModal}
+      />
 
       <FallingLetters />
     </div>
