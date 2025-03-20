@@ -21,13 +21,11 @@ const LetterReciving = () => {
         value2={total_received_letter}
       />
 
-      <Flex justify='space-between' css={bottomButtonStyles}>
-        <Button onClick={() => {}} width={115} variant='secondary'>
+      <Flex justify='space-between' gap={16} css={bottomButtonStyles}>
+        <Button onClick={() => {}} variant='secondary'>
           자랑하기
         </Button>
-        <Button onClick={() => {}} width={212}>
-          편지 확인하기!
-        </Button>
+        <Button onClick={() => {}}>편지 확인하기!</Button>
       </Flex>
 
       <FallingLetters letters={letters} />
