@@ -1,1 +1,1 @@
-export { default as separatedInput } from './separated-input'
+export { default as SeparatedInput } from './separated-input'

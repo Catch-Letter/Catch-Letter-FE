@@ -1,9 +1,8 @@
 import { BackHeader, LetterCard, LetterContent } from '#/components'
 import { TryCounter } from '#/components/try-Counter'
 import { TryAnswerStyle } from '#/pages/tryAnswer/TryAnswer.styles'
-import { Button } from '#/shared/ui'
+import { Button, SeparatedInput } from '#/shared/ui'
 import { Background } from '#/shared/ui/background'
-import SeparatedInput from '#/shared/ui/separated-input/separated-input'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { useEffect, useState } from 'react'
 
