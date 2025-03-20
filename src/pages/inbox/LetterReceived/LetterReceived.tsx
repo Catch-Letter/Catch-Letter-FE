@@ -11,11 +11,7 @@ const LetterReciving = () => {
 
   return (
     <div css={containerStyles}>
-      <Header
-        css={headerStyles}
-        Left={<span className='left'>catch letter</span>}
-        Right={<button>한/영</button>}
-      />
+      <Header css={headerStyles} Left={<span className='left'>catch letter</span>} />
 
       <TextSection
         title1='내가 받은 비밀편지는'

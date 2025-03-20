@@ -17,11 +17,7 @@ const LetterReciving: FC<Props> = ({ uuid }) => {
 
   return (
     <div css={containerStyles}>
-      <Header
-        css={headerStyles}
-        Left={<span className='left'>catch letter</span>}
-        Right={<button>한/영</button>}
-      />
+      <Header css={headerStyles} Left={<span className='left'>catch letter</span>} />
 
       <TextSection
         title1='우체통 마감까지'
