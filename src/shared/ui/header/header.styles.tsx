@@ -20,6 +20,9 @@ export const headerStyles = css`
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: normal;
   }
 
   .right {
