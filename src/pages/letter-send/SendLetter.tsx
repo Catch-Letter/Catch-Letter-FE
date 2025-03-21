@@ -41,9 +41,6 @@ const SendLetter = () => {
         <Button width={339} onClick={handleCreatePost}>
           {t('send.createbtn')}
         </Button>
-        <Button width={339} variant='secondary'>
-          {t('send.done')}
-        </Button>
       </div>
     </div>
   )

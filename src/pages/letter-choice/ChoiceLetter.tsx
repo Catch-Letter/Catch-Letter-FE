@@ -1,6 +1,6 @@
-import { BackHeader, LetterCard } from '#/components'
+import { Header, Button } from '#/shared/ui'
+import { LetterCard } from '#/components'
 import { LetterContent, Tab } from '#/components/letter-choice'
-import { Button } from '#/shared/ui/button'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { useLocation, useNavigate, useParams } from 'react-router'
 import { ChoiceLetterStyle, ChoiceLetterWrapper } from './ChoiceLetter.styles'
@@ -58,7 +58,7 @@ const ChoiceLetter = () => {
   return (
     <div css={ChoiceLetterWrapper}>
       <Background color={selectedColor} />
-      <BackHeader Center={t('theme.title')} />
+      <Header Center={t('theme.title')} />
       <div css={ChoiceLetterStyle}>
         <div className='content'>
           <LetterCard type={selectedColor} height='90%'>
