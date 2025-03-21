@@ -9,6 +9,7 @@ export const textSectionStyles = css`
   margin-left: 26px;
   position: relative;
   z-index: ${ZIndex.letterInboxUI};
+  line-height: 1;
 
   .title1 {
     font-size: 18px;

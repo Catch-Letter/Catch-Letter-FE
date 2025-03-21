@@ -1,12 +1,11 @@
-import { BackHeader } from '#/components'
-import { Button, InputField } from '#/shared/ui'
-import { useState } from 'react'
-import { CreateFormStyle, FormWrapper } from './CreatePostForm.styles'
-import { useNavigate } from 'react-router'
-import { Background } from '#/shared/ui/background'
-import SeparatedInput from '#/shared/ui/separated-input/separated-input'
-import { useTranslation } from 'react-i18next'
 import { fetchCreatePost } from '#/api/createPost'
+import { BackHeader } from '#/components'
+import { Button, InputField, SeparatedInput } from '#/shared/ui'
+import { Background } from '#/shared/ui/background'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router'
+import { CreateFormStyle, FormWrapper } from './CreatePostForm.styles'
 
 const CreatePostForm = () => {
   const navigate = useNavigate()
