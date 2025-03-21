@@ -28,7 +28,7 @@ export const ChoiceLetterStyle = css`
 
   @media (width>= 700px) {
     .content {
-      width: 70%;
+      width: 90%;
     }
   }
 `
