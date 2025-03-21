@@ -78,7 +78,14 @@ const LetterWrite = () => {
           descs={t('write.explain', { returnObjects: true }) as string[]}
         />
         <div className='button-area'>
-          <Button className='before' variant='secondary' width={82}>
+          <Button
+            className='before'
+            variant='secondary'
+            width={82}
+            onClick={() => {
+              navigate(`/drawing/${uuid}`)
+            }}
+          >
             {t('before')}
           </Button>
           <Button
