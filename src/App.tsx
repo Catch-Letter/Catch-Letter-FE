@@ -25,13 +25,12 @@ const App = () => {
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             <Route path='/' element={<Layout />}>
-              <Route path='/' element={<Home />} />
+              <Route path='/' element={<CreatePost />} />
               <Route path='/test' element={<Test />} />
               <Route path='/writeletter/:uuid/:id' element={<LetterWrite />} />
               <Route path='/choiceletter/:uuid/:id' element={<ChoiceLetter />} />
               <Route path='/sendletter' element={<SendLetter />} />
               <Route path='/myletters/:uuid' element={<MyLetters />} />
-              <Route path='/create' element={<CreatePost />} />
               <Route path='/postform' element={<CreatePostForm />} />
               <Route path='/success' element={<Success />} />
               <Route path='/inbox/:uuid' element={<Inbox />} />

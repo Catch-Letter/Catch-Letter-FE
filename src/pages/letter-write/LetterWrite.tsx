@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { BackHeader } from '#/components'
 import { useLocation, useNavigate, useParams } from 'react-router'
 import { LetterWriteStyle, LetterWriteWrapper } from './LetterWrite.styles'
-import { Input, Button } from '#/shared/ui'
+import { Input, Button, Header } from '#/shared/ui'
 import { WriteDesc, TextCard } from '#/components/letter-write'
 import { useTranslation } from 'react-i18next'
 import { fetchUUID } from '#/api/uuid'
@@ -54,7 +53,7 @@ const LetterWrite = () => {
 
   return (
     <div css={LetterWriteWrapper}>
-      <BackHeader Center={t('write.title')} />
+      <Header Center={t('write.title')} />
       <div css={LetterWriteStyle}>
         <div className='content'>
           <div className='input-to'>
@@ -78,7 +77,14 @@ const LetterWrite = () => {
           descs={t('write.explain', { returnObjects: true }) as string[]}
         />
         <div className='button-area'>
-          <Button className='before' variant='secondary' width={82}>
+          <Button
+            className='before'
+            variant='secondary'
+            width={82}
+            onClick={() => {
+              navigate(`/drawing/${uuid}`)
+            }}
+          >
             {t('before')}
           </Button>
           <Button

@@ -1,15 +1,17 @@
 import { SendCardStyle } from './SendCard.styles'
 import { LetterCard } from '#/components'
+import { ColorType } from '#/store/letterCreateStore'
 
 export interface SendCardProps {
+  color: ColorType
   content: string
 }
 
-const SendCard = ({ content }: SendCardProps) => {
+const SendCard = ({ color, content }: SendCardProps) => {
   return (
     <div css={SendCardStyle}>
       <div className='card-container'>
-        <LetterCard type='violet' width='156px' height='230px'>
+        <LetterCard type={color} width='156px' height='230px'>
           <img src={content} alt={content} />
         </LetterCard>
       </div>
