@@ -51,7 +51,7 @@ export const useDrawingSubmit = (
 
       navigate(`/writeletter/${uuid}/${response.id}`, {
         state: {
-          img: presigned_url,
+          img: pngFile,
         },
       })
     } catch (error) {
