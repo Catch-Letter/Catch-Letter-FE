@@ -14,9 +14,7 @@ type shareItemProps = Pick<ShareModalProps, 'url'>
 
 const ShareItems = ({ url }: shareItemProps) => {
   const handleItemClick = (item: string) => {
-    const baseUrlPattern = /^https?:\/\/localhost:5173\//
-    const shareUrl = url.replace(baseUrlPattern, '')
-    const handlers = shareHandlers(shareUrl)
+    const handlers = shareHandlers(url)
     handlers[item]()
   }
   return (
