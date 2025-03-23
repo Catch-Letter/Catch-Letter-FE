@@ -1,41 +1,23 @@
-import { Facebook, Kakao, LINE, X } from '#/assets/shareSNS'
-import {
-  ShareItemStyle,
-  ShareModalStyle,
-  ShareModalContainer,
-} from '#/components/share-modal/ShareModal.styles'
+import { ShareItems } from '#/components/share-modal/shareItem'
+import { ShareModalStyle, ShareModalContainer } from '#/components/share-modal/ShareModal.styles'
 import { Button, Modal, ModalProps } from '#/shared/ui'
 
-type ShareModalProps = Omit<ModalProps, 'children'> & {
+export type ShareModalProps = Omit<ModalProps, 'children'> & {
   url: string
-  onClose?: () => void
-  onItemClick?: () => void
+  onClose: () => void
 }
 
-const shareItems = {
-  Kakao,
-  LINE,
-  Facebook,
-  X,
-}
-
-const ShareModal = ({ isOpen, url, onClickOverlay }: ShareModalProps) => {
+const ShareModal = ({ isOpen, url, onClose }: ShareModalProps) => {
   const copyLink = () => {
     navigator.clipboard.writeText(url)
   }
 
   return (
-    <Modal isOpen={isOpen} onClickOverlay={onClickOverlay}>
+    <Modal isOpen={isOpen}>
       <div css={ShareModalStyle}>
         <div css={ShareModalContainer}>
           <div className='title'>SNS 공유하기</div>
-          <ul css={ShareItemStyle}>
-            {Object.keys(shareItems).map((item) => (
-              <li key={item}>
-                <img src={shareItems[item as keyof typeof shareItems]} alt={item} />
-              </li>
-            ))}
-          </ul>
+          <ShareItems url={url} />
           <div className='area-copy'>
             <span className='url'>{url}</span>
             <button className='btn-copy' onClick={copyLink}>
@@ -44,7 +26,9 @@ const ShareModal = ({ isOpen, url, onClickOverlay }: ShareModalProps) => {
           </div>
           <span className='desc'>버튼을 클릭하면 링크가 클립보드에 복사됩니다!</span>
         </div>
-        <Button width={100}>닫기</Button>
+        <Button width={100} onClick={onClose}>
+          닫기
+        </Button>
       </div>
     </Modal>
   )

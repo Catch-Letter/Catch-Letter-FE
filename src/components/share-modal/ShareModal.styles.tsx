@@ -18,23 +18,29 @@ export const ShareModalStyle = css`
   }
 
   .area-copy {
-    position: relative;
+    padding-right: 55px;
+    display: flex;
     box-sizing: border-box;
     padding: 4px;
-    width: 100%;
+    width: 300px;
     border-radius: 8px;
     align-items: center;
     height: 36px;
-    border: 1px solid ${colors.white};
+    border: 1px solid ${colors.grey[5]};
+    overflow: hidden;
 
     .url {
+      flex-grow: 1;
+      min-width: 0;
       font-size: 14px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
 
     .btn-copy {
-      position: absolute;
-      right: 0px;
-      top: 4px;
+      flex-shrink: 0;
+      margin-left: auto;
       display: flex;
       padding: 6px;
       justify-content: center;
@@ -56,23 +62,10 @@ export const ShareModalStyle = css`
 
 export const ShareModalContainer = css`
   margin: 14px 44px 40px;
+  text-align: center;
 
   .desc {
-    margin-left: 5px;
     font-size: 12px;
     color: ${colors.neonGreen[6]};
-  }
-`
-export const ShareItemStyle = css`
-  display: flex;
-  gap: 20px;
-
-  li {
-    margin: 30px 0;
-    img {
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-    }
   }
 `
