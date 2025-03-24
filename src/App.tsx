@@ -12,6 +12,7 @@ import {
   Test,
   TryAnswer,
 } from '#/pages'
+import { Loading } from '#/components'
 
 const App = () => {
   const SendLetter = lazy(() => import('#/pages/letter-send/SendLetter'))
@@ -22,7 +23,7 @@ const App = () => {
   return (
     <I18nProvider>
       <BrowserRouter>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loading />}>
           <Routes>
             <Route path='/' element={<Layout />}>
               <Route path='/' element={<CreatePost />} />
