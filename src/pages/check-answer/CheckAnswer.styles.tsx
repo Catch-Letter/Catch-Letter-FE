@@ -20,6 +20,7 @@ export const CheckAnswerStyles = (isFlipped: boolean, imageUrl: string) => css`
   flex-direction: column;
   align-items: center;
   height: 100vh;
+  width: 100%;
 
   .content {
     padding: 16px 63px 34px;
@@ -92,8 +93,11 @@ export const SkeletonCardStyle = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 70%;
-  height: 100%;
+  position: absolute;
+  top: 16px;
+  left: 63px;
+  width: calc(100% - 126px);
+  height: calc(100% - 50px);
   border-radius: 24px;
   background-color: ${colors.grey[3]};
   background-size: 200% 100%;
