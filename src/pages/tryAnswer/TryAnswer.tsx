@@ -152,7 +152,7 @@ const TryAnswer = () => {
 
   const handleNavigate = () => {
     if (isCorrect) {
-      navigate('/checkAnswer') // 정답일 때만 checkAnswer 페이지로 이동
+      navigate(`/checkAnswer/${uuid}/${id}`) // 정답일 때만 checkAnswer 페이지로 이동
     }
   }
 
