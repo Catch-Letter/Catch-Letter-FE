@@ -1,8 +1,8 @@
-import { css } from '@emotion/react'
 import { colors } from '#/styles/color'
-import { ButtonProps } from '#/shared/ui/button/Button'
+import { css } from '@emotion/react'
+import { ButtonProps } from './Button'
 
-export const buttonStyle = ({ variant, width }: ButtonProps) => css`
+export const buttonStyle = ({ variant, width, full }: ButtonProps) => css`
   display: flex;
   padding: 12px 24px;
   justify-content: center;
@@ -10,7 +10,7 @@ export const buttonStyle = ({ variant, width }: ButtonProps) => css`
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  width: ${width && `${width}px`};
+  width: ${full ? '100%' : typeof width === 'number' ? `${width}px` : width};
   background-color: ${variant === 'primary' ? colors.neonGreen[5] : colors.grey[8]};
   color: ${variant === 'primary' ? colors.grey[13] : colors.grey[1]};
   font-size: 18px;

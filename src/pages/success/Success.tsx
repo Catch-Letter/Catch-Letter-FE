@@ -11,7 +11,7 @@ const Success = () => {
   const { t } = useTranslation()
   const location = useLocation()
   const user = location.state
-  const link = `http://localhost:5173/receivedletter/${user.uuid}`
+  const link = `http://localhost:5173/inbox/${user.uuid}`
   const leftTime = countTimer(user.expired)
 
   return (

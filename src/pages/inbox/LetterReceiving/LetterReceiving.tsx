@@ -1,34 +1,39 @@
-import * as Letters from '#/assets/letters'
+// TODO : SNS 공유하기 버튼
 import { FallingLetters, TextSection } from '#/components/inbox'
-import { Header } from '#/shared/ui'
+import { useInboxStatus } from '#/hooks'
+import { Flex, Header } from '#/shared/ui'
 import { Button } from '#/shared/ui/button'
-import { bottomButtonStyles, containerStyles, headerStyles } from './LetterReceiving.styles'
+import { FC } from 'react'
+import { useNavigate } from 'react-router'
+import { bottomButtonStyles, containerStyles, headerStyles } from '../Inbox.styles'
 
-const LetterReciving = () => {
-  const time_left = '13:10:09'
-  const total_received_letter = 120
-  const letters = Object.values(Letters).concat(Object.values(Letters).slice(3))
+interface Props {
+  uuid: string
+}
+
+const LetterReciving: FC<Props> = ({ uuid }) => {
+  const { name, time_left, total_letter_count } = useInboxStatus(uuid)
+  const navigate = useNavigate()
 
   return (
     <div css={containerStyles}>
-      <Header
-        css={headerStyles}
-        Left={<span className='left'>catch letter</span>}
-        Right={<button>한/영</button>}
-      />
+      <Header css={headerStyles} Left={<span className='left'>catch letter</span>} />
 
       <TextSection
-        title1='우체통 마감까지'
+        title1={`${name}의 우체통 마감까지`}
         value1={time_left}
         title2='지금까지 받은 편지'
-        value2={total_received_letter}
+        value2={total_letter_count}
       />
 
-      <Button onClick={() => {}} width={343} css={bottomButtonStyles}>
-        SNS 공유하기
-      </Button>
+      <Flex justify='space-between' gap={16} css={bottomButtonStyles}>
+        <Button onClick={() => {}} variant='secondary'>
+          SNS 공유하기
+        </Button>
+        <Button onClick={() => navigate(`/drawing/${uuid}`)}>편지 쓰러 가기!</Button>
+      </Flex>
 
-      <FallingLetters letters={letters} />
+      <FallingLetters />
     </div>
   )
 }

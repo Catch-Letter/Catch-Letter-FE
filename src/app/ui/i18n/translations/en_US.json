@@ -15,7 +15,7 @@
     "password": "Letterbox password",
     "password_desc": "You need the letterbox password every time you open it!",
     "link": "Link created!",
-    "desc": "The link cannot be resent!\nCopy it and save it somewhere you can remember!",
+    "desc": "When you click the Copy Link button, the link will be copied to your clipboard.\n Since the link cannot be reissued, please save it in a place where you can remember it!",
     "btncopy": "Copy Link",
     "opentime": "Mailbox Access Time",
     "btnshare": "Share My Mailbox!"
