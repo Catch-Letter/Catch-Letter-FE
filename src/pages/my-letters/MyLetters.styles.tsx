@@ -91,3 +91,10 @@ export const SkeletonCardStyle = css`
   background-color: ${colors.grey[12]};
   background-size: 200% 100%;
 `
+
+export const NoLettersContainer = css`
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`

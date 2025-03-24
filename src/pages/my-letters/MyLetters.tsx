@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router'
-import { BackHeader } from '#/components'
+import { BackHeader, NoLetters } from '#/components'
 import {
   MyLettersWrapper,
   TitleStyle,
@@ -8,6 +8,7 @@ import {
   GridContainer,
   LetterCardStyle,
   SkeletonCardStyle,
+  NoLettersContainer,
 } from './MyLetters.styles'
 import { useTranslation } from 'react-i18next'
 import lockImage from '#/assets/create/lock.png'
@@ -18,7 +19,7 @@ import { DotLoader } from '#/shared/ui'
 
 const MyLetters = () => {
   const [shakingCard, setShakingCard] = useState<number | null>(null)
-  const [letterCount, setLetterCount] = useState<number | null>(null)
+  const [letterCount, setLetterCount] = useState<number | null>(0)
   const navigate = useNavigate()
   const { uuid } = useParams()
   const { t } = useTranslation()
@@ -28,21 +29,21 @@ const MyLetters = () => {
     useMyLettersQuery(uuid ?? '')
 
   // 편지 전체 갯수 조회
-  useEffect(() => {
-    const fetchMyLettersCount = async () => {
-      if (!uuid) {
-        return
-      }
-      try {
-        const res = await fetchUUID(uuid)
-        setLetterCount(res.letter_count)
-      } catch (error) {
-        console.error(error)
-      }
-    }
+  // useEffect(() => {
+  //   const fetchMyLettersCount = async () => {
+  //     if (!uuid) {
+  //       return
+  //     }
+  //     try {
+  //       const res = await fetchUUID(uuid)
+  //       setLetterCount(res.letter_count)
+  //     } catch (error) {
+  //       console.error(error)
+  //     }
+  //   }
 
-    fetchMyLettersCount()
-  }, [uuid])
+  //   fetchMyLettersCount()
+  // }, [uuid])
 
   // 무한 스크롤
   useEffect(() => {
@@ -115,7 +116,9 @@ const MyLetters = () => {
       return colors.grey[11]
     }
   }
-
+  ;<div>
+    <NoLetters />
+  </div>
   return (
     <div css={MyLettersWrapper}>
       <BackHeader
@@ -126,38 +129,44 @@ const MyLetters = () => {
           </div>
         }
       />
-      <div css={GridContainer} ref={scrollContainerRef}>
-        {isLoading || isFetching
-          ? Array.from({ length: 6 }).map((_, index) => (
-              <div key={index} css={SkeletonCardStyle}>
-                <DotLoader size={8} color={colors.grey[9]} />
-              </div>
-            ))
-          : data?.pages.flatMap((page, pageIndex) =>
-              page.data.map((letter) => (
-                <div
-                  key={`${letter.id}_${pageIndex}`}
-                  css={LetterCardStyle(
-                    shakingCard,
-                    letter.id,
-                    extractColor(letter.letter.etc),
-                    letter.thumbnail_url ?? lockImage
-                  )}
-                  onClick={() =>
-                    navigate(`/tryAnswer/${uuid}/${letter.id}`, {
-                      state: { answerLength: letter.answer_length },
-                    })
-                  }
-                >
-                  {!letter.is_correct && (
-                    <div className='lock-letter'>
-                      <img src={lockImage} alt='lock-icon' />
-                    </div>
-                  )}
+      {letterCount === 0 ? (
+        <div css={NoLettersContainer}>
+          <NoLetters />
+        </div>
+      ) : (
+        <div css={GridContainer} ref={scrollContainerRef}>
+          {isLoading || isFetching
+            ? Array.from({ length: 6 }).map((_, index) => (
+                <div key={index} css={SkeletonCardStyle}>
+                  <DotLoader size={8} color={colors.grey[9]} />
                 </div>
               ))
-            )}
-      </div>
+            : data?.pages.flatMap((page, pageIndex) =>
+                page.data.map((letter) => (
+                  <div
+                    key={`${letter.id}_${pageIndex}`}
+                    css={LetterCardStyle(
+                      shakingCard,
+                      letter.id,
+                      extractColor(letter.letter.etc),
+                      letter.thumbnail_url ?? lockImage
+                    )}
+                    onClick={() =>
+                      navigate(`/tryAnswer/${uuid}/${letter.id}`, {
+                        state: { answerLength: letter.answer_length },
+                      })
+                    }
+                  >
+                    {!letter.is_correct && (
+                      <div className='lock-letter'>
+                        <img src={lockImage} alt='lock-icon' />
+                      </div>
+                    )}
+                  </div>
+                ))
+              )}
+        </div>
+      )}
     </div>
   )
 }
