@@ -88,7 +88,7 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
       key={index}
       type={type}
       ref={(el) => (inputRefs.current[index] = el)}
-      value={inputValues[index]}
+      value={isComposing ? undefined : inputValues[index]}
       onChange={(e) => handleInputChange(e, index)}
       onCompositionStart={(e) => handleComposition(e, index)}
       onCompositionEnd={(e) => handleComposition(e, index)}
