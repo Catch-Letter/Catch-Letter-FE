@@ -4,19 +4,34 @@ import {
   separateInput,
   labels,
 } from './separated-input.styles'
-import { InputHTMLAttributes, useRef, useState } from 'react'
+import { InputHTMLAttributes, useEffect, useRef, useState } from 'react'
 
 export interface SeparatedInputProps extends InputHTMLAttributes<HTMLInputElement> {
   length: number
   label?: string
   type?: string
   onChangeValue?: (value: string) => void
+  value?: string
 }
 
-const SeparatedInput: React.FC<SeparatedInputProps> = ({ label, length, type, onChangeValue }) => {
+const SeparatedInput: React.FC<SeparatedInputProps> = ({
+  label,
+  length,
+  type,
+  onChangeValue,
+  value,
+}) => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([])
   const [inputValues, setInputValues] = useState<string[]>(Array(length).fill(''))
   const [isComposing, setIsComposing] = useState(false)
+
+  useEffect(() => {
+    if (value) {
+      const newValues = value.split('').slice(0, length)
+      const filledValues = [...newValues, ...Array(length - newValues.length).fill('')]
+      setInputValues(filledValues)
+    }
+  }, [value, length])
 
   const updateValues = (newValues: string[]) => {
     setInputValues(newValues)
@@ -73,6 +88,7 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({ label, length, type, on
       key={index}
       type={type}
       ref={(el) => (inputRefs.current[index] = el)}
+      value={isComposing ? undefined : inputValues[index]}
       onChange={(e) => handleInputChange(e, index)}
       onCompositionStart={(e) => handleComposition(e, index)}
       onCompositionEnd={(e) => handleComposition(e, index)}

@@ -1,13 +1,14 @@
 import { apiClient } from '#/api/apiClient'
 import { API_ENDPOINTS } from '#/api/apiEndpoints'
-
-const TOKEN = import.meta.env.VITE_API_TOKEN
+import { useAuthStore } from '#/store/authStore'
 
 export const getDraw = async (uuid: string, letterId: number) => {
+  const { accessToken } = useAuthStore.getState()
+
   try {
     const res = await apiClient.get(API_ENDPOINTS.GET_DRAW(uuid, letterId), {
       headers: {
-        Authorization: `Bearer ${TOKEN}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     })
     return res.data
