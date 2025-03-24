@@ -49,6 +49,9 @@ const ChoiceLetter = () => {
         to: letter.to,
         content: letter.content,
         from: letter.from,
+        lines: location.state?.lines,
+        answer: location.state?.answer,
+        isDrawingMode: location.state?.isDrawingMode,
       },
     })
   }

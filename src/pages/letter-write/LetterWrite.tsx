@@ -22,6 +22,9 @@ const LetterWrite = () => {
         content,
         from: sender,
         img: location.state?.img,
+        lines: location.state?.lines,
+        answer: location.state?.answer,
+        isDrawingMode: location.state?.isDrawingMode,
       },
     })
   }
@@ -82,7 +85,16 @@ const LetterWrite = () => {
             variant='secondary'
             width={82}
             onClick={() => {
-              navigate(`/drawing/${uuid}`)
+              navigate(`/drawing/${uuid}`, {
+                state: {
+                  to: recipient,
+                  content,
+                  from: sender,
+                  lines: location.state?.lines,
+                  answer: location.state?.answer,
+                  isDrawingMode: location.state?.isDrawingMode,
+                },
+              })
             }}
           >
             {t('before')}

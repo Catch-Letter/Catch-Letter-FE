@@ -5,30 +5,22 @@ import { CanvasWrapper, PaletteWrapper, PaletteStyle, CanvasStageWrapper } from 
 import { CanvasTools } from '#/components/drawing/canvas-tools'
 import { paletteColors } from '#/styles/paletteColors'
 import Konva from 'konva'
+import { LineData, CanvasProps } from '#/types/drawing'
 
-interface Line {
-  points: number[]
-  color: string
-  isEraser: boolean
-}
-
-interface CanvasProps {
-  stageRef: React.RefObject<Konva.Stage>
-}
-
-const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef }, ref) => {
+const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines }, ref) => {
   const [selectedColor, setSelectedColor] = useState<string>('#000000')
 
-  const [lines, setLines] = useState<Line[]>([])
   const isDrawing = useRef<boolean>(false)
 
-  const [undoStack, setUndoStack] = useState<Line[][]>([])
-  const [redoStack, setRedoStack] = useState<Line[][]>([])
+  const [undoStack, setUndoStack] = useState<LineData[][]>([])
+  const [redoStack, setRedoStack] = useState<LineData[][]>([])
 
   const [isEraser, setIsEraser] = useState<boolean>(false)
 
   const containerRef = useRef<HTMLDivElement>(null)
   const [canvasSize, setCanvasSize] = useState({ width: 300, height: 500 })
+
+  console.log('초기 lines:', lines)
 
   // 캔버스 크기 조절
   useEffect(() => {
