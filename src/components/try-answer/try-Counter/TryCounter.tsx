@@ -1,5 +1,5 @@
 import { failedEmoji, successEmoji } from '#/assets/emoji'
-import { TryCounterStyle } from '#/components/try-Counter/TryCounter.styles'
+import { TryCounterStyle } from '#/components/try-answer/try-Counter/TryCounter.styles'
 
 interface TryCounterProps {
   chances: number
