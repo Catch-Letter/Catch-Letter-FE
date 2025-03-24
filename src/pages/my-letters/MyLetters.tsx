@@ -9,9 +9,11 @@ import {
   LetterCardStyle,
   SkeletonCardStyle,
   NoLettersContainer,
+  LockLetterStyle,
+  UnLockLetterStyle,
 } from './MyLetters.styles'
 import { useTranslation } from 'react-i18next'
-import lockImage from '#/assets/create/lock.png'
+import lockImage from '#/assets/myLetters/lock.svg'
 import { colors } from '#/styles/color'
 import { useMyLettersQuery } from '#/api/myLetters'
 import { fetchUUID } from '#/api/uuid'
@@ -19,7 +21,7 @@ import { DotLoader } from '#/shared/ui'
 
 const MyLetters = () => {
   const [shakingCard, setShakingCard] = useState<number | null>(null)
-  const [letterCount, setLetterCount] = useState<number | null>(0)
+  const [letterCount, setLetterCount] = useState<number | null>(null)
   const navigate = useNavigate()
   const { uuid } = useParams()
   const { t } = useTranslation()
@@ -29,21 +31,21 @@ const MyLetters = () => {
     useMyLettersQuery(uuid ?? '')
 
   // 편지 전체 갯수 조회
-  // useEffect(() => {
-  //   const fetchMyLettersCount = async () => {
-  //     if (!uuid) {
-  //       return
-  //     }
-  //     try {
-  //       const res = await fetchUUID(uuid)
-  //       setLetterCount(res.letter_count)
-  //     } catch (error) {
-  //       console.error(error)
-  //     }
-  //   }
+  useEffect(() => {
+    const fetchMyLettersCount = async () => {
+      if (!uuid) {
+        return
+      }
+      try {
+        const res = await fetchUUID(uuid)
+        setLetterCount(res.letter_count)
+      } catch (error) {
+        console.error(error)
+      }
+    }
 
-  //   fetchMyLettersCount()
-  // }, [uuid])
+    fetchMyLettersCount()
+  }, [uuid])
 
   // 무한 스크롤
   useEffect(() => {
@@ -116,9 +118,7 @@ const MyLetters = () => {
       return colors.grey[11]
     }
   }
-  ;<div>
-    <NoLetters />
-  </div>
+
   return (
     <div css={MyLettersWrapper}>
       <BackHeader
@@ -145,21 +145,30 @@ const MyLetters = () => {
                 page.data.map((letter) => (
                   <div
                     key={`${letter.id}_${pageIndex}`}
-                    css={LetterCardStyle(
-                      shakingCard,
-                      letter.id,
-                      extractColor(letter.letter.etc),
-                      letter.thumbnail_url ?? lockImage
-                    )}
-                    onClick={() =>
-                      navigate(`/tryAnswer/${uuid}/${letter.id}`, {
-                        state: { answerLength: letter.answer_length },
-                      })
-                    }
+                    css={LetterCardStyle(shakingCard, letter.id, extractColor(letter.letter.etc))}
                   >
-                    {!letter.is_correct && (
-                      <div className='lock-letter'>
+                    {letter.is_correct ? (
+                      <div
+                        css={UnLockLetterStyle(letter.thumbnail_url ?? lockImage)}
+                        onClick={() =>
+                          navigate(`/tryAnswer/${uuid}/${letter.id}`, {
+                            state: { answerLength: letter.answer_length },
+                          })
+                        }
+                      />
+                    ) : (
+                      <div
+                        css={LockLetterStyle}
+                        onClick={() =>
+                          navigate(`/tryAnswer/${uuid}/${letter.id}`, {
+                            state: { answerLength: letter.answer_length },
+                          })
+                        }
+                      >
                         <img src={lockImage} alt='lock-icon' />
+                        <div className='lock-text'>
+                          암호를 <br /> 풀어주세요!
+                        </div>
                       </div>
                     )}
                   </div>

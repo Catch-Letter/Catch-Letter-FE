@@ -46,8 +46,7 @@ export const GridContainer = css`
 export const LetterCardStyle = (
   shakingCard: number | null,
   letterId: number,
-  backgroundColor: string,
-  backgroundImage: string
+  backgroundColor: string
 ) => css`
   width: 100%;
   aspect-ratio: 2 / 3;
@@ -57,10 +56,7 @@ export const LetterCardStyle = (
   align-items: center;
   justify-content: center;
   background-color: ${backgroundColor};
-  background-image: url(${backgroundImage});
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
+  border: 1px solid ${backgroundColor};
   cursor: pointer;
 
   ${shakingCard !== null &&
@@ -68,17 +64,6 @@ export const LetterCardStyle = (
   css`
     animation: ${shakeAnimation} 0.5s ease-in-out;
   `}
-
-  .lock-letter {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    border-radius: 16px;
-    backdrop-filter: blur(1.4px);
-    position: relative;
-  }
 `
 
 export const SkeletonCardStyle = css`
@@ -97,4 +82,30 @@ export const NoLettersContainer = css`
   display: flex;
   justify-content: center;
   align-items: center;
+`
+
+export const LockLetterStyle = css`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 16px;
+  gap: 12px;
+
+  .lock-text {
+    line-height: 140%;
+    text-align: center;
+  }
+`
+
+export const UnLockLetterStyle = (backgroundImage: string) => css`
+  width: 100%;
+  height: 100%;
+  background-image: url(${backgroundImage});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 `
