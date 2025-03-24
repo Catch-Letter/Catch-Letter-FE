@@ -138,7 +138,7 @@ const MyLetters = () => {
           {isLoading || isFetching
             ? Array.from({ length: 6 }).map((_, index) => (
                 <div key={index} css={SkeletonCardStyle}>
-                  <DotLoader size={8} color={colors.grey[9]} />
+                  <DotLoader color={colors.grey[9]} />
                 </div>
               ))
             : data?.pages.flatMap((page, pageIndex) =>
