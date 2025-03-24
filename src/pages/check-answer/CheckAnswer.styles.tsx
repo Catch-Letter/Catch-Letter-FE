@@ -6,6 +6,15 @@ const floatingText = keyframes`
   50% { transform: translateY(-5px); }
   100% { transform: translateY(0); }
 `
+
+export const checkAnswerWrapper = css`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+`
+
 export const CheckAnswerStyles = (isFlipped: boolean, imageUrl: string) => css`
   display: flex;
   flex-direction: column;
@@ -19,18 +28,19 @@ export const CheckAnswerStyles = (isFlipped: boolean, imageUrl: string) => css`
     transition: transform 0.3s;
     transform: perspective(800px) rotateY(${isFlipped ? '180deg' : '0deg'});
     transform-style: preserve-3d;
-    height: 473px;
+    height: 68%;
+    width: 70%;
     cursor: pointer;
   }
 
   .cardFront,
   .cardBack {
     grid-area: 1 / 1 / 1 / 1;
-    width: 400px;
-    height: 460px;
-    padding: 12px;
+    width: 100%;
+    height: 100%;
     border-radius: 8px;
     backface-visibility: hidden;
+    opacity: 0.8;
   }
 
   .cardFront {
@@ -73,8 +83,19 @@ export const LetterCardStyle = (backgroundImage: string) => css`
   opacity: 0.8;
   background-size: cover;
   background-position: center;
-  width: 400px;
-  height: 460px;
+  width: 100%;
+  height: 100%;
   border-radius: 24px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+`
+
+export const SkeletonCardStyle = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  height: 100%;
+  border-radius: 24px;
+  background-color: ${colors.grey[3]};
+  background-size: 200% 100%;
+  opacity: 0.5;
 `
