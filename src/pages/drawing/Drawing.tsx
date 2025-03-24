@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { useParams } from 'react-router'
+import { useLocation, useParams } from 'react-router'
 import { DrawingWrapper, FormWrapper } from '#/pages/drawing/Drawing.styles'
 import Konva from 'konva'
 import { BackHeader } from '#/components'
@@ -9,19 +9,25 @@ import { Canvas, DrawingIntro } from '#/components/drawing'
 import { answerValidate, isAnswerInvalid } from '#/shared/utils/answerValidation'
 import { useDrawingSubmit } from '#/hooks/useDrawingSubmit'
 import { useTranslation } from 'react-i18next'
+import { LineData } from '#/types/drawing'
 
 const Drawing = () => {
-  const [answer, setAnswer] = useState('')
-  const [isDrawingMode, setIsDrawingMode] = useState(false)
-  const { uuid } = useParams()
   const { t } = useTranslation()
+  const { uuid } = useParams()
+  const location = useLocation()
+
+  const [answer, setAnswer] = useState(location.state?.answer || '')
+  const [isDrawingMode, setIsDrawingMode] = useState<boolean>(
+    location.state?.isDrawingMode || false
+  )
+  const [lines, setLines] = useState<LineData[]>(location.state?.lines || [])
 
   const stageRef = useRef<Konva.Stage | null>(null)
 
   const invalidMessage = answerValidate(answer, t)
   const isInvalid = isAnswerInvalid(answer)
 
-  const { handleUpload } = useDrawingSubmit(uuid, answer, stageRef)
+  const { handleUpload } = useDrawingSubmit(uuid, answer, stageRef, lines)
 
   return (
     <div css={DrawingWrapper}>
@@ -43,7 +49,7 @@ const Drawing = () => {
           {!isDrawingMode ? (
             <DrawingIntro onStart={() => setIsDrawingMode(true)} />
           ) : (
-            <Canvas stageRef={stageRef} />
+            <Canvas stageRef={stageRef} lines={lines} setLines={setLines} />
           )}
         </div>
 

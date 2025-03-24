@@ -18,6 +18,7 @@ const LetterWrite = () => {
   const handleChoiceLetter = () => {
     navigate(`/choiceletter/${uuid}/${id}`, {
       state: {
+        ...location.state,
         to: recipient,
         content,
         from: sender,
@@ -82,7 +83,14 @@ const LetterWrite = () => {
             variant='secondary'
             width={82}
             onClick={() => {
-              navigate(`/drawing/${uuid}`)
+              navigate(`/drawing/${uuid}`, {
+                state: {
+                  ...location.state,
+                  to: recipient,
+                  content,
+                  from: sender,
+                },
+              })
             }}
           >
             {t('before')}
