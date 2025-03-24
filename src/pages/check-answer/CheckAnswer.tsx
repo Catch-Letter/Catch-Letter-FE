@@ -22,6 +22,7 @@ const CheckAnswer = () => {
     content: string
   } | null>(null)
   const [imageUrl, setImageUrl] = useState<string | null>(null)
+  const [answer, setAnswer] = useState<string>('')
 
   //편지내용 가져오기
   useEffect(() => {
@@ -53,6 +54,7 @@ const CheckAnswer = () => {
           const response = await getAnswer(uuid, Number(id))
           if (response && response.data && response.data.answer) {
             setAnswerLength(response.data.answer.length)
+            setAnswer(response.data.answer)
           }
         } catch (error) {
           console.error('Error fetching answer:', error)
@@ -89,7 +91,7 @@ const CheckAnswer = () => {
       <BackHeader />
       <div css={CheckAnswerStyles(isFlipped, imageUrl || '')}>
         <button className='btn-copy'>우리의 암호</button>
-        <SeparatedInput length={answerLength} />
+        <SeparatedInput length={answerLength} value={answer} />
         <div className='content' onClick={handleCardClick}>
           <div className='cardFront'>
             {/* <LetterCard type={selectedColor}> */}
