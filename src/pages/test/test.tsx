@@ -1,4 +1,5 @@
 import { Loading } from '#/components'
+import { colors } from '#/styles/color'
 import { css } from '@emotion/react'
 
 const Test = () => {
@@ -7,7 +8,7 @@ const Test = () => {
       css={css`
         color: white;
         height: 100vh;
-        background-color: #444;
+        background-color: ${colors.grey[11]};
       `}
     >
       <Loading />

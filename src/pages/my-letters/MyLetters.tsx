@@ -14,6 +14,7 @@ import lockImage from '#/assets/create/lock.png'
 import { colors } from '#/styles/color'
 import { useMyLettersQuery } from '#/api/myLetters'
 import { fetchUUID } from '#/api/uuid'
+import { DotLoader } from '#/shared/ui'
 
 const MyLetters = () => {
   const [shakingCard, setShakingCard] = useState<number | null>(null)
@@ -121,14 +122,17 @@ const MyLetters = () => {
         Center={
           <div css={TitleStyle}>
             {t('myLetters')}
-            {/* <span css={BadgeStyle}>{data?.pages.flatMap((page) => page.data).length ?? 0}</span> */}
             <span css={BadgeStyle}>{letterCount ?? 0}</span>
           </div>
         }
       />
       <div css={GridContainer} ref={scrollContainerRef}>
         {isLoading || isFetching
-          ? Array.from({ length: 6 }).map((_, index) => <div key={index} css={SkeletonCardStyle} />)
+          ? Array.from({ length: 6 }).map((_, index) => (
+              <div key={index} css={SkeletonCardStyle}>
+                <DotLoader size={8} color={colors.grey[9]} />
+              </div>
+            ))
           : data?.pages.flatMap((page, pageIndex) =>
               page.data.map((letter) => (
                 <div
