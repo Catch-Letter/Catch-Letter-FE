@@ -1,8 +1,10 @@
+// TODO : SNS 공유하기 버튼
 import { FallingLetters, TextSection } from '#/components/inbox'
 import { useInboxStatus } from '#/hooks'
 import { Flex, Header } from '#/shared/ui'
 import { Button } from '#/shared/ui/button'
 import { FC } from 'react'
+import { useNavigate } from 'react-router'
 import { bottomButtonStyles, containerStyles, headerStyles } from '../Inbox.styles'
 
 interface Props {
@@ -11,6 +13,7 @@ interface Props {
 
 const LetterReciving: FC<Props> = ({ uuid }) => {
   const { name, time_left, total_letter_count } = useInboxStatus(uuid)
+  const navigate = useNavigate()
 
   return (
     <div css={containerStyles}>
@@ -27,7 +30,7 @@ const LetterReciving: FC<Props> = ({ uuid }) => {
         <Button onClick={() => {}} variant='secondary'>
           SNS 공유하기
         </Button>
-        <Button onClick={() => {}}>편지 쓰러 가기!</Button>
+        <Button onClick={() => navigate(`/drawing/${uuid}`)}>편지 쓰러 가기!</Button>
       </Flex>
 
       <FallingLetters />
