@@ -18,13 +18,11 @@ const LetterWrite = () => {
   const handleChoiceLetter = () => {
     navigate(`/choiceletter/${uuid}/${id}`, {
       state: {
+        ...location.state,
         to: recipient,
         content,
         from: sender,
         img: location.state?.img,
-        lines: location.state?.lines,
-        answer: location.state?.answer,
-        isDrawingMode: location.state?.isDrawingMode,
       },
     })
   }
@@ -87,12 +85,10 @@ const LetterWrite = () => {
             onClick={() => {
               navigate(`/drawing/${uuid}`, {
                 state: {
+                  ...location.state,
                   to: recipient,
                   content,
                   from: sender,
-                  lines: location.state?.lines,
-                  answer: location.state?.answer,
-                  isDrawingMode: location.state?.isDrawingMode,
                 },
               })
             }}
