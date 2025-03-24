@@ -72,11 +72,13 @@ export const TryAnswerStyle = css`
 export const LetterCardStyle = (backgroundImage: string) => css`
   background-image: url(${backgroundImage});
   background-size: cover;
+  background-color: white;
+  opacity: 0.8;
   background-position: center;
   width: 70%;
   height: 100%;
   border-radius: 24px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
 `
 
 export const SkeletonCardStyle = css`

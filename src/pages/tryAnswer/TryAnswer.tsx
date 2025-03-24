@@ -184,7 +184,7 @@ const TryAnswer = () => {
             <div css={LetterCardStyle(imageUrl || '')}></div>
           ) : (
             <div css={SkeletonCardStyle}>
-              <DotLoader color={colors.grey[3]} backgroundColor={colors.grey[5]} />
+              <DotLoader color={colors.grey[9]} backgroundColor={colors.grey[3]} />
             </div>
           )}
         </div>
