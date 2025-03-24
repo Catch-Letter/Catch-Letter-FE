@@ -18,12 +18,13 @@ export default function useInboxStatus(uuid: string) {
       isPending,
       error,
       time_left: '23:59:59',
-      letter_count: 0,
+      incorrect_letter_count: 0,
+      total_letter_count: 0,
       name: '',
     }
   }
 
-  const { expired_at, letter_count, name } = data
+  const { expired_at, incorrect_letter_count, total_letter_count, name } = data
 
   const isExpired = expired_at === null || dayjs().isAfter(expired_at)
 
@@ -34,7 +35,8 @@ export default function useInboxStatus(uuid: string) {
     isPending,
     error,
     time_left,
-    letter_count,
+    incorrect_letter_count,
+    total_letter_count,
     name,
   }
 }

@@ -34,7 +34,7 @@ const MyLetters = () => {
       }
       try {
         const res = await fetchUUID(uuid)
-        setLetterCount(res.letter_count)
+        setLetterCount(res.total_letter_count)
       } catch (error) {
         console.error(error)
       }

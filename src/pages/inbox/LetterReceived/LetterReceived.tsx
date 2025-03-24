@@ -4,18 +4,17 @@ import { PasswordModal } from '#/components/inbox/PasswordModal'
 import { useInboxStatus, useLogin, usePasswordModal } from '#/hooks'
 import { Flex, Header } from '#/shared/ui'
 import { Button } from '#/shared/ui/button'
+import { useAuthStore } from '#/store/authStore'
 import { FC, useCallback } from 'react'
 import { useNavigate } from 'react-router'
-import { containerStyles, headerStyles } from '../Inbox.styles'
-import { bottomButtonStyles } from './LetterReceived.styles'
-import { useAuthStore } from '#/store/authStore'
+import { bottomButtonStyles, containerStyles, headerStyles } from '../Inbox.styles'
 
 interface Props {
   uuid: string
 }
 
 const LetterReciving: FC<Props> = ({ uuid }) => {
-  const { letter_count, name } = useInboxStatus(uuid)
+  const { total_letter_count, incorrect_letter_count, name } = useInboxStatus(uuid)
   const { isOpen, openModal, closeModal, password, initializePassword, onPasswordChange } =
     usePasswordModal()
 
@@ -41,17 +40,15 @@ const LetterReciving: FC<Props> = ({ uuid }) => {
 
   const { login } = useLogin({ onAuthSuccess, onAuthFail })
 
-  const total_received_letter = '???'
-
   return (
     <div css={containerStyles}>
       <Header css={headerStyles} Left={<span className='left'>catch letter</span>} />
 
       <TextSection
-        title1='내가 받은 비밀편지는'
-        value1={letter_count}
+        title1={`${name}의 받은 비밀편지`}
+        value1={total_letter_count}
         title2='풀지 못한 편지'
-        value2={total_received_letter}
+        value2={incorrect_letter_count}
       />
 
       <Flex justify='space-between' gap={16} css={bottomButtonStyles}>

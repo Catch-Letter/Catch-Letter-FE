@@ -19,3 +19,20 @@ export const headerStyles = css`
     margin-left: 6px;
   }
 `
+
+export const bottomButtonStyles = css`
+  position: absolute;
+  z-index: ${ZIndex.letterInboxUI};
+  left: 16px;
+  right: 16px;
+  bottom: 35.5px;
+  margin: 0 auto;
+
+  > :first-of-type {
+    flex-grow: 115;
+  }
+
+  > :last-of-type {
+    flex-grow: 212;
+  }
+`

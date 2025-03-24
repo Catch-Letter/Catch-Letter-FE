@@ -13,6 +13,7 @@ export const fetchUUID = async (uuid: string) => {
 
 interface Response {
   expired_at: string
-  letter_count: number
+  total_letter_count: number
+  incorrect_letter_count: number
   name: string
 }
