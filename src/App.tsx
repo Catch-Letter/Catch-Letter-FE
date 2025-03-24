@@ -7,7 +7,6 @@ import {
   CreatePost,
   CreatePostForm,
   Drawing,
-  Home,
   MyLetters,
   Test,
   TryAnswer,
@@ -34,7 +33,7 @@ const App = () => {
               <Route path='/postform' element={<CreatePostForm />} />
               <Route path='/success' element={<Success />} />
               <Route path='/inbox/:uuid' element={<Inbox />} />
-              <Route path='/checkanswer' element={<CheckAnswer />} />
+              <Route path='/checkanswer/:uuid/:id' element={<CheckAnswer />} />
               <Route path='/tryAnswer/:uuid/:id' element={<TryAnswer />} />
               <Route path='/drawing/:uuid' element={<Drawing />} />
             </Route>

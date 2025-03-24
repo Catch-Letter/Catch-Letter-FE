@@ -1,62 +1,116 @@
+import { getDraw } from '#/api/getDraw'
+import { letter } from '#/api/letter'
 import { BackHeader, LetterCard } from '#/components'
 import { LetterContent } from '#/components/letter-choice'
 import { SeparatedInput } from '#/shared/ui'
 import { Background } from '#/shared/ui/background'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { IoTriangle } from 'react-icons/io5'
-import { CheckAnswerStyles } from './CheckAnswer.styles'
+import { useParams } from 'react-router'
+import { CheckAnswerStyles, LetterCardStyle } from './CheckAnswer.styles'
+import { getAnswer } from '#/api/getAnswer'
 
 const CheckAnswer = () => {
+  const { uuid, id } = useParams()
   const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
   const [isFlipped, setIsFlipped] = useState(false)
+  const [answerLength, setAnswerLength] = useState(4)
+  const [letterData, setLetterData] = useState<{
+    to: string
+    from: string
+    content: string
+  } | null>(null)
+  const [imageUrl, setImageUrl] = useState<string | null>(null)
+
+  //편지내용 가져오기
+  useEffect(() => {
+    const fetchLetterData = async () => {
+      if (uuid && id) {
+        try {
+          const response = await letter(uuid, Number(id))
+          if (response && response.data) {
+            setLetterData({
+              to: response.data.to,
+              from: response.data.from,
+              content: response.data.contents,
+            })
+          }
+        } catch (error) {
+          console.error('Error fetching letter data:', error)
+        }
+      }
+    }
+    fetchLetterData()
+  }, [uuid, id])
+
+  //정답 가져오기
+
+  useEffect(() => {
+    const fetchAnswer = async () => {
+      if (uuid && id) {
+        try {
+          const response = await getAnswer(uuid, Number(id))
+          if (response && response.data && response.data.answer) {
+            setAnswerLength(response.data.answer.length)
+          }
+        } catch (error) {
+          console.error('Error fetching answer:', error)
+        }
+      }
+    }
+    fetchAnswer()
+  }, [uuid, id])
+
+  //그림가져오기
+  useEffect(() => {
+    const getDrawData = async () => {
+      if (uuid && id) {
+        try {
+          const response = await getDraw(uuid, Number(id))
+          if (response && response.data && response.data.presigned_url) {
+            setImageUrl(response.data.presigned_url)
+          }
+        } catch (error) {
+          console.error('getDrawError:', error)
+        }
+      }
+    }
+    getDrawData()
+  }, [uuid, id])
 
   const handleCardClick = () => {
     setIsFlipped((prev) => !prev)
-  }
-
-  const data1 = {
-    to: '친구',
-    content: `이 편지는 영국에서 최초로 시작되어 일년에 한바퀴를 돌면서 받는 사람에게 행운을 주었고 지금은 당신에게로 옮겨진 이 편지는 4일 안에 당신 곁을 떠나야 합니다. 이 편지를 포함해서 7통을 행운이 필요한 사람에게 보내 주셔야 합니다. 복사를 해도 좋습니다. 혹 미신이라 하실지 모르지만 사실입니다.
-  영국에서 HGXWCH이라는 사람은 1930년에 이 편지를 받았습니다. 그는 비서에게 복사해서 보내라고 했습니다. 며칠 뒤에 복권이 당첨되어 20억을 받았습니다. 어떤 이는 이 편지를 받았으나 96시간 이내 자신의 손에서 떠나야 한다는 사실을 잊었습니다. 그는 곧 사직되었습니다. 나중에야 이 사실을 알고 7통의 편지를 보냈는데 다시 좋은 직장을 얻었습니다. 미국의 케네디 대통령은 이 편지를 받았지만 그냥 버렸습니다. 결국 9일 후 그는 암살당했습니다. 기억해 주세요. 이 편지를 보내면 7년의 행운이 있을 것이고 그렇지 않으면 3년의 불행이 있을 것입니다. 그리고 이 편지를 버리거나 낙서를 해서는 절대로 안됩니다. 7통입니다. 이 편지를 받은 사람은 행운이 깃들 것입니다. 힘들겠지만 좋은 게 좋다고 생각하세요. 7년의 행운을 빌면서...`,
-    from: '친구',
-  }
-  const data2 = {
-    to: '그림',
-    content: '그림 들어갈 부분',
-    from: '그림',
   }
 
   return (
     <>
       <Background color='grey' />
       <BackHeader />
-      <div css={CheckAnswerStyles(isFlipped)}>
-        <SeparatedInput length={6} />
+      <div css={CheckAnswerStyles(isFlipped, imageUrl || '')}>
+        <button className='btn-copy'>우리의 암호</button>
+        <SeparatedInput length={answerLength} />
         <div className='content' onClick={handleCardClick}>
           <div className='cardFront'>
-            <LetterCard type={selectedColor}>
-              <LetterContent
-                to={data2.to}
-                content={data2.content}
-                from={data2.from}
-                color={selectedColor}
-                pattern={selectedPattern}
-                font={selectedFont}
-              />
-            </LetterCard>
+            {/* <LetterCard type={selectedColor}> */}
+            <div css={LetterCardStyle(imageUrl || '')}></div>
+            {/* </LetterCard> */}
           </div>
           <div className='cardBack'>
-            <LetterCard type={selectedColor}>
-              <LetterContent
-                to={data1.to}
-                content={data1.content}
-                from={data1.from}
-                color={selectedColor}
-                pattern={selectedPattern}
-                font={selectedFont}
-              />
-            </LetterCard>
+            {letterData ? (
+              <LetterCard type={selectedColor}>
+                <LetterContent
+                  to={letterData.to}
+                  content={letterData.content}
+                  from={letterData.from}
+                  color={selectedColor}
+                  pattern={selectedPattern}
+                  font={selectedFont}
+                />
+              </LetterCard>
+            ) : (
+              <p>편지를 불러오는 중...</p>
+            )}
           </div>
         </div>
         <div className='notice-area'>
