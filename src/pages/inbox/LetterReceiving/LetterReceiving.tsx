@@ -23,9 +23,12 @@ const LetterReciving: FC<Props> = ({ uuid }) => {
         value2={total_letter_count}
       />
 
-      <Button onClick={() => {}} width={'calc(100% - 32px)'} css={bottomButtonStyles}>
-        SNS 공유하기
-      </Button>
+      <Flex justify='space-between' gap={16} css={bottomButtonStyles}>
+        <Button onClick={() => {}} variant='secondary'>
+          SNS 공유하기
+        </Button>
+        <Button onClick={() => {}}>편지 쓰러 가기!</Button>
+      </Flex>
 
       <FallingLetters />
     </div>
