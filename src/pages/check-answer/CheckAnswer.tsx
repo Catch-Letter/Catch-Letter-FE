@@ -1,19 +1,15 @@
+import { getDraw } from '#/api/getDraw'
+import { letter } from '#/api/letter'
 import { BackHeader, LetterCard } from '#/components'
 import { LetterContent } from '#/components/letter-choice'
 import { SeparatedInput } from '#/shared/ui'
 import { Background } from '#/shared/ui/background'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
-import { useState } from 'react'
-import { IoTriangle } from 'react-icons/io5'
-import { CheckAnswerStyles } from './CheckAnswer.styles'
-import { CheckAnswerStyles, LetterCardStyle } from './CheckAnswer.styles'
 import { useEffect, useState } from 'react'
-import { Background } from '#/shared/ui/background'
+import { IoTriangle } from 'react-icons/io5'
 import { useParams } from 'react-router'
-import { letter } from '#/api/letter'
-import { apiClient } from '#/api/apiClient'
-import { API_ENDPOINTS } from '#/api/apiEndpoints'
-import { getDraw } from '#/api/getDraw'
+import { CheckAnswerStyles, LetterCardStyle } from './CheckAnswer.styles'
+import { getAnswer } from '#/api/getAnswer'
 
 const CheckAnswer = () => {
   const { uuid, id } = useParams()
@@ -46,6 +42,24 @@ const CheckAnswer = () => {
       }
     }
     fetchLetterData()
+  }, [uuid, id])
+
+  //정답 가져오기
+
+  useEffect(() => {
+    const fetchAnswer = async () => {
+      if (uuid && id) {
+        try {
+          const response = await getAnswer(uuid, Number(id))
+          if (response && response.data && response.data.answer) {
+            setAnswerLength(response.data.answer.length)
+          }
+        } catch (error) {
+          console.error('Error fetching answer:', error)
+        }
+      }
+    }
+    fetchAnswer()
   }, [uuid, id])
 
   //그림가져오기

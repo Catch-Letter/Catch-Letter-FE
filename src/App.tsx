@@ -7,7 +7,6 @@ import {
   CreatePost,
   CreatePostForm,
   Drawing,
-  Home,
   MyLetters,
   Test,
   TryAnswer,

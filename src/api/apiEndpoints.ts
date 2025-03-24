@@ -9,4 +9,5 @@ export const API_ENDPOINTS = {
   GET_LETTER: (uuId: string, letterId: number) => `/users/${uuId}/images/${letterId}/letters`,
   GET_DRAW: (uuId: string, letterId: number) => `/users/${uuId}/images/${letterId}`,
   GET_ANSWER_STATUS: (uuId: string, letterId: number) => `/users/${uuId}/images/${letterId}/status`,
+  GET_ANSWER: (uuId: string, letterId: number) => `/users/${uuId}/images/${letterId}/answer`,
 }
