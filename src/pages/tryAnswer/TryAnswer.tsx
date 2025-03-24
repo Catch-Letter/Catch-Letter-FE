@@ -2,7 +2,11 @@ import { postTryAnswer } from '#/api/postTryAnswer'
 import { letter } from '#/api/letter'
 import { BackHeader, LetterCard, LetterContent } from '#/components'
 import { TryCounter } from '#/components/try-answer/try-Counter'
-import { LetterCardStyle, TryAnswerStyle } from '#/pages/tryAnswer/TryAnswer.styles'
+import {
+  LetterCardStyle,
+  TryAnswerStyle,
+  tryAnswerWrapper,
+} from '#/pages/tryAnswer/TryAnswer.styles'
 import { Button } from '#/shared/ui'
 import { Background } from '#/shared/ui/background'
 import SeparatedInput from '#/shared/ui/separated-input/separated-input'
@@ -159,7 +163,7 @@ const TryAnswer = () => {
   }
 
   return (
-    <>
+    <div css={tryAnswerWrapper}>
       <Background color='pink' />
       <BackHeader />
       <div css={TryAnswerStyle}>
@@ -193,7 +197,7 @@ const TryAnswer = () => {
           </Button>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

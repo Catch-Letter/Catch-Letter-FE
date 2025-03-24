@@ -29,6 +29,13 @@ const glowAnimation = keyframes`
   }
 `
 
+export const tryAnswerWrapper = css`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+`
+
 export const TryAnswerStyle = css`
   display: flex;
   flex-direction: column;
@@ -45,7 +52,11 @@ export const TryAnswerStyle = css`
   }
 
   .LetterCard-container {
-    margin: 0 48px;
+    display: flex;
+    justify-content: center;
+    /* margin: 0 48px; */
+    width: 100%;
+    height: 70%;
   }
 
   .shake {
@@ -61,8 +72,8 @@ export const LetterCardStyle = (backgroundImage: string) => css`
   background-image: url(${backgroundImage});
   background-size: cover;
   background-position: center;
-  width: 300px;
-  height: 400px;
+  width: 70%;
+  height: 100%;
   border-radius: 24px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `
