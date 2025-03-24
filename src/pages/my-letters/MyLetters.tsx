@@ -13,7 +13,7 @@ import {
   UnLockLetterStyle,
 } from './MyLetters.styles'
 import { useTranslation } from 'react-i18next'
-import lockImage from '#/assets/myLetters/lock.svg'
+import lockImage from '#/assets/create/lock.svg'
 import { colors } from '#/styles/color'
 import { useMyLettersQuery } from '#/api/myLetters'
 import { fetchUUID } from '#/api/uuid'
