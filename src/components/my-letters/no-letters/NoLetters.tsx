@@ -6,8 +6,9 @@ const NoLetters = () => {
     <div css={LettersContainer}>
       <img src={bubbleImgae} alt='bubble' />
       <h1>이번에는 편지가 없어요 🥲</h1>
-      <span>새로운 링크로 다시 한 번</span>
-      <span>친구들에게 소식을 전해 볼까요?</span>
+      <span>
+        새로운 링크로 다시 한 번 <br /> 친구들에게 소식을 전해 볼까요?
+      </span>
     </div>
   )
 }

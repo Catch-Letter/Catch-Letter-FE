@@ -19,6 +19,7 @@ export const LettersContainer = css`
   }
 
   span {
+    text-align: center;
     color: ${colors.grey[7]};
   }
 `
