@@ -151,7 +151,7 @@ const MyLetters = () => {
                       <div
                         css={UnLockLetterStyle(letter.thumbnail_url ?? lockImage)}
                         onClick={() =>
-                          navigate(`/tryAnswer/${uuid}/${letter.id}`, {
+                          navigate(`/checkAnswer/${uuid}/${letter.id}`, {
                             state: { answerLength: letter.answer_length },
                           })
                         }
