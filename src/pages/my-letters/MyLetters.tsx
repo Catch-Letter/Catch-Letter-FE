@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router'
-import { BackHeader } from '#/components'
+import { BackHeader, NoLetters } from '#/components'
 import {
   MyLettersWrapper,
   TitleStyle,
@@ -8,12 +8,16 @@ import {
   GridContainer,
   LetterCardStyle,
   SkeletonCardStyle,
+  NoLettersContainer,
+  LockLetterStyle,
+  UnLockLetterStyle,
 } from './MyLetters.styles'
 import { useTranslation } from 'react-i18next'
-import lockImage from '#/assets/create/lock.png'
+import lockImage from '#/assets/create/lock.svg'
 import { colors } from '#/styles/color'
 import { useMyLettersQuery } from '#/api/myLetters'
 import { fetchUUID } from '#/api/uuid'
+import { DotLoader } from '#/shared/ui'
 
 const MyLetters = () => {
   const [shakingCard, setShakingCard] = useState<number | null>(null)
@@ -121,39 +125,57 @@ const MyLetters = () => {
         Center={
           <div css={TitleStyle}>
             {t('myLetters')}
-            {/* <span css={BadgeStyle}>{data?.pages.flatMap((page) => page.data).length ?? 0}</span> */}
             <span css={BadgeStyle}>{letterCount ?? 0}</span>
           </div>
         }
       />
-      <div css={GridContainer} ref={scrollContainerRef}>
-        {isLoading || isFetching
-          ? Array.from({ length: 6 }).map((_, index) => <div key={index} css={SkeletonCardStyle} />)
-          : data?.pages.flatMap((page, pageIndex) =>
-              page.data.map((letter) => (
-                <div
-                  key={`${letter.id}_${pageIndex}`}
-                  css={LetterCardStyle(
-                    shakingCard,
-                    letter.id,
-                    extractColor(letter.letter.etc),
-                    letter.thumbnail_url ?? lockImage
-                  )}
-                  onClick={() =>
-                    navigate(`/tryAnswer/${uuid}/${letter.id}`, {
-                      state: { answerLength: letter.answer_length },
-                    })
-                  }
-                >
-                  {!letter.is_correct && (
-                    <div className='lock-letter'>
-                      <img src={lockImage} alt='lock-icon' />
-                    </div>
-                  )}
+      {letterCount === 0 ? (
+        <div css={NoLettersContainer}>
+          <NoLetters />
+        </div>
+      ) : (
+        <div css={GridContainer} ref={scrollContainerRef}>
+          {isLoading || isFetching
+            ? Array.from({ length: 6 }).map((_, index) => (
+                <div key={index} css={SkeletonCardStyle}>
+                  <DotLoader color={colors.grey[9]} />
                 </div>
               ))
-            )}
-      </div>
+            : data?.pages.flatMap((page, pageIndex) =>
+                page.data.map((letter) => (
+                  <div
+                    key={`${letter.id}_${pageIndex}`}
+                    css={LetterCardStyle(shakingCard, letter.id, extractColor(letter.letter.etc))}
+                  >
+                    {letter.is_correct ? (
+                      <div
+                        css={UnLockLetterStyle(letter.thumbnail_url ?? lockImage)}
+                        onClick={() =>
+                          navigate(`/checkAnswer/${uuid}/${letter.id}`, {
+                            state: { answerLength: letter.answer_length },
+                          })
+                        }
+                      />
+                    ) : (
+                      <div
+                        css={LockLetterStyle}
+                        onClick={() =>
+                          navigate(`/tryAnswer/${uuid}/${letter.id}`, {
+                            state: { answerLength: letter.answer_length },
+                          })
+                        }
+                      >
+                        <img src={lockImage} alt='lock-icon' />
+                        <div className='lock-text'>
+                          암호를 <br /> 풀어주세요!
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))
+              )}
+        </div>
+      )}
     </div>
   )
 }

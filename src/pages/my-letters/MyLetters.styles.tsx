@@ -10,15 +10,6 @@ const shakeAnimation = keyframes`
   100% { transform: rotate(0deg) translateX(0); }
 `
 
-const shimmer = keyframes`
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
-`
-
 export const MyLettersWrapper = css`
   height: 100vh;
   display: flex;
@@ -55,8 +46,7 @@ export const GridContainer = css`
 export const LetterCardStyle = (
   shakingCard: number | null,
   letterId: number,
-  backgroundColor: string,
-  backgroundImage: string
+  backgroundColor: string
 ) => css`
   width: 100%;
   aspect-ratio: 2 / 3;
@@ -66,10 +56,7 @@ export const LetterCardStyle = (
   align-items: center;
   justify-content: center;
   background-color: ${backgroundColor};
-  background-image: url(${backgroundImage});
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
+  border: 1px solid ${backgroundColor};
   cursor: pointer;
 
   ${shakingCard !== null &&
@@ -77,30 +64,48 @@ export const LetterCardStyle = (
   css`
     animation: ${shakeAnimation} 0.5s ease-in-out;
   `}
-
-  .lock-letter {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    border-radius: 16px;
-    backdrop-filter: blur(1.4px);
-    position: relative;
-  }
 `
 
 export const SkeletonCardStyle = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   aspect-ratio: 2 / 3;
   border-radius: 16px;
-  background-color: ${colors.grey[8]};
-  background: linear-gradient(
-    90deg,
-    ${colors.grey[8]} 25%,
-    ${colors.grey[7]} 50%,
-    ${colors.grey[8]} 75%
-  );
+  background-color: ${colors.grey[12]};
   background-size: 200% 100%;
-  animation: ${shimmer} 2s infinite;
+`
+
+export const NoLettersContainer = css`
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+export const LockLetterStyle = css`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 16px;
+  gap: 12px;
+
+  .lock-text {
+    line-height: 140%;
+    text-align: center;
+  }
+`
+
+export const UnLockLetterStyle = (backgroundImage: string) => css`
+  width: 100%;
+  height: 100%;
+  background-image: url(${backgroundImage});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 `
