@@ -4,10 +4,11 @@ import { BackHeader, LetterCard, LetterContent } from '#/components'
 import { TryCounter } from '#/components/try-answer/try-Counter'
 import {
   LetterCardStyle,
+  SkeletonCardStyle,
   TryAnswerStyle,
   tryAnswerWrapper,
 } from '#/pages/tryAnswer/TryAnswer.styles'
-import { Button } from '#/shared/ui'
+import { Button, DotLoader } from '#/shared/ui'
 import { Background } from '#/shared/ui/background'
 import SeparatedInput from '#/shared/ui/separated-input/separated-input'
 // import { useLetterCreationStore } from '#/store/letterCreateStore'
@@ -17,6 +18,7 @@ import { getDraw } from '#/api/getDraw'
 import { getAnswerStatus } from '#/api/getAnswerStatus'
 import { useLocation } from 'react-router'
 import { TryIntro } from '#/components/try-answer' // DrawingIntro import 추가
+import { colors } from '#/styles/color'
 
 const TryAnswer = () => {
   // const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
@@ -181,7 +183,9 @@ const TryAnswer = () => {
           ) : letterData ? (
             <div css={LetterCardStyle(imageUrl || '')}></div>
           ) : (
-            <p>편지를 불러오는 중...</p>
+            <div css={SkeletonCardStyle}>
+              <DotLoader color={colors.grey[3]} backgroundColor={colors.grey[5]} />
+            </div>
           )}
         </div>
         <div className='Input-area'>

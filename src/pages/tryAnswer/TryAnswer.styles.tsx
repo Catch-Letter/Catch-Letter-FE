@@ -1,3 +1,4 @@
+import { colors } from '#/styles/color'
 import { css, keyframes } from '@emotion/react'
 
 const shakeAnimation = keyframes`
@@ -76,4 +77,16 @@ export const LetterCardStyle = (backgroundImage: string) => css`
   height: 100%;
   border-radius: 24px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+`
+
+export const SkeletonCardStyle = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  height: 100%;
+  border-radius: 24px;
+  background-color: ${colors.grey[3]};
+  background-size: 200% 100%;
+  opacity: 0.5;
 `
