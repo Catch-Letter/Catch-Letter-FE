@@ -14,7 +14,7 @@ const LanguageSwitcher = () => {
 
   return (
     <button css={buttonStyle(isKorean)} onClick={toggleLanguage}>
-      <span>한</span>/<span>영</span>
+      <span>ko</span>/<span>en</span>
     </button>
   )
 }
