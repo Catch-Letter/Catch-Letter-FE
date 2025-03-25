@@ -1,6 +1,9 @@
-import { postTryAnswer } from '#/api/postTryAnswer'
+import { getAnswerStatus } from '#/api/getAnswerStatus'
+import { getDraw } from '#/api/getDraw'
 import { letter } from '#/api/letter'
-import { BackHeader, LetterCard, LetterContent } from '#/components'
+import { postTryAnswer } from '#/api/postTryAnswer'
+import { BackHeader } from '#/components'
+import { TryIntro } from '#/components/try-answer' // DrawingIntro import 추가
 import { TryCounter } from '#/components/try-answer/try-Counter'
 import {
   LetterCardStyle,
@@ -8,17 +11,11 @@ import {
   TryAnswerStyle,
   tryAnswerWrapper,
 } from '#/pages/tryAnswer/TryAnswer.styles'
-import { Button, DotLoader } from '#/shared/ui'
-import { Background } from '#/shared/ui/background'
+import { Background, Button, DotLoader } from '#/shared/ui'
 import SeparatedInput from '#/shared/ui/separated-input/separated-input'
-// import { useLetterCreationStore } from '#/store/letterCreateStore'
-import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router'
-import { getDraw } from '#/api/getDraw'
-import { getAnswerStatus } from '#/api/getAnswerStatus'
-import { useLocation } from 'react-router'
-import { TryIntro } from '#/components/try-answer' // DrawingIntro import 추가
 import { colors } from '#/styles/color'
+import { useEffect, useState } from 'react'
+import { useLocation, useNavigate, useParams } from 'react-router'
 
 const TryAnswer = () => {
   // const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()

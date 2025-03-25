@@ -1,15 +1,14 @@
-import { useState, useRef } from 'react'
-import { useLocation, useParams } from 'react-router'
-import { DrawingWrapper, FormWrapper } from '#/pages/drawing/Drawing.styles'
-import Konva from 'konva'
 import { BackHeader } from '#/components'
-import { Background } from '#/shared/ui/background'
-import { Button, InputField } from '#/shared/ui'
 import { Canvas, DrawingIntro } from '#/components/drawing'
-import { answerValidate, isAnswerInvalid } from '#/shared/utils/answerValidation'
 import { useDrawingSubmit } from '#/hooks/useDrawingSubmit'
-import { useTranslation } from 'react-i18next'
+import { DrawingWrapper, FormWrapper } from '#/pages/drawing/Drawing.styles'
+import { Background, Button, InputField } from '#/shared/ui'
+import { answerValidate, isAnswerInvalid } from '#/shared/utils/answerValidation'
 import { LineData } from '#/types/drawing'
+import Konva from 'konva'
+import { useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useLocation, useParams } from 'react-router'
 
 const Drawing = () => {
   const { t } = useTranslation()
