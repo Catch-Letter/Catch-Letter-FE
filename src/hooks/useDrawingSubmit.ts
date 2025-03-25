@@ -1,15 +1,18 @@
 import { useCallback } from 'react'
-import { useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 import Konva from 'konva'
 import { requestDrawUpload, uploadImageToPresignedUrl } from '#/api/draw'
 import { convertStageToSVG } from '#/shared/utils/convertToSvg'
+import { LineData } from '#/types/drawing'
 
 export const useDrawingSubmit = (
   uuid: string | undefined,
   answer: string,
-  stageRef: React.RefObject<Konva.Stage>
+  stageRef: React.RefObject<Konva.Stage>,
+  lines: LineData[]
 ) => {
   const navigate = useNavigate()
+  const location = useLocation()
 
   const handleUpload = useCallback(async () => {
     if (!uuid) {
@@ -52,12 +55,18 @@ export const useDrawingSubmit = (
       navigate(`/writeletter/${uuid}/${response.id}`, {
         state: {
           img: pngFile,
+          lines,
+          answer,
+          isDrawingMode: true,
+          to: location.state?.to,
+          content: location.state?.content,
+          from: location.state?.from,
         },
       })
     } catch (error) {
       console.error('업로드 실패', error)
     }
-  }, [uuid, answer, stageRef, navigate])
+  }, [uuid, answer, lines, stageRef, navigate])
 
   return { handleUpload }
 }

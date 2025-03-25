@@ -46,6 +46,7 @@ const ChoiceLetter = () => {
   const handlePrev = () => {
     navigate(`/writeletter/${uuid}/${id}`, {
       state: {
+        ...location.state,
         to: letter.to,
         content: letter.content,
         from: letter.from,

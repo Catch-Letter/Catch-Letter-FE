@@ -1,17 +1,17 @@
-import { testContainerStyles } from '#/shared/utils/styles/test-container'
+import { Loading } from '#/components'
+import { colors } from '#/styles/color'
 import { css } from '@emotion/react'
 
 const Test = () => {
   return (
     <div
       css={css`
-        /* ${testContainerStyles} */
         color: white;
         height: 100vh;
-        background-color: #444;
+        background-color: ${colors.grey[11]};
       `}
     >
-      test playground
+      <Loading />
     </div>
   )
 }

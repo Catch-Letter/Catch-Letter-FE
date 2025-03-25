@@ -7,11 +7,11 @@ import {
   CreatePost,
   CreatePostForm,
   Drawing,
-  Home,
   MyLetters,
   Test,
   TryAnswer,
 } from '#/pages'
+import { Loading } from '#/components'
 
 const App = () => {
   const SendLetter = lazy(() => import('#/pages/letter-send/SendLetter'))
@@ -22,7 +22,7 @@ const App = () => {
   return (
     <I18nProvider>
       <BrowserRouter>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loading />}>
           <Routes>
             <Route path='/' element={<Layout />}>
               <Route path='/' element={<CreatePost />} />
@@ -34,7 +34,7 @@ const App = () => {
               <Route path='/postform' element={<CreatePostForm />} />
               <Route path='/success' element={<Success />} />
               <Route path='/inbox/:uuid' element={<Inbox />} />
-              <Route path='/checkanswer' element={<CheckAnswer />} />
+              <Route path='/checkanswer/:uuid/:id' element={<CheckAnswer />} />
               <Route path='/tryAnswer/:uuid/:id' element={<TryAnswer />} />
               <Route path='/drawing/:uuid' element={<Drawing />} />
             </Route>
