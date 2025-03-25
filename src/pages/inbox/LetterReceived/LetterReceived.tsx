@@ -2,7 +2,7 @@
 import { FallingLetters, TextSection } from '#/components/inbox'
 import { PasswordModal } from '#/components/inbox/PasswordModal'
 import { useInboxStatus, useLogin, usePasswordModal } from '#/hooks'
-import { Flex, Header } from '#/shared/ui'
+import { Background, Flex, Header } from '#/shared/ui'
 import { Button } from '#/shared/ui/button'
 import { useAuthStore } from '#/store/authStore'
 import { FC, useCallback } from 'react'
@@ -42,6 +42,7 @@ const LetterReciving: FC<Props> = ({ uuid }) => {
 
   return (
     <div css={containerStyles}>
+      <Background gradientType='halfGradient' />
       <Header css={headerStyles} Left={<span className='left'>catch letter</span>} />
 
       <TextSection
