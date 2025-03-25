@@ -19,13 +19,13 @@ export const dotStyle = (delay: number, size: number, color: string) => css`
   animation-delay: ${delay}s;
 `
 
-export const wrapperStyle = (size: number) => css`
+export const wrapperStyle = (size: number, backgroundColor?: string) => css`
   display: flex;
   justify-content: center;
   align-items: center;
   width: ${size * 9}px;
   height: ${size * 9}px;
   border-radius: 50%;
-  background-color: ${colors.grey[12]};
+  background-color: ${backgroundColor ?? colors.grey[12]};
   gap: ${size}px;
 `

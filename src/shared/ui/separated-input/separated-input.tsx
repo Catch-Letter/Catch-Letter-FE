@@ -31,7 +31,7 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
       const filledValues = [...newValues, ...Array(length - newValues.length).fill('')]
       setInputValues(filledValues)
     }
-  }, [value, length])
+  }, [length])
 
   const updateValues = (newValues: string[]) => {
     setInputValues(newValues)
@@ -88,7 +88,7 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
       key={index}
       type={type}
       ref={(el) => (inputRefs.current[index] = el)}
-      value={isComposing ? undefined : inputValues[index]}
+      value={isComposing ? undefined : (inputValues[index] ?? '')}
       onChange={(e) => handleInputChange(e, index)}
       onCompositionStart={(e) => handleComposition(e, index)}
       onCompositionEnd={(e) => handleComposition(e, index)}
