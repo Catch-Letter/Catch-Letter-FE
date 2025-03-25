@@ -15,7 +15,7 @@ const SendLetter = () => {
   const [imageUrl, setImageUrl] = useState('')
 
   const handleCreatePost = () => {
-    navigate('/create')
+    navigate('/')
   }
 
   useEffect(() => {
