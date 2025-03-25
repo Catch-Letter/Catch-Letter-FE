@@ -1,5 +1,5 @@
 import { Button, Header } from '#/shared/ui'
-import ErrorImage from '#/assets/myLetters/bubbles.svg'
+import { error } from '#/assets/error'
 import { ErrorWrapper, ErrorContainer } from './NotFound.styles'
 import { useNavigate } from 'react-router'
 
@@ -10,7 +10,7 @@ const NotFound = () => {
     <div css={ErrorContainer}>
       <Header />
       <div css={ErrorWrapper}>
-        <img src={ErrorImage} alt='error-image' />
+        <img src={error} alt='error-image' />
         <h1>404 - 페이지를 찾을 수 없습니다</h1>
         <p>
           요청하신 페이지가 존재하지 않거나, <br />
