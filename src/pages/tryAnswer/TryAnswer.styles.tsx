@@ -1,3 +1,4 @@
+import { colors } from '#/styles/color'
 import { css, keyframes } from '@emotion/react'
 
 const shakeAnimation = keyframes`
@@ -29,6 +30,13 @@ const glowAnimation = keyframes`
   }
 `
 
+export const tryAnswerWrapper = css`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+`
+
 export const TryAnswerStyle = css`
   display: flex;
   flex-direction: column;
@@ -45,7 +53,11 @@ export const TryAnswerStyle = css`
   }
 
   .LetterCard-container {
-    margin: 0 48px;
+    display: flex;
+    justify-content: center;
+    /* margin: 0 48px; */
+    width: 100%;
+    height: 70%;
   }
 
   .shake {
@@ -60,9 +72,23 @@ export const TryAnswerStyle = css`
 export const LetterCardStyle = (backgroundImage: string) => css`
   background-image: url(${backgroundImage});
   background-size: cover;
+  background-color: white;
+  opacity: 0.8;
   background-position: center;
-  width: 300px;
-  height: 400px;
+  width: 70%;
+  height: 100%;
   border-radius: 24px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+`
+
+export const SkeletonCardStyle = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  height: 100%;
+  border-radius: 24px;
+  background-color: ${colors.grey[3]};
+  background-size: 200% 100%;
+  opacity: 0.5;
 `

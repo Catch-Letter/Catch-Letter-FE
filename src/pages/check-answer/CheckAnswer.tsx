@@ -2,14 +2,20 @@ import { getDraw } from '#/api/getDraw'
 import { letter } from '#/api/letter'
 import { BackHeader, LetterCard } from '#/components'
 import { LetterContent } from '#/components/letter-choice'
-import { SeparatedInput } from '#/shared/ui'
+import { DotLoader, SeparatedInput } from '#/shared/ui'
 import { Background } from '#/shared/ui/background'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { useEffect, useState } from 'react'
 import { IoTriangle } from 'react-icons/io5'
 import { useParams } from 'react-router'
-import { CheckAnswerStyles, LetterCardStyle } from './CheckAnswer.styles'
+import {
+  CheckAnswerStyles,
+  checkAnswerWrapper,
+  LetterCardStyle,
+  SkeletonCardStyle,
+} from './CheckAnswer.styles'
 import { getAnswer } from '#/api/getAnswer'
+import { colors } from '#/styles/color'
 
 const CheckAnswer = () => {
   const { uuid, id } = useParams()
@@ -86,16 +92,26 @@ const CheckAnswer = () => {
   }
 
   return (
-    <>
+    <div css={checkAnswerWrapper}>
       <Background color='grey' />
       <BackHeader />
       <div css={CheckAnswerStyles(isFlipped, imageUrl || '')}>
         <button className='btn-copy'>우리의 암호</button>
-        <SeparatedInput length={answerLength} value={answer} />
+        {answer ? (
+          <SeparatedInput length={answerLength} value={answer} />
+        ) : (
+          <p>정답을 불러오는중.. </p>
+        )}
         <div className='content' onClick={handleCardClick}>
           <div className='cardFront'>
             {/* <LetterCard type={selectedColor}> */}
-            <div css={LetterCardStyle(imageUrl || '')}></div>
+            {imageUrl ? (
+              <div css={LetterCardStyle(imageUrl || '')}></div>
+            ) : (
+              <div css={SkeletonCardStyle}>
+                <DotLoader color={colors.grey[9]} backgroundColor={colors.grey[3]} />
+              </div>
+            )}
             {/* </LetterCard> */}
           </div>
           <div className='cardBack'>
@@ -111,7 +127,9 @@ const CheckAnswer = () => {
                 />
               </LetterCard>
             ) : (
-              <p>편지를 불러오는 중...</p>
+              <div css={SkeletonCardStyle}>
+                <DotLoader color={colors.grey[9]} backgroundColor={colors.grey[3]} />
+              </div>
             )}
           </div>
         </div>
@@ -120,7 +138,7 @@ const CheckAnswer = () => {
           <p>카드를 눌러 뒤집어보세요!</p>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

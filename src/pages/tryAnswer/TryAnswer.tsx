@@ -1,9 +1,14 @@
 import { postTryAnswer } from '#/api/postTryAnswer'
 import { letter } from '#/api/letter'
 import { BackHeader, LetterCard, LetterContent } from '#/components'
-import { TryCounter } from '#/components/try-Counter'
-import { LetterCardStyle, TryAnswerStyle } from '#/pages/tryAnswer/TryAnswer.styles'
-import { Button } from '#/shared/ui'
+import { TryCounter } from '#/components/try-answer/try-Counter'
+import {
+  LetterCardStyle,
+  SkeletonCardStyle,
+  TryAnswerStyle,
+  tryAnswerWrapper,
+} from '#/pages/tryAnswer/TryAnswer.styles'
+import { Button, DotLoader } from '#/shared/ui'
 import { Background } from '#/shared/ui/background'
 import SeparatedInput from '#/shared/ui/separated-input/separated-input'
 // import { useLetterCreationStore } from '#/store/letterCreateStore'
@@ -12,6 +17,8 @@ import { useNavigate, useParams } from 'react-router'
 import { getDraw } from '#/api/getDraw'
 import { getAnswerStatus } from '#/api/getAnswerStatus'
 import { useLocation } from 'react-router'
+import { TryIntro } from '#/components/try-answer' // DrawingIntro import 추가
+import { colors } from '#/styles/color'
 
 const TryAnswer = () => {
   // const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
@@ -33,6 +40,7 @@ const TryAnswer = () => {
   } | null>(null)
   const [imageUrl, setImageUrl] = useState<string | null>(null)
   const [buttonText, setButtonText] = useState<string>('확인')
+  const [isTryStarted, setIsTryStarted] = useState<boolean>(false)
 
   //편지내용 가져오기
   useEffect(() => {
@@ -152,12 +160,12 @@ const TryAnswer = () => {
 
   const handleNavigate = () => {
     if (isCorrect) {
-      navigate('/checkAnswer') // 정답일 때만 checkAnswer 페이지로 이동
+      navigate(`/checkAnswer/${uuid}/${id}`) // 정답일 때만 checkAnswer 페이지로 이동
     }
   }
 
   return (
-    <>
+    <div css={tryAnswerWrapper}>
       <Background color='pink' />
       <BackHeader />
       <div css={TryAnswerStyle}>
@@ -170,20 +178,14 @@ const TryAnswer = () => {
         <div
           className={`LetterCard-container ${isShaking ? 'shake' : ''} ${isCorrect ? 'glowing' : ''}`}
         >
-          {letterData ? (
-            // <LetterCard type={selectedColor}>
-            //   <LetterContent
-            //     to={letterData.to}
-            //     content={letterData.content}
-            //     from={letterData.from}
-            //     color={selectedColor}
-            //     pattern={selectedPattern}
-            //     font={selectedFont}
-            //   />
-            // </LetterCard>
+          {!isTryStarted ? (
+            <TryIntro onStart={() => setIsTryStarted(true)} />
+          ) : letterData ? (
             <div css={LetterCardStyle(imageUrl || '')}></div>
           ) : (
-            <p>편지를 불러오는 중...</p>
+            <div css={SkeletonCardStyle}>
+              <DotLoader color={colors.grey[9]} backgroundColor={colors.grey[3]} />
+            </div>
           )}
         </div>
         <div className='Input-area'>
@@ -199,7 +201,7 @@ const TryAnswer = () => {
           </Button>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

@@ -35,6 +35,11 @@
     "invalidMessage2": "8자를 초과할 수 없어요! :(",
     "invalidMessage3": "특수문자 및 띄어쓰기는 사용할 수 없어요! :("
   },
+  "tryIntro": {
+    "title": "그림을 맞추면",
+    "subtitle": "편지를 읽을 수 있어요!",
+    "instruction": "화면을 터치하고 그림보기"
+  },
   "write": {
     "title": "비밀편지 쓰기",
     "to": "편지를 받는 사람은 누구인가요?",
