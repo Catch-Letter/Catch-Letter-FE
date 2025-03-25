@@ -1,6 +1,6 @@
 // TODO : SNS 공유하기 버튼
 import { FallingLetters, TextSection } from '#/components/inbox'
-import { useInboxStatus } from '#/hooks'
+import { useCountdownTimer, useInboxStatus } from '#/hooks'
 import { Flex, Header } from '#/shared/ui'
 import { Button } from '#/shared/ui/button'
 import { FC } from 'react'
@@ -13,7 +13,8 @@ interface Props {
 }
 
 const LetterReciving: FC<Props> = ({ uuid }) => {
-  const { name, time_left, total_letter_count } = useInboxStatus(uuid)
+  const { name, expired_at, total_letter_count } = useInboxStatus(uuid)
+  const { leftTime } = useCountdownTimer(expired_at)
   const navigate = useNavigate()
   const { t } = useTranslation()
 
@@ -22,9 +23,9 @@ const LetterReciving: FC<Props> = ({ uuid }) => {
       <Header css={headerStyles} Left={<span className='left'>catch letter</span>} />
 
       <TextSection
-        title1={t('inbox.untilClose', { name })}
-        value1={time_left}
-        title2={t('inbox.lettersReceived')}
+        title1={`${name}의 우체통 마감까지`}
+        value1={leftTime}
+        title2='지금까지 받은 편지'
         value2={total_letter_count}
       />
 
