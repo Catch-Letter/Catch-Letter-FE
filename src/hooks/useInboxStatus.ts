@@ -1,9 +1,6 @@
 import { fetchUUID } from '#/api/uuid'
 import { useQuery } from '@tanstack/react-query'
-import dayjs from 'dayjs'
-import utc from 'dayjs/plugin/utc'
-
-dayjs.extend(utc)
+import { dayjs } from '#/shared/api'
 
 export default function useInboxStatus(uuid: string) {
   const { data, isPending, error } = useQuery({
@@ -17,7 +14,7 @@ export default function useInboxStatus(uuid: string) {
       isExpired: false,
       isPending,
       error,
-      time_left: '23:59:59',
+      expired_at: '2026-02-05T16:21:00.000000Z',
       incorrect_letter_count: 0,
       total_letter_count: 0,
       name: '',
@@ -28,13 +25,11 @@ export default function useInboxStatus(uuid: string) {
 
   const isExpired = expired_at === null || dayjs().isAfter(expired_at)
 
-  const time_left = dayjs(dayjs(expired_at).diff(dayjs())).utc().format('HH:mm:ss')
-
   return {
     isExpired,
     isPending,
     error,
-    time_left,
+    expired_at,
     incorrect_letter_count,
     total_letter_count,
     name,
