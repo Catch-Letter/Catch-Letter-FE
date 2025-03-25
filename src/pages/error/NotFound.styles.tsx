@@ -7,8 +7,14 @@ export const ErrorContainer = css`
   background-color: ${colors.grey[11]};
   display: flex;
   flex-direction: column;
+`
+
+export const ErrorWrapper = css`
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 80vh;
 
   img {
     margin-bottom: 32px;
