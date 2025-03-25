@@ -12,9 +12,9 @@ const fadeIn = keyframes`
   }
 `
 
-export const ToastContainer = css`
+export const ToastContainer = (position: 'top' | 'bottom' = 'bottom') => css`
   position: fixed;
-  bottom: 200px;
+  ${position === 'top' ? 'top: 24vh;' : 'bottom: 200px;'};
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -33,6 +33,6 @@ export const ToastStyle = css`
   background-color: ${colors.grey[12]};
   color: ${colors.white};
   font-size: 14px;
-  animation: ${fadeIn} 0.4s ease-out;
-  min-width: 180px;
+  animation: ${fadeIn} 0.2s ease-out;
+  min-width: 200px;
 `

@@ -8,6 +8,8 @@ import { useAuthStore } from '#/store/authStore'
 import { FC, useCallback } from 'react'
 import { useNavigate } from 'react-router'
 import { bottomButtonStyles, containerStyles, headerStyles } from '../Inbox.styles'
+import { useToastStore } from '#/store/toastStore'
+import { Toast } from '#/components'
 
 interface Props {
   uuid: string
@@ -20,6 +22,7 @@ const LetterReciving: FC<Props> = ({ uuid }) => {
 
   const { accessToken } = useAuthStore()
   const navigate = useNavigate()
+  const { showToast } = useToastStore()
   // 확인하기 버튼
   const onClickCheckButton = useCallback(() => {
     if (accessToken) return navigate(`/myletters/${uuid}`)
@@ -35,7 +38,7 @@ const LetterReciving: FC<Props> = ({ uuid }) => {
   }, [])
   const onAuthFail = useCallback(() => {
     initializePassword()
-    alert('비번 틀림')
+    showToast('비밀번호가 일치하지 않아요', 'error')
   }, [])
 
   const { login } = useLogin({ onAuthSuccess, onAuthFail })
@@ -70,6 +73,7 @@ const LetterReciving: FC<Props> = ({ uuid }) => {
       />
 
       <FallingLetters />
+      <Toast position='top' />
     </div>
   )
 }

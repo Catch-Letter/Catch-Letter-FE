@@ -5,11 +5,15 @@ import { FiCheckCircle } from 'react-icons/fi'
 import { FiXCircle } from 'react-icons/fi'
 import { createPortal } from 'react-dom'
 
-const Toast = () => {
+interface ToastProps {
+  position?: 'top' | 'bottom'
+}
+
+const Toast = ({ position = 'bottom' }: ToastProps) => {
   const { toasts } = useToastStore()
 
   return createPortal(
-    <div css={ToastContainer}>
+    <div css={ToastContainer(position)}>
       {toasts.map((toast) => (
         <div key={toast.id} css={ToastStyle}>
           {toast.type === 'success' ? (
