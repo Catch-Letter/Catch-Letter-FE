@@ -26,7 +26,7 @@ const ShareModal = ({ isOpen, url, onClose }: ShareModalProps) => {
           </div>
           <span className='desc'>버튼을 클릭하면 링크가 클립보드에 복사됩니다!</span>
         </div>
-        <Button width={100} onClick={onClose}>
+        <Button width={80} onClick={onClose}>
           닫기
         </Button>
       </div>

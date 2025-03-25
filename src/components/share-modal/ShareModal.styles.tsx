@@ -13,26 +13,27 @@ export const ShareModalStyle = css`
 
   .title {
     font-weight: 700;
-    font-size: 18px;
+    font-size: 20px;
     text-align: center;
   }
 
   .area-copy {
-    padding-right: 55px;
+    margin-top: 10px;
     display: flex;
     box-sizing: border-box;
-    padding: 4px;
+    padding: 5px;
     width: 300px;
     border-radius: 8px;
     align-items: center;
     height: 36px;
-    border: 1px solid ${colors.grey[5]};
+    border: 1px solid ${colors.grey[6]};
     overflow: hidden;
 
     .url {
       flex-grow: 1;
       min-width: 0;
-      font-size: 14px;
+      color: ${colors.grey[5]};
+      font-size: 12px;
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
@@ -61,7 +62,7 @@ export const ShareModalStyle = css`
 `
 
 export const ShareModalContainer = css`
-  margin: 14px 44px 40px;
+  margin: 14px 44px 33px;
   text-align: center;
 
   .desc {
