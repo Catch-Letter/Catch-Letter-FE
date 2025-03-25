@@ -8,6 +8,7 @@ import {
   CreatePostForm,
   Drawing,
   MyLetters,
+  NotFound,
   Test,
   TryAnswer,
 } from '#/pages'
@@ -37,6 +38,7 @@ const App = () => {
               <Route path='/checkanswer/:uuid/:id' element={<CheckAnswer />} />
               <Route path='/tryAnswer/:uuid/:id' element={<TryAnswer />} />
               <Route path='/drawing/:uuid' element={<Drawing />} />
+              <Route path='*' element={<NotFound />} />
             </Route>
           </Routes>
         </Suspense>
