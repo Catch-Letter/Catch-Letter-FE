@@ -10,20 +10,20 @@ interface ToastProps {
 }
 
 const Toast = ({ position = 'bottom' }: ToastProps) => {
-  const { toasts } = useToastStore()
+  const { toast } = useToastStore()
+
+  if (!toast) return null
 
   return createPortal(
     <div css={ToastContainer(position)}>
-      {toasts.map((toast) => (
-        <div key={toast.id} css={ToastStyle}>
-          {toast.type === 'success' ? (
-            <FiCheckCircle color={colors.success} />
-          ) : (
-            <FiXCircle color={colors.error} />
-          )}
-          <div>{toast.message}</div>
-        </div>
-      ))}
+      <div css={ToastStyle}>
+        {toast.type === 'success' ? (
+          <FiCheckCircle color={colors.success} />
+        ) : (
+          <FiXCircle color={colors.error} />
+        )}
+        <div>{toast.message}</div>
+      </div>
     </div>,
     document.body
   )
