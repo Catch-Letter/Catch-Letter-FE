@@ -27,7 +27,7 @@ const MyLetters = () => {
   const { t } = useTranslation()
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
 
-  const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
     useMyLettersQuery(uuid ?? '')
 
   // 편지 전체 갯수 조회
@@ -145,11 +145,16 @@ const MyLetters = () => {
                 page.data.map((letter) => (
                   <div
                     key={`${letter.id}_${pageIndex}`}
-                    css={LetterCardStyle(shakingCard, letter.id, extractColor(letter.letter.etc))}
+                    css={LetterCardStyle(
+                      shakingCard,
+                      letter.id,
+                      extractColor(letter.letter.etc),
+                      letter.thumbnail_url ?? lockImage
+                    )}
                   >
                     {letter.is_correct ? (
                       <div
-                        css={UnLockLetterStyle(letter.thumbnail_url ?? lockImage)}
+                        // css={UnLockLetterStyle(letter.thumbnail_url ?? lockImage)}
                         onClick={() =>
                           navigate(`/checkAnswer/${uuid}/${letter.id}`, {
                             state: { answerLength: letter.answer_length },

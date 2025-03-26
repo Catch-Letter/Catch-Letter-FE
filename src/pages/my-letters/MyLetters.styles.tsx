@@ -46,7 +46,8 @@ export const GridContainer = css`
 export const LetterCardStyle = (
   shakingCard: number | null,
   letterId: number,
-  backgroundColor: string
+  backgroundColor: string,
+  backgroundImage: string
 ) => css`
   width: 100%;
   aspect-ratio: 2 / 3;
@@ -57,6 +58,10 @@ export const LetterCardStyle = (
   justify-content: center;
   background-color: ${backgroundColor};
   border: 1px solid ${backgroundColor};
+  background-image: url(${backgroundImage});
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
   cursor: pointer;
 
   ${shakingCard !== null &&
@@ -94,10 +99,12 @@ export const LockLetterStyle = css`
   background: rgba(0, 0, 0, 0.5);
   border-radius: 16px;
   gap: 12px;
+  backdrop-filter: blur(1.2px);
 
   .lock-text {
     line-height: 140%;
     text-align: center;
+    color: ${colors.grey[5]};
   }
 `
 
