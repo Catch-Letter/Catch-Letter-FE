@@ -1,4 +1,5 @@
 import { ZIndex } from '#/shared/config'
+import { colors } from '#/styles/color'
 import { css } from '@emotion/react'
 
 export const containerStyles = css`
@@ -8,6 +9,7 @@ export const containerStyles = css`
   background-color: transparent;
   z-index: ${ZIndex.fallingLetter};
   overflow-y: hidden;
+  background: ${colors.gradients.darkGradient};
 `
 
 export const headerStyles = css`
