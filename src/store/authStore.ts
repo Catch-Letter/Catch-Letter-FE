@@ -1,14 +1,12 @@
 import { create } from 'zustand'
 interface AuthStore {
   accessToken: string
-  expiresIn: number
+  deleteAccessToken: () => void
   setAccessToken: (accessToken: string) => void
-  setExpiresIn: (expiresIn: number) => void
 }
 
 export const useAuthStore = create<AuthStore>((set) => ({
   accessToken: '',
-  expiresIn: 0,
+  deleteAccessToken: () => set({ accessToken: '' }),
   setAccessToken: (accessToken) => set({ accessToken }),
-  setExpiresIn: (expiresIn) => set({ expiresIn }),
 }))

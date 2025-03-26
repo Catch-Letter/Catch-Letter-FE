@@ -1,11 +1,10 @@
-import { SendLetterStyle, sendLetterWrapper } from './SendLetter.styles'
-import { Button } from '#/shared/ui/button'
 import { SendCard, SendDesc } from '#/components/letter-send'
-import { useLocation, useNavigate } from 'react-router'
-import { Background } from '#/shared/ui/background'
-import { Header } from '#/shared/ui'
-import { useTranslation } from 'react-i18next'
+import { Background, Header } from '#/shared/ui'
+import { Button } from '#/shared/ui/button'
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useLocation, useNavigate } from 'react-router'
+import { SendLetterStyle, sendLetterWrapper } from './SendLetter.styles'
 
 const SendLetter = () => {
   const navigate = useNavigate()

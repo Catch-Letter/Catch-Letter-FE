@@ -1,0 +1,321 @@
+{
+  "welcome": {
+    "KO": "홈 페이지에 오신 것을 환영합니다",
+    "EN": "Welcome to the Home Page"
+  },
+  "hello": {
+    "KO": "안녕하세요",
+    "EN": "Hello"
+  },
+  "correct": {
+    "KO": "정답",
+    "EN": "Correct"
+  },
+
+  "create": {
+    "title": {
+      "KO": "우체통 발급",
+      "EN": "Create Mailbox"
+    },
+    "introMessage": {
+      "KO": "그림을 맞추고 상대방의 마음을 확인해요!",
+      "EN": "Guess the picture correctly to see their feelings!"
+    },
+    "createPost": {
+      "KO": "내 우체통 만들기",
+      "EN": "Create my letterbox"
+    },
+    "cardMessageTop": {
+      "KO": "그림을 맞추면 ",
+      "EN": "Guess the picture "
+    },
+    "cardMessageBottom": {
+      "KO": "편지를 읽을 수 있어요!",
+      "EN": "to read the letter"
+    },
+    "name": {
+      "KO": "우체통 이름",
+      "EN": "Letterbox name"
+    },
+    "name_desc": {
+      "KO": "우체통 이름을 지어주세요.",
+      "EN": "Please create a letterbox name."
+    },
+    "helpMessage": {
+      "KO": "우체통 이름은 15글자 이내로 입력해주세요.",
+      "EN": "Please enter a mailbox name with up to 15 characters."
+    },
+    "validMessage": {
+      "KO": "사용할 수 있는 이름입니다 :)",
+      "EN": "Available :)"
+    },
+    "invalidMessage": {
+      "KO": "우체통 이름을 입력해주세요. :(",
+      "EN": "Please enter a mailbox name :("
+    },
+    "password": {
+      "KO": "우체통 비밀번호",
+      "EN": "Letterbox password"
+    },
+    "password_desc": {
+      "KO": "우체통 비밀번호는 우체통을 열때마다 필요해요!",
+      "EN": "You need the letterbox password every time you open it!"
+    },
+    "link": {
+      "KO": "링크가 생성되었어요!",
+      "EN": "Link created!"
+    },
+    "desc": {
+      "KO": "링크 복사 버튼을 클릭하면 링크가 클립보드에 복사됩니다.\n 링크는 재발급 되지 않으므로 링크 복사 후 기억할 수 있는 곳에 저장해두세요!",
+      "EN": "When you click the Copy Link button, the link will be copied to your clipboard.\n Since the link cannot be reissued, please save it in a place where you can remember it!"
+    },
+    "btncopy": {
+      "KO": "링크복사",
+      "EN": "Copy Link"
+    },
+    "opentime": {
+      "KO": "우체통 열람가능 시간",
+      "EN": "Mailbox Access Time"
+    },
+    "btnshare": {
+      "KO": "내 우체통 공유하기!",
+      "EN": "Share My Mailbox!"
+    }
+  },
+
+  "drawIntro": {
+    "title": {
+      "KO": "내가 그린 그림을 맞추면",
+      "EN": "If you guess the picture I drew"
+    },
+    "subtitle": {
+      "KO": "친구가 편지를 읽을 수 있어요!",
+      "EN": "Your friend can read your letter!"
+    },
+    "instruction": {
+      "KO": "화면을 터치해서 그림을 그려보세요",
+      "EN": "Touch the screen to draw a picture"
+    }
+  },
+
+  "draw": {
+    "header": {
+      "KO": "그림 암호 출제",
+      "EN": "Picture Questions"
+    },
+    "placeholder": {
+      "KO": "이 그림의 정체는 무엇일까요?",
+      "EN": "What's the mystery in this picture?"
+    },
+    "helpMessage": {
+      "KO": "* 한글 , 영문 모두 8자까지 가능해요!",
+      "EN": "* Up to 8 characters in both Korean and English!"
+    },
+    "validMessage": {
+      "KO": "재밌는 암호가 될 거 같아요! :)",
+      "EN": "I think this would be a fun password! :)"
+    },
+    "button": {
+      "KO": "다 그렸어요!",
+      "EN": "Done!"
+    },
+    "invalidMessage1": {
+      "KO": "암호를 적어주세요! :(",
+      "EN": "Please write down your password! :("
+    },
+    "invalidMessage2": {
+      "KO": "8자를 초과할 수 없어요! :(",
+      "EN": "Can't be longer than 8 characters! :("
+    },
+    "invalidMessage3": {
+      "KO": "특수문자 및 띄어쓰기는 사용할 수 없어요! :(",
+      "EN": "You can't use special characters and spaces! :("
+    }
+  },
+
+  "tryIntro": {
+    "title": {
+      "KO": "그림을 맞추면",
+      "EN": "If you guess the picture"
+    },
+    "subtitle": {
+      "KO": "편지를 읽을 수 있어요!",
+      "EN": "You can read the letter!"
+    },
+    "instruction": {
+      "KO": "화면을 터치하고 그림보기",
+      "EN": "Touch the screen to view the picture"
+    }
+  },
+
+  "write": {
+    "title": {
+      "KO": "비밀편지 쓰기",
+      "EN": "Write a Secret Letter"
+    },
+    "to": {
+      "KO": "편지를 받는 사람은 누구인가요?",
+      "EN": "Who is the recipient of the letter?"
+    },
+    "from": {
+      "KO": "편지를 쓰는 사람은 누구인가요?",
+      "EN": "Who is the writer of the Letter?"
+    },
+    "content": {
+      "KO": "상대에게 전하고 싶은 내용을 적어주세요!",
+      "EN": "Write a letter to the recipient!"
+    },
+    "help": {
+      "KO": "무슨 말을 적을지 고민된다면?",
+      "EN": "Letter Guide"
+    },
+    "explain": {
+      "KO": [
+        "고마웠던 순간이나 감사한 마음을 적어보세요.",
+        "상대와의 가장 기억에 남는 추억을 적어보세요.",
+        "앞으로 함께 하고 싶은 일이나 소원을 적어보세요."
+      ],
+      "EN": [
+        "Write about a moment you're grateful for or a feeling of thanks.",
+        "Write about your most memorable memory with the recipient.",
+        "Write about something you'd like to do together in the future or a wish."
+      ]
+    },
+
+    "chooseTheme": {
+      "KO": "편지지 선택하기!",
+      "EN": "Choose Letter Theme!"
+    }
+  },
+
+  "theme": {
+    "title": {
+      "KO": "편지지 고르기",
+      "EN": "Choose Letter Theme"
+    },
+    "color": {
+      "KO": "색상",
+      "EN": "Color"
+    },
+    "pattern": {
+      "KO": "패턴",
+      "EN": "Pattern"
+    },
+    "font": {
+      "KO": "글꼴",
+      "EN": "Font"
+    },
+    "default": {
+      "KO": "기본",
+      "EN": "Default"
+    },
+    "handwritten1": {
+      "KO": "손글씨1",
+      "EN": "Handwritten"
+    },
+    "handwritten2": {
+      "KO": "손글씨2",
+      "EN": "Cursive"
+    },
+    "sendLetter": {
+      "KO": "편지 보내기",
+      "EN": "Send Letter"
+    }
+  },
+
+  "send": {
+    "desc": {
+      "KO": "친구에게 편지가 보내졌어요!",
+      "EN": "You sent a letter to your friend!"
+    },
+    "keydesc": {
+      "KO": "친구가 암호를 풀어야 내 편지를 확인할 수 있어요!",
+      "EN": "Your friend needs to unlock the code read your letter!"
+    },
+    "createbtn": {
+      "KO": "나도 우체통 발급",
+      "EN": "Go make my mailbox"
+    },
+    "done": {
+      "KO": "확인",
+      "EN": "Done"
+    }
+  },
+
+  "myLetters": {
+    "KO": "편지함",
+    "EN": "My Letters"
+  },
+
+  "submit": {
+    "KO": "확인",
+    "EN": "Submit"
+  },
+  "before": {
+    "KO": "이전",
+    "EN": "Before"
+  },
+
+  "inbox": {
+    "untilClose": {
+      "KO": "{{name}} 님의 우체통 마감까지",
+      "EN": "{{name}}'s mailbox closes in"
+    },
+    "lettersReceived": {
+      "KO": "지금까지 받은 편지",
+      "EN": "Letters received so far"
+    },
+    "unsolvedLetters": {
+      "KO": "풀지 못한 편지",
+      "EN": "unsolved letters"
+    },
+    "totalLetterCount": {
+      "KO": "{{name}} 님의 받은 비밀편지",
+      "EN": "The letters {{name}} received"
+    },
+    "goWrite": {
+      "KO": "편지 쓰러 가기!",
+      "EN": "let's go write a letter"
+    }
+  },
+
+  "error": {
+    "notFoundPage": {
+      "KO": "페이지를 찾을 수 없습니다",
+      "EN": "Page not found"
+    },
+    "notFoundDesc": {
+      "KO": "요청하신 페이지가 존재하지 않거나, <br /> 삭제되었어요 🥲",
+      "EN": "The page you requested doesn't exist <br /> or has been deleted 🥲"
+    }
+  },
+
+  "checkLetters": {
+    "KO": "편지 확인하기!",
+    "EN": "Check letters!"
+  },
+  "showOff": {
+    "KO": "자랑하기",
+    "EN": "show off"
+  },
+  "enterPostPassword": {
+    "KO": "우체통 비밀번호 입력",
+    "EN": "Enter your post password"
+  },
+  "confirm": {
+    "KO": "완료",
+    "EN": "Confirm"
+  },
+  "shareOnSNS": {
+    "KO": "SNS 공유하기",
+    "EN": "share on SNS"
+  },
+  "goBack":{
+    "KO": "이전으로",
+    "EN": "Go Back"
+  },
+  "goHome":{
+    "KO": "홈으로",
+    "EN": "Go Home"
+  }
+}

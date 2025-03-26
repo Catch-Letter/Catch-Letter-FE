@@ -1,7 +1,6 @@
 import { fetchCreatePost } from '#/api/createPost'
 import { BackHeader } from '#/components'
-import { Button, InputField, SeparatedInput } from '#/shared/ui'
-import { Background } from '#/shared/ui/background'
+import { Background, Button, InputField, SeparatedInput } from '#/shared/ui'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
@@ -12,12 +11,6 @@ const CreatePostForm = () => {
   const { t } = useTranslation()
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
-  const [isInvalid, setIsInvalid] = useState(false)
-
-  const onCheckName = (name: string) => {
-    setName(name)
-    setIsInvalid(name.trim().length === 0)
-  }
 
   const handleCreatePost = async () => {
     try {
@@ -39,8 +32,6 @@ const CreatePostForm = () => {
     setPassword(value)
   }
 
-  const nameMessage = isInvalid ? `${t('create.invalidMessage')}` : ''
-
   return (
     <div css={CreateFormStyle}>
       <Background gradientType='halfGradient' />
@@ -51,12 +42,12 @@ const CreatePostForm = () => {
             label={t('create.name')}
             placeholder={t('create.name_desc')}
             value={name}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => onCheckName(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
             maxLength={15}
             helpMessage={t('create.helpMessage')}
-            isInvalid={isInvalid}
+            isInvalid={name.trim().length === 0}
             validMessage={t('create.validMessage')}
-            invalidMessage={nameMessage}
+            invalidMessage={t('create.invalidMessage')}
           />
           <SeparatedInput
             label={t('create.password')}

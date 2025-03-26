@@ -1,6 +1,5 @@
-import { apiClient } from '#/api/apiClient'
+import { authApiClient } from '#/api/apiClient'
 import { API_ENDPOINTS } from '#/api/apiEndpoints'
-import { useAuthStore } from '#/store/authStore'
 import { LettersResponse } from '#/types/myLetters'
 import { useInfiniteQuery } from '@tanstack/react-query'
 
@@ -13,15 +12,11 @@ export const fetchMyLetters = async ({
   uuid: string
   perPage?: number
 }) => {
-  const { accessToken } = useAuthStore.getState()
   try {
-    const res = await apiClient.get<LettersResponse>(API_ENDPOINTS.MY_LETTERS(uuid), {
+    const res = await authApiClient.get<LettersResponse>(API_ENDPOINTS.MY_LETTERS(uuid), {
       params: {
         per_page: perPage,
         cursor: cursor ?? undefined,
-      },
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
       },
     })
     return res.data

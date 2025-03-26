@@ -1,21 +1,21 @@
-import { SuccessStyle, SuccessWrapper } from './Success.styles'
-import { Button } from '#/shared/ui'
-import { TimeArea, DescLink } from '#/components/success'
-import { BackHeader } from '#/components'
-import { useLocation } from 'react-router'
+import { BackHeader, Toast } from '#/components'
+import { DescLink, TimeArea } from '#/components/success'
+import { useCountdownTimer } from '#/hooks'
+import { Background, Button } from '#/shared/ui'
 import { useTranslation } from 'react-i18next'
-import { Background } from '#/shared/ui/background'
+import { useLocation } from 'react-router'
+import { SuccessStyle, SuccessWrapper } from './Success.styles'
 import { useState } from 'react'
 import ShareModal from '#/components/share-modal/ShareModal'
-import { useInboxStatus } from '#/hooks'
 
+// from createPostForm
 const Success = () => {
   const { t } = useTranslation()
   const location = useLocation()
   const user = location.state
   const [isOpen, setIsOpen] = useState(false)
   const link = `http://localhost:5173/inbox/${user.uuid}`
-  const { time_left } = useInboxStatus(user.uuid)
+  const { leftTime } = useCountdownTimer(user.expired)
 
   return (
     <div css={SuccessStyle}>
@@ -30,7 +30,7 @@ const Success = () => {
             desc={t('create.desc')}
           />
         </div>
-        <TimeArea title={t('create.opentime')} time={time_left} />
+        <TimeArea title={t('create.opentime')} time={leftTime} />
         <Button
           className='btn_share'
           width={343}
@@ -41,6 +41,7 @@ const Success = () => {
           {t('create.btnshare')}
         </Button>
       </div>
+      <Toast />
       <ShareModal isOpen={isOpen} onClose={() => setIsOpen(false)} url={link} />
     </div>
   )

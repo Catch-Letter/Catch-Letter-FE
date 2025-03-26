@@ -1,10 +1,11 @@
+import { getAnswer } from '#/api/getAnswer'
 import { getDraw } from '#/api/getDraw'
 import { letter } from '#/api/letter'
 import { BackHeader, LetterCard } from '#/components'
 import { LetterContent } from '#/components/letter-choice'
-import { DotLoader, SeparatedInput } from '#/shared/ui'
-import { Background } from '#/shared/ui/background'
+import { Background, DotLoader, SeparatedInput } from '#/shared/ui'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
+import { colors } from '#/styles/color'
 import { useEffect, useState } from 'react'
 import { IoTriangle } from 'react-icons/io5'
 import { useParams } from 'react-router'
@@ -14,8 +15,6 @@ import {
   LetterCardStyle,
   SkeletonCardStyle,
 } from './CheckAnswer.styles'
-import { getAnswer } from '#/api/getAnswer'
-import { colors } from '#/styles/color'
 
 const CheckAnswer = () => {
   const { uuid, id } = useParams()
