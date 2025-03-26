@@ -34,7 +34,7 @@ const LetterCard = ({ letter, shakingCard, uuid }: LetterCardProps) => {
       css={LetterCardStyle(shakingCard, letter.id, backgroundColor, isLoaded ? thumbnailUrl : '')}
     >
       {!isLoaded ? (
-        <DotLoader backgroundColor='none' color={colors.grey[3]} />
+        <DotLoader backgroundColor='none' color='rgba(255, 255, 255, 0.6)' />
       ) : (
         <Letters letter={letter} uuid={uuid} />
       )}
