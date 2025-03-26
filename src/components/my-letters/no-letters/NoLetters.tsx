@@ -1,14 +1,15 @@
 import bubbleImgae from '#/assets/myLetters/bubbles.svg'
 import { LettersContainer } from '#/components/my-letters/no-letters/NoLetters.styles'
+import { useTranslation } from 'react-i18next'
 
 const NoLetters = () => {
+  const { t } = useTranslation()
+
   return (
     <div css={LettersContainer}>
       <img src={bubbleImgae} alt='bubble' />
-      <h1>이번에는 편지가 없어요 🥲</h1>
-      <span>
-        새로운 링크로 다시 한 번 <br /> 친구들에게 소식을 전해 볼까요?
-      </span>
+      <h1>{t('noLetters.title')}</h1>
+      <span dangerouslySetInnerHTML={{ __html: t('noLetters.desc') }}></span>
     </div>
   )
 }

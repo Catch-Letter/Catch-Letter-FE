@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { BackHeader, NoLetters } from '#/components'
 import {
@@ -32,7 +32,8 @@ const MyLetters = () => {
 
   const letters = data?.pages[0]?.data ?? []
   const shakingCard = useRandomShakingCard(letters)
-  const letterCount = useTotalLetterCount(uuid)
+  // const letterCount = useTotalLetterCount(uuid)
+  const letterCount = 0
 
   useInfiniteScroll({
     containerRef: scrollContainerRef,

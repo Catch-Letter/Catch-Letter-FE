@@ -275,6 +275,17 @@
     }
   },
 
+  "noLetters": {
+    "title": {
+      "KO": "이번에는 편지가 없어요 🥲",
+      "EN": "There are no letters this time 🥲"
+    },
+    "desc": {
+      "KO": "새로운 링크로 다시 한 번 <br /> 친구들에게 소식을 전해 볼까요?",
+      "EN": "Let's get back to spreading the word <br /> to our friends with a new link"
+    }
+  },
+
   "checkLetters": {
     "KO": "편지 확인하기!",
     "EN": "Check letters!"
