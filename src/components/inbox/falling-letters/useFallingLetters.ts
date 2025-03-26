@@ -1,35 +1,57 @@
 import * as Letters from '#/assets/letters'
+import { ContainerSizeType } from '#/hooks/useResizeContainer'
 import Matter from 'matter-js'
-import { RefObject, useEffect } from 'react'
+import { RefObject, useEffect, useRef } from 'react'
 
 export interface FallingLettersHookArgs {
   ref: RefObject<HTMLDivElement | null>
+  size: ContainerSizeType
 }
 
-const useFallingLetters = ({ ref }: FallingLettersHookArgs) => {
+const useFallingLetters = ({ ref, size }: FallingLettersHookArgs) => {
   const letters = Object.values(Letters).concat(Object.values(Letters).slice(3))
 
+  const engineRef = useRef<Matter.Engine | null>(null)
+  const renderRef = useRef<Matter.Render | null>(null)
+
   useEffect(() => {
-    if (!ref.current) return
+    if (!ref.current || !size) return
 
     const { Engine, Render, Runner, Bodies, World } = Matter
 
-    const width = ref.current.clientWidth
-    const height = ref.current.clientHeight
+    const { width, height } = size
 
-    const engine = Engine.create()
+    if (!engineRef.current) {
+      engineRef.current = Engine.create()
+    }
+    const engine = engineRef.current
 
-    const render = Render.create({
-      element: ref.current,
-      engine,
-      options: {
-        width,
-        height,
-        wireframes: false,
-        background: '',
-      },
-    })
+    // 첫 실행 시 렌더링 초기화
+    if (!renderRef.current) {
+      renderRef.current = Render.create({
+        element: ref.current,
+        engine,
+        options: {
+          width,
+          height,
+          wireframes: false,
+          background: '',
+        },
+      })
+      Render.run(renderRef.current)
+      Runner.run(Runner.create(), engine)
+    } else {
+      // 기존 렌더링 크기만 업데이트
+      renderRef.current.options.width = width
+      renderRef.current.options.height = height
+      Render.lookAt(renderRef.current, {
+        min: { x: 0, y: 0 },
+        max: { x: width, y: height },
+      })
+    }
 
+    // 기존 바디 정리 후 새로 추가
+    World.clear(engine.world, false)
     // 경계
     const boundaries = [
       Bodies.rectangle(width / 2, height + 18, width, 2, { isStatic: true }), // bottom
@@ -62,17 +84,19 @@ const useFallingLetters = ({ ref }: FallingLettersHookArgs) => {
     )
 
     World.add(engine.world, [...boundaries, ...letterBodies])
-    Render.run(render)
-    const runner = Runner.create()
-    Runner.run(runner, engine)
 
     return () => {
-      Render.stop(render)
-      Runner.stop(runner)
-      Engine.clear(engine)
-      render.canvas.remove()
-      render.textures = {}
+      if (renderRef.current) {
+        Render.stop(renderRef.current)
+        renderRef.current.canvas.remove()
+        renderRef.current.textures = {}
+        renderRef.current = null
+      }
+      if (engineRef.current) {
+        Engine.clear(engineRef.current)
+        engineRef.current = null
+      }
     }
-  }, [])
+  }, [size.width, size.height])
 }
 export default useFallingLetters

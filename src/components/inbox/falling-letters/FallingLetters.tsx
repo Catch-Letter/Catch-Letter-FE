@@ -1,4 +1,5 @@
 // TODO : resize 이벤트 추가
+import { useResizeContainer } from '#/hooks'
 import { ZIndex } from '#/shared/config'
 import { css } from '@emotion/react'
 import { useRef } from 'react'
@@ -7,7 +8,8 @@ import useFallingLetters from './useFallingLetters'
 const FallingLetters = () => {
   const containerRef = useRef<HTMLDivElement | null>(null)
 
-  useFallingLetters({ ref: containerRef })
+  const { size } = useResizeContainer(containerRef)
+  useFallingLetters({ ref: containerRef, size })
 
   return (
     <div
