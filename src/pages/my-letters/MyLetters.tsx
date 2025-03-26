@@ -15,14 +15,13 @@ import { useTranslation } from 'react-i18next'
 import lockImage from '#/assets/create/lock.svg'
 import { colors } from '#/styles/color'
 import { useMyLettersQuery } from '#/api/myLetters'
-import { fetchUUID } from '#/api/uuid'
 import { DotLoader } from '#/shared/ui'
 import { useRandomShakingCard } from '#/hooks/useRandomShakingCard'
 import { extractColor } from '#/types/extractColor'
 import { useInfiniteScroll } from '#/hooks/useInfiniteScroll'
+import { useTotalLetterCount } from '#/hooks/useTotalLetterCount'
 
 const MyLetters = () => {
-  const [letterCount, setLetterCount] = useState<number | null>(null)
   const navigate = useNavigate()
   const { uuid } = useParams()
   const { t } = useTranslation()
@@ -33,23 +32,7 @@ const MyLetters = () => {
 
   const letters = data?.pages[0]?.data ?? []
   const shakingCard = useRandomShakingCard(letters)
-
-  // 편지 전체 갯수 조회
-  useEffect(() => {
-    const fetchMyLettersCount = async () => {
-      if (!uuid) {
-        return
-      }
-      try {
-        const res = await fetchUUID(uuid)
-        setLetterCount(res.total_letter_count)
-      } catch (error) {
-        console.error(error)
-      }
-    }
-
-    fetchMyLettersCount()
-  }, [uuid])
+  const letterCount = useTotalLetterCount(uuid)
 
   useInfiniteScroll({
     containerRef: scrollContainerRef,
