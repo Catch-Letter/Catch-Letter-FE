@@ -17,7 +17,7 @@ export const useToastStore = create<ToastState>((set) => ({
     set({ toast: { message, type } })
     setTimeout(() => {
       set({ toast: null })
-    }, 3000)
+    }, 2000)
   },
   removeToast: () => set({ toast: null }),
 }))
