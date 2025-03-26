@@ -13,33 +13,23 @@ const Letters = ({ letter, uuid }: LettersProps) => {
   const navigate = useNavigate()
   const { t } = useTranslation()
 
-  return (
-    <>
-      {letter.is_correct ? (
-        <div
-          onClick={() =>
-            navigate(`/checkAnswer/${uuid}/${letter.id}`, {
-              state: { answerLength: letter.answer_length },
-            })
-          }
-        />
-      ) : (
-        <div
-          css={LockLetterStyle}
-          onClick={() =>
-            navigate(`/tryAnswer/${uuid}/${letter.id}`, {
-              state: { answerLength: letter.answer_length },
-            })
-          }
-        >
-          <img src={lock} alt='lock-icon' />
-          <div
-            className='lock-text'
-            dangerouslySetInnerHTML={{ __html: t('myLetters.lockDesc') }}
-          ></div>
-        </div>
-      )}
-    </>
+  const handleNavigate = () => {
+    const path = letter.is_correct
+      ? `/checkAnswer/${uuid}/${letter.id}`
+      : `/tryAnswer/${uuid}/${letter.id}`
+
+    navigate(path, {
+      state: { answerLength: letter.answer_length },
+    })
+  }
+
+  return letter.is_correct ? (
+    <div onClick={handleNavigate} style={{ width: '100%', height: '100%' }} />
+  ) : (
+    <div css={LockLetterStyle} onClick={handleNavigate}>
+      <img src={lock} alt='lock-icon' />
+      <div className='lock-text' dangerouslySetInnerHTML={{ __html: t('myLetters.lockDesc') }} />
+    </div>
   )
 }
 
