@@ -47,7 +47,6 @@ const LetterReciving: FC<Props> = ({ uuid }) => {
 
   return (
     <div css={containerStyles}>
-      <Background gradientType='halfGradient' />
       <Header css={headerStyles} Left={<span className='left'>catch letter</span>} />
 
       <TextSection
