@@ -1,6 +1,13 @@
 import { colors } from '#/styles/color'
 import { css } from '@emotion/react'
 
+export const NoLettersContainer = css`
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
 export const LettersContainer = css`
   display: flex;
   flex-direction: column;
