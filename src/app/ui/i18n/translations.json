@@ -25,9 +25,13 @@
       "KO": "내 우체통 만들기",
       "EN": "Create my letterbox"
     },
-    "cardMessage": {
-      "KO": "그림을 맞추면 편지를 읽을 수 있어요!",
-      "EN": "Guess the picture to read the letter"
+    "cardMessageTop": {
+      "KO": "그림을 맞추면 ",
+      "EN": "Guess the picture "
+    },
+    "cardMessageBottom": {
+      "KO": "편지를 읽을 수 있어요!",
+      "EN": "to read the letter"
     },
     "name": {
       "KO": "우체통 이름",
