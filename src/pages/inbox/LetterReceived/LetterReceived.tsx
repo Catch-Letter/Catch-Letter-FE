@@ -15,7 +15,7 @@ interface Props {
   uuid: string
 }
 
-const LetterRecived: FC<Props> = ({ uuid }) => {
+const LetterReceived: FC<Props> = ({ uuid }) => {
   const { total_letter_count, incorrect_letter_count, name } = useInboxStatus(uuid)
   const { isOpen, openModal, closeModal, password, initializePassword, onPasswordChange } =
     usePasswordModal()
@@ -78,4 +78,4 @@ const LetterRecived: FC<Props> = ({ uuid }) => {
   )
 }
 
-export default LetterRecived
+export default LetterReceived

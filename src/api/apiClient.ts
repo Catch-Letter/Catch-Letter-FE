@@ -38,7 +38,7 @@ authApiClient.interceptors.response.use(
     const originalRequest = error.config
 
     if (error.response?.status === 401 && !originalRequest._retry) {
-      // 재귀 싷행 방지
+      // 재귀 실행 방지
       originalRequest._retry = true
 
       const { setAccessToken, deleteAccessToken } = useAuthStore.getState()
