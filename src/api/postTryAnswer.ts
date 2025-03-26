@@ -1,19 +1,9 @@
-import { apiClient } from '#/api/apiClient'
+import { authApiClient } from '#/api/apiClient'
 import { API_ENDPOINTS } from '#/api/apiEndpoints'
-import { useAuthStore } from '#/store/authStore'
 
 export const postTryAnswer = async (uuid: string, letterId: number, answer: string) => {
-  const { accessToken } = useAuthStore.getState()
   try {
-    const res = await apiClient.post(
-      API_ENDPOINTS.TRY_ANSWER(uuid, letterId),
-      { answer },
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    )
+    const res = await authApiClient.post(API_ENDPOINTS.TRY_ANSWER(uuid, letterId), { answer })
 
     if (res.data?.result === 'success') {
       return {

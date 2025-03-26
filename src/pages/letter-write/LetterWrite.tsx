@@ -44,9 +44,8 @@ const LetterWrite = () => {
       try {
         const res = await fetchUUID(uuid)
         setRecipient(res.name)
-      } catch (error) {
-        navigate('/create')
-        console.log('failed to fetch UUID', error)
+      } catch {
+        navigate('/')
       }
     }
     getUUID()
