@@ -5,6 +5,7 @@ import { Button } from '#/shared/ui/button'
 import { SeparatedInputProps } from '#/shared/ui/separated-input/separated-input'
 import { FC, MouseEventHandler } from 'react'
 import { passwordModalStyles } from './PasswordModal.styles'
+import { useTranslation } from 'react-i18next'
 
 type Props = Omit<ModalProps, 'children'> &
   Pick<SeparatedInputProps, 'onChangeValue'> & {
@@ -19,12 +20,14 @@ const PasswordModal: FC<Props> = ({
   onClickConfirmButton,
   onClickOverlay,
 }) => {
+  const { t } = useTranslation()
+
   return (
     <Modal isOpen={isOpen} onClickOverlay={onClickOverlay}>
       <form css={passwordModalStyles}>
         <img src={lock} alt='lock' width={32} height={32} />
         <SeparatedInput
-          label='우체통 비밀번호 입력'
+          label={t('enterPostPassword')}
           length={5}
           type='password'
           value={password}
@@ -36,7 +39,7 @@ const PasswordModal: FC<Props> = ({
           disabled={password.length < 5}
           type='button'
         >
-          완료
+          {t('confirm')}
         </Button>
       </form>
     </Modal>
