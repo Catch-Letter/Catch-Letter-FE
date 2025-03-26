@@ -107,12 +107,3 @@ export const LockLetterStyle = css`
     color: ${colors.grey[5]};
   }
 `
-
-export const UnLockLetterStyle = (backgroundImage: string) => css`
-  width: 100%;
-  height: 100%;
-  background-image: url(${backgroundImage});
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-`

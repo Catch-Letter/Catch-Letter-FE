@@ -10,7 +10,6 @@ import {
   SkeletonCardStyle,
   NoLettersContainer,
   LockLetterStyle,
-  UnLockLetterStyle,
 } from './MyLetters.styles'
 import { useTranslation } from 'react-i18next'
 import lockImage from '#/assets/create/lock.svg'
@@ -18,9 +17,9 @@ import { colors } from '#/styles/color'
 import { useMyLettersQuery } from '#/api/myLetters'
 import { fetchUUID } from '#/api/uuid'
 import { DotLoader } from '#/shared/ui'
+import { useRandomShakingCard } from '#/hooks/useRandomShakingCard'
 
 const MyLetters = () => {
-  const [shakingCard, setShakingCard] = useState<number | null>(null)
   const [letterCount, setLetterCount] = useState<number | null>(null)
   const navigate = useNavigate()
   const { uuid } = useParams()
@@ -29,6 +28,9 @@ const MyLetters = () => {
 
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
     useMyLettersQuery(uuid ?? '')
+
+  const letters = data?.pages[0]?.data ?? []
+  const shakingCard = useRandomShakingCard(letters)
 
   // 편지 전체 갯수 조회
   useEffect(() => {
@@ -73,24 +75,6 @@ const MyLetters = () => {
       }
     }
   }, [fetchNextPage, hasNextPage, isFetchingNextPage])
-
-  // is_correct중 랜덤 카드 선택
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const incorrectCards = data?.pages[0]?.data?.filter((letter) => !letter.is_correct) ?? []
-
-      if (incorrectCards.length > 0) {
-        const randomCard = incorrectCards[Math.floor(Math.random() * incorrectCards.length)]
-        setShakingCard((prev) => (prev === randomCard.id ? null : randomCard.id))
-
-        setTimeout(() => {
-          setShakingCard(null)
-        }, 500)
-      }
-    }, 1600)
-
-    return () => clearInterval(interval)
-  }, [])
 
   // 편지 배경 색 추출
   const extractColor = (etc: string | null | undefined) => {
@@ -154,7 +138,6 @@ const MyLetters = () => {
                   >
                     {letter.is_correct ? (
                       <div
-                        // css={UnLockLetterStyle(letter.thumbnail_url ?? lockImage)}
                         onClick={() =>
                           navigate(`/checkAnswer/${uuid}/${letter.id}`, {
                             state: { answerLength: letter.answer_length },
