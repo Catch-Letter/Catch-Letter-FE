@@ -1,4 +1,4 @@
-import LetterCard from '#/components/my-letters/letter-card/LetterCard'
+import LetterCard from '../letter-card/LetterCard'
 import { Letter } from '#/types/myLetters'
 
 interface LetterGridProps {

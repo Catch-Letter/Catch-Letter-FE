@@ -4,7 +4,6 @@ import { extractColor } from '#/types/extractColor'
 import { Letter } from '#/types/myLetters'
 import { LetterCardStyle } from './LetterCard.styles'
 import { Letters } from '#/components/my-letters/letters'
-import { colors } from '#/styles/color'
 
 interface LetterCardProps {
   letter: Letter
