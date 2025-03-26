@@ -1,33 +1,31 @@
 // TODO: 비번 value 초기화시에 input ui에 적용되지 않는 문제 있음
+import { Toast } from '#/components'
 import { FallingLetters, TextSection } from '#/components/inbox'
 import { PasswordModal } from '#/components/inbox/PasswordModal'
 import { useInboxStatus, useLogin, usePasswordModal } from '#/hooks'
-import { Background, Flex, Header } from '#/shared/ui'
+import { Flex, Header } from '#/shared/ui'
 import { Button } from '#/shared/ui/button'
-import { useAuthStore } from '#/store/authStore'
+import { useToastStore } from '#/store/toastStore'
 import { FC, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import { bottomButtonStyles, containerStyles, headerStyles } from '../Inbox.styles'
-import { useTranslation } from 'react-i18next'
-import { useToastStore } from '#/store/toastStore'
-import { Toast } from '#/components'
 
 interface Props {
   uuid: string
 }
 
-const LetterReciving: FC<Props> = ({ uuid }) => {
+const LetterRecived: FC<Props> = ({ uuid }) => {
   const { total_letter_count, incorrect_letter_count, name } = useInboxStatus(uuid)
   const { isOpen, openModal, closeModal, password, initializePassword, onPasswordChange } =
     usePasswordModal()
-  const { accessToken } = useAuthStore()
   const navigate = useNavigate()
   const { showToast } = useToastStore()
   const { t } = useTranslation()
 
   // 확인하기 버튼
   const onClickCheckButton = useCallback(() => {
-    if (accessToken) return navigate(`/myletters/${uuid}`)
+    // TODO : access token 검증 단계 추가
 
     openModal()
   }, [])
@@ -80,4 +78,4 @@ const LetterReciving: FC<Props> = ({ uuid }) => {
   )
 }
 
-export default LetterReciving
+export default LetterRecived
