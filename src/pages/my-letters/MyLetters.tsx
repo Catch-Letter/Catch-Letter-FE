@@ -32,8 +32,7 @@ const MyLetters = () => {
 
   const letters = data?.pages[0]?.data ?? []
   const shakingCard = useRandomShakingCard(letters)
-  // const letterCount = useTotalLetterCount(uuid)
-  const letterCount = 0
+  const letterCount = useTotalLetterCount(uuid)
 
   useInfiniteScroll({
     containerRef: scrollContainerRef,
@@ -47,7 +46,7 @@ const MyLetters = () => {
       <BackHeader
         Center={
           <div css={TitleStyle}>
-            {t('myLetters')}
+            {t('myLetters.myLetters')}
             <span css={BadgeStyle}>{letterCount ?? 0}</span>
           </div>
         }
@@ -93,9 +92,10 @@ const MyLetters = () => {
                         }
                       >
                         <img src={lockImage} alt='lock-icon' />
-                        <div className='lock-text'>
-                          암호를 <br /> 풀어주세요!
-                        </div>
+                        <div
+                          className='lock-text'
+                          dangerouslySetInnerHTML={{ __html: t('myLetters.lockDesc') }}
+                        ></div>
                       </div>
                     )}
                   </div>

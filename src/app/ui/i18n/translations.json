@@ -239,14 +239,21 @@
   },
 
   "myLetters": {
-    "KO": "편지함",
-    "EN": "My Letters"
+    "myLetters": {
+      "KO": "편지함",
+      "EN": "My Letters"
+    },
+    "lockDesc": {
+      "KO": "암호를 <br /> 풀어주세요!",
+      "EN": "Unlock <br /> the drawing!"
+    }
   },
 
   "submit": {
     "KO": "확인",
     "EN": "Submit"
   },
+
   "before": {
     "KO": "이전",
     "EN": "Before"

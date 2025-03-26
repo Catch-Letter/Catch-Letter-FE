@@ -18,10 +18,7 @@ export const MyLettersWrapper = css`
 `
 
 export const TitleStyle = css`
-  font-size: 18px;
-  font-weight: 700;
   display: flex;
-  justify-content: center;
   align-items: center;
   gap: 8px;
 `
