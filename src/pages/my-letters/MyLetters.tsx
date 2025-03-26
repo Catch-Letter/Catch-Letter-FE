@@ -19,6 +19,7 @@ import { fetchUUID } from '#/api/uuid'
 import { DotLoader } from '#/shared/ui'
 import { useRandomShakingCard } from '#/hooks/useRandomShakingCard'
 import { extractColor } from '#/types/extractColor'
+import { useInfiniteScroll } from '#/hooks/useInfiniteScroll'
 
 const MyLetters = () => {
   const [letterCount, setLetterCount] = useState<number | null>(null)
@@ -50,32 +51,12 @@ const MyLetters = () => {
     fetchMyLettersCount()
   }, [uuid])
 
-  // 무한 스크롤
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!scrollContainerRef.current) return
-      const container = scrollContainerRef.current
-
-      if (
-        container.scrollTop + container.clientHeight >= container.scrollHeight - 10 &&
-        hasNextPage &&
-        !isFetchingNextPage
-      ) {
-        fetchNextPage()
-      }
-    }
-
-    const container = scrollContainerRef.current
-    if (container) {
-      container.addEventListener('scroll', handleScroll)
-    }
-
-    return () => {
-      if (container) {
-        container.removeEventListener('scroll', handleScroll)
-      }
-    }
-  }, [fetchNextPage, hasNextPage, isFetchingNextPage])
+  useInfiniteScroll({
+    containerRef: scrollContainerRef,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  })
 
   return (
     <div css={MyLettersWrapper}>
