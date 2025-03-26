@@ -13,6 +13,7 @@ import {
   TryAnswer,
 } from '#/pages'
 import { Loading } from '#/components'
+import ErrorBoundary from '#/components/error-boundary/ErrorBoundary'
 
 const App = () => {
   const SendLetter = lazy(() => import('#/pages/letter-send/SendLetter'))
@@ -23,25 +24,27 @@ const App = () => {
   return (
     <I18nProvider>
       <BrowserRouter>
-        <Suspense fallback={<Loading />}>
-          <Routes>
-            <Route path='/' element={<Layout />}>
-              <Route path='/' element={<CreatePost />} />
-              <Route path='/test' element={<Test />} />
-              <Route path='/writeletter/:uuid/:id' element={<LetterWrite />} />
-              <Route path='/choiceletter/:uuid/:id' element={<ChoiceLetter />} />
-              <Route path='/sendletter' element={<SendLetter />} />
-              <Route path='/myletters/:uuid' element={<MyLetters />} />
-              <Route path='/postform' element={<CreatePostForm />} />
-              <Route path='/success' element={<Success />} />
-              <Route path='/inbox/:uuid' element={<Inbox />} />
-              <Route path='/checkanswer/:uuid/:id' element={<CheckAnswer />} />
-              <Route path='/tryAnswer/:uuid/:id' element={<TryAnswer />} />
-              <Route path='/drawing/:uuid' element={<Drawing />} />
-              <Route path='*' element={<NotFound />} />
-            </Route>
-          </Routes>
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={<Loading />}>
+            <Routes>
+              <Route path='/' element={<Layout />}>
+                <Route path='/' element={<CreatePost />} />
+                <Route path='/test' element={<Test />} />
+                <Route path='/writeletter/:uuid/:id' element={<LetterWrite />} />
+                <Route path='/choiceletter/:uuid/:id' element={<ChoiceLetter />} />
+                <Route path='/sendletter' element={<SendLetter />} />
+                <Route path='/myletters/:uuid' element={<MyLetters />} />
+                <Route path='/postform' element={<CreatePostForm />} />
+                <Route path='/success' element={<Success />} />
+                <Route path='/inbox/:uuid' element={<Inbox />} />
+                <Route path='/checkanswer/:uuid/:id' element={<CheckAnswer />} />
+                <Route path='/tryAnswer/:uuid/:id' element={<TryAnswer />} />
+                <Route path='/drawing/:uuid' element={<Drawing />} />
+                <Route path='*' element={<NotFound />} />
+              </Route>
+            </Routes>
+          </Suspense>
+        </ErrorBoundary>
       </BrowserRouter>
     </I18nProvider>
   )
