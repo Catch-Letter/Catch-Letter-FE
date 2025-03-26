@@ -1,12 +1,11 @@
-import { Header, Button } from '#/shared/ui'
+import { fetchSendLetter } from '#/api/sendLetter'
 import { LetterCard } from '#/components'
 import { LetterContent, Tab } from '#/components/letter-choice'
+import { Background, Button, Header } from '#/shared/ui'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
+import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate, useParams } from 'react-router'
 import { ChoiceLetterStyle, ChoiceLetterWrapper } from './ChoiceLetter.styles'
-import { Background } from '#/shared/ui/background'
-import { fetchSendLetter } from '#/api/sendLetter'
-import { useTranslation } from 'react-i18next'
 
 const ChoiceLetter = () => {
   const { uuid, id } = useParams()

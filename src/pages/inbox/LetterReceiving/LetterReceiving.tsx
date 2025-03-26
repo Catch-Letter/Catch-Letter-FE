@@ -1,7 +1,7 @@
 // TODO : SNS 공유하기 버튼
 import { FallingLetters, TextSection } from '#/components/inbox'
 import { useCountdownTimer, useInboxStatus } from '#/hooks'
-import { Flex, Header } from '#/shared/ui'
+import { Background, Flex, Header } from '#/shared/ui'
 import { Button } from '#/shared/ui/button'
 import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -20,6 +20,7 @@ const LetterReciving: FC<Props> = ({ uuid }) => {
 
   return (
     <div css={containerStyles}>
+      <Background gradientType='halfGradient' />
       <Header css={headerStyles} Left={<span className='left'>catch letter</span>} />
 
       <TextSection

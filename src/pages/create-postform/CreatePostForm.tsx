@@ -1,7 +1,6 @@
 import { fetchCreatePost } from '#/api/createPost'
 import { BackHeader } from '#/components'
-import { Button, InputField, SeparatedInput } from '#/shared/ui'
-import { Background } from '#/shared/ui/background'
+import { Background, Button, InputField, SeparatedInput } from '#/shared/ui'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'

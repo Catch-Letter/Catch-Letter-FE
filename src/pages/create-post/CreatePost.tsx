@@ -1,9 +1,8 @@
 import { TurnCard } from '#/components/create-post'
-import { Button, Header } from '#/shared/ui'
+import { Background, Button, Header } from '#/shared/ui'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import { CreatePostStyle, CreateWrapper } from './CreatePost.styles'
-import { Background } from '#/shared/ui/background'
-import { useTranslation } from 'react-i18next'
 
 const CreatePost = () => {
   const navigate = useNavigate()
