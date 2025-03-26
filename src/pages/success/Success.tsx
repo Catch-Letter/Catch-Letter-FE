@@ -1,4 +1,4 @@
-import { BackHeader } from '#/components'
+import { BackHeader, Toast } from '#/components'
 import { DescLink, TimeArea } from '#/components/success'
 import { useCountdownTimer } from '#/hooks'
 import { Background, Button } from '#/shared/ui'
@@ -32,6 +32,7 @@ const Success = () => {
           {t('create.btnshare')}
         </Button>
       </div>
+      <Toast />
     </div>
   )
 }
