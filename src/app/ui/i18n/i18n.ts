@@ -2,16 +2,10 @@ import { LANGUAGE } from '#/app/config'
 import i18n from 'i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import { initReactI18next } from 'react-i18next'
-import { krTranslations, usTranslations } from './translations'
+import { transformTranslations } from './transformTranslations'
+import translations from './translations.json'
 
-const resources = {
-  [LANGUAGE.EN]: {
-    translation: usTranslations,
-  },
-  [LANGUAGE.KO]: {
-    translation: krTranslations,
-  },
-}
+const resources = transformTranslations(translations)
 
 i18n
   .use(LanguageDetector)

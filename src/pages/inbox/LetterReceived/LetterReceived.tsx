@@ -8,6 +8,7 @@ import { useAuthStore } from '#/store/authStore'
 import { FC, useCallback } from 'react'
 import { useNavigate } from 'react-router'
 import { bottomButtonStyles, containerStyles, headerStyles } from '../Inbox.styles'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   uuid: string
@@ -17,9 +18,10 @@ const LetterReciving: FC<Props> = ({ uuid }) => {
   const { total_letter_count, incorrect_letter_count, name } = useInboxStatus(uuid)
   const { isOpen, openModal, closeModal, password, initializePassword, onPasswordChange } =
     usePasswordModal()
-
   const { accessToken } = useAuthStore()
   const navigate = useNavigate()
+  const { t } = useTranslation()
+
   // 확인하기 버튼
   const onClickCheckButton = useCallback(() => {
     if (accessToken) return navigate(`/myletters/${uuid}`)
@@ -45,17 +47,17 @@ const LetterReciving: FC<Props> = ({ uuid }) => {
       <Header css={headerStyles} Left={<span className='left'>catch letter</span>} />
 
       <TextSection
-        title1={`${name}의 받은 비밀편지`}
+        title1={t('inbox.totalLetterCount', { name })}
         value1={total_letter_count}
-        title2='풀지 못한 편지'
+        title2={t('inbox.unsolvedLetters')}
         value2={incorrect_letter_count}
       />
 
       <Flex justify='space-between' gap={16} css={bottomButtonStyles}>
         <Button onClick={() => {}} variant='secondary'>
-          자랑하기
+          {t('showOff')}
         </Button>
-        <Button onClick={onClickCheckButton}>편지 확인하기!</Button>
+        <Button onClick={onClickCheckButton}>{t('checkLetters')}</Button>
       </Flex>
 
       <PasswordModal

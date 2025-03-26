@@ -4,6 +4,7 @@ import { useCountdownTimer, useInboxStatus } from '#/hooks'
 import { Flex, Header } from '#/shared/ui'
 import { Button } from '#/shared/ui/button'
 import { FC } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import { bottomButtonStyles, containerStyles, headerStyles } from '../Inbox.styles'
 
@@ -15,6 +16,7 @@ const LetterReciving: FC<Props> = ({ uuid }) => {
   const { name, expired_at, total_letter_count } = useInboxStatus(uuid)
   const { leftTime } = useCountdownTimer(expired_at)
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   return (
     <div css={containerStyles}>
@@ -29,9 +31,9 @@ const LetterReciving: FC<Props> = ({ uuid }) => {
 
       <Flex justify='space-between' gap={16} css={bottomButtonStyles}>
         <Button onClick={() => {}} variant='secondary'>
-          SNS 공유하기
+          {t('shareOnSNS')}
         </Button>
-        <Button onClick={() => navigate(`/drawing/${uuid}`)}>편지 쓰러 가기!</Button>
+        <Button onClick={() => navigate(`/drawing/${uuid}`)}>{t('inbox.goWrite')}</Button>
       </Flex>
 
       <FallingLetters />
