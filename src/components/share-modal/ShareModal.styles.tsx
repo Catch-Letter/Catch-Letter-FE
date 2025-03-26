@@ -13,7 +13,7 @@ export const ShareModalStyle = css`
 
   .title {
     font-weight: 700;
-    font-size: 20px;
+    font-size: 21px;
     text-align: center;
   }
 
@@ -62,7 +62,7 @@ export const ShareModalStyle = css`
 `
 
 export const ShareModalContainer = css`
-  margin: 14px 44px 33px;
+  margin: 14px 44px 28px;
   text-align: center;
 
   .desc {
