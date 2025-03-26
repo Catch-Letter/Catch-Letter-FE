@@ -8,14 +8,13 @@ interface Params {
 }
 
 export default function useLogin({ onAuthSuccess, onAuthFail }: Params) {
-  const { setAccessToken, setExpiresIn } = useAuthStore()
+  const { setAccessToken } = useAuthStore()
 
   const { mutate: login } = useMutation({
     mutationFn: ({ uuid, name, password }: AuthReqParams) => fetchAuthToken(uuid, name, password),
-    onSuccess: ({ access_token, expires_in }) => {
+    onSuccess: ({ access_token }) => {
       onAuthSuccess?.()
       setAccessToken(access_token)
-      setExpiresIn(expires_in)
     },
     onError: onAuthFail,
   })
