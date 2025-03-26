@@ -12,8 +12,7 @@ import {
   Test,
   TryAnswer,
 } from '#/pages'
-import { Loading } from '#/components'
-import ErrorBoundary from '#/components/error-boundary/ErrorBoundary'
+import { Loading, ErrorBoundary } from '#/components'
 
 const App = () => {
   const SendLetter = lazy(() => import('#/pages/letter-send/SendLetter'))
