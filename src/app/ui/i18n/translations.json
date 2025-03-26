@@ -275,6 +275,17 @@
     }
   },
 
+  "error": {
+    "notFoundPage": {
+      "KO": "페이지를 찾을 수 없습니다",
+      "EN": "Page not found"
+    },
+    "notFoundDesc": {
+      "KO": "요청하신 페이지가 존재하지 않거나, <br /> 삭제되었어요 🥲",
+      "EN": "The page you requested doesn't exist <br /> or has been deleted 🥲"
+    }
+  },
+
   "checkLetters": {
     "KO": "편지 확인하기!",
     "EN": "Check letters!"
@@ -294,5 +305,13 @@
   "shareOnSNS": {
     "KO": "SNS 공유하기",
     "EN": "share on SNS"
+  },
+  "goBack":{
+    "KO": "이전으로",
+    "EN": "Go Back"
+  },
+  "goHome":{
+    "KO": "홈으로",
+    "EN": "Go Home"
   }
 }

@@ -2,20 +2,19 @@ import { Button, Header } from '#/shared/ui'
 import { error } from '#/assets/error'
 import { ErrorWrapper, ErrorContainer } from './NotFound.styles'
 import { useNavigate } from 'react-router'
+import { useTranslation } from 'react-i18next'
 
 const NotFound = () => {
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   return (
     <div css={ErrorContainer}>
       <Header />
       <div css={ErrorWrapper}>
         <img src={error} alt='error-image' />
-        <h1>404 - 페이지를 찾을 수 없습니다</h1>
-        <p>
-          요청하신 페이지가 존재하지 않거나, <br />
-          삭제되었어요 🥲
-        </p>
+        <h1>404 - {t('error.notFoundPage')}</h1>
+        <p dangerouslySetInnerHTML={{ __html: t('error.notFoundDesc') }}></p>
         <div className='button-wrapper'>
           <Button
             variant='secondary'
@@ -24,7 +23,7 @@ const NotFound = () => {
               navigate(-1)
             }}
           >
-            이전으로
+            {t('goBack')}
           </Button>
           <Button
             width={140}
@@ -32,7 +31,7 @@ const NotFound = () => {
               navigate('/')
             }}
           >
-            홈으로
+            {t('goHome')}
           </Button>
         </div>
       </div>
