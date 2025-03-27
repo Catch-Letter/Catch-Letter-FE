@@ -56,7 +56,7 @@ export const TryAnswerStyle = css`
     display: flex;
     justify-content: center;
     /* margin: 0 48px; */
-    width: 100%;
+    width: 70%;
     height: 70%;
   }
 
@@ -75,7 +75,7 @@ export const LetterCardStyle = (backgroundImage: string) => css`
   background-color: white;
   opacity: 0.8;
   background-position: center;
-  width: 70%;
+  width: 100%;
   height: 100%;
   border-radius: 24px;
   /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
