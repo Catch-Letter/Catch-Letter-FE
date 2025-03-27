@@ -1,15 +1,15 @@
 import { useNavigate } from 'react-router'
 import { lock } from '#/assets/create'
-import { LockLetterStyle } from './Letters.styles'
+import { LockLetterStyle } from './Letter.styles'
 import { useTranslation } from 'react-i18next'
-import { Letter } from '#/types/myLetters'
+import { LetterData } from '#/types/myLetters'
 
 interface LettersProps {
-  letter: Letter
+  letter: LetterData
   uuid: string
 }
 
-const Letters = ({ letter, uuid }: LettersProps) => {
+const Letter = ({ letter, uuid }: LettersProps) => {
   const navigate = useNavigate()
   const { t } = useTranslation()
 
@@ -33,4 +33,4 @@ const Letters = ({ letter, uuid }: LettersProps) => {
   )
 }
 
-export default Letters
+export default Letter

@@ -1,8 +1,8 @@
 import LetterCard from '../letter-card/LetterCard'
-import { Letter } from '#/types/myLetters'
+import { LetterData } from '#/types/myLetters'
 
 interface LetterGridProps {
-  pages: { data: Letter[] }[]
+  pages: { data: LetterData[] }[]
   shakingCard: number | null
   uuid: string
 }

@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { DotLoader } from '#/shared/ui'
 import { extractColor } from '#/types/extractColor'
-import { Letter } from '#/types/myLetters'
+import { LetterData } from '#/types/myLetters'
 import { LetterCardStyle } from './LetterCard.styles'
-import { Letters } from '#/components/my-letters/letters'
+import Letter from '#/components/my-letters/letter/Letter'
 
 interface LetterCardProps {
-  letter: Letter
+  letter: LetterData
   shakingCard: number | null
   uuid: string
 }
@@ -35,7 +35,7 @@ const LetterCard = ({ letter, shakingCard, uuid }: LetterCardProps) => {
       {!isLoaded ? (
         <DotLoader backgroundColor='none' color='rgba(255, 255, 255, 0.6)' />
       ) : (
-        <Letters letter={letter} uuid={uuid} />
+        <Letter letter={letter} uuid={uuid} />
       )}
     </div>
   )
