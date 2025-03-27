@@ -56,9 +56,12 @@ export const FrontCard = css`
   }
 
   .top {
-    font-weight: 700;
-    padding: 0 16px;
+    text-align: center;
   }
+`
+
+export const boldFont = css`
+  font-weight: 700;
 `
 export const BackCard = css`
   position: absolute;
