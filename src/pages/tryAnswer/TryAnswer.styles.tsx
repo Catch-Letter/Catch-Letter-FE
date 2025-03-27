@@ -85,7 +85,7 @@ export const SkeletonCardStyle = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 70%;
+  width: 100%;
   height: 100%;
   border-radius: 24px;
   background-color: ${colors.grey[3]};
