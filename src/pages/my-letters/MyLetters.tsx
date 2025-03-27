@@ -7,14 +7,20 @@ import { useMyLettersQuery } from '#/api/myLetters'
 import { useRandomShakingCard } from '#/hooks/useRandomShakingCard'
 import { useInfiniteScroll } from '#/hooks/useInfiniteScroll'
 import { useTotalLetterCount } from '#/hooks/useTotalLetterCount'
+import { useState } from 'react'
 
 const MyLetters = () => {
   const { uuid } = useParams()
   const { t } = useTranslation()
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
+  const [loadedMap, setLoadedMap] = useState<Record<string, boolean>>({})
 
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
     useMyLettersQuery(uuid ?? '')
+
+  const handleCardLoad = (id: number, loaded: boolean) => {
+    setLoadedMap((prev) => ({ ...prev, [id]: loaded }))
+  }
 
   const letters = data?.pages[0]?.data ?? []
   const shakingCard = useRandomShakingCard(letters)
@@ -44,7 +50,12 @@ const MyLetters = () => {
           {isLoading || isFetching ? (
             <SkeletonCard />
           ) : (
-            <LetterGrid pages={data?.pages ?? []} shakingCard={shakingCard} uuid={uuid ?? ''} />
+            <LetterGrid
+              pages={data?.pages ?? []}
+              shakingCard={shakingCard}
+              uuid={uuid ?? ''}
+              onLoad={handleCardLoad}
+            />
           )}
         </div>
       )}
