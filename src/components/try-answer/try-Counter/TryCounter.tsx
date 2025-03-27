@@ -1,6 +1,6 @@
 import { failedEmoji, successEmoji } from '#/assets/emoji'
 import { TryCounterStyle } from '#/components/try-answer/try-Counter/TryCounter.styles'
-import { extractRemainingChances } from '#/pages/tryAnswer/TryAnswer'
+import { extractRemainingChances } from '#/shared/utils/extractRemainingChances'
 import { useTranslation } from 'react-i18next'
 
 interface TryCounterProps {

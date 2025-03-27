@@ -12,14 +12,11 @@ import {
 } from '#/pages/tryAnswer/TryAnswer.styles'
 import { Background, Button, DotLoader } from '#/shared/ui'
 import SeparatedInput from '#/shared/ui/separated-input/separated-input'
+import { extractRemainingChances } from '#/shared/utils'
 import { colors } from '#/styles/color'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate, useParams } from 'react-router'
-
-export const extractRemainingChances = (message: string | null): string => {
-  return message?.match(/\d+/)?.[0] || '0'
-}
 
 const TryAnswer = () => {
   // const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
@@ -116,7 +113,7 @@ const TryAnswer = () => {
       }
     } catch (error) {
       console.error(error)
-      setResponseMessage('예상치 못한 오류가 발생했습니다.')
+      setResponseMessage(t('error.unexpectedError'))
     }
   }
 
