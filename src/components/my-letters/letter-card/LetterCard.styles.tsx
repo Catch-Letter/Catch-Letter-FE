@@ -23,7 +23,6 @@ export const LetterCardStyle = (
   align-items: center;
   justify-content: center;
   background-color: ${backgroundColor};
-  border: 1px solid ${backgroundColor};
   background-image: url(${backgroundImage});
   background-size: contain;
   background-position: center;

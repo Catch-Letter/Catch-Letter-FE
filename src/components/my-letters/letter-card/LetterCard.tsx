@@ -40,7 +40,11 @@ const LetterCard = ({ letter, shakingCard, uuid, onLoad }: LetterCardProps) => {
 
   return (
     <div css={LetterCardStyle(shakingCard, letter.id, backgroundColor, thumbnailUrl)}>
-      {!isLoaded ? <SkeletonCard /> : <Letter letter={letter} uuid={uuid} />}
+      {!isLoaded ? (
+        <SkeletonCard />
+      ) : (
+        <Letter letter={letter} uuid={uuid} backgroundColor={backgroundColor} />
+      )}
     </div>
   )
 }

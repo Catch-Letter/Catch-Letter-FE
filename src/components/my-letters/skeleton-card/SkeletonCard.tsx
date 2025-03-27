@@ -2,11 +2,15 @@ import { DotLoader } from '#/shared/ui'
 import { colors } from '#/styles/color'
 import { SkeletonCardStyle } from './SkeletionCard.styles'
 
-const SkeletonCard = () => {
+const SkeletonCard = ({ count = 1 }: { count?: number }) => {
   return (
-    <div css={SkeletonCardStyle}>
-      <DotLoader color={colors.grey[9]} />
-    </div>
+    <>
+      {Array.from({ length: count }).map((_, i) => (
+        <div key={i} css={SkeletonCardStyle}>
+          <DotLoader color={colors.grey[9]} />
+        </div>
+      ))}
+    </>
   )
 }
 
