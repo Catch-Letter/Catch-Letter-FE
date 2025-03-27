@@ -18,6 +18,10 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate, useParams } from 'react-router'
 
+export const extractRemainingChances = (message: string | null): string => {
+  return message?.match(/\d+/)?.[0] || '0'
+}
+
 const TryAnswer = () => {
   // const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
   const { uuid, id } = useParams()
@@ -93,7 +97,9 @@ const TryAnswer = () => {
               setResponseMessage(t('tryAnswer.correctAnswer'))
               setButtonText(t('tryAnswer.checkAnswer'))
             } else {
-              setResponseMessage(response.message)
+              const remainingChances = extractRemainingChances(response.message)
+
+              setResponseMessage(t('tryAnswer.remainingAttempts', { chance: remainingChances }))
               setChances(3 - response.data.try)
             }
           }
@@ -139,7 +145,7 @@ const TryAnswer = () => {
       const response = await postTryAnswer(uuid, Number(id), inputValue)
 
       if (!response) {
-        setResponseMessage('서버 응답이 없습니다. 다시 시도해주세요.')
+        setResponseMessage(t('error.serverError'))
         return
       }
 
@@ -149,7 +155,8 @@ const TryAnswer = () => {
         setButtonText(t('tryAnswer.checkAnswer'))
       } else {
         handleWrongAttempt()
-        setResponseMessage(response.message)
+        const remainingChances = extractRemainingChances(response.message)
+        setResponseMessage(t('tryAnswer.remainingAttempts', { chance: remainingChances }))
         setButtonText(t('tryAnswer.submit'))
       }
     } catch (error) {
@@ -160,7 +167,7 @@ const TryAnswer = () => {
 
   const handleNavigate = () => {
     if (isCorrect) {
-      navigate(`/checkAnswer/${uuid}/${id}`) // 정답일 때만 checkAnswer 페이지로 이동
+      navigate(`/checkAnswer/${uuid}/${id}`)
     }
   }
 
