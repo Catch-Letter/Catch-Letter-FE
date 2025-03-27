@@ -256,6 +256,37 @@
     "EN": "Before"
   },
 
+  "tryAnswer": {
+    "remainingAttempts": {
+      "KO": "{{count}}번의 기회가 남았어요!",
+      "EN": "{{count}} attempts left!"
+    },
+    "correctAnswer": {
+      "KO": "정답입니다!",
+      "EN": "Correct Answer!"
+    },
+    "checkAnswer": {
+      "KO": "정답 확인하기",
+      "EN": "Check the answer"
+    },
+    "submit": {
+      "KO": "확인",
+      "EN": "Submit"
+    },
+    "waitingChance": {
+      "KO": "남은 기회 불러오는중...",
+      "EN": "Loading remaining chances..."
+    },
+    "passwordUnlock": {
+      "KO": "비밀번호가 풀렸어요",
+      "EN": "The password has been unlocked!"
+    },
+    "tryAgain": {
+      "KO": "잠시 후 다시 도전하세요!",
+      "EN": "Please try again later!"
+    }
+  },
+
   "inbox": {
     "untilClose": {
       "KO": "{{name}} 님의 우체통 마감까지",
@@ -310,11 +341,11 @@
     "KO": "SNS 공유하기",
     "EN": "share on SNS"
   },
-  "goBack":{
+  "goBack": {
     "KO": "이전으로",
     "EN": "Go Back"
   },
-  "goHome":{
+  "goHome": {
     "KO": "홈으로",
     "EN": "Go Home"
   }
