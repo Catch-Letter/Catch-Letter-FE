@@ -15,11 +15,17 @@ import { Background, Button, DotLoader } from '#/shared/ui'
 import SeparatedInput from '#/shared/ui/separated-input/separated-input'
 import { colors } from '#/styles/color'
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate, useParams } from 'react-router'
+
+export const extractRemainingChances = (message: string | null): string => {
+  return message?.match(/\d+/)?.[0] || '0'
+}
 
 const TryAnswer = () => {
   // const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
   const { uuid, id } = useParams()
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const location = useLocation()
   const answerLength = location.state?.answerLength || 6
@@ -36,7 +42,7 @@ const TryAnswer = () => {
     content: string
   } | null>(null)
   const [imageUrl, setImageUrl] = useState<string | null>(null)
-  const [buttonText, setButtonText] = useState<string>('확인')
+  const [buttonText, setButtonText] = useState<string>(t('submit'))
   const [isTryStarted, setIsTryStarted] = useState<boolean>(false)
 
   //편지내용 가져오기
@@ -88,10 +94,12 @@ const TryAnswer = () => {
             // response.data가 빈 배열일 경우(이미 맞춘 정답에 접근하는 경우)
             if (Array.isArray(response.data) && response.data.length === 0) {
               setIsCorrect(true) // 이미 맞춘 정답 표시
-              setResponseMessage('정답입니다!')
-              setButtonText('편지 확인')
+              setResponseMessage(t('tryAnswer.correctAnswer'))
+              setButtonText(t('tryAnswer.checkAnswer'))
             } else {
-              setResponseMessage(response.message)
+              const remainingChances = extractRemainingChances(response.message)
+
+              setResponseMessage(t('tryAnswer.remainingAttempts', { chance: remainingChances }))
               setChances(3 - response.data.try)
             }
           }
@@ -137,17 +145,19 @@ const TryAnswer = () => {
       const response = await postTryAnswer(uuid, Number(id), inputValue)
 
       if (!response) {
-        setResponseMessage('서버 응답이 없습니다. 다시 시도해주세요.')
+        setResponseMessage(t('error.serverError'))
         return
       }
 
       if (response.success) {
         setIsCorrect(true)
-        setResponseMessage(response.message)
-        setButtonText('편지 확인')
+        setResponseMessage(t('tryAnswer.correctAnswer'))
+        setButtonText(t('tryAnswer.checkAnswer'))
       } else {
         handleWrongAttempt()
-        setResponseMessage(response.message)
+        const remainingChances = extractRemainingChances(response.message)
+        setResponseMessage(t('tryAnswer.remainingAttempts', { chance: remainingChances }))
+        setButtonText(t('tryAnswer.submit'))
       }
     } catch (error) {
       console.error(error)
@@ -157,7 +167,7 @@ const TryAnswer = () => {
 
   const handleNavigate = () => {
     if (isCorrect) {
-      navigate(`/checkAnswer/${uuid}/${id}`) // 정답일 때만 checkAnswer 페이지로 이동
+      navigate(`/checkAnswer/${uuid}/${id}`)
     }
   }
 
@@ -194,7 +204,7 @@ const TryAnswer = () => {
             disabled={chances === 0}
             width={142}
           >
-            {buttonText}
+            {isCorrect ? t('tryAnswer.checkAnswer') : t('tryAnswer.submit')}
           </Button>
         </div>
       </div>

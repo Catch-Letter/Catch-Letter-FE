@@ -1,5 +1,7 @@
 import { failedEmoji, successEmoji } from '#/assets/emoji'
 import { TryCounterStyle } from '#/components/try-answer/try-Counter/TryCounter.styles'
+import { extractRemainingChances } from '#/pages/tryAnswer/TryAnswer'
+import { useTranslation } from 'react-i18next'
 
 interface TryCounterProps {
   chances: number
@@ -9,8 +11,11 @@ interface TryCounterProps {
 }
 
 const TryCounter: React.FC<TryCounterProps> = ({ chances, timeLeft, isCorrect, message }) => {
-  const defaultMessage = '남은 기회 불러오는중...'
-  const displayMessage = message ?? defaultMessage
+  const { t } = useTranslation()
+
+  const displayMessage = message
+    ? t('tryAnswer.remainingAttempts', { chance: extractRemainingChances(message) })
+    : t('tryAnswer.waitingChance')
 
   const emojiArray = Array(3 - chances)
     .fill(failedEmoji)
@@ -37,9 +42,9 @@ const TryCounter: React.FC<TryCounterProps> = ({ chances, timeLeft, isCorrect, m
       </div>
       <p className='Text'>
         {isCorrect
-          ? '비밀암호가 풀렸어요'
+          ? t('tryAnswer.passwordUnlock')
           : chances === 0
-            ? '잠시 후 다시 도전하세요!'
+            ? t('tryAnswer.tryAgain')
             : displayMessage}
       </p>
     </div>
