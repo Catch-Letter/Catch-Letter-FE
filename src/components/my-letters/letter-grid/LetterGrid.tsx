@@ -9,19 +9,19 @@ interface LetterGridProps {
 }
 
 const LetterGrid = ({ pages, shakingCard, uuid, onLoad }: LetterGridProps) => {
+  const letters = pages.flatMap((page) => page.data)
+
   return (
     <>
-      {pages.flatMap((page, pageIndex) =>
-        page.data.map((letter) => (
-          <LetterCard
-            key={`${letter.id}_${pageIndex}`}
-            letter={letter}
-            shakingCard={shakingCard}
-            uuid={uuid}
-            onLoad={onLoad}
-          />
-        ))
-      )}
+      {letters.map((letter) => (
+        <LetterCard
+          key={letter.id}
+          letter={letter}
+          shakingCard={shakingCard}
+          uuid={uuid}
+          onLoad={onLoad}
+        />
+      ))}
     </>
   )
 }

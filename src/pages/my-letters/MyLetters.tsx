@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next'
 import { useMyLettersQuery } from '#/api/myLetters'
 import { useRandomShakingCard } from '#/hooks/useRandomShakingCard'
 import { useInfiniteScroll } from '#/hooks/useInfiniteScroll'
-import { useTotalLetterCount } from '#/hooks/useTotalLetterCount'
 import { useState } from 'react'
+import { useInboxStatus } from '#/hooks'
 
 const MyLetters = () => {
   const { uuid } = useParams()
@@ -24,7 +24,7 @@ const MyLetters = () => {
 
   const letters = data?.pages[0]?.data ?? []
   const shakingCard = useRandomShakingCard(letters)
-  const letterCount = useTotalLetterCount(uuid)
+  const { total_letter_count } = useInboxStatus(uuid ?? '')
 
   useInfiniteScroll({
     containerRef: scrollContainerRef,
@@ -39,11 +39,11 @@ const MyLetters = () => {
         Center={
           <div css={TitleStyle}>
             {t('myLetters.myLetters')}
-            <span css={BadgeStyle}>{letterCount ?? 0}</span>
+            <span css={BadgeStyle}>{total_letter_count ?? 0}</span>
           </div>
         }
       />
-      {letterCount === 0 ? (
+      {total_letter_count === 0 ? (
         <NoLetters />
       ) : (
         <div css={GridContainer} ref={scrollContainerRef}>

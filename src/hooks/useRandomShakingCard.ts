@@ -1,8 +1,8 @@
-import { Letter } from '#/types/myLetters'
+import { LetterData } from '#/types/myLetters'
 import { useState, useEffect } from 'react'
 
 // 랜덤으로 !is_correct인 카드 흔들기
-export const useRandomShakingCard = (letters: Letter[] = []) => {
+export const useRandomShakingCard = (letters: LetterData[] = []) => {
   const [shakingCard, setShakingCard] = useState<number | null>(null)
 
   useEffect(() => {

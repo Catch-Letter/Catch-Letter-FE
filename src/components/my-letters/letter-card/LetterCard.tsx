@@ -12,7 +12,6 @@ interface LetterCardProps {
   onLoad?: (id: number, loaded: boolean) => void
 }
 
-// 썸네일 로딩 상태를 위한 LetterCard 컴포넌트
 const LetterCard = ({ letter, shakingCard, uuid, onLoad }: LetterCardProps) => {
   const [isLoaded, setIsLoaded] = useState(false)
   const thumbnailUrl = letter.thumbnail_url ?? ''
@@ -38,13 +37,17 @@ const LetterCard = ({ letter, shakingCard, uuid, onLoad }: LetterCardProps) => {
     }
   }, [thumbnailUrl])
 
+  if (!isLoaded) {
+    return (
+      <div css={LetterCardStyle(shakingCard, letter.id, backgroundColor, '')}>
+        <SkeletonCard />
+      </div>
+    )
+  }
+
   return (
     <div css={LetterCardStyle(shakingCard, letter.id, backgroundColor, thumbnailUrl)}>
-      {!isLoaded ? (
-        <SkeletonCard />
-      ) : (
-        <Letter letter={letter} uuid={uuid} backgroundColor={backgroundColor} />
-      )}
+      <Letter letter={letter} uuid={uuid} backgroundColor={backgroundColor} />
     </div>
   )
 }
