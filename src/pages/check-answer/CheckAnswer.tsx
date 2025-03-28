@@ -1,11 +1,14 @@
-import { getAnswer } from '#/api/getAnswer'
-import { letter } from '#/api/letter'
 import { BackHeader, LetterCard } from '#/components'
 import { LetterContent } from '#/components/letter-choice'
+import useGetAnswer from '#/hooks/query/useGetAnswer'
 import useGetDrawData from '#/hooks/query/useGetDrawData'
+import useGetLetterData from '#/hooks/query/useGetLetterData'
 import { Background, DotLoader, SeparatedInput } from '#/shared/ui'
+import { extractFontStyle } from '#/shared/utils/extractFontStyle'
+import { extractPatternStyle } from '#/shared/utils/extractPattern'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { colors } from '#/styles/color'
+import { extractColorToString } from '#/types/extractColor'
 import { useEffect, useMemo, useState } from 'react'
 import { IoTriangle } from 'react-icons/io5'
 import { useParams } from 'react-router'
@@ -15,15 +18,14 @@ import {
   LetterCardStyle,
   SkeletonCardStyle,
 } from './CheckAnswer.styles'
-import useGetLetterData from '#/hooks/query/useGetLetterData'
-import { extractColorToString } from '#/types/extractColor'
-import useGetAnswer from '#/hooks/query/useGetAnswer'
-import { extractFontStyle } from '#/shared/utils/extractFontStyle'
-import { extractPatternStyle } from '#/shared/utils/extractPattern'
+import { useTranslation } from 'react-i18next'
 
 const CheckAnswer = () => {
+  const { t } = useTranslation()
+
   const { uuid, id } = useParams()
   const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
+  // const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
   const [isFlipped, setIsFlipped] = useState(false)
   const [answerLength, setAnswerLength] = useState(4)
 
@@ -82,11 +84,11 @@ const CheckAnswer = () => {
       <Background color={backgroundColor} />
       <BackHeader />
       <div css={CheckAnswerStyles(isFlipped, imageUrl || '')}>
-        <button className='btn-copy'>우리의 암호</button>
+        <button className='btn-copy'>{t('checkAnswer.badge')}</button>
         {answerLoading ? (
-          <p>정답을 불러오는 중...</p>
+          <p>{t('checkAnswer.loadingAnswer')}</p>
         ) : answerError ? (
-          <p>정답을 불러오는 데 실패했습니다.</p>
+          <p>{t('checkAnswer.loadingAnswerFail')}</p>
         ) : answer ? (
           <SeparatedInput length={answerLength} value={answer} />
         ) : null}
@@ -117,13 +119,13 @@ const CheckAnswer = () => {
                 />
               </LetterCard>
             ) : letterError ? (
-              <p>편지를 불러오는 데 실패했습니다.</p>
+              <p>{t('checkAnswer.loadingLetterFail')}</p>
             ) : null}
           </div>
         </div>
         <div className='notice-area'>
           <IoTriangle size={16} />
-          <p>카드를 눌러 뒤집어보세요!</p>
+          <p>{t('checkAnswer.cardFlip')}</p>
         </div>
       </div>
     </div>
