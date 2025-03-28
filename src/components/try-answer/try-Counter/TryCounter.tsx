@@ -13,9 +13,11 @@ interface TryCounterProps {
 const TryCounter: React.FC<TryCounterProps> = ({ chances, timeLeft, isCorrect, message }) => {
   const { t } = useTranslation()
 
-  const displayMessage = message
-    ? t('tryAnswer.remainingAttempts', { chance: extractRemainingChances(message) })
-    : t('tryAnswer.waitingChance')
+  const translatedMessage = isCorrect
+    ? t('tryAnswer.correctAnswer')
+    : message
+      ? t('tryAnswer.remainingAttempts', { chance: extractRemainingChances(message) })
+      : t('tryAnswer.waitingChance')
 
   const emojiArray = Array(3 - chances)
     .fill(failedEmoji)
@@ -25,7 +27,7 @@ const TryCounter: React.FC<TryCounterProps> = ({ chances, timeLeft, isCorrect, m
     <div css={TryCounterStyle}>
       <div className='Emoji'>
         {isCorrect ? ( // 정답일 경우
-          <span className='correct-message'>{message}</span>
+          <span className='correct-message'>{translatedMessage}</span>
         ) : chances > 0 ? ( // 기회가 남아 있을 경우
           emojiArray.map((emoji, index) => (
             <img key={index} src={emoji} alt='emoji' width={24} height={24} />
@@ -45,7 +47,7 @@ const TryCounter: React.FC<TryCounterProps> = ({ chances, timeLeft, isCorrect, m
           ? t('tryAnswer.passwordUnlock')
           : chances === 0
             ? t('tryAnswer.tryAgain')
-            : displayMessage}
+            : translatedMessage}
       </p>
     </div>
   )
