@@ -7,12 +7,12 @@ import { paletteColors } from '#/styles/paletteColors'
 import Konva from 'konva'
 import { LineData, CanvasProps } from '#/types/drawing'
 
-const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines }, ref) => {
+const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines }, _ref) => {
   const [selectedColor, setSelectedColor] = useState<string>('#000000')
 
   const isDrawing = useRef<boolean>(false)
 
-  const [undoStack, setUndoStack] = useState<LineData[][]>([])
+  const [_undoStack, setUndoStack] = useState<LineData[][]>([])
   const [redoStack, setRedoStack] = useState<LineData[][]>([])
 
   const [isEraser, setIsEraser] = useState<boolean>(false)

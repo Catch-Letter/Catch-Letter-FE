@@ -13,7 +13,7 @@ const MyLetters = () => {
   const { uuid } = useParams()
   const { t } = useTranslation()
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
-  const [loadedMap, setLoadedMap] = useState<Record<string, boolean>>({})
+  const [_loadedMap, setLoadedMap] = useState<Record<string, boolean>>({})
 
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
     useMyLettersQuery(uuid ?? '')

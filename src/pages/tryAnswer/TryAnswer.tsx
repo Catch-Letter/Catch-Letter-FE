@@ -30,7 +30,6 @@ const TryAnswer = () => {
     drawData,
     isCorrect,
     responseMessage,
-    buttonText,
     chances,
     isShaking,
     timeLeft,
