@@ -273,7 +273,7 @@
       "EN": "Correct Answer!"
     },
     "checkAnswer": {
-      "KO": "정답 확인하기",
+      "KO": "정답 확인",
       "EN": "Check the answer"
     },
     "submit": {
@@ -340,6 +340,10 @@
     "serverError": {
       "KO": "서버 응답이 없습니다. 다시 시도해주세요",
       "EN": "Server response is not available. Please try again"
+    },
+    "unexpectedError": {
+      "KO": "예상치 못한 오류가 발생했어요.",
+      "EN": "An unexpected error occurred."
     }
   },
 
