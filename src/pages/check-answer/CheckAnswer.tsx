@@ -17,6 +17,9 @@ import {
 } from './CheckAnswer.styles'
 import useGetLetterData from '#/hooks/query/useGetLetterData'
 import { extractColorToString } from '#/types/extractColor'
+import useGetAnswer from '#/hooks/query/useGetAnswer'
+import { extractFontStyle } from '#/shared/utils/extractFontStyle'
+import { extractPatternStyle } from '#/shared/utils/extractPattern'
 
 const CheckAnswer = () => {
   const { uuid, id } = useParams()
@@ -27,6 +30,12 @@ const CheckAnswer = () => {
   const [imageUrl, setImageUrl] = useState<string | null>(null)
   const [answer, setAnswer] = useState<string>('')
 
+  const {
+    data: answerData,
+    isLoading: answerLoading,
+    error: answerError,
+  } = useGetAnswer(uuid!, Number(id!))
+
   const { data: drawData } = useGetDrawData(uuid!, Number(id!))
   const {
     data: letterResponse,
@@ -36,21 +45,11 @@ const CheckAnswer = () => {
 
   //정답 가져오기
   useEffect(() => {
-    const fetchAnswer = async () => {
-      if (uuid && id) {
-        try {
-          const response = await getAnswer(uuid, Number(id))
-          if (response && response.data && response.data.answer) {
-            setAnswerLength(response.data.answer.length)
-            setAnswer(response.data.answer)
-          }
-        } catch (error) {
-          console.error('Error fetching answer:', error)
-        }
-      }
+    if (answerData && answerData.data && answerData.data.answer) {
+      setAnswerLength(answerData.data.answer.length)
+      setAnswer(answerData.data.answer)
     }
-    fetchAnswer()
-  }, [uuid, id])
+  }, [answerData])
 
   //그림가져오기
   useEffect(() => {
@@ -68,20 +67,31 @@ const CheckAnswer = () => {
     return extractColorToString(etc)
   }, [letterResponse])
 
+  const fontStlye = useMemo(() => {
+    const etc = letterResponse?.data?.etc
+    return extractFontStyle(etc)
+  }, [letterResponse])
+
+  const patternStyle = useMemo(() => {
+    const etc = letterResponse?.data?.etc
+    return extractPatternStyle(etc)
+  }, [letterResponse])
+
   return (
     <div css={checkAnswerWrapper}>
       <Background color={backgroundColor} />
       <BackHeader />
       <div css={CheckAnswerStyles(isFlipped, imageUrl || '')}>
         <button className='btn-copy'>우리의 암호</button>
-        {answer ? (
+        {answerLoading ? (
+          <p>정답을 불러오는 중...</p>
+        ) : answerError ? (
+          <p>정답을 불러오는 데 실패했습니다.</p>
+        ) : answer ? (
           <SeparatedInput length={answerLength} value={answer} />
-        ) : (
-          <p>정답을 불러오는중.. </p>
-        )}
+        ) : null}
         <div className='content' onClick={handleCardClick}>
           <div className='cardFront'>
-            {/* <LetterCard type={selectedColor}> */}
             {imageUrl ? (
               <div css={LetterCardStyle(imageUrl || '')}></div>
             ) : (
@@ -89,7 +99,6 @@ const CheckAnswer = () => {
                 <DotLoader color={colors.grey[9]} backgroundColor={colors.grey[3]} />
               </div>
             )}
-            {/* </LetterCard> */}
           </div>
           <div className='cardBack'>
             {letterLoading ? (
@@ -103,8 +112,8 @@ const CheckAnswer = () => {
                   content={letterResponse.data.contents}
                   from={letterResponse.data.from}
                   color={selectedColor}
-                  pattern={selectedPattern}
-                  font={selectedFont}
+                  pattern={patternStyle}
+                  font={fontStlye}
                 />
               </LetterCard>
             ) : letterError ? (
