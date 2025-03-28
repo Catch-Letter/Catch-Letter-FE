@@ -1,12 +1,12 @@
 import { getAnswer } from '#/api/getAnswer'
-import { getDraw } from '#/api/getDraw'
 import { letter } from '#/api/letter'
 import { BackHeader, LetterCard } from '#/components'
 import { LetterContent } from '#/components/letter-choice'
+import useGetDrawData from '#/hooks/query/useGetDrawData'
 import { Background, DotLoader, SeparatedInput } from '#/shared/ui'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { colors } from '#/styles/color'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { IoTriangle } from 'react-icons/io5'
 import { useParams } from 'react-router'
 import {
@@ -15,43 +15,26 @@ import {
   LetterCardStyle,
   SkeletonCardStyle,
 } from './CheckAnswer.styles'
+import useGetLetterData from '#/hooks/query/useGetLetterData'
+import { extractColorToString } from '#/types/extractColor'
 
 const CheckAnswer = () => {
   const { uuid, id } = useParams()
   const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
   const [isFlipped, setIsFlipped] = useState(false)
   const [answerLength, setAnswerLength] = useState(4)
-  const [letterData, setLetterData] = useState<{
-    to: string
-    from: string
-    content: string
-  } | null>(null)
+
   const [imageUrl, setImageUrl] = useState<string | null>(null)
   const [answer, setAnswer] = useState<string>('')
 
-  //편지내용 가져오기
-  useEffect(() => {
-    const fetchLetterData = async () => {
-      if (uuid && id) {
-        try {
-          const response = await letter(uuid, Number(id))
-          if (response && response.data) {
-            setLetterData({
-              to: response.data.to,
-              from: response.data.from,
-              content: response.data.contents,
-            })
-          }
-        } catch (error) {
-          console.error('Error fetching letter data:', error)
-        }
-      }
-    }
-    fetchLetterData()
-  }, [uuid, id])
+  const { data: drawData } = useGetDrawData(uuid!, Number(id!))
+  const {
+    data: letterResponse,
+    isLoading: letterLoading,
+    error: letterError,
+  } = useGetLetterData(uuid!, Number(id!))
 
   //정답 가져오기
-
   useEffect(() => {
     const fetchAnswer = async () => {
       if (uuid && id) {
@@ -71,28 +54,23 @@ const CheckAnswer = () => {
 
   //그림가져오기
   useEffect(() => {
-    const getDrawData = async () => {
-      if (uuid && id) {
-        try {
-          const response = await getDraw(uuid, Number(id))
-          if (response && response.data && response.data.presigned_url) {
-            setImageUrl(response.data.presigned_url)
-          }
-        } catch (error) {
-          console.error('getDrawError:', error)
-        }
-      }
+    if (drawData && drawData.data.presigned_url) {
+      setImageUrl(drawData.data.presigned_url)
     }
-    getDrawData()
-  }, [uuid, id])
+  }, [drawData])
 
   const handleCardClick = () => {
     setIsFlipped((prev) => !prev)
   }
 
+  const backgroundColor = useMemo(() => {
+    const etc = letterResponse?.data?.etc
+    return extractColorToString(etc)
+  }, [letterResponse])
+
   return (
     <div css={checkAnswerWrapper}>
-      <Background color='grey' />
+      <Background color={backgroundColor} />
       <BackHeader />
       <div css={CheckAnswerStyles(isFlipped, imageUrl || '')}>
         <button className='btn-copy'>우리의 암호</button>
@@ -114,22 +92,24 @@ const CheckAnswer = () => {
             {/* </LetterCard> */}
           </div>
           <div className='cardBack'>
-            {letterData ? (
+            {letterLoading ? (
+              <div css={SkeletonCardStyle}>
+                <DotLoader color={colors.grey[9]} backgroundColor={colors.grey[3]} />
+              </div>
+            ) : letterResponse && letterResponse.data ? (
               <LetterCard type={selectedColor}>
                 <LetterContent
-                  to={letterData.to}
-                  content={letterData.content}
-                  from={letterData.from}
+                  to={letterResponse.data.to}
+                  content={letterResponse.data.contents}
+                  from={letterResponse.data.from}
                   color={selectedColor}
                   pattern={selectedPattern}
                   font={selectedFont}
                 />
               </LetterCard>
-            ) : (
-              <div css={SkeletonCardStyle}>
-                <DotLoader color={colors.grey[9]} backgroundColor={colors.grey[3]} />
-              </div>
-            )}
+            ) : letterError ? (
+              <p>편지를 불러오는 데 실패했습니다.</p>
+            ) : null}
           </div>
         </div>
         <div className='notice-area'>
