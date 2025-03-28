@@ -74,4 +74,10 @@ export const colors = {
     800: '#40608c',
     900: '#314a6b',
   },
-}
+  white: '#fff',
+  success: '#39E7BA',
+  error: '#f8596a',
+  gradients: {
+    darkGradient: 'linear-gradient(180deg, #35373B 0.01%, #191A1B 67.61%)',
+  },
+} as const
