@@ -243,14 +243,21 @@
   },
 
   "myLetters": {
-    "KO": "편지함",
-    "EN": "My Letters"
+    "myLetters": {
+      "KO": "편지함",
+      "EN": "My Letters"
+    },
+    "lockDesc": {
+      "KO": "암호를 <br /> 풀어주세요!",
+      "EN": "Unlock <br /> the drawing!"
+    }
   },
 
   "submit": {
     "KO": "확인",
     "EN": "Submit"
   },
+
   "before": {
     "KO": "이전",
     "EN": "Before"
@@ -307,6 +314,17 @@
     "goWrite": {
       "KO": "편지 쓰러 가기!",
       "EN": "let's go write a letter"
+    }
+  },
+
+  "noLetters": {
+    "title": {
+      "KO": "이번에는 편지가 없어요 🥲",
+      "EN": "There are no letters this time 🥲"
+    },
+    "desc": {
+      "KO": "새로운 링크로 다시 한 번 <br /> 친구들에게 소식을 전해 볼까요?",
+      "EN": "Let's get letters from your friends <br /> again with a new link"
     }
   },
 

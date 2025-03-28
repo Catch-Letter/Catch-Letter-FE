@@ -1,6 +1,6 @@
 // 편지 보관함 페이지 API 응답 타입
 
-export interface Letter {
+export interface LetterData {
   id: number
   recipient_id: number
   is_open: boolean
@@ -16,7 +16,7 @@ export interface Letter {
 }
 
 export interface LettersResponse {
-  data: Letter[]
+  data: LetterData[]
   path: string
   per_page: number
   next_cursor: string | null
