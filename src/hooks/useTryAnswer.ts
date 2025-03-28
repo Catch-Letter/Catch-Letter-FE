@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
-import useGetDrawData from '#/hooks/query/useGetDrawData'
-import useGetAnswerStatus from '#/hooks/query/useGetAnswerStatus'
-import { extractRemainingChances } from '#/shared/utils'
-import { useTranslation } from 'react-i18next'
 import { postTryAnswer } from '#/api/postTryAnswer'
+import useGetAnswerStatus from '#/hooks/query/useGetAnswerStatus'
+import useGetDrawData from '#/hooks/query/useGetDrawData'
+import useGetLetterData from '#/hooks/query/useGetLetterData'
+import { extractRemainingChances } from '#/shared/utils'
+import { extractColorToString } from '#/types/extractColor'
+import { useEffect, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useParams } from 'react-router'
 
 const useTryAnswer = () => {
   const { t } = useTranslation()
@@ -18,6 +20,7 @@ const useTryAnswer = () => {
   const [isShaking, setIsShaking] = useState(false)
   const [timeLeft, setTimeLeft] = useState<number | null>(null)
 
+  const { data: letterData } = useGetLetterData(uuid!, Number(id!))
   const { data: drawData } = useGetDrawData(uuid!, Number(id!))
   const { data: answerStatusData } = useGetAnswerStatus(uuid!, Number(id!))
   //그림가져오기
@@ -93,6 +96,11 @@ const useTryAnswer = () => {
     }
   }
 
+  const backgroundColor = useMemo(() => {
+    const etc = letterData?.data?.etc
+    return extractColorToString(etc)
+  }, [letterData])
+
   return {
     imageUrl,
     drawData,
@@ -103,6 +111,7 @@ const useTryAnswer = () => {
     isShaking,
     timeLeft,
     tryAnswer,
+    backgroundColor,
   }
 }
 

@@ -34,6 +34,7 @@ const TryAnswer = () => {
     isShaking,
     timeLeft,
     tryAnswer,
+    backgroundColor,
   } = useTryAnswer()
 
   const handleInputChange = (value: string) => {
@@ -52,7 +53,7 @@ const TryAnswer = () => {
 
   return (
     <div css={tryAnswerWrapper}>
-      <Background color='pink' />
+      <Background color={backgroundColor} />
       <BackHeader />
       <div css={TryAnswerStyle}>
         <TryCounter
