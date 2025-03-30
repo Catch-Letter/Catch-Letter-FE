@@ -14,7 +14,7 @@ const Success = () => {
   const location = useLocation()
   const user = location.state
   const { isOpen, openModal, closeModal } = useModal()
-  const link = `http://localhost:5173/inbox/${user.uuid}`
+  const link = `https://catchletter.kr/inbox/${user.uuid}`
   const { leftTime } = useCountdownTimer(user.expired)
 
   return (
