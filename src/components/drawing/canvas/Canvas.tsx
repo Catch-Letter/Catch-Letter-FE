@@ -20,8 +20,6 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
   const containerRef = useRef<HTMLDivElement>(null)
   const [canvasSize, setCanvasSize] = useState({ width: 300, height: 500 })
 
-  console.log('초기 lines:', lines)
-
   // 캔버스 크기 조절
   useEffect(() => {
     const updateSize = () => {

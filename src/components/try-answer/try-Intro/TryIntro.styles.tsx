@@ -3,7 +3,7 @@ import { colors } from '#/styles/color'
 
 export const TryIntroStyle = css`
   box-sizing: border-box;
-  width: 70%;
+  width: 100%;
   height: 100%;
   border-radius: 8px;
   background: rgba(241, 241, 242, 0.9);
