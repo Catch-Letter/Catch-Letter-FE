@@ -1,6 +1,7 @@
 import { ShareItems } from '#/components/share-modal/shareItem'
 import { ShareModalStyle, ShareModalContainer } from '#/components/share-modal/ShareModal.styles'
 import { Button, Modal, ModalProps } from '#/shared/ui'
+import { useTranslation } from 'react-i18next'
 
 export type ShareModalProps = Omit<ModalProps, 'children'> & {
   url: string
@@ -8,6 +9,7 @@ export type ShareModalProps = Omit<ModalProps, 'children'> & {
 }
 
 const ShareModal = ({ isOpen, url, onClose }: ShareModalProps) => {
+  const { t } = useTranslation()
   const copyLink = () => {
     navigator.clipboard.writeText(url)
   }
@@ -16,7 +18,7 @@ const ShareModal = ({ isOpen, url, onClose }: ShareModalProps) => {
     <Modal isOpen={isOpen}>
       <div css={ShareModalStyle}>
         <div css={ShareModalContainer}>
-          <div className='title'>SNS 공유하기</div>
+          <div className='title'>{t('shareOnSNS')}</div>
           <ShareItems url={url} />
           <div className='area-copy'>
             <span className='url'>{url}</span>
@@ -24,7 +26,7 @@ const ShareModal = ({ isOpen, url, onClose }: ShareModalProps) => {
               복사
             </button>
           </div>
-          <span className='desc'>버튼을 클릭하면 링크가 클립보드에 복사됩니다!</span>
+          <span className='desc'>{t('copySNS')}</span>
         </div>
         <Button width={80} onClick={onClose}>
           닫기

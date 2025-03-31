@@ -1,6 +1,7 @@
 import { Facebook, Kakao, LINE, X } from '#/assets/shareSNS'
 import { ShareModalProps } from '#/components/share-modal/ShareModal'
 import { shareHandlers } from '#/shared/utils/shareHandlers'
+import { useTranslation } from 'react-i18next'
 import { ShareItemStyle } from './ShareItems.styles'
 
 const shareItems = {
@@ -13,8 +14,11 @@ const shareItems = {
 type shareItemProps = Pick<ShareModalProps, 'url'>
 
 const ShareItems = ({ url }: shareItemProps) => {
+  const { t } = useTranslation()
+  const shareText = t('shareSNS')
+
   const handleItemClick = (item: string) => {
-    const handlers = shareHandlers(url)
+    const handlers = shareHandlers(url, shareText)
     handlers[item]()
   }
   return (

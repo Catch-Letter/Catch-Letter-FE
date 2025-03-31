@@ -1,7 +1,7 @@
 const KAKAO_KEY = import.meta.env.VITE_KAKAO_KEY
 const KAKAO_ID = import.meta.env.VITE_KAKAO_TEMPLATE_KEY
 
-export const shareHandlers = (shareUrl: string): Record<string, () => void> => {
+export const shareHandlers = (shareUrl: string, shareText: string): Record<string, () => void> => {
   const baseUrlPattern = /^https?:\/\/catchletter.kr\//
   const baseUrl = shareUrl.replace(baseUrlPattern, '')
 
@@ -26,8 +26,8 @@ export const shareHandlers = (shareUrl: string): Record<string, () => void> => {
       }
     },
     X: () => {
-      const text = '그림 퀴즈를 만들고 편지를 작성해봐! 🎨💌'
-      const xshareUrl = 'https://www.x.com/intent/tweet?text=' + shareUrl + '\n' + text
+      const text = shareText + '🎨💌'
+      const xshareUrl = 'https://www.x.com/intent/tweet?text= ' + shareUrl + '\n' + text
       window.open(xshareUrl)
     },
     Facebook: () => {

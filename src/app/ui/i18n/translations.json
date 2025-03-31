@@ -374,5 +374,13 @@
   "goHome": {
     "KO": "홈으로",
     "EN": "Go Home"
+  },
+  "shareSNS": {
+    "KO": "그림 퀴즈를 만들고 편지를 작성해봐!",
+    "EN": "Make a drawing quiz and write a letter"
+  },
+  "copySNS": {
+    "KO": "버튼을 클릭하면 링크가 클립보드에 복사됩니다!",
+    "EN": "Click the button to copy the link to your clipboard."
   }
 }
