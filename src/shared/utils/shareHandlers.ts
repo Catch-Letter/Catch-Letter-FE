@@ -2,7 +2,7 @@ const KAKAO_KEY = import.meta.env.VITE_KAKAO_KEY
 const KAKAO_ID = import.meta.env.VITE_KAKAO_TEMPLATE_KEY
 
 export const shareHandlers = (shareUrl: string): Record<string, () => void> => {
-  const baseUrlPattern = /^https?:\/\/localhost:5173\//
+  const baseUrlPattern = /^https?:\/\/catchletter.kr\//
   const baseUrl = shareUrl.replace(baseUrlPattern, '')
 
   return {
