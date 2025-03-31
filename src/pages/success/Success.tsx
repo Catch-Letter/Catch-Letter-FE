@@ -14,7 +14,6 @@ const Success = () => {
   const location = useLocation()
   const user = location.state
   const { isOpen, openModal, closeModal } = useModal()
-  const link = `https://catchletter.kr/inbox/${user.uuid}`
   const { leftTime } = useCountdownTimer(user.expired)
 
   return (
@@ -25,7 +24,7 @@ const Success = () => {
         <div className='area_desc'>
           <DescLink
             title={t('create.link')}
-            link={link}
+            link={user.mailboxUrl}
             btnName={t('create.btncopy')}
             desc={t('create.desc')}
           />
@@ -36,7 +35,7 @@ const Success = () => {
         </Button>
       </div>
       <Toast />
-      <ShareModal isOpen={isOpen} onClose={closeModal} url={link} />
+      <ShareModal isOpen={isOpen} onClose={closeModal} url={user.mailboxUrl} />
     </div>
   )
 }

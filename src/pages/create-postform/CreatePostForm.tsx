@@ -17,7 +17,7 @@ const CreatePostForm = () => {
       const res = await fetchCreatePost(name, password)
       navigate('/success', {
         state: {
-          uuid: res.data.uuid,
+          mailboxUrl: res.data.url,
           expired: res.data.expired_at,
         },
       })
