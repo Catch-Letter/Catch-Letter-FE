@@ -5,7 +5,7 @@ import { Button } from '#/shared/ui/button'
 import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
-import { bottomButtonStyles, containerStyles, headerStyles } from '../Rnbox.styles'
+import { bottomButtonStyles, containerStyles, headerStyles } from '../Inbox.styles'
 import useModal from '#/hooks/useModal'
 import { ShareModal } from '#/components/share-modal'
 
