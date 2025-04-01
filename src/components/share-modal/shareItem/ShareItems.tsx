@@ -1,4 +1,4 @@
-import { Facebook, Kakao, LINE, X } from '#/assets/shareSNS'
+import { Facebook, Kakao, LINE, X, Insta } from '#/assets/shareSNS'
 import { ShareModalProps } from '#/components/share-modal/ShareModal'
 import { shareHandlers } from '#/shared/utils/shareHandlers'
 import { useTranslation } from 'react-i18next'
@@ -6,8 +6,9 @@ import { ShareItemStyle } from './ShareItems.styles'
 
 const shareItems = {
   Kakao,
-  LINE,
   Facebook,
+  LINE,
+  Insta,
   X,
 }
 

@@ -2,7 +2,7 @@ import { css } from '@emotion/react'
 
 export const ShareItemStyle = css`
   display: flex;
-  gap: 28px;
+  gap: 24px;
   align-items: center;
   justify-content: center;
 

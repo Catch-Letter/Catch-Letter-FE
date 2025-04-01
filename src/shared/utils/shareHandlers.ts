@@ -38,5 +38,9 @@ export const shareHandlers = (shareUrl: string, shareText: string): Record<strin
       const lineShareUrl = `https://social-plugins.line.me/lineit/share?url=${shareUrl}`
       window.open(lineShareUrl)
     },
+    Insta: () => {
+      const instaUrl = 'https://www.instagram.com'
+      window.open(instaUrl)
+    },
   }
 }
