@@ -28,7 +28,7 @@ const DescLink = ({ title, link, btnName, desc }: DescLinkProps) => {
         {btnName}
       </button>
       <div className='desc'>{desc}</div>
-      <Toast location='page' />
+      <Toast position='bottom' offset='22%' location='page' />
     </div>
   )
 }
