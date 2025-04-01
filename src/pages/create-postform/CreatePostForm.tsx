@@ -1,13 +1,15 @@
 import { fetchCreatePost } from '#/api/createPost'
-import { BackHeader } from '#/components'
+import { BackHeader, Toast } from '#/components'
 import { Background, Button, InputField, SeparatedInput } from '#/shared/ui'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import { CreateFormStyle, FormWrapper } from './CreatePostForm.styles'
+import { useToastStore } from '#/store/toastStore'
 
 const CreatePostForm = () => {
   const navigate = useNavigate()
+  const { showToast } = useToastStore()
   const { t } = useTranslation()
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
@@ -28,7 +30,10 @@ const CreatePostForm = () => {
   }
 
   const onCheckPassword = (value: string) => {
-    if (isNaN(Number(value))) return
+    if (value.length === 5 && isNaN(Number(value))) {
+      showToast('비밀번호는 숫자로 입력해주세요', 'error')
+      return
+    }
     setPassword(value)
   }
 
@@ -67,6 +72,7 @@ const CreatePostForm = () => {
       >
         {t('submit')}
       </Button>
+      <Toast position='top' />
     </div>
   )
 }
