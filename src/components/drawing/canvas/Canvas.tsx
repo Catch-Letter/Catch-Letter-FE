@@ -19,7 +19,7 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
 
   const isDrawing = useRef<boolean>(false)
 
-  const [_undoStack, setUndoStack] = useState<LineData[][]>([])
+  const [undoStack, setUndoStack] = useState<LineData[][]>([])
   const [redoStack, setRedoStack] = useState<LineData[][]>([])
 
   const [isEraser, setIsEraser] = useState<boolean>(false)
@@ -67,6 +67,9 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
 
     if (!point) return
 
+    setUndoStack((prev) => [...prev, [...lines]])
+    setRedoStack([])
+
     setLines((prevLines) => [
       ...prevLines,
       { points: [point.x, point.y], color: selectedColor, isEraser },
@@ -99,20 +102,19 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
 
   // 그림 되돌리기
   const handleUndo = () => {
-    if (lines.length > 0) {
-      setUndoStack((prev) => [...prev, [...lines]])
+    if (undoStack.length > 0) {
       setRedoStack((prev) => [[...lines], ...prev])
-      setLines(lines.slice(0, -1))
+      setLines(undoStack[undoStack.length - 1])
+      setUndoStack((prev) => prev.slice(0, -1))
     }
   }
 
   // 그림 되살리기
   const handleRedo = () => {
     if (redoStack.length > 0) {
-      const lastState = redoStack[0]
-      setRedoStack((prev) => prev.slice(1))
       setUndoStack((prev) => [...prev, [...lines]])
-      setLines(lastState)
+      setLines(redoStack[0])
+      setRedoStack((prev) => prev.slice(1))
     }
   }
 
@@ -130,6 +132,8 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
   // 그림 전체 삭제
   const handleClearCanvas = () => {
     if (lines.length === 0) return
+    setUndoStack((prev) => [...prev, [...lines]])
+    setRedoStack([])
     setLines([])
   }
 
@@ -180,7 +184,8 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
         onEraser={handleEraser}
         onClear={handleClearCanvas}
         isEraser={isEraser}
-        undoDisabled={lines.length === 0}
+        undoDisabled={undoStack.length === 0}
+        redoDisabled={redoStack.length === 0}
       />
     </div>
   )

@@ -33,5 +33,10 @@ export const IconWrapper = css`
       background-color: ${colors.white};
       transition: border 0.2s ease-in-out;
     }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
   }
 `
