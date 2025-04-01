@@ -1,15 +1,16 @@
 name: Deploy to S3 and Invalidate CloudFront
 
+permissions:
+  contents: read
+  pull-requests: write
+
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
-
 jobs:
   deploy:
+    f: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
