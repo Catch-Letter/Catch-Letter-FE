@@ -15,7 +15,8 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     isOpen: true,
-    onClickButton: (e) => {
+    password: '',
+    onClickConfirmButton: (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault()
     },
   },
