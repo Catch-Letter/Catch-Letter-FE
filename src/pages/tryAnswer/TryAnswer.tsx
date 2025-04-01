@@ -83,7 +83,7 @@ const TryAnswer = () => {
               css={letterCardStyle}
               onClick={handleCardClick}
               style={{
-                transform: isFlipped ? 'rotateY(0deg)' : 'rotateY(-180deg)',
+                transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
               }}
             >
               <div css={frontCardStyle(imageUrl || '')}></div>

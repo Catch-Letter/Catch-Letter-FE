@@ -135,7 +135,8 @@ export const frontCardStyle = (backgroundImage: string) => css`
   opacity: 0.8;
   border-radius: 24px;
   transform: scaleX(-1);
-  /* backface-visibility: hidden; */
+  transform: rotateY(0deg);
+  backface-visibility: hidden;
 `
 
 // 뒷면 스타일
@@ -149,4 +150,5 @@ export const backCardStyle = css`
   display: flex;
   justify-content: center;
   align-items: center;
+  transform: rotateY(180deg);
 `
