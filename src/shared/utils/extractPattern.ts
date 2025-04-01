@@ -1,8 +1,8 @@
-const validPatterns = ['default', 'line', 'dot', 'grid'] as const
+import { PatternType } from '#/store/letterCreateStore'
 
-export type ValidPattern = (typeof validPatterns)[number]
+const validPatterns: PatternType[] = ['default', 'line', 'dot', 'grid']
 
-export const extractPatternStyle = (etc: string | null | undefined): ValidPattern => {
+export const extractPatternStyle = (etc: string | null | undefined): PatternType => {
   try {
     if (!etc) return 'default'
 

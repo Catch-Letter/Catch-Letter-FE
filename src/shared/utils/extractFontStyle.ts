@@ -1,10 +1,10 @@
-const validFonts = ['NotoSansKR', 'NanumPen', 'Ownglyph'] as const
+import { FontType } from '#/store/letterCreateStore'
 
-export type ValidFont = (typeof validFonts)[number]
+const validFonts: FontType[] = ['NotoSansKR', 'NanumPen', 'Ownglyph']
 
-export const extractFontStyle = (etc: string | null | undefined): ValidFont => {
+export const extractFontStyle = (etc: string | null | undefined): FontType => {
   try {
-    if (!etc) return 'NotoSansKR' // 기본 폰트 설정
+    if (!etc) return 'NotoSansKR'
 
     const parsedEtc = JSON.parse(etc)
     const { font } = parsedEtc
