@@ -1,12 +1,15 @@
-import { getAnswer } from '#/api/getAnswer'
-import { getDraw } from '#/api/getDraw'
-import { letter } from '#/api/letter'
 import { BackHeader, LetterCard } from '#/components'
 import { LetterContent } from '#/components/letter-choice'
+import useGetAnswer from '#/hooks/query/useGetAnswer'
+import useGetDrawData from '#/hooks/query/useGetDrawData'
+import useGetLetterData from '#/hooks/query/useGetLetterData'
 import { Background, DotLoader, SeparatedInput } from '#/shared/ui'
+import { extractFontStyle } from '#/shared/utils/extractFontStyle'
+import { extractPatternStyle } from '#/shared/utils/extractPattern'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { colors } from '#/styles/color'
-import { useEffect, useState } from 'react'
+import { extractColorToString } from '#/types/extractColor'
+import { useEffect, useMemo, useState } from 'react'
 import { IoTriangle } from 'react-icons/io5'
 import { useParams } from 'react-router'
 import {
@@ -15,95 +18,82 @@ import {
   LetterCardStyle,
   SkeletonCardStyle,
 } from './CheckAnswer.styles'
+import { useTranslation } from 'react-i18next'
 
 const CheckAnswer = () => {
+  const { t } = useTranslation()
+
   const { uuid, id } = useParams()
   const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
+  // const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
   const [isFlipped, setIsFlipped] = useState(false)
   const [answerLength, setAnswerLength] = useState(4)
-  const [letterData, setLetterData] = useState<{
-    to: string
-    from: string
-    content: string
-  } | null>(null)
+
   const [imageUrl, setImageUrl] = useState<string | null>(null)
   const [answer, setAnswer] = useState<string>('')
 
-  //편지내용 가져오기
-  useEffect(() => {
-    const fetchLetterData = async () => {
-      if (uuid && id) {
-        try {
-          const response = await letter(uuid, Number(id))
-          if (response && response.data) {
-            setLetterData({
-              to: response.data.to,
-              from: response.data.from,
-              content: response.data.contents,
-            })
-          }
-        } catch (error) {
-          console.error('Error fetching letter data:', error)
-        }
-      }
-    }
-    fetchLetterData()
-  }, [uuid, id])
+  const {
+    data: answerData,
+    isLoading: answerLoading,
+    error: answerError,
+  } = useGetAnswer(uuid!, Number(id!))
+
+  const { data: drawData } = useGetDrawData(uuid!, Number(id!))
+  const {
+    data: letterResponse,
+    isLoading: letterLoading,
+    error: letterError,
+  } = useGetLetterData(uuid!, Number(id!))
 
   //정답 가져오기
-
   useEffect(() => {
-    const fetchAnswer = async () => {
-      if (uuid && id) {
-        try {
-          const response = await getAnswer(uuid, Number(id))
-          if (response && response.data && response.data.answer) {
-            setAnswerLength(response.data.answer.length)
-            setAnswer(response.data.answer)
-          }
-        } catch (error) {
-          console.error('Error fetching answer:', error)
-        }
-      }
+    if (answerData && answerData.data && answerData.data.answer) {
+      setAnswerLength(answerData.data.answer.length)
+      setAnswer(answerData.data.answer)
     }
-    fetchAnswer()
-  }, [uuid, id])
+  }, [answerData])
 
   //그림가져오기
   useEffect(() => {
-    const getDrawData = async () => {
-      if (uuid && id) {
-        try {
-          const response = await getDraw(uuid, Number(id))
-          if (response && response.data && response.data.presigned_url) {
-            setImageUrl(response.data.presigned_url)
-          }
-        } catch (error) {
-          console.error('getDrawError:', error)
-        }
-      }
+    if (drawData && drawData.data.presigned_url) {
+      setImageUrl(drawData.data.presigned_url)
     }
-    getDrawData()
-  }, [uuid, id])
+  }, [drawData])
 
   const handleCardClick = () => {
     setIsFlipped((prev) => !prev)
   }
 
+  const backgroundColor = useMemo(() => {
+    const etc = letterResponse?.data?.etc
+    return extractColorToString(etc)
+  }, [letterResponse])
+
+  const fontStlye = useMemo(() => {
+    const etc = letterResponse?.data?.etc
+    return extractFontStyle(etc)
+  }, [letterResponse])
+
+  const patternStyle = useMemo(() => {
+    const etc = letterResponse?.data?.etc
+    return extractPatternStyle(etc)
+  }, [letterResponse])
+
   return (
     <div css={checkAnswerWrapper}>
-      <Background color='grey' />
+      <Background color={backgroundColor} />
       <BackHeader />
       <div css={CheckAnswerStyles(isFlipped, imageUrl || '')}>
-        <button className='btn-copy'>우리의 암호</button>
-        {answer ? (
+        <button className='btn-copy'>{t('checkAnswer.badge')}</button>
+        {answerLoading ? (
+          <p>{t('checkAnswer.loadingAnswer')}</p>
+        ) : answerError ? (
+          <p>{t('checkAnswer.loadingAnswerFail')}</p>
+        ) : answer ? (
           <SeparatedInput length={answerLength} value={answer} />
-        ) : (
-          <p>정답을 불러오는중.. </p>
-        )}
+        ) : null}
         <div className='content' onClick={handleCardClick}>
           <div className='cardFront'>
-            {/* <LetterCard type={selectedColor}> */}
             {imageUrl ? (
               <div css={LetterCardStyle(imageUrl || '')}></div>
             ) : (
@@ -111,30 +101,31 @@ const CheckAnswer = () => {
                 <DotLoader color={colors.grey[9]} backgroundColor={colors.grey[3]} />
               </div>
             )}
-            {/* </LetterCard> */}
           </div>
           <div className='cardBack'>
-            {letterData ? (
-              <LetterCard type={selectedColor}>
-                <LetterContent
-                  to={letterData.to}
-                  content={letterData.content}
-                  from={letterData.from}
-                  color={selectedColor}
-                  pattern={selectedPattern}
-                  font={selectedFont}
-                />
-              </LetterCard>
-            ) : (
+            {letterLoading ? (
               <div css={SkeletonCardStyle}>
                 <DotLoader color={colors.grey[9]} backgroundColor={colors.grey[3]} />
               </div>
-            )}
+            ) : letterResponse && letterResponse.data ? (
+              <LetterCard type={selectedColor}>
+                <LetterContent
+                  to={letterResponse.data.to}
+                  content={letterResponse.data.contents}
+                  from={letterResponse.data.from}
+                  color={selectedColor}
+                  pattern={patternStyle}
+                  font={fontStlye}
+                />
+              </LetterCard>
+            ) : letterError ? (
+              <p>{t('checkAnswer.loadingLetterFail')}</p>
+            ) : null}
           </div>
         </div>
         <div className='notice-area'>
           <IoTriangle size={16} />
-          <p>카드를 눌러 뒤집어보세요!</p>
+          <p>{t('checkAnswer.cardFlip')}</p>
         </div>
       </div>
     </div>

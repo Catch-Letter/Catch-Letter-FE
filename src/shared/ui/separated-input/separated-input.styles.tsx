@@ -24,5 +24,6 @@ export const separateInput = css`
 export const labels = css`
   font-size: 18px;
   font-weight: 700;
+  margin-bottom: 16px;
   color: ${colors.grey[1]};
 `

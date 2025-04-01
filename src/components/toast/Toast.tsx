@@ -7,15 +7,16 @@ import { createPortal } from 'react-dom'
 
 interface ToastProps {
   position?: 'top' | 'bottom'
+  offset?: string
 }
 
-const Toast = ({ position = 'bottom' }: ToastProps) => {
+const Toast = ({ position = 'bottom', offset = '200px' }: ToastProps) => {
   const { toast } = useToastStore()
 
   if (!toast) return null
 
   return createPortal(
-    <div css={ToastContainer(position)}>
+    <div css={ToastContainer(position, offset)}>
       <div css={ToastStyle}>
         {toast.type === 'success' ? (
           <FiCheckCircle color={colors.success} />
