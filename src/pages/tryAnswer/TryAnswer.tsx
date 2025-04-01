@@ -1,8 +1,12 @@
-import { BackHeader } from '#/components'
+import { BackHeader, LetterCard, LetterContent } from '#/components'
 import { TryIntro } from '#/components/try-answer'
 import { TryCounter } from '#/components/try-answer/try-Counter'
 import useTryAnswer from '#/hooks/useTryAnswer'
 import {
+  backCardStyle,
+  frontCardStyle,
+  letterCardContainer,
+  letterCardStyle,
   LetterCardStyle,
   SkeletonCardStyle,
   TryAnswerStyle,
@@ -10,6 +14,7 @@ import {
 } from '#/pages/tryAnswer/TryAnswer.styles'
 import { Background, Button, DotLoader } from '#/shared/ui'
 import SeparatedInput from '#/shared/ui/separated-input/separated-input'
+import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { colors } from '#/styles/color'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -24,6 +29,7 @@ const TryAnswer = () => {
   const answerLength = location.state?.answerLength || 6
   const [inputValue, setInputValue] = useState<string>('')
   const [isTryStarted, setIsTryStarted] = useState<boolean>(false)
+  const { selectedColor } = useLetterCreationStore()
 
   const {
     imageUrl,
@@ -35,6 +41,11 @@ const TryAnswer = () => {
     timeLeft,
     tryAnswer,
     backgroundColor,
+    isFlipped,
+    letterData,
+    patternStyle,
+    fontStlye,
+    handleCardClick,
   } = useTryAnswer()
 
   const handleInputChange = (value: string) => {
@@ -43,7 +54,7 @@ const TryAnswer = () => {
 
   const handleNavigate = () => {
     if (isCorrect) {
-      navigate(`/checkAnswer/${uuid}/${id}`)
+      navigate(`/inbox/${uuid}`)
     }
   }
 
@@ -64,11 +75,31 @@ const TryAnswer = () => {
         />
         <div
           className={`LetterCard-container ${isShaking ? 'shake' : ''} ${isCorrect ? 'glowing' : ''}`}
+          css={letterCardContainer}
         >
           {!isTryStarted ? (
             <TryIntro onStart={() => setIsTryStarted(true)} />
           ) : drawData ? (
-            <div css={LetterCardStyle(imageUrl || '')}></div>
+            <div
+              css={letterCardStyle}
+              onClick={handleCardClick}
+              style={{ transform: !isFlipped ? 'rotateY(-180deg)' : 'rotateY(0deg)' }}
+            >
+              <div css={frontCardStyle} style={{ backgroundImage: `url(${imageUrl})` }}></div>
+
+              <div css={backCardStyle}>
+                <LetterCard type={selectedColor}>
+                  <LetterContent
+                    to={letterData.data.to}
+                    content={letterData.data.contents}
+                    from={letterData.data.from}
+                    color={backgroundColor}
+                    pattern={patternStyle}
+                    font={fontStlye}
+                  />
+                </LetterCard>
+              </div>
+            </div>
           ) : (
             <div css={SkeletonCardStyle}>
               <DotLoader color={colors.grey[9]} backgroundColor={colors.grey[3]} />

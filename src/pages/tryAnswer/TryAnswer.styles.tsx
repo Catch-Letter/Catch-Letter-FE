@@ -30,6 +30,15 @@ const glowAnimation = keyframes`
   }
 `
 
+const flipAnimation = keyframes`
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(-180deg);
+  }
+`
+
 export const tryAnswerWrapper = css`
   width: 100%;
   height: 100vh;
@@ -58,6 +67,7 @@ export const TryAnswerStyle = css`
     /* margin: 0 48px; */
     width: 70%;
     height: 70%;
+    perspective: 1000px;
   }
 
   .shake {
@@ -69,7 +79,7 @@ export const TryAnswerStyle = css`
     border-radius: 24px;
   }
 `
-export const LetterCardStyle = (backgroundImage: string) => css`
+export const LetterCardStyle = (backgroundImage: string, isFlipped: boolean) => css`
   background-image: url(${backgroundImage});
   background-size: cover;
   background-color: white;
@@ -78,7 +88,11 @@ export const LetterCardStyle = (backgroundImage: string) => css`
   width: 100%;
   height: 100%;
   border-radius: 24px;
-  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+
+  ${isFlipped &&
+  `
+    animation: ${flipAnimation} 0.6s forwards;
+  `}
 `
 
 export const SkeletonCardStyle = css`
@@ -91,4 +105,48 @@ export const SkeletonCardStyle = css`
   background-color: ${colors.grey[3]};
   background-size: 200% 100%;
   opacity: 0.5;
+`
+
+export const letterCardContainer = css`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  perspective: 1000px;
+`
+
+export const letterCardStyle = css`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 24px;
+  transition: transform 0.3s;
+  transform-style: preserve-3d; /* 카드의 앞면과 뒷면을 3D로 회전시킬 수 있게 함 */
+`
+
+export const frontCardStyle = css`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-color: white;
+  opacity: 0.8;
+  border-radius: 24px;
+  transform: scaleX(-1);
+  /* backface-visibility: hidden; */
+`
+
+// 뒷면 스타일
+export const backCardStyle = css`
+  position: absolute;
+  backface-visibility: hidden;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border-radius: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `

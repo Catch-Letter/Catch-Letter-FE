@@ -41,7 +41,7 @@ export const CheckAnswerStyles = (isFlipped: boolean, imageUrl: string) => css`
     height: 100%;
     border-radius: 8px;
     backface-visibility: hidden;
-    opacity: 0.8;
+    /* opacity: 0.8; */
   }
 
   .cardFront {
