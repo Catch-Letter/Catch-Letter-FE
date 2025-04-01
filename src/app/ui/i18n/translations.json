@@ -11,6 +11,14 @@
     "KO": "정답",
     "EN": "Correct"
   },
+  "copy": {
+    "KO": "복사",
+    "EN": "Copy"
+  },
+  "close": {
+    "KO": "닫기",
+    "EN": "Close"
+  },
 
   "create": {
     "title": {

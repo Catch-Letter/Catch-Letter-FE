@@ -23,13 +23,13 @@ const ShareModal = ({ isOpen, url, onClose }: ShareModalProps) => {
           <div className='area-copy'>
             <span className='url'>{url}</span>
             <button className='btn-copy' onClick={copyLink}>
-              복사
+              {t('copy')}
             </button>
           </div>
           <span className='desc'>{t('copySNS')}</span>
         </div>
         <Button width={80} onClick={onClose}>
-          닫기
+          {t('close')}
         </Button>
       </div>
     </Modal>
