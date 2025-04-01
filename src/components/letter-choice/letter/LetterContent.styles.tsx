@@ -20,7 +20,9 @@ const letterBackground = (color: keyof typeof patternColors) => ({
           background-size: 50px 50px;
          `,
   grid: `background-image: linear-gradient(to bottom, ${patternColors[color]} 1px, transparent 0), linear-gradient(to right, ${patternColors[color]} 1px, transparent 0);
-          background-size: 30px 30px;
+        background-position: 0 0 , 20px 20px;        
+        background-size: 30px 30px;
+ 
          `,
 })
 
@@ -32,7 +34,7 @@ export const LetterContentStyle = (
   font: FontType
 ) => css`
   display: flex;
-  min-width: 200px;
+  min-width: 230px;
   width: 100%;
   height: 100%;
   font-family: ${font};
