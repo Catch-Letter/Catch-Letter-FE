@@ -58,6 +58,8 @@ const CreatePostForm = () => {
             label={t('create.password')}
             length={5}
             type='password'
+            pattern='[0-9]*'
+            inputMode='numeric'
             value={password}
             onChangeValue={onCheckPassword}
           />
