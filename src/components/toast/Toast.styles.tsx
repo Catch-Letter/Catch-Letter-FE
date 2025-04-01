@@ -12,9 +12,9 @@ const fadeIn = keyframes`
   }
 `
 
-export const ToastContainer = (position: 'top' | 'bottom' = 'bottom') => css`
+export const ToastContainer = (position: 'top' | 'bottom', offset: string) => css`
   position: fixed;
-  ${position === 'top' ? 'top: 24vh;' : 'bottom: 200px;'};
+  ${position === 'top' ? `top: ${offset};` : `bottom: ${offset};`}
   left: 50%;
   transform: translateX(-50%);
   display: flex;
