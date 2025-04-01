@@ -55,9 +55,9 @@ const LetterReceived: FC<Props> = ({ uuid }) => {
       />
 
       <Flex justify='space-between' gap={16} css={bottomButtonStyles}>
-        <Button onClick={() => {}} variant='secondary'>
+        {/* <Button onClick={() => {}} variant='secondary'>
           {t('showOff')}
-        </Button>
+        </Button> */}
         <Button onClick={onClickCheckButton}>{t('checkLetters')}</Button>
       </Flex>
 
