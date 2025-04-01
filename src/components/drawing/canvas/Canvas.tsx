@@ -40,7 +40,9 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
   }, [])
 
   // 그림 그리기 시작
-  const handleMouseDown = (e: KonvaEventObject<MouseEvent>) => {
+  const handleMouseDown = (e: KonvaEventObject<MouseEvent | TouchEvent>) => {
+    e.evt.preventDefault()
+
     isDrawing.current = true
     const stage = e.target.getStage()
     const point = stage?.getPointerPosition()
@@ -53,7 +55,7 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
     ])
   }
 
-  const handleMouseMove = (e: KonvaEventObject<MouseEvent>) => {
+  const handleMouseMove = (e: KonvaEventObject<MouseEvent | TouchEvent>) => {
     if (!isDrawing.current) return
 
     const stage = e.target.getStage()
@@ -133,6 +135,9 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
+          onTouchStart={handleMouseDown}
+          onTouchMove={handleMouseMove}
+          onTouchEnd={handleMouseUp}
         >
           <Layer>
             {lines.map((line, i) => (
