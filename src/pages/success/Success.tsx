@@ -1,4 +1,4 @@
-import { BackHeader, Toast } from '#/components'
+import { BackHeader } from '#/components'
 import { DescLink, TimeArea } from '#/components/success'
 import { useCountdownTimer } from '#/hooks'
 import { Background, Button } from '#/shared/ui'
@@ -34,7 +34,6 @@ const Success = () => {
           {t('create.btnshare')}
         </Button>
       </div>
-      <Toast />
       <ShareModal isOpen={isOpen} onClose={closeModal} url={user.mailboxUrl} />
     </div>
   )

@@ -73,6 +73,10 @@
       "KO": "링크가 생성되었어요!",
       "EN": "Link created!"
     },
+    "copyLink": {
+      "KO": "링크가 복사되었어요!",
+      "EN": "Link copied!"
+    },
     "desc": {
       "KO": "링크 복사 버튼을 클릭하면 링크가 클립보드에 복사됩니다.\n 링크는 재발급 되지 않으므로 링크 복사 후 기억할 수 있는 곳에 저장해두세요!",
       "EN": "When you click the Copy Link button, the link will be copied to your clipboard.\n Since the link cannot be reissued, please save it in a place where you can remember it!"

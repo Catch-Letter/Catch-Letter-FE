@@ -1,6 +1,8 @@
 import { ReactNode } from 'react'
 import { DescLinkStyle } from './DescLink.styles'
 import { useToastStore } from '#/store/toastStore'
+import { useTranslation } from 'react-i18next'
+import { Toast } from '#/components/toast'
 
 interface DescLinkProps {
   title: string
@@ -10,11 +12,12 @@ interface DescLinkProps {
 }
 
 const DescLink = ({ title, link, btnName, desc }: DescLinkProps) => {
+  const { t } = useTranslation()
   const { showToast } = useToastStore()
 
   const copyLink = () => {
     navigator.clipboard.writeText(link)
-    showToast('링크가 복사되었습니다 ✨', 'success')
+    showToast(t('create.copyLink') + ' ✨', 'success', 'page')
   }
 
   return (
@@ -25,6 +28,7 @@ const DescLink = ({ title, link, btnName, desc }: DescLinkProps) => {
         {btnName}
       </button>
       <div className='desc'>{desc}</div>
+      <Toast location='page' />
     </div>
   )
 }

@@ -1,6 +1,8 @@
 import { ShareItems } from '#/components/share-modal/shareItem'
 import { ShareModalStyle, ShareModalContainer } from '#/components/share-modal/ShareModal.styles'
+import { Toast } from '#/components/toast'
 import { Button, Modal, ModalProps } from '#/shared/ui'
+import { useToastStore } from '#/store/toastStore'
 import { useTranslation } from 'react-i18next'
 
 export type ShareModalProps = Omit<ModalProps, 'children'> & {
@@ -10,7 +12,9 @@ export type ShareModalProps = Omit<ModalProps, 'children'> & {
 
 const ShareModal = ({ isOpen, url, onClose }: ShareModalProps) => {
   const { t } = useTranslation()
+  const { showToast } = useToastStore()
   const copyLink = () => {
+    showToast(t('create.copyLink') + ' ✨', 'success', 'modal')
     navigator.clipboard.writeText(url)
   }
 
@@ -32,6 +36,7 @@ const ShareModal = ({ isOpen, url, onClose }: ShareModalProps) => {
           {t('close')}
         </Button>
       </div>
+      <Toast position='bottom' location='modal' offset='68%' />
     </Modal>
   )
 }
