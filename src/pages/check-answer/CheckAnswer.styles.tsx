@@ -39,6 +39,7 @@ export const CheckAnswerStyles = (isFlipped: boolean, imageUrl: string) => css`
     grid-area: 1 / 1 / 1 / 1;
     width: 100%;
     height: 100%;
+    max-height: 654px;
     border-radius: 8px;
     backface-visibility: hidden;
     /* opacity: 0.8; */

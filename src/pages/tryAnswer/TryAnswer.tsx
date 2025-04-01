@@ -7,7 +7,6 @@ import {
   frontCardStyle,
   letterCardContainer,
   letterCardStyle,
-  LetterCardStyle,
   SkeletonCardStyle,
   TryAnswerStyle,
   tryAnswerWrapper,
@@ -16,13 +15,13 @@ import { Background, Button, DotLoader } from '#/shared/ui'
 import SeparatedInput from '#/shared/ui/separated-input/separated-input'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { colors } from '#/styles/color'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate, useParams } from 'react-router'
 
 const TryAnswer = () => {
   // const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
-  const { uuid, id } = useParams()
+  const { uuid } = useParams()
   const { t } = useTranslation()
   const navigate = useNavigate()
   const location = useLocation()
@@ -79,14 +78,15 @@ const TryAnswer = () => {
         >
           {!isTryStarted ? (
             <TryIntro onStart={() => setIsTryStarted(true)} />
-          ) : drawData ? (
+          ) : drawData && letterData ? (
             <div
               css={letterCardStyle}
               onClick={handleCardClick}
-              style={{ transform: !isFlipped ? 'rotateY(-180deg)' : 'rotateY(0deg)' }}
+              style={{
+                transform: isFlipped ? 'rotateY(0deg)' : 'rotateY(-180deg)',
+              }}
             >
-              <div css={frontCardStyle} style={{ backgroundImage: `url(${imageUrl})` }}></div>
-
+              <div css={frontCardStyle(imageUrl || '')}></div>
               <div css={backCardStyle}>
                 <LetterCard type={selectedColor}>
                   <LetterContent
