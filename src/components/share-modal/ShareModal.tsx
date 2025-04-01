@@ -32,7 +32,7 @@ const ShareModal = ({ isOpen, url, onClose }: ShareModalProps) => {
           </div>
           <span className='desc'>{t('copySNS')}</span>
         </div>
-        <Button width={80} onClick={onClose}>
+        <Button width={84} onClick={onClose}>
           {t('close')}
         </Button>
       </div>
