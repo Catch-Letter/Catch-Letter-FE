@@ -1,11 +1,9 @@
+import useModal from '#/hooks/useModal'
 import { useCallback, useState } from 'react'
 
 export default function usePasswordModal() {
   // modal state
-  const [isOpen, setIsOpen] = useState(false)
-
-  const openModal = useCallback(() => setIsOpen(true), [])
-  const closeModal = useCallback(() => setIsOpen(false), [])
+  const { isOpen, openModal, closeModal } = useModal()
 
   // password
   const [password, setPassword] = useState('')
