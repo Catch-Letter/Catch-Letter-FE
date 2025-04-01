@@ -1,15 +1,21 @@
+import Konva from 'konva'
 import { useRef, useState, forwardRef, useEffect } from 'react'
 import { Stage, Layer, Line } from 'react-konva'
 import { KonvaEventObject } from 'konva/lib/Node'
-import { CanvasWrapper, PaletteWrapper, PaletteStyle, CanvasStageWrapper } from './Canvas.styles'
+import {
+  CanvasWrapper,
+  PaletteWrapper,
+  PaletteStyle,
+  CanvasStageWrapper,
+  EraserCursor,
+} from './Canvas.styles'
 import { CanvasTools } from '#/components/drawing/canvas-tools'
 import { paletteColors } from '#/styles/paletteColors'
-import Konva from 'konva'
 import { LineData, CanvasProps } from '#/types/drawing'
+import { useEraserCursor } from '#/hooks/useEraserCursor'
 
 const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines }, _ref) => {
   const [selectedColor, setSelectedColor] = useState<string>('#000000')
-  const [cursorPos, setCursorPos] = useState<{ x: number; y: number } | null>(null)
 
   const isDrawing = useRef<boolean>(false)
 
@@ -20,6 +26,8 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
 
   const containerRef = useRef<HTMLDivElement>(null)
   const [canvasSize, setCanvasSize] = useState({ width: 300, height: 500 })
+
+  const cursorPos = useEraserCursor(isEraser, containerRef)
 
   // 캔버스 크기 조절
   useEffect(() => {
@@ -37,7 +45,6 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
 
     const handleWindowMouseUp = () => {
       isDrawing.current = false
-      setCursorPos(null)
     }
 
     window.addEventListener('mouseup', handleWindowMouseUp)
@@ -48,7 +55,7 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
       window.removeEventListener('mouseup', handleWindowMouseUp)
       window.removeEventListener('touchend', handleWindowMouseUp)
     }
-  }, [])
+  }, [isEraser])
 
   // 그림 그리기 시작
   const handleMouseDown = (e: KonvaEventObject<MouseEvent | TouchEvent>) => {
@@ -74,8 +81,6 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
 
     if (!point) return
 
-    setCursorPos({ x: point.x, y: point.y })
-
     setLines((prevLines) => {
       const newLines = [...prevLines]
       const lastLine = newLines[newLines.length - 1]
@@ -90,10 +95,6 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
 
   const handleMouseUp = () => {
     isDrawing.current = false
-  }
-
-  const handleMouseLeave = () => {
-    setCursorPos(null)
   }
 
   // 그림 되돌리기
@@ -134,6 +135,8 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
 
   return (
     <div css={CanvasWrapper} ref={containerRef}>
+      {isEraser && cursorPos && <div css={EraserCursor(cursorPos.x, cursorPos.y, 20)} />}
+
       <div css={PaletteWrapper}>
         {paletteColors.map(({ color, hex }) => (
           <button
@@ -152,7 +155,6 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseLeave}
           onTouchStart={handleMouseDown}
           onTouchMove={handleMouseMove}
           onTouchEnd={handleMouseUp}
