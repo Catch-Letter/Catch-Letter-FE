@@ -18,6 +18,7 @@ export default function useInboxStatus(uuid: string) {
       incorrect_letter_count: 0,
       total_letter_count: 0,
       name: '',
+      inboxUrl: '',
     }
   }
 
@@ -33,5 +34,6 @@ export default function useInboxStatus(uuid: string) {
     incorrect_letter_count,
     total_letter_count,
     name,
+    inboxUrl: `https://catchletter.kr/inbox/${uuid}`,
   }
 }

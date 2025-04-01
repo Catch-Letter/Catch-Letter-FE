@@ -11,6 +11,14 @@
     "KO": "정답",
     "EN": "Correct"
   },
+  "copy": {
+    "KO": "복사",
+    "EN": "Copy"
+  },
+  "close": {
+    "KO": "닫기",
+    "EN": "Close"
+  },
 
   "create": {
     "title": {
@@ -64,6 +72,10 @@
     "link": {
       "KO": "링크가 생성되었어요!",
       "EN": "Link created!"
+    },
+    "copyLink": {
+      "KO": "링크가 복사되었어요!",
+      "EN": "Link copied!"
     },
     "desc": {
       "KO": "링크 복사 버튼을 클릭하면 링크가 클립보드에 복사됩니다.\n 링크는 재발급 되지 않으므로 링크 복사 후 기억할 수 있는 곳에 저장해두세요!",
@@ -397,5 +409,17 @@
   "goHome": {
     "KO": "홈으로",
     "EN": "Go Home"
+  },
+  "shareSNS": {
+    "KO": "그림 퀴즈를 만들고 편지를 작성해봐!",
+    "EN": "Make a drawing quiz and write a letter"
+  },
+  "copySNS": {
+    "KO": "버튼을 클릭하면 링크가 클립보드에 복사됩니다!",
+    "EN": "Click the button to copy the link to your clipboard."
+  },
+  "numberPWD": {
+    "KO": "비밀번호는 숫자만 가능해요!",
+    "EN": "Password can only contain numbers!"
   }
 }

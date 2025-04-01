@@ -7,13 +7,14 @@ import { createPortal } from 'react-dom'
 
 interface ToastProps {
   position?: 'top' | 'bottom'
+  location?: 'page' | 'modal'
   offset?: string
 }
 
-const Toast = ({ position = 'bottom', offset = '200px' }: ToastProps) => {
+const Toast = ({ position = 'bottom', offset = '200px', location = 'page' }: ToastProps) => {
   const { toast } = useToastStore()
 
-  if (!toast) return null
+  if (!toast || toast.location !== location) return null
 
   return createPortal(
     <div css={ToastContainer(position, offset)}>
