@@ -24,7 +24,7 @@ const CheckAnswer = () => {
   const { t } = useTranslation()
 
   const { uuid, id } = useParams()
-  const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
+  const { selectedColor } = useLetterCreationStore()
   // const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
   const [isFlipped, setIsFlipped] = useState(false)
   const [answerLength, setAnswerLength] = useState(4)
