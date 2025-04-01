@@ -9,6 +9,7 @@ import { LineData, CanvasProps } from '#/types/drawing'
 
 const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines }, _ref) => {
   const [selectedColor, setSelectedColor] = useState<string>('#000000')
+  const [cursorPos, setCursorPos] = useState<{ x: number; y: number } | null>(null)
 
   const isDrawing = useRef<boolean>(false)
 
@@ -34,8 +35,18 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
     updateSize()
     window.addEventListener('resize', updateSize)
 
+    const handleWindowMouseUp = () => {
+      isDrawing.current = false
+      setCursorPos(null)
+    }
+
+    window.addEventListener('mouseup', handleWindowMouseUp)
+    window.addEventListener('touchend', handleWindowMouseUp)
+
     return () => {
       window.removeEventListener('resize', updateSize)
+      window.removeEventListener('mouseup', handleWindowMouseUp)
+      window.removeEventListener('touchend', handleWindowMouseUp)
     }
   }, [])
 
@@ -63,6 +74,8 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
 
     if (!point) return
 
+    setCursorPos({ x: point.x, y: point.y })
+
     setLines((prevLines) => {
       const newLines = [...prevLines]
       const lastLine = newLines[newLines.length - 1]
@@ -77,6 +90,10 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
 
   const handleMouseUp = () => {
     isDrawing.current = false
+  }
+
+  const handleMouseLeave = () => {
+    setCursorPos(null)
   }
 
   // 그림 되돌리기
@@ -135,6 +152,7 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
           onTouchStart={handleMouseDown}
           onTouchMove={handleMouseMove}
           onTouchEnd={handleMouseUp}
