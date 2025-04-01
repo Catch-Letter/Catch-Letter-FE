@@ -45,7 +45,7 @@ const LetterReceived: FC<Props> = ({ uuid }) => {
 
   return (
     <div css={containerStyles}>
-      <Header css={headerStyles} Left={<span className='left'>catch letter</span>} />
+      <Header css={headerStyles} Left={<span className='left'>Catch Letter</span>} />
 
       <TextSection
         title1={t('inbox.totalLetterCount', { name })}

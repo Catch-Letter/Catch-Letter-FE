@@ -23,7 +23,7 @@ const LetterReciving: FC<Props> = ({ uuid }) => {
   return (
     <div css={containerStyles}>
       <Background gradientType='halfGradient' />
-      <Header css={headerStyles} Left={<span className='left'>catch letter</span>} />
+      <Header css={headerStyles} Left={<span className='left'>Catch Letter</span>} />
 
       <TextSection
         title1={`${name}의 우체통 마감까지`}
