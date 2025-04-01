@@ -73,7 +73,7 @@ const LetterReceived: FC<Props> = ({ uuid }) => {
       />
 
       <FallingLetters />
-      <Toast position='top' />
+      <Toast position='top' offset='24vh' />
     </div>
   )
 }
