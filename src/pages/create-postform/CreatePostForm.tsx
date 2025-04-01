@@ -31,7 +31,7 @@ const CreatePostForm = () => {
 
   const onCheckPassword = (value: string) => {
     if (value.length === 5 && isNaN(Number(value))) {
-      showToast('비밀번호는 숫자로 입력해주세요', 'error')
+      showToast(t('numberPWD'), 'error')
       return
     }
     setPassword(value)

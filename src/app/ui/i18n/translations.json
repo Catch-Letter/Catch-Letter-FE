@@ -382,5 +382,9 @@
   "copySNS": {
     "KO": "버튼을 클릭하면 링크가 클립보드에 복사됩니다!",
     "EN": "Click the button to copy the link to your clipboard."
+  },
+  "numberPWD": {
+    "KO": "비밀번호는 숫자만 가능해요!",
+    "EN": "Password can only contain numbers!"
   }
 }
