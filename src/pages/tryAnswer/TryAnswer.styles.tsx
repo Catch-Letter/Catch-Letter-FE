@@ -30,6 +30,15 @@ const glowAnimation = keyframes`
   }
 `
 
+const flipAnimation = keyframes`
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(180deg);
+  }
+`
+
 export const tryAnswerWrapper = css`
   width: 100%;
   height: 100vh;
@@ -55,7 +64,7 @@ export const TryAnswerStyle = css`
   .LetterCard-container {
     display: flex;
     justify-content: center;
-    /* margin: 0 48px; */
+
     width: 70%;
     height: 70%;
   }
@@ -69,17 +78,6 @@ export const TryAnswerStyle = css`
     border-radius: 24px;
   }
 `
-export const LetterCardStyle = (backgroundImage: string) => css`
-  background-image: url(${backgroundImage});
-  background-size: cover;
-  background-color: white;
-  opacity: 0.8;
-  background-position: center;
-  width: 100%;
-  height: 100%;
-  border-radius: 24px;
-  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
-`
 
 export const SkeletonCardStyle = css`
   display: flex;
@@ -91,4 +89,52 @@ export const SkeletonCardStyle = css`
   background-color: ${colors.grey[3]};
   background-size: 200% 100%;
   opacity: 0.5;
+`
+
+export const letterCardContainer = css`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  perspective: 1000px;
+`
+
+export const letterCardStyle = css`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 24px;
+  transition: transform 0.3s;
+  transform-style: preserve-3d;
+`
+
+export const frontCardStyle = (backgroundImage: string) => css`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url(${backgroundImage});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: white;
+  opacity: 0.8;
+  border-radius: 24px;
+  transform: scaleX(-1);
+  transform: rotateY(0deg);
+  backface-visibility: hidden;
+`
+
+// 뒷면 스타일
+export const backCardStyle = css`
+  position: absolute;
+  backface-visibility: hidden;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border-radius: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotateY(180deg);
 `

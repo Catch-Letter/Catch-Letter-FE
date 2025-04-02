@@ -3,6 +3,8 @@ import useGetAnswerStatus from '#/hooks/query/useGetAnswerStatus'
 import useGetDrawData from '#/hooks/query/useGetDrawData'
 import useGetLetterData from '#/hooks/query/useGetLetterData'
 import { extractRemainingChances } from '#/shared/utils'
+import { extractFontStyle } from '#/shared/utils/extractFontStyle'
+import { extractPatternStyle } from '#/shared/utils/extractPattern'
 import { extractColorToString } from '#/types/extractColor'
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -19,6 +21,7 @@ const useTryAnswer = () => {
   const [chances, setChances] = useState<number>(maxChances)
   const [isShaking, setIsShaking] = useState(false)
   const [timeLeft, setTimeLeft] = useState<number | null>(null)
+  const [isFlipped, setIsFlipped] = useState(false)
 
   const { data: letterData } = useGetLetterData(uuid!, Number(id!))
   const { data: drawData } = useGetDrawData(uuid!, Number(id!))
@@ -52,6 +55,7 @@ const useTryAnswer = () => {
         setIsCorrect(true) // 이미 맞춘 정답 표시
         setResponseMessage(t('tryAnswer.correctAnswer'))
         setButtonText(t('tryAnswer.checkAnswer'))
+        setIsFlipped(true)
       } else {
         const remainingChances = extractRemainingChances(answerStatusData.message)
 
@@ -84,6 +88,7 @@ const useTryAnswer = () => {
         setIsCorrect(true)
         setResponseMessage(t('tryAnswer.correctAnswer'))
         setButtonText(t('tryAnswer.checkAnswer'))
+        setIsFlipped(true)
       } else {
         handleWrongAttempt()
         const remainingChances = extractRemainingChances(response.message)
@@ -96,9 +101,26 @@ const useTryAnswer = () => {
     }
   }
 
+  const handleCardClick = () => {
+    if (isCorrect) {
+      setIsFlipped((prev) => !prev)
+    }
+    // setIsFlipped((prev) => !prev)
+  }
+
   const backgroundColor = useMemo(() => {
     const etc = letterData?.data?.etc
     return extractColorToString(etc)
+  }, [letterData])
+
+  const fontStlye = useMemo(() => {
+    const etc = letterData?.data?.etc
+    return extractFontStyle(etc)
+  }, [letterData])
+
+  const patternStyle = useMemo(() => {
+    const etc = letterData?.data?.etc
+    return extractPatternStyle(etc)
   }, [letterData])
 
   return {
@@ -111,7 +133,12 @@ const useTryAnswer = () => {
     isShaking,
     timeLeft,
     tryAnswer,
+    isFlipped,
     backgroundColor,
+    letterData,
+    patternStyle,
+    fontStlye,
+    handleCardClick,
   }
 }
 

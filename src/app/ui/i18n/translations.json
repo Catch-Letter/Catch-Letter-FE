@@ -308,8 +308,8 @@
       "EN": "Correct Answer!"
     },
     "checkAnswer": {
-      "KO": "정답 확인",
-      "EN": "Check the answer"
+      "KO": "편지함가기",
+      "EN": "Go to mailbox"
     },
     "submit": {
       "KO": "확인",
