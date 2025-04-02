@@ -26,9 +26,9 @@ const LetterReciving: FC<Props> = ({ uuid }) => {
       <Header css={headerStyles} Left={<span className='left'>catch letter</span>} />
 
       <TextSection
-        title1={`${name}의 우체통 마감까지`}
+        title1={t('inbox.untilClose', { name })}
         value1={leftTime}
-        title2='지금까지 받은 편지'
+        title2={t('inbox.lettersReceived')}
         value2={total_letter_count}
       />
 

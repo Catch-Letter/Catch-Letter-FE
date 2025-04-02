@@ -31,6 +31,7 @@ const ChoiceLetter = () => {
       const res = await fetchSendLetter(uuid, id, letterData)
       navigate('/sendletter', {
         state: {
+          uuid,
           color: selectedColor,
           img: location.state?.img,
         },
