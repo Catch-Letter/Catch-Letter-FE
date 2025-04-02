@@ -30,15 +30,6 @@ const glowAnimation = keyframes`
   }
 `
 
-const flipAnimation = keyframes`
-  0% {
-    transform: rotateY(0deg);
-  }
-  100% {
-    transform: rotateY(180deg);
-  }
-`
-
 export const tryAnswerWrapper = css`
   width: 100%;
   height: 100vh;

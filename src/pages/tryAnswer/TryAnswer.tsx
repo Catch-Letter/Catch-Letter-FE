@@ -15,7 +15,7 @@ import { Background, Button, DotLoader } from '#/shared/ui'
 import SeparatedInput from '#/shared/ui/separated-input/separated-input'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { colors } from '#/styles/color'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate, useParams } from 'react-router'
 
