@@ -23,7 +23,14 @@ const LetterReciving: FC<Props> = ({ uuid }) => {
   return (
     <div css={containerStyles}>
       <Background gradientType='halfGradient' />
-      <Header css={headerStyles} Left={<span className='left'>catch letter</span>} />
+      <Header
+        css={headerStyles}
+        Left={
+          <span className='left'>
+            Catch Letter <div>💌</div>
+          </span>
+        }
+      />
 
       <TextSection
         title1={t('inbox.untilClose', { name })}

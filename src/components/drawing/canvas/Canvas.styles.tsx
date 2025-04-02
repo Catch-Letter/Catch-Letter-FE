@@ -36,3 +36,17 @@ export const CanvasStageWrapper = css`
   flex-grow: 1;
   min-height: 0;
 `
+
+export const EraserCursor = (x: number, y: number, radius: number) => css`
+  position: fixed;
+  top: ${y}px;
+  left: ${x}px;
+  width: ${radius}px;
+  height: ${radius}px;
+  border-radius: 50%;
+  background-color: rgba(128, 128, 128, 0.3);
+  border: 1px solid ${colors.grey[10]};
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+`

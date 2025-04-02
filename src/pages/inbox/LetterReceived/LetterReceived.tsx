@@ -45,7 +45,14 @@ const LetterReceived: FC<Props> = ({ uuid }) => {
 
   return (
     <div css={containerStyles}>
-      <Header css={headerStyles} Left={<span className='left'>catch letter</span>} />
+      <Header
+        css={headerStyles}
+        Left={
+          <span className='left'>
+            Catch Letter <div>💌</div>
+          </span>
+        }
+      />
 
       <TextSection
         title1={t('inbox.totalLetterCount', { name })}
@@ -55,7 +62,12 @@ const LetterReceived: FC<Props> = ({ uuid }) => {
       />
 
       <Flex justify='space-between' gap={16} css={bottomButtonStyles}>
-        <Button onClick={() => {}} variant='secondary'>
+        <Button
+          onClick={() => {
+            navigate('/postform')
+          }}
+          variant='secondary'
+        >
           {t('showOff')}
         </Button>
         <Button onClick={onClickCheckButton}>{t('checkLetters')}</Button>
