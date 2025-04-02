@@ -9,7 +9,10 @@ export interface FallingLettersHookArgs {
 }
 
 const useFallingLetters = ({ ref, size }: FallingLettersHookArgs) => {
-  const letters = Object.values(Letters)
+  const letters =
+    size.width < 768
+      ? Object.values(Letters)
+      : Object.values(Letters).concat(Object.values(Letters))
 
   const engineRef = useRef<Matter.Engine | null>(null)
   const renderRef = useRef<Matter.Render | null>(null)

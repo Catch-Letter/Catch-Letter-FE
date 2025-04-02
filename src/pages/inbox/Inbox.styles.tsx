@@ -19,6 +19,14 @@ export const headerStyles = css`
     font-size: 24px;
     font-weight: 700;
     margin-left: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    div {
+      padding-top: 4px;
+      margin-left: 8px;
+    }
   }
 `
 
