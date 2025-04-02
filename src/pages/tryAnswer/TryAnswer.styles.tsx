@@ -64,7 +64,7 @@ export const TryAnswerStyle = css`
   .LetterCard-container {
     display: flex;
     justify-content: center;
-    /* margin: 0 48px; */
+
     width: 70%;
     height: 70%;
   }
@@ -78,21 +78,6 @@ export const TryAnswerStyle = css`
     border-radius: 24px;
   }
 `
-// export const LetterCardStyle = (backgroundImage: string, isFlipped: boolean) => css`
-//   background-image: url(${backgroundImage});
-//   background-size: cover;
-//   background-color: white;
-//   opacity: 0.8;
-//   background-position: center;
-//   width: 100%;
-//   height: 100%;
-//   border-radius: 24px;
-
-//   ${isFlipped &&
-//   `
-//     animation: ${flipAnimation} 0.3s forwards;
-//   `}
-// `
 
 export const SkeletonCardStyle = css`
   display: flex;

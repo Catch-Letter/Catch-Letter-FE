@@ -58,7 +58,7 @@ export const CheckAnswerStyles = (isFlipped: boolean, imageUrl: string) => css`
   .notice-area {
     display: flex;
     align-items: center;
-    color: pink;
+    color: ${colors.neonGreen[3]};
     gap: 4px;
     font-size: 16px;
     margin-top: 16px;
