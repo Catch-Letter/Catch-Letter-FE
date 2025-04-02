@@ -28,5 +28,5 @@ export const GridContainer = css`
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   padding: 10px 16px;
-  overflow-y: auto;
+  overflow-x: hidden;
 `
