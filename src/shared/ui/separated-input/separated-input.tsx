@@ -20,6 +20,7 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
   type,
   onChangeValue,
   value,
+  ...props
 }) => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([])
   const [inputValues, setInputValues] = useState<string[]>(Array(length).fill(''))
@@ -95,6 +96,7 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
       onKeyDown={(e) => handleKeyDown(e, index)}
       maxLength={1}
       css={separateInput}
+      {...props}
     />
   ))
 
