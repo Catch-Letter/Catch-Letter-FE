@@ -83,8 +83,9 @@ export const LetterCardStyle = (backgroundImage: string) => css`
   background-image: url(${backgroundImage});
   background-color: white;
   opacity: 0.8;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
   width: 100%;
   height: 100%;
   border-radius: 24px;

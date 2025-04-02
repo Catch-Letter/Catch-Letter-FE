@@ -53,7 +53,7 @@ const TryAnswer = () => {
 
   const handleNavigate = () => {
     if (isCorrect) {
-      navigate(`/inbox/${uuid}`)
+      navigate(`/myletters/${uuid}`)
     }
   }
 

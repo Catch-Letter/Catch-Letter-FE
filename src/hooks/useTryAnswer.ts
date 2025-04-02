@@ -102,10 +102,10 @@ const useTryAnswer = () => {
   }
 
   const handleCardClick = () => {
-    // if (isCorrect) {
-    //   setIsFlipped((prev) => !prev)
-    // }
-    setIsFlipped((prev) => !prev)
+    if (isCorrect) {
+      setIsFlipped((prev) => !prev)
+    }
+    // setIsFlipped((prev) => !prev)
   }
 
   const backgroundColor = useMemo(() => {
