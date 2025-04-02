@@ -9,16 +9,25 @@ interface CanvasToolsProps {
   onClear: () => void
   isEraser: boolean
   undoDisabled: boolean
+  redoDisabled: boolean
 }
 
-const CanvasTools = ({ onUndo, onRedo, onEraser, onClear, isEraser }: CanvasToolsProps) => {
+const CanvasTools = ({
+  onUndo,
+  onRedo,
+  onEraser,
+  onClear,
+  isEraser,
+  undoDisabled,
+  redoDisabled,
+}: CanvasToolsProps) => {
   return (
     <div css={ToolWrapper}>
       <div css={IconWrapper}>
-        <button className='icon' onClick={onUndo} aria-label='Undo'>
+        <button className='icon' onClick={onUndo} aria-label='Undo' disabled={undoDisabled}>
           <FaArrowLeft size={20} />
         </button>
-        <button className='icon' onClick={onRedo} aria-label='Redo'>
+        <button className='icon' onClick={onRedo} aria-label='Redo' disabled={redoDisabled}>
           <FaArrowRight size={20} />
         </button>
       </div>

@@ -271,6 +271,10 @@
       "KO": "나도 우체통 발급",
       "EN": "Go make my mailbox"
     },
+    "retrybtn": {
+      "KO": "새로운 편지 보내기",
+      "EN": "Send another letter"
+    },
     "done": {
       "KO": "확인",
       "EN": "Done"
@@ -308,8 +312,8 @@
       "EN": "Correct Answer!"
     },
     "checkAnswer": {
-      "KO": "정답 확인",
-      "EN": "Check the answer"
+      "KO": "편지함가기",
+      "EN": "Go to mailbox"
     },
     "submit": {
       "KO": "확인",
@@ -387,8 +391,8 @@
     "EN": "Check letters!"
   },
   "showOff": {
-    "KO": "자랑하기",
-    "EN": "show off"
+    "KO": "우체통 만들기",
+    "EN": "Get a new mailbox"
   },
   "enterPostPassword": {
     "KO": "우체통 비밀번호 입력",

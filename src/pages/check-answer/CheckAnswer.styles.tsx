@@ -39,9 +39,10 @@ export const CheckAnswerStyles = (isFlipped: boolean, imageUrl: string) => css`
     grid-area: 1 / 1 / 1 / 1;
     width: 100%;
     height: 100%;
+    max-height: 654px;
     border-radius: 8px;
     backface-visibility: hidden;
-    opacity: 0.8;
+    /* opacity: 0.8; */
   }
 
   .cardFront {
@@ -57,7 +58,7 @@ export const CheckAnswerStyles = (isFlipped: boolean, imageUrl: string) => css`
   .notice-area {
     display: flex;
     align-items: center;
-    color: pink;
+    color: ${colors.neonGreen[3]};
     gap: 4px;
     font-size: 16px;
     margin-top: 16px;
@@ -82,8 +83,9 @@ export const LetterCardStyle = (backgroundImage: string) => css`
   background-image: url(${backgroundImage});
   background-color: white;
   opacity: 0.8;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
   width: 100%;
   height: 100%;
   border-radius: 24px;

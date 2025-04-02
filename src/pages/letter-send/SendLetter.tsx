@@ -17,6 +17,10 @@ const SendLetter = () => {
     navigate('/')
   }
 
+  const handleNewPost = () => {
+    navigate(`/inbox/${info.uuid}`)
+  }
+
   useEffect(() => {
     if (info?.img) {
       const imgUrl = URL.createObjectURL(info?.img)
@@ -39,6 +43,9 @@ const SendLetter = () => {
       <div className='button-area'>
         <Button width={339} onClick={handleCreatePost}>
           {t('send.createbtn')}
+        </Button>
+        <Button width={339} variant='secondary' onClick={handleNewPost}>
+          {t('send.retrybtn')}
         </Button>
       </div>
     </div>

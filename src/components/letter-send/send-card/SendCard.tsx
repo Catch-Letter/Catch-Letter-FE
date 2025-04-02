@@ -38,7 +38,7 @@ const SendCard = ({ color, content }: SendCardProps) => {
             gradientUnits='userSpaceOnUse'
             gradientTransform='translate(185.788 141.325) rotate(-89.1593) scale(107.285 134.306)'
           >
-            <stop stopColor='#CCFF1B' stopOpacity='0.6' />
+            <stop stopColor='#FFF' stopOpacity='0.8' />
             <stop offset='1' stopColor='#FFF' stopOpacity='0' />
           </radialGradient>
         </defs>

@@ -1,24 +1,33 @@
+import Konva from 'konva'
 import { useRef, useState, forwardRef, useEffect } from 'react'
 import { Stage, Layer, Line } from 'react-konva'
 import { KonvaEventObject } from 'konva/lib/Node'
-import { CanvasWrapper, PaletteWrapper, PaletteStyle, CanvasStageWrapper } from './Canvas.styles'
+import {
+  CanvasWrapper,
+  PaletteWrapper,
+  PaletteStyle,
+  CanvasStageWrapper,
+  EraserCursor,
+} from './Canvas.styles'
 import { CanvasTools } from '#/components/drawing/canvas-tools'
 import { paletteColors } from '#/styles/paletteColors'
-import Konva from 'konva'
 import { LineData, CanvasProps } from '#/types/drawing'
+import { useEraserCursor } from '#/hooks/useEraserCursor'
 
 const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines }, _ref) => {
   const [selectedColor, setSelectedColor] = useState<string>('#000000')
 
   const isDrawing = useRef<boolean>(false)
 
-  const [_undoStack, setUndoStack] = useState<LineData[][]>([])
+  const [undoStack, setUndoStack] = useState<LineData[][]>([])
   const [redoStack, setRedoStack] = useState<LineData[][]>([])
 
   const [isEraser, setIsEraser] = useState<boolean>(false)
 
   const containerRef = useRef<HTMLDivElement>(null)
   const [canvasSize, setCanvasSize] = useState({ width: 300, height: 500 })
+
+  const cursorPos = useEraserCursor(isEraser, containerRef)
 
   // 캔버스 크기 조절
   useEffect(() => {
@@ -34,10 +43,19 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
     updateSize()
     window.addEventListener('resize', updateSize)
 
+    const handleWindowMouseUp = () => {
+      isDrawing.current = false
+    }
+
+    window.addEventListener('mouseup', handleWindowMouseUp)
+    window.addEventListener('touchend', handleWindowMouseUp)
+
     return () => {
       window.removeEventListener('resize', updateSize)
+      window.removeEventListener('mouseup', handleWindowMouseUp)
+      window.removeEventListener('touchend', handleWindowMouseUp)
     }
-  }, [])
+  }, [isEraser])
 
   // 그림 그리기 시작
   const handleMouseDown = (e: KonvaEventObject<MouseEvent | TouchEvent>) => {
@@ -48,6 +66,9 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
     const point = stage?.getPointerPosition()
 
     if (!point) return
+
+    setUndoStack((prev) => [...prev, [...lines]])
+    setRedoStack([])
 
     setLines((prevLines) => [
       ...prevLines,
@@ -81,20 +102,19 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
 
   // 그림 되돌리기
   const handleUndo = () => {
-    if (lines.length > 0) {
-      setUndoStack((prev) => [...prev, [...lines]])
+    if (undoStack.length > 0) {
       setRedoStack((prev) => [[...lines], ...prev])
-      setLines(lines.slice(0, -1))
+      setLines(undoStack[undoStack.length - 1])
+      setUndoStack((prev) => prev.slice(0, -1))
     }
   }
 
   // 그림 되살리기
   const handleRedo = () => {
     if (redoStack.length > 0) {
-      const lastState = redoStack[0]
-      setRedoStack((prev) => prev.slice(1))
       setUndoStack((prev) => [...prev, [...lines]])
-      setLines(lastState)
+      setLines(redoStack[0])
+      setRedoStack((prev) => prev.slice(1))
     }
   }
 
@@ -112,11 +132,15 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
   // 그림 전체 삭제
   const handleClearCanvas = () => {
     if (lines.length === 0) return
+    setUndoStack((prev) => [...prev, [...lines]])
+    setRedoStack([])
     setLines([])
   }
 
   return (
     <div css={CanvasWrapper} ref={containerRef}>
+      {isEraser && cursorPos && <div css={EraserCursor(cursorPos.x, cursorPos.y, 20)} />}
+
       <div css={PaletteWrapper}>
         {paletteColors.map(({ color, hex }) => (
           <button
@@ -145,7 +169,7 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
                 key={i}
                 points={line.points}
                 stroke={line.color}
-                strokeWidth={3}
+                strokeWidth={line.isEraser ? 20 : 3}
                 lineCap='round'
                 globalCompositeOperation={line.isEraser ? 'destination-out' : 'source-over'}
               />
@@ -160,7 +184,8 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
         onEraser={handleEraser}
         onClear={handleClearCanvas}
         isEraser={isEraser}
-        undoDisabled={lines.length === 0}
+        undoDisabled={undoStack.length === 0}
+        redoDisabled={redoStack.length === 0}
       />
     </div>
   )

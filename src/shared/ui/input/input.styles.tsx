@@ -14,6 +14,7 @@ export const inputStyles = css`
   color: ${colors.grey[13]};
   font-size: 18px;
   font-weight: 500;
+  font-family: 'NotoSansKR';
 
   &::placeholder {
     color: ${colors.grey[7]};
