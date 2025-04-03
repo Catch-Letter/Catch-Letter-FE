@@ -1,18 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router'
 import { LetterWriteStyle, LetterWriteWrapper } from './LetterWrite.styles'
 import { Input, Button, Header } from '#/shared/ui'
 import { WriteDesc, TextCard } from '#/components/letter-write'
 import { useTranslation } from 'react-i18next'
-import { useLetterCreationStore } from '#/store/letterCreateStore'
+import { fetchUUID } from '#/api/uuid'
 
 const LetterWrite = () => {
   const { t } = useTranslation()
   const { uuid, id } = useParams()
   const navigate = useNavigate()
   const location = useLocation()
-  const { receiver } = useLetterCreationStore()
-  const [recipient, _] = useState(receiver || '')
+  const [recipient, setRecipient] = useState(location.state?.to || '')
   const [sender, setSender] = useState(location.state?.from || '')
   const [content, setContent] = useState(location.state?.content || '')
 
@@ -39,6 +38,18 @@ const LetterWrite = () => {
   }
 
   if (!uuid) return
+
+  useEffect(() => {
+    const getUUID = async () => {
+      try {
+        const res = await fetchUUID(uuid)
+        setRecipient(res.name)
+      } catch {
+        navigate('/')
+      }
+    }
+    getUUID()
+  }, [uuid])
 
   return (
     <div css={LetterWriteWrapper}>
