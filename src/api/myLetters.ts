@@ -22,7 +22,6 @@ export const fetchMyLetters = async ({
     })
     return res.data
   } catch (error) {
-    console.error('그림 편지 조회 실패', error)
     throw error
   }
 }

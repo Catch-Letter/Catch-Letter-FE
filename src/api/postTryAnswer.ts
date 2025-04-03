@@ -19,7 +19,6 @@ export const postTryAnswer = async (uuid: string, letterId: number, answer: stri
       }
     }
   } catch (error) {
-    console.error('Error in postTryAnswer:', error)
     return {
       success: false,
       message: '서버 오류가 발생했습니다. 다시 시도해주세요.',

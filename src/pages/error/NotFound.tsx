@@ -28,7 +28,7 @@ const NotFound = () => {
           <Button
             width={140}
             onClick={() => {
-              navigate('/')
+              window.location.href = '/'
             }}
           >
             {t('goHome')}

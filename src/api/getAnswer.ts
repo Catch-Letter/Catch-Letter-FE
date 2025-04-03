@@ -6,7 +6,6 @@ export const getAnswer = async (uuid: string, letterId: number) => {
     const res = await authApiClient.get(API_ENDPOINTS.GET_ANSWER(uuid, letterId))
     return res.data
   } catch (error) {
-    console.error('Error in letter:', error)
     throw error
   }
 }
