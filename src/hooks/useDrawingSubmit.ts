@@ -4,6 +4,8 @@ import Konva from 'konva'
 import { requestDrawUpload, uploadImageToPresignedUrl } from '#/api/draw'
 import { convertStageToSVG } from '#/shared/utils/convertToSvg'
 import { LineData } from '#/types/drawing'
+import { useToastStore } from '#/store/toastStore'
+import { error } from '#/assets/error'
 
 export const useDrawingSubmit = (
   uuid: string | undefined,
@@ -13,16 +15,18 @@ export const useDrawingSubmit = (
 ) => {
   const navigate = useNavigate()
   const location = useLocation()
+  const { showToast } = useToastStore()
 
   const handleUpload = useCallback(async () => {
     if (!uuid) {
-      console.error('uuid 에러')
+      navigate('/')
+      showToast('우체통이 존재하지 않습니다', 'error')
       return
     }
 
     const stage = stageRef.current
     if (!stage) {
-      console.error('Canvas가 초기화되지 않았습니다.')
+      navigate('/not-found')
       return
     }
 
@@ -30,7 +34,7 @@ export const useDrawingSubmit = (
       // svg 변환
       const svgContent = convertStageToSVG(stage)
       if (!svgContent) {
-        console.error('SVG 변환 실패')
+        navigate('/not-found')
         return
       }
 
@@ -40,7 +44,7 @@ export const useDrawingSubmit = (
       // png 변환
       const pngBlob = (await stage.toBlob({ mimeType: 'image/png' })) as Blob
       if (!pngBlob) {
-        console.error('png 변환 안됨')
+        navigate('/not-found')
         return
       }
 
@@ -64,7 +68,7 @@ export const useDrawingSubmit = (
         },
       })
     } catch (error) {
-      console.error('업로드 실패', error)
+      navigate('/not-found')
     }
   }, [uuid, answer, lines, stageRef, navigate])
 
