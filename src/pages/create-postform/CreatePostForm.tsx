@@ -25,7 +25,7 @@ const CreatePostForm = () => {
       })
       return res.data
     } catch (error) {
-      console.error(error)
+      throw error
     }
   }
 

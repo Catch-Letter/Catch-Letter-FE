@@ -7,7 +7,6 @@ export const fetchAuthToken = async (uuid: string, name: string, password: strin
     const res = await apiClient.post<Response>(API_ENDPOINTS.AUTH, { uuid, name, password })
     return res.data
   } catch (error) {
-    console.log('인증 에러', error)
     throw error
   }
 }

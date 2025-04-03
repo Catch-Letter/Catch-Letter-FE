@@ -96,7 +96,7 @@ const useTryAnswer = () => {
         setButtonText(t('tryAnswer.submit'))
       }
     } catch (error) {
-      console.error(error)
+      throw error
       setResponseMessage(t('error.unexpectedError'))
     }
   }

@@ -1,19 +1,21 @@
-import { useRef } from 'react'
-import { useParams } from 'react-router'
+import { useState, useEffect, useRef } from 'react'
+import { useNavigate, useParams } from 'react-router'
 import { BackHeader, LetterGrid, NoLetters, SkeletonCard } from '#/components'
 import { MyLettersWrapper, TitleStyle, BadgeStyle, GridContainer } from './MyLetters.styles'
 import { useTranslation } from 'react-i18next'
 import { useMyLettersQuery } from '#/api/myLetters'
 import { useRandomShakingCard } from '#/hooks/useRandomShakingCard'
 import { useInfiniteScroll } from '#/hooks/useInfiniteScroll'
-import { useState } from 'react'
 import { useInboxStatus } from '#/hooks'
+import { useAuthStore } from '#/store/authStore'
 
 const MyLetters = () => {
   const { uuid } = useParams()
   const { t } = useTranslation()
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const [_loadedMap, setLoadedMap] = useState<Record<string, boolean>>({})
+  const navigate = useNavigate()
+  const { accessToken } = useAuthStore()
 
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
     useMyLettersQuery(uuid ?? '')
@@ -33,6 +35,14 @@ const MyLetters = () => {
     fetchNextPage,
   })
 
+  useEffect(() => {
+    if (!accessToken) {
+      navigate(`/inbox/${uuid}`)
+    }
+  }, [accessToken, navigate, uuid])
+
+  if (!accessToken) return null
+
   return (
     <div css={MyLettersWrapper}>
       <BackHeader
@@ -48,7 +58,7 @@ const MyLetters = () => {
       ) : (
         <div css={GridContainer} ref={scrollContainerRef}>
           {isLoading || isFetching ? (
-            <SkeletonCard count={6} />
+            <SkeletonCard count={15} />
           ) : (
             <LetterGrid
               pages={data?.pages ?? []}

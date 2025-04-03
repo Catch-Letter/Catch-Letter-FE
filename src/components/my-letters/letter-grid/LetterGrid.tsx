@@ -1,12 +1,5 @@
 import LetterCard from '../letter-card/LetterCard'
-import { LetterData } from '#/types/myLetters'
-
-interface LetterGridProps {
-  pages: { data: LetterData[] }[]
-  shakingCard: number | null
-  uuid: string
-  onLoad?: (id: number, loaded: boolean) => void
-}
+import { LetterGridProps } from '#/types/myLetters'
 
 const LetterGrid = ({ pages, shakingCard, uuid, onLoad }: LetterGridProps) => {
   const letters = pages.flatMap((page) => page.data)

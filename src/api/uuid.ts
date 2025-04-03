@@ -6,7 +6,6 @@ export const fetchUUID = async (uuid: string) => {
     const res = await apiClient.get<Response>(API_ENDPOINTS.INFO_UUID(uuid))
     return res.data
   } catch (error) {
-    console.error(error)
     throw error
   }
 }

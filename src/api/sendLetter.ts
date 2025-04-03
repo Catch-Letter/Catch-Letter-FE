@@ -12,6 +12,6 @@ export const fetchSendLetter = async (uuid: string, id: number, letter: LetterIn
     })
     return res.data
   } catch (error) {
-    console.error('failed to send letter', error)
+    throw error
   }
 }

@@ -11,7 +11,7 @@ export const useTotalLetterCount = (uuid?: string) => {
         const res = await fetchUUID(uuid)
         setLetterCount(res.total_letter_count)
       } catch (error) {
-        console.error(error)
+        throw error
       }
     }
 

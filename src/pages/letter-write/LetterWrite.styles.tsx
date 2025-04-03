@@ -23,7 +23,7 @@ export const LetterWriteStyle = css`
       font-size: 16px;
       font-weight: 900;
       color: ${colors.grey[13]};
-      top: 8px;
+      top: 10px;
       left: 15px;
     }
   }

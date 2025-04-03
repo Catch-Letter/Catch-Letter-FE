@@ -6,6 +6,7 @@ export default function useInboxStatus(uuid: string) {
   const { data, isPending, error } = useQuery({
     queryKey: ['inbox-status', uuid],
     queryFn: () => fetchUUID(uuid),
+    retry: false,
   })
 
   if (!data) {
