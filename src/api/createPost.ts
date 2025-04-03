@@ -9,7 +9,6 @@ export const fetchCreatePost = async (name: string, password: string) => {
     })
     return res.data
   } catch (error) {
-    console.error('failed to create post', error)
     throw error
   }
 }

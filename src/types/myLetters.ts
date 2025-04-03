@@ -24,3 +24,19 @@ export interface LettersResponse {
   prev_cursor: string | null
   prev_page_url: string | null
 }
+
+// LetterGrid
+export interface LetterGridProps {
+  pages: { data: LetterData[] }[]
+  shakingCard: number | null
+  uuid: string
+  onLoad?: (id: number, loaded: boolean) => void
+}
+
+// LetterCard
+export interface LetterCardProps {
+  letter: LetterData
+  shakingCard: number | null
+  uuid: string
+  onLoad?: (id: number, loaded: boolean) => void
+}

@@ -22,7 +22,6 @@ export const extractColor = (etc: string | null | undefined) => {
         return colors.grey[9]
     }
   } catch (error) {
-    console.error('JSON 파싱 애러', error)
     return colors.grey[11]
   }
 }
@@ -34,7 +33,6 @@ export const extractColorToString = (etc: string | null | undefined) => {
     const validColors = ['green', 'blue', 'pink', 'violet', 'grey']
     return validColors.includes(parsedEtc.color) ? parsedEtc.color : 'grey'
   } catch (error) {
-    console.error('JSON 파싱 애러', error)
     return 'grey'
   }
 }

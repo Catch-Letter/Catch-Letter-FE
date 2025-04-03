@@ -12,6 +12,8 @@ const useFallingLetters = ({ ref, size }: FallingLettersHookArgs) => {
   const letters =
     size.width < 768
       ? Object.values(Letters)
+          .sort(() => Math.random() - 0.5)
+          .slice(0, 8)
       : Object.values(Letters).concat(Object.values(Letters))
 
   const engineRef = useRef<Matter.Engine | null>(null)

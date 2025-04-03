@@ -1,5 +1,6 @@
 import { authApiClient } from '#/api/apiClient'
 import { API_ENDPOINTS } from '#/api/apiEndpoints'
+import { useAuthStore } from '#/store/authStore'
 import { LettersResponse } from '#/types/myLetters'
 import { useInfiniteQuery } from '@tanstack/react-query'
 
@@ -21,12 +22,13 @@ export const fetchMyLetters = async ({
     })
     return res.data
   } catch (error) {
-    console.error('그림 편지 조회 실패', error)
     throw error
   }
 }
 
 export const useMyLettersQuery = (uuid: string) => {
+  const { accessToken } = useAuthStore()
+
   return useInfiniteQuery<LettersResponse>({
     queryKey: ['myLetters', uuid],
     queryFn: ({ pageParam }) =>
@@ -36,5 +38,6 @@ export const useMyLettersQuery = (uuid: string) => {
       }),
     initialPageParam: null,
     getNextPageParam: (lastPage) => lastPage?.next_cursor ?? null,
+    enabled: !!accessToken,
   })
 }

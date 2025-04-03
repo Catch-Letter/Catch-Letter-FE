@@ -3,6 +3,7 @@ import { Background, Button, Header } from '#/shared/ui'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import { CreatePostStyle, CreateWrapper } from './CreatePost.styles'
+import { Toast } from '#/components'
 
 const CreatePost = () => {
   const navigate = useNavigate()
@@ -28,6 +29,7 @@ const CreatePost = () => {
       >
         {t('create.createPost')}
       </Button>
+      <Toast offset='20vh' />
     </div>
   )
 }

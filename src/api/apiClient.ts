@@ -52,7 +52,6 @@ authApiClient.interceptors.response.use(
         return authApiClient(originalRequest)
       } catch (refreshError) {
         // refresh 시도 후에도 실패인 경우
-        console.error('토큰 갱신 실패', refreshError)
         deleteAccessToken()
         return Promise.reject(refreshError)
       }
