@@ -5,9 +5,11 @@ export type PatternType = 'default' | 'dot' | 'line' | 'grid'
 export type FontType = 'NotoSansKR' | 'Ownglyph' | 'NanumPen'
 
 interface LetterCreationStore {
+  receiver: string
   selectedColor: ColorType
   selectedPattern: PatternType
   selectedFont: FontType
+  setReceiver: (receiver: string) => void
   setSelectedColor: (color: ColorType) => void
   setSelectedPattern: (pattern: PatternType) => void
   setSelectedFont: (font: FontType) => void
@@ -15,12 +17,19 @@ interface LetterCreationStore {
 }
 
 export const useLetterCreationStore = create<LetterCreationStore>((set) => ({
+  receiver: '',
   selectedColor: 'grey',
   selectedPattern: 'default',
   selectedFont: 'NotoSansKR',
+  setReceiver: (receiver) => set({ receiver }),
   setSelectedColor: (color) => set({ selectedColor: color }),
   setSelectedPattern: (pattern) => set({ selectedPattern: pattern }),
   setSelectedFont: (font) => set({ selectedFont: font }),
   resetStore: () =>
-    set({ selectedColor: 'grey', selectedPattern: 'default', selectedFont: 'NotoSansKR' }),
+    set({
+      selectedColor: 'grey',
+      selectedPattern: 'default',
+      selectedFont: 'NotoSansKR',
+      receiver: '',
+    }),
 }))

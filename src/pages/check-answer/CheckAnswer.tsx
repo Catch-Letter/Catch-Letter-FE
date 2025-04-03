@@ -22,7 +22,6 @@ const CheckAnswer = () => {
   const { selectedColor } = useLetterCreationStore()
   const [isFlipped, setIsFlipped] = useState(false)
   const [answerLength, setAnswerLength] = useState(4)
-
   const [imageUrl, setImageUrl] = useState<string | null>(null)
   const [answer, setAnswer] = useState<string>('')
 
