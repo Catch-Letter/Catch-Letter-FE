@@ -10,6 +10,7 @@ const GlobalStyles = () => (
       ${fontStyles}
         
         body {
+        overflow: hidden;
         line-height: 140%;
         letter-spacing: -0.0025rem;
         background-color: #444;

@@ -24,6 +24,7 @@ export const BadgeStyle = css`
 `
 
 export const GridContainer = css`
+  height: 100vh;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
