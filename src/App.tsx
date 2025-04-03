@@ -35,7 +35,7 @@ const App = () => {
                   <Route path='drawing/:uuid' element={<Drawing />} />
                   <Route path='writeletter/:uuid/:id' element={<LetterWrite />} />
                   <Route path='choiceletter/:uuid/:id' element={<ChoiceLetter />} />
-                  <Route path='sendletter' element={<SendLetter />} />
+                  <Route path='sendletter/:uuid' element={<SendLetter />} />
                 </Route>
                 <Route path='/inbox/:uuid' element={<Inbox />} />
                 <Route path='/myletters/:uuid' element={<MyLetters />} />
