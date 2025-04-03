@@ -9,7 +9,6 @@ import {
   Drawing,
   MyLetters,
   NotFound,
-  Test,
   TryAnswer,
 } from '#/pages'
 import { Loading, ErrorBoundary } from '#/components'
@@ -28,7 +27,7 @@ const App = () => {
             <Routes>
               <Route path='/' element={<Layout />}>
                 <Route path='/' element={<CreatePost />} />
-                <Route path='/test' element={<Test />} />
+                <Route path='/drawing/:uuid' element={<Drawing />} />
                 <Route path='/writeletter/:uuid/:id' element={<LetterWrite />} />
                 <Route path='/choiceletter/:uuid/:id' element={<ChoiceLetter />} />
                 <Route path='/sendletter' element={<SendLetter />} />
@@ -38,7 +37,6 @@ const App = () => {
                 <Route path='/inbox/:uuid' element={<Inbox />} />
                 <Route path='/checkanswer/:uuid/:id' element={<CheckAnswer />} />
                 <Route path='/tryAnswer/:uuid/:id' element={<TryAnswer />} />
-                <Route path='/drawing/:uuid' element={<Drawing />} />
                 <Route path='*' element={<NotFound />} />
               </Route>
             </Routes>
