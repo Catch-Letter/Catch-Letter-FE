@@ -1,16 +1,9 @@
 import { useEffect, useState } from 'react'
 import { extractColor } from '#/types/extractColor'
-import { LetterData } from '#/types/myLetters'
 import { LetterCardStyle } from './LetterCard.styles'
 import Letter from '#/components/my-letters/letter/Letter'
 import { SkeletonCard } from '#/components/my-letters/skeleton-card'
-
-interface LetterCardProps {
-  letter: LetterData
-  shakingCard: number | null
-  uuid: string
-  onLoad?: (id: number, loaded: boolean) => void
-}
+import { LetterCardProps } from '#/types/myLetters'
 
 const LetterCard = ({ letter, shakingCard, uuid, onLoad }: LetterCardProps) => {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -38,11 +31,7 @@ const LetterCard = ({ letter, shakingCard, uuid, onLoad }: LetterCardProps) => {
   }, [thumbnailUrl])
 
   if (!isLoaded) {
-    return (
-      <div css={LetterCardStyle(shakingCard, letter.id, backgroundColor, '')}>
-        <SkeletonCard />
-      </div>
-    )
+    return <SkeletonCard />
   }
 
   return (
