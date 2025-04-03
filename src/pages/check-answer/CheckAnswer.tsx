@@ -17,7 +17,6 @@ import { useTranslation } from 'react-i18next'
 
 const CheckAnswer = () => {
   const { t } = useTranslation()
-
   const { uuid, id } = useParams()
   const { selectedColor } = useLetterCreationStore()
   const [isFlipped, setIsFlipped] = useState(false)

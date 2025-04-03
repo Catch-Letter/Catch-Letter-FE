@@ -2,12 +2,13 @@ import { FallingLetters, TextSection } from '#/components/inbox'
 import { useCountdownTimer, useInboxStatus } from '#/hooks'
 import { Background, Flex, Header } from '#/shared/ui'
 import { Button } from '#/shared/ui/button'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import { bottomButtonStyles, containerStyles, headerStyles } from '../Inbox.styles'
 import useModal from '#/hooks/useModal'
 import { ShareModal } from '#/components/share-modal'
+import { useLetterCreationStore } from '#/store/letterCreateStore'
 
 interface Props {
   uuid: string
@@ -15,11 +16,15 @@ interface Props {
 
 const LetterReciving: FC<Props> = ({ uuid }) => {
   const { name, expired_at, total_letter_count, inboxUrl } = useInboxStatus(uuid)
-
   const { leftTime } = useCountdownTimer(expired_at)
   const { isOpen, openModal, closeModal } = useModal()
+  const { setReceiver } = useLetterCreationStore()
   const navigate = useNavigate()
   const { t } = useTranslation()
+
+  useEffect(() => {
+    setReceiver(name)
+  }, [name, setReceiver])
 
   return (
     <div css={containerStyles}>
