@@ -12,47 +12,41 @@ export const checkAnswerWrapper = css`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 `
 
-export const CheckAnswerStyles = (isFlipped: boolean, imageUrl: string) => css`
+export const CheckAnswerStyles = (isFlipped: boolean) => css`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
-  width: 100%;
 
   .content {
-    padding: 16px 63px 34px;
-    display: grid;
+    flex-basis: 70%;
+    min-width: 70%;
+    min-height: 64vh;
+    margin: 16px 63px 34px;
+    box-sizing: border-box;
     position: relative;
     transition: transform 0.3s;
-    transform: perspective(800px) rotateY(${isFlipped ? '180deg' : '0deg'});
+    transform: rotateY(${isFlipped ? '180deg' : '0deg'});
     transform-style: preserve-3d;
-    height: 68%;
-    width: 70%;
+    perspective: 800px;
     cursor: pointer;
   }
 
   .cardFront,
   .cardBack {
-    grid-area: 1 / 1 / 1 / 1;
+    position: absolute;
     width: 100%;
     height: 100%;
-    max-height: 654px;
-    border-radius: 8px;
-    backface-visibility: hidden;
-    /* opacity: 0.8; */
   }
 
   .cardFront {
-    /* background-image: url(${imageUrl});
-    background-color: transparent; */
+    transform: rotateY(0deg);
   }
 
   .cardBack {
-    /* background-color: ${colors.grey[10]}; */
     transform: rotateY(180deg);
+    backface-visibility: hidden;
   }
 
   .notice-area {
@@ -77,18 +71,6 @@ export const CheckAnswerStyles = (isFlipped: boolean, imageUrl: string) => css`
     border: none;
     margin-bottom: 12px;
   }
-`
-
-export const LetterCardStyle = (backgroundImage: string) => css`
-  background-image: url(${backgroundImage});
-  background-color: white;
-  opacity: 0.8;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  width: 100%;
-  height: 100%;
-  border-radius: 24px;
 `
 
 export const SkeletonCardStyle = css`

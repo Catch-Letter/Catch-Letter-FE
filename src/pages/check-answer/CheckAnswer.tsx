@@ -12,12 +12,7 @@ import { extractColorToString } from '#/types/extractColor'
 import { useEffect, useMemo, useState } from 'react'
 import { IoTriangle } from 'react-icons/io5'
 import { useParams } from 'react-router'
-import {
-  CheckAnswerStyles,
-  checkAnswerWrapper,
-  LetterCardStyle,
-  SkeletonCardStyle,
-} from './CheckAnswer.styles'
+import { CheckAnswerStyles, checkAnswerWrapper, SkeletonCardStyle } from './CheckAnswer.styles'
 import { useTranslation } from 'react-i18next'
 
 const CheckAnswer = () => {
@@ -25,10 +20,8 @@ const CheckAnswer = () => {
 
   const { uuid, id } = useParams()
   const { selectedColor } = useLetterCreationStore()
-  // const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
   const [isFlipped, setIsFlipped] = useState(false)
   const [answerLength, setAnswerLength] = useState(4)
-
   const [imageUrl, setImageUrl] = useState<string | null>(null)
   const [answer, setAnswer] = useState<string>('')
 
@@ -83,7 +76,7 @@ const CheckAnswer = () => {
     <div css={checkAnswerWrapper}>
       <Background color={backgroundColor} />
       <BackHeader />
-      <div css={CheckAnswerStyles(isFlipped, imageUrl || '')}>
+      <div css={CheckAnswerStyles(isFlipped)}>
         <button className='btn-copy'>{t('checkAnswer.badge')}</button>
         {answerLoading ? (
           <p>{t('checkAnswer.loadingAnswer')}</p>
@@ -95,7 +88,9 @@ const CheckAnswer = () => {
         <div className='content' onClick={handleCardClick}>
           <div className='cardFront'>
             {imageUrl ? (
-              <div css={LetterCardStyle(imageUrl || '')}></div>
+              <LetterCard type={selectedColor}>
+                {<img src={imageUrl} alt={answer} width={'100%'} />}
+              </LetterCard>
             ) : (
               <div css={SkeletonCardStyle}>
                 <DotLoader color={colors.grey[9]} backgroundColor={colors.grey[3]} />

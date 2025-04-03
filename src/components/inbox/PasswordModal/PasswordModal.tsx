@@ -30,6 +30,8 @@ const PasswordModal: FC<Props> = ({
           label={t('enterPostPassword')}
           length={5}
           type='password'
+          inputMode='numeric'
+          pattern='[0-9]*'
           value={password}
           onChangeValue={onChangeValue}
         />

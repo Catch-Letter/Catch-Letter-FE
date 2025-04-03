@@ -12,7 +12,13 @@ export type ShareModalProps = Omit<ModalProps, 'children'> & {
 
 const ShareModal = ({ isOpen, url, onClose }: ShareModalProps) => {
   const { t } = useTranslation()
-  const { showToast } = useToastStore()
+  const { showToast, removeToast } = useToastStore()
+
+  const handleCloseModal = () => {
+    onClose()
+    removeToast()
+  }
+
   const copyLink = () => {
     showToast(t('create.copyLink') + ' ✨', 'success', 'modal')
     navigator.clipboard.writeText(url)
@@ -32,7 +38,7 @@ const ShareModal = ({ isOpen, url, onClose }: ShareModalProps) => {
           </div>
           <span className='desc'>{t('copySNS')}</span>
         </div>
-        <Button width={84} onClick={onClose}>
+        <Button width={84} onClick={handleCloseModal}>
           {t('close')}
         </Button>
       </div>
