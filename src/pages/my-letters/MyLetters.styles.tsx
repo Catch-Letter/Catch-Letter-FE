@@ -2,11 +2,11 @@ import { css } from '@emotion/react'
 import { colors } from '#/styles/color'
 
 export const MyLettersWrapper = css`
-  height: 100vh;
-  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   background-color: ${colors.grey[11]};
+  width: 100%;
 `
 
 export const TitleStyle = css`
