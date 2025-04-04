@@ -7,7 +7,7 @@ const useGetLetterData = (uuid: string, letterId: number) => {
     queryKey: ['letter', uuid, letterId],
     queryFn: () => letter(uuid, letterId),
     staleTime: Infinity,
-    cacheTime: 1000 * 60 * 30,
+    gcTime: 1000 * 60 * 30,
   } as UseQueryOptions<LetterResponse, Error, LetterResponse, [string, string, number]>)
 }
 
