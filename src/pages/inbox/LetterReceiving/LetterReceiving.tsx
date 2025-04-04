@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router'
 import { bottomButtonStyles, containerStyles, headerStyles } from '../Inbox.styles'
 import useModal from '#/hooks/useModal'
 import { ShareModal } from '#/components/share-modal'
-import { useLetterCreationStore } from '#/store/letterCreateStore'
 
 interface Props {
   uuid: string
@@ -16,13 +15,11 @@ interface Props {
 
 const LetterReciving: FC<Props> = ({ uuid }) => {
   const { name, expired_at, total_letter_count, inboxUrl } = useInboxStatus(uuid)
-  const { setReceiver } = useLetterCreationStore()
+
   const { leftTime } = useCountdownTimer(expired_at)
   const { isOpen, openModal, closeModal } = useModal()
   const navigate = useNavigate()
   const { t } = useTranslation()
-
-  if (name) setReceiver(name)
 
   return (
     <div css={containerStyles}>
