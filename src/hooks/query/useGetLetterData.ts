@@ -1,6 +1,5 @@
 import { letter } from '#/api/letter'
-import { LetterResponse } from '#/types/LetterInfo'
-import { useQuery, UseQueryOptions } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 
 const useGetLetterData = (uuid: string, letterId: number) => {
   return useQuery({
@@ -8,7 +7,7 @@ const useGetLetterData = (uuid: string, letterId: number) => {
     queryFn: () => letter(uuid, letterId),
     staleTime: Infinity,
     gcTime: 1000 * 60 * 30,
-  } as UseQueryOptions<LetterResponse, Error, LetterResponse, [string, string, number]>)
+  })
 }
 
 export default useGetLetterData
