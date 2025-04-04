@@ -58,7 +58,7 @@ const MyLetters = () => {
       ) : (
         <div css={GridContainer} ref={scrollContainerRef}>
           {isLoading || isFetching ? (
-            <SkeletonCard count={15} />
+            <SkeletonCard count={8} />
           ) : (
             <LetterGrid
               pages={data?.pages ?? []}
