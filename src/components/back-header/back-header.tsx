@@ -7,11 +7,18 @@ import { iconStyles } from './back-header.styles'
 interface Props extends ComponentProps<'header'> {
   Center?: ReactNode
   Right?: ReactNode
+  goBackPath?: string
 }
 
-const BackHeader: FC<Props> = ({ Center, Right, ...props }) => {
+const BackHeader: FC<Props> = ({ Center, Right, goBackPath, ...props }) => {
   const navigate = useNavigate()
-  const goBack = useCallback(navigate.bind(null, -1), [])
+  const goBack = useCallback(() => {
+    if (goBackPath) {
+      navigate(goBackPath)
+    } else {
+      navigate(-1)
+    }
+  }, [navigate, goBackPath])
 
   return (
     <Header
