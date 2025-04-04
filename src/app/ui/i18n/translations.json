@@ -91,7 +91,11 @@
     },
     "btnshare": {
       "KO": "내 우체통 공유하기!",
-      "EN": "Share My Mailbox!"
+      "EN": "Share my mailbox!"
+    },
+    "btnPost": {
+      "KO": "내 우체통 보러가기",
+      "EN": " Go check my mailbox"
     }
   },
 
