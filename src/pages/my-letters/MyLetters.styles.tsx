@@ -3,6 +3,7 @@ import { colors } from '#/styles/color'
 
 export const MyLettersWrapper = css`
   height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   background-color: ${colors.grey[11]};
@@ -24,10 +25,15 @@ export const BadgeStyle = css`
 `
 
 export const GridContainer = css`
-  height: 100vh;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   padding: 10px 16px;
   overflow-x: hidden;
+  overflow-y: auto;
+
+  & > div {
+    min-width: 0;
+    width: 100%;
+  }
 `
