@@ -12,10 +12,13 @@ import { useLetterCreationStore } from '#/store/letterCreateStore'
 
 interface Props {
   uuid: string
+  name: string
+  expired_at: string
+  total_letter_count: number
+  inboxUrl: string
 }
 
-const LetterReciving: FC<Props> = ({ uuid }) => {
-  const { name, expired_at, total_letter_count, inboxUrl } = useInboxStatus(uuid)
+const LetterReciving: FC<Props> = ({ uuid, name, expired_at, total_letter_count, inboxUrl }) => {
   const { leftTime } = useCountdownTimer(expired_at)
   const { isOpen, openModal, closeModal } = useModal()
   const { setReceiver } = useLetterCreationStore()

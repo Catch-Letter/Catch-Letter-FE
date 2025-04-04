@@ -13,13 +13,21 @@ const Inbox = () => {
     return
   }
 
-  const { isExpired, isPending, error } = useInboxStatus(uuid)
+  const inboxStatus = useInboxStatus(uuid)
 
-  if (isPending || error) {
+  if (inboxStatus.isPending || inboxStatus.error) {
     return
   }
 
-  return <>{isExpired ? <LetterReceived uuid={uuid} /> : <LetterReceiving uuid={uuid} />}</>
+  return (
+    <>
+      {inboxStatus.isExpired ? (
+        <LetterReceived uuid={uuid} {...inboxStatus} />
+      ) : (
+        <LetterReceiving uuid={uuid} {...inboxStatus} />
+      )}
+    </>
+  )
   // return <LetterReceived uuid={uuid} />
 }
 
