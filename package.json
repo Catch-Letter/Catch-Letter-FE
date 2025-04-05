@@ -9,8 +9,7 @@
     "lint": "eslint \"src/**/*.{ts,tsx}\" --fix",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "chromatic": "npx chromatic --project-token=안알랴줌"
+    "build-storybook": "storybook build"
   },
   "lint-staged": {
     "*.{js, jsx,ts,tsx}": [
