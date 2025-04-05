@@ -31,9 +31,14 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
   const [isComposing, setIsComposing] = useState(false)
 
   useEffect(() => {
-    // 화면에 보이는 순간 첫째 input에 focus
-    if (!autoFocus || !inputRefs.current || !inputRefs.current[0]) return
-    inputRefs.current[0].focus()
+    // 화면에 보이는 순간 비어 있는 첫째 input에 focus
+    if (!autoFocus || !inputRefs.current) return
+    for (const input of inputRefs.current) {
+      if (input && input.value === '') {
+        input.focus()
+        break
+      }
+    }
   }, [])
 
   const updateValues = (newValues: string[]) => {
