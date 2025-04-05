@@ -87,7 +87,7 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
     }
 
     //숫자만 입력 가능한 비밀번호
-    if (type === 'password' && isNaN(Number(e.key))) {
+    if (type === 'password' && /^[0-9]$/.test(e.key) === false) {
       e.preventDefault()
     }
   }
