@@ -20,21 +20,15 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
   length,
   type,
   onChangeValue,
-  value,
+  value = '',
   autoFocus = false,
   ...props
 }) => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([])
-  const [inputValues, setInputValues] = useState<string[]>(Array(length).fill(''))
+  const [inputValues, setInputValues] = useState<string[]>(() =>
+    Array.from({ length }, (_, i) => value[i] ?? '')
+  )
   const [isComposing, setIsComposing] = useState(false)
-
-  useEffect(() => {
-    if (value) {
-      const newValues = value.split('').slice(0, length)
-      const filledValues = [...newValues, ...Array(length - newValues.length).fill('')]
-      setInputValues(filledValues)
-    }
-  }, [length])
 
   useEffect(() => {
     // 화면에 보이는 순간 첫째 input에 focus
