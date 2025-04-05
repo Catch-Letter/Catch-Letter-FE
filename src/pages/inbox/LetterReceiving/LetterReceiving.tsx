@@ -47,7 +47,12 @@ const LetterReciving: FC<Props> = ({ uuid }) => {
         <Button onClick={() => navigate(`/drawing/${uuid}`)}>{t('inbox.goWrite')}</Button>
       </Flex>
       <FallingLetters />
-      <ShareModal url={inboxUrl as string} isOpen={isOpen} onClose={closeModal} />
+      <ShareModal
+        url={inboxUrl as string}
+        isOpen={isOpen}
+        onClose={closeModal}
+        onClickOverlay={closeModal}
+      />
     </div>
   )
 }
