@@ -12,6 +12,7 @@ export interface SeparatedInputProps extends InputHTMLAttributes<HTMLInputElemen
   type?: string
   onChangeValue?: (value: string) => void
   value?: string
+  autoFocus?: boolean
 }
 
 const SeparatedInput: React.FC<SeparatedInputProps> = ({
@@ -20,6 +21,7 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
   type,
   onChangeValue,
   value,
+  autoFocus = false,
   ...props
 }) => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([])
@@ -33,6 +35,12 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
       setInputValues(filledValues)
     }
   }, [length])
+
+  useEffect(() => {
+    // 화면에 보이는 순간 첫째 input에 focus
+    if (!autoFocus || !inputRefs.current || !inputRefs.current[0]) return
+    inputRefs.current[0].focus()
+  }, [])
 
   const updateValues = (newValues: string[]) => {
     setInputValues(newValues)

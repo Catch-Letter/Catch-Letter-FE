@@ -34,6 +34,7 @@ const PasswordModal: FC<Props> = ({
           pattern='[0-9]*'
           value={password}
           onChangeValue={onChangeValue}
+          autoFocus
         />
         <Button
           width={99}
