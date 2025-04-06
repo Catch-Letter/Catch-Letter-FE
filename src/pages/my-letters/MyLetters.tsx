@@ -17,8 +17,9 @@ const MyLetters = () => {
   const navigate = useNavigate()
   const { accessToken } = useAuthStore()
 
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
-    useMyLettersQuery(uuid ?? '')
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useMyLettersQuery(
+    uuid ?? ''
+  )
 
   const handleCardLoad = (id: number, loaded: boolean) => {
     setLoadedMap((prev) => ({ ...prev, [id]: loaded }))
