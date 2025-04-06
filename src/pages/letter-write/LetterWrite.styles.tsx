@@ -5,7 +5,7 @@ export const LetterWriteWrapper = css`
   background-color: ${colors.grey[13]};
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
 `
 export const LetterWriteStyle = css`
   display: flex;
