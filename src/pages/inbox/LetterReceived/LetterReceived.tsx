@@ -1,4 +1,5 @@
 // TODO: 비번 value 초기화시에 input ui에 적용되지 않는 문제 있음
+import { getPostInfo } from '#/api'
 import { Toast } from '#/components'
 import { FallingLetters, TextSection } from '#/components/inbox'
 import { PasswordModal } from '#/components/inbox/PasswordModal'
@@ -26,8 +27,14 @@ const LetterReceived: FC<Props> = ({ uuid, total_letter_count, incorrect_letter_
   const { t } = useTranslation()
 
   // 확인하기 버튼
-  const onClickCheckButton = useCallback(() => {
-    // TODO : access token 검증 단계 추가
+  const onClickCheckButton = useCallback(async () => {
+    const postInfo = await getPostInfo()
+
+    // 이미 로그인 되어 있는 경우
+    if (postInfo.uuid === uuid) {
+      navigate(`/myletters/${uuid}`)
+      return
+    }
 
     openModal()
   }, [])
