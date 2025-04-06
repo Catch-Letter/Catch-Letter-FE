@@ -13,11 +13,7 @@ interface Props extends ComponentProps<'header'> {
 const BackHeader: FC<Props> = ({ Center, Right, goBackPath, ...props }) => {
   const navigate = useNavigate()
   const goBack = useCallback(() => {
-    if (goBackPath) {
-      navigate(goBackPath)
-    } else {
-      navigate(-1)
-    }
+    goBackPath ? navigate(goBackPath) : navigate(-1)
   }, [navigate, goBackPath])
 
   return (
