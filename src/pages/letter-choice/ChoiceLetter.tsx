@@ -29,9 +29,8 @@ const ChoiceLetter = () => {
 
     try {
       const res = await fetchSendLetter(uuid, id, letterData)
-      navigate('/sendletter', {
+      navigate(`/sendletter/${uuid}`, {
         state: {
-          uuid,
           color: selectedColor,
           img: location.state?.img,
         },
@@ -62,7 +61,7 @@ const ChoiceLetter = () => {
       <Header Center={t('theme.title')} />
       <div css={ChoiceLetterStyle}>
         <div className='content'>
-          <LetterCard type={selectedColor} height='90%'>
+          <LetterCard type={selectedColor} height='100%'>
             <LetterContent
               {...letter}
               color={selectedColor}
