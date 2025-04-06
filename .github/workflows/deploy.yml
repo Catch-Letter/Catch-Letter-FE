@@ -1,0 +1,59 @@
+name: Auto Deploy to S3 + CloudFront
+
+on:
+  push:
+    branches:
+      - main  # main에 머지되면 운영 배포
+  pull_request:
+    branches:
+      - main
+      - develop  # 둘 다 PR 열릴 때 preview 배포
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      # 배포 경로 구분 (운영이면 root / preview면 /preview/pr-번호/)
+      - name: Set target path
+        id: vars
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "target_path=preview/pr-${{ github.event.pull_request.number }}/" >> $GITHUB_OUTPUT
+            echo "cf_path=/preview/pr-${{ github.event.pull_request.number }}/*" >> $GITHUB_OUTPUT
+          else
+            echo "target_path=" >> $GITHUB_OUTPUT
+            echo "cf_path=/*" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Upload to S3
+        env:
+          AWS_S3_BUCKET: ${{ secrets.BUCKET_NAME }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws s3 sync dist/ s3://$AWS_S3_BUCKET/${{ steps.vars.outputs.target_path }} --delete --region $AWS_REGION
+
+      - name: Invalidate CloudFront cache
+        uses: chetan/invalidate-cloudfront-action@v2
+        with:
+          distribution-id: ${{ secrets.CF_ID }}
+          paths: ${{ steps.vars.outputs.cf_path }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
