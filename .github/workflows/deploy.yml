@@ -3,11 +3,11 @@ name: Auto Deploy to S3 + CloudFront
 on:
   push:
     branches:
-      - main  # main에 머지되면 운영 배포
+      - main # main 브랜치에 머지되면 운영 배포
   pull_request:
     branches:
       - main
-      - develop  # 둘 다 PR 열릴 때 preview 배포
+      - develop # 둘 다 PR 열릴 때 preview 배포
 
 jobs:
   deploy:
@@ -28,7 +28,7 @@ jobs:
       - name: Build project
         run: npm run build
 
-      # 배포 경로 구분 (운영이면 root / preview면 /preview/pr-번호/)
+      # 배포 경로 구분: 운영이면 루트, preview면 pr-번호로
       - name: Set target path
         id: vars
         run: |
@@ -49,11 +49,25 @@ jobs:
         run: |
           aws s3 sync dist/ s3://$AWS_S3_BUCKET/${{ steps.vars.outputs.target_path }} --delete --region $AWS_REGION
 
+      # CloudFront 캐시 무효화 (직접 CLI 사용)
       - name: Invalidate CloudFront cache
-        uses: chetan/invalidate-cloudfront-action@v2
-        with:
-          distribution-id: ${{ secrets.CF_ID }}
-          paths: ${{ steps.vars.outputs.cf_path }}
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CF_ID }} \
+            --paths "${{ steps.vars.outputs.cf_path }}"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+
+      # PR일 경우, 댓글로 preview 링크 남기기
+      - name: Comment preview URL on PR
+        if: github.event_name == 'pull_request'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: preview-link
+          message: |
+            🚀 Preview 환경이 배포되었습니다!
+
+            👉 **확인하러 가기:**  
+            https://www.example.com/preview/pr-${{ github.event.pull_request.number }}/
