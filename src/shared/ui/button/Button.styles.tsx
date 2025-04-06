@@ -16,6 +16,9 @@ export const buttonStyle = ({ variant, width, full }: ButtonProps) => css`
   font-size: 18px;
   font-weight: 700;
   font-family: 'NotoSansKR';
+  opacity: 1;
+  transform: translateZ(0);
+  will-change: opacity, transform;
 
   &:hover:not(:disabled) {
     background-color: ${variant === 'primary' ? colors.neonGreen[8] : colors.grey[9]};

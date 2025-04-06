@@ -2,7 +2,7 @@
 import { Toast } from '#/components'
 import { FallingLetters, TextSection } from '#/components/inbox'
 import { PasswordModal } from '#/components/inbox/PasswordModal'
-import { useInboxStatus, useLogin, usePasswordModal } from '#/hooks'
+import { useLogin, usePasswordModal } from '#/hooks'
 import { Flex, Header } from '#/shared/ui'
 import { Button } from '#/shared/ui/button'
 import { useToastStore } from '#/store/toastStore'
@@ -13,10 +13,12 @@ import { bottomButtonStyles, containerStyles, headerStyles } from '../Inbox.styl
 
 interface Props {
   uuid: string
+  total_letter_count: number
+  incorrect_letter_count: number
+  name: string
 }
 
-const LetterReceived: FC<Props> = ({ uuid }) => {
-  const { total_letter_count, incorrect_letter_count, name } = useInboxStatus(uuid)
+const LetterReceived: FC<Props> = ({ uuid, total_letter_count, incorrect_letter_count, name }) => {
   const { isOpen, openModal, closeModal, password, initializePassword, onPasswordChange } =
     usePasswordModal()
   const navigate = useNavigate()
