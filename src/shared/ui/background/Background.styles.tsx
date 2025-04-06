@@ -6,7 +6,7 @@ export const backgroundStyle = (color?: keyof typeof colors) => css`
   position: fixed;
   width: 100%;
   max-width: 768px;
-  height: 100vh;
+  height: 100%;
   background: ${getBackgroundColor(color)};
   margin: 0 auto;
   z-index: ${ZIndex.zigzagBackground};

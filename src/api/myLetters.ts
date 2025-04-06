@@ -7,7 +7,7 @@ import { useInfiniteQuery } from '@tanstack/react-query'
 export const fetchMyLetters = async ({
   cursor,
   uuid,
-  perPage = 15,
+  perPage = 8,
 }: {
   cursor?: string | null
   uuid: string

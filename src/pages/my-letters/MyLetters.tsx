@@ -17,8 +17,9 @@ const MyLetters = () => {
   const navigate = useNavigate()
   const { accessToken } = useAuthStore()
 
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
-    useMyLettersQuery(uuid ?? '')
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useMyLettersQuery(
+    uuid ?? ''
+  )
 
   const handleCardLoad = (id: number, loaded: boolean) => {
     setLoadedMap((prev) => ({ ...prev, [id]: loaded }))
@@ -57,8 +58,8 @@ const MyLetters = () => {
         <NoLetters />
       ) : (
         <div css={GridContainer} ref={scrollContainerRef}>
-          {isLoading || isFetching ? (
-            <SkeletonCard count={15} />
+          {isLoading ? (
+            <SkeletonCard count={8} />
           ) : (
             <LetterGrid
               pages={data?.pages ?? []}
@@ -67,6 +68,7 @@ const MyLetters = () => {
               onLoad={handleCardLoad}
             />
           )}
+          {isFetchingNextPage && <SkeletonCard count={8} />}
         </div>
       )}
     </div>

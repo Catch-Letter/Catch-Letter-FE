@@ -172,6 +172,7 @@ const Canvas = forwardRef<Konva.Stage, CanvasProps>(({ stageRef, lines, setLines
                 strokeWidth={line.isEraser ? 20 : 4}
                 lineCap='round'
                 globalCompositeOperation={line.isEraser ? 'destination-out' : 'source-over'}
+                isEraser={line.isEraser}
               />
             ))}
           </Layer>
