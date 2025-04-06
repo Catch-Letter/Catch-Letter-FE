@@ -13,6 +13,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       pull-requests: write
 
     steps:
@@ -79,6 +80,6 @@ jobs:
             🚀 Preview 환경이 배포되었습니다!
 
             👉 **확인하러 가기:**  
-            https://www.example.com/preview/pr-${{ github.event.pull_request.number }}/
+            https://catchletter.kr/preview/pr-${{ github.event.pull_request.number }}/
         env:
           GITHUB_TOKEN: ${{ github.token }}
