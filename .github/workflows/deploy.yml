@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      pull-requests: write
+      pull-requests: write # PR 댓글을 달기 위해 필요
 
     steps:
       - name: Checkout code
@@ -35,9 +35,6 @@ jobs:
           echo "VITE_KAKAO_KEY=${{ secrets.VITE_KAKAO_KEY }}" >> .env.production
           echo "VITE_KAKAO_TEMPLATE_KEY=${{ secrets.VITE_KAKAO_TEMPLATE_KEY }}" >> .env.production
 
-      - name: Build project
-        run: npm run build
-
       # 배포 경로 구분: 운영이면 루트, preview면 pr-번호로
       - name: Set target path
         id: vars
@@ -50,6 +47,13 @@ jobs:
             echo "cf_path=/*" >> $GITHUB_OUTPUT
           fi
 
+      # Vite가 preview base 경로로 빌드할 수 있도록 환경변수 등록
+      - name: Set PR_PREVIEW_PATH for Vite base
+        run: echo "PR_PREVIEW_PATH=/${{ steps.vars.outputs.target_path }}" >> $GITHUB_ENV
+
+      - name: Build project
+        run: npm run build
+
       - name: Upload to S3
         env:
           AWS_S3_BUCKET: ${{ secrets.BUCKET_NAME }}
@@ -59,7 +63,6 @@ jobs:
         run: |
           aws s3 sync dist/ s3://$AWS_S3_BUCKET/${{ steps.vars.outputs.target_path }} --delete --region $AWS_REGION
 
-      # CloudFront 캐시 무효화 (직접 CLI 사용)
       - name: Invalidate CloudFront cache
         run: |
           aws cloudfront create-invalidation \
