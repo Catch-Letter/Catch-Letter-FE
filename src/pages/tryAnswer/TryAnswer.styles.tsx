@@ -32,7 +32,7 @@ const glowAnimation = keyframes`
 
 export const tryAnswerWrapper = css`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
 `
@@ -41,7 +41,7 @@ export const TryAnswerStyle = css`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  height: 100%;
 
   .Input-area {
     margin-top: 16px;

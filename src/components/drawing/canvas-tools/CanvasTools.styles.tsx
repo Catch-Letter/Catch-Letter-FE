@@ -29,7 +29,7 @@ export const IconWrapper = css`
     }
 
     &.active {
-      border: 3px solid #ccff1b;
+      border: 3px solid ${colors.neonGreen[3]};
       background-color: ${colors.white};
       transition: border 0.2s ease-in-out;
     }

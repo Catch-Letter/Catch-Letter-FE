@@ -112,7 +112,7 @@ const TryAnswer = () => {
         <div className='button-area'>
           <Button
             onClick={isCorrect ? handleNavigate : handleTryAnswer}
-            disabled={chances === 0}
+            disabled={chances === 0 || inputValue.length < answerLength}
             width={142}
           >
             {isCorrect ? t('tryAnswer.checkAnswer') : t('tryAnswer.submit')}

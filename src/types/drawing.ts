@@ -20,6 +20,7 @@ interface KonvaLineNode {
     points: number[]
     stroke?: string
     strokeWidth?: number
+    isEraser?: boolean
   }
 }
 

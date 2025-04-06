@@ -1,5 +1,5 @@
 import { FallingLetters, TextSection } from '#/components/inbox'
-import { useCountdownTimer, useInboxStatus } from '#/hooks'
+import { useCountdownTimer } from '#/hooks'
 import { Background, Flex, Header } from '#/shared/ui'
 import { Button } from '#/shared/ui/button'
 import { FC, useEffect } from 'react'

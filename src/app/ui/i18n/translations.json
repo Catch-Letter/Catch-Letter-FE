@@ -146,6 +146,10 @@
     "invalidMessage3": {
       "KO": "특수문자 및 띄어쓰기는 사용할 수 없어요! :(",
       "EN": "You can't use special characters and spaces! :("
+    },
+    "invalidMessage4": {
+      "KO": "정확한 단어를 입력해주세요! :(",
+      "EN": "Please enter a valid word! :("
     }
   },
 
