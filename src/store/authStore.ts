@@ -1,12 +1,23 @@
 import { create } from 'zustand'
-interface AuthStore {
+import { persist } from 'zustand/middleware'
+
+interface State {
   accessToken: string
+}
+interface Actions {
   deleteAccessToken: () => void
   setAccessToken: (accessToken: string) => void
 }
 
-export const useAuthStore = create<AuthStore>((set) => ({
-  accessToken: '',
-  deleteAccessToken: () => set({ accessToken: '' }),
-  setAccessToken: (accessToken) => set({ accessToken }),
-}))
+export const useAuthStore = create<State & Actions>()(
+  persist(
+    (set) => ({
+      accessToken: '',
+      deleteAccessToken: () => set({ accessToken: '' }),
+      setAccessToken: (accessToken) => set({ accessToken }),
+    }),
+    {
+      name: 'auth',
+    }
+  )
+)
