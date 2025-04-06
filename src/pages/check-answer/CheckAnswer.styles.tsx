@@ -9,7 +9,7 @@ const floatingText = keyframes`
 
 export const checkAnswerWrapper = css`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
 `
@@ -77,11 +77,11 @@ export const SkeletonCardStyle = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
   top: 16px;
   left: 63px;
-  width: calc(100% - 126px);
-  height: calc(100% - 50px);
+  margin: 0 auto;
+  width: 100%;
+  min-height: 64vh;
   border-radius: 24px;
   background-color: ${colors.grey[3]};
   background-size: 200% 100%;

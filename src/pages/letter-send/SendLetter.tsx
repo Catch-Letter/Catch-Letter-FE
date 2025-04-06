@@ -3,12 +3,13 @@ import { Background, Header } from '#/shared/ui'
 import { Button } from '#/shared/ui/button'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useLocation, useNavigate } from 'react-router'
+import { useLocation, useNavigate, useParams } from 'react-router'
 import { SendLetterStyle, sendLetterWrapper } from './SendLetter.styles'
 
 const SendLetter = () => {
   const navigate = useNavigate()
   const location = useLocation()
+  const { uuid } = useParams()
   const { t } = useTranslation()
   const info = location.state
   const [imageUrl, setImageUrl] = useState('')
@@ -18,7 +19,7 @@ const SendLetter = () => {
   }
 
   const handleNewPost = () => {
-    navigate(`/inbox/${info.uuid}`)
+    navigate(`/inbox/${uuid}`)
   }
 
   useEffect(() => {

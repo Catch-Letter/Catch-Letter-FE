@@ -1,5 +1,5 @@
 import { ShareItems } from '#/components/share-modal/shareItem'
-import { ShareModalStyle, ShareModalContainer } from '#/components/share-modal/ShareModal.styles'
+import { ShareModalContainer, ShareModalStyle } from '#/components/share-modal/ShareModal.styles'
 import { Toast } from '#/components/toast'
 import { Button, Modal, ModalProps } from '#/shared/ui'
 import { useToastStore } from '#/store/toastStore'
@@ -10,7 +10,7 @@ export type ShareModalProps = Omit<ModalProps, 'children'> & {
   onClose: () => void
 }
 
-const ShareModal = ({ isOpen, url, onClose }: ShareModalProps) => {
+const ShareModal = ({ isOpen, url, onClose, onClickOverlay }: ShareModalProps) => {
   const { t } = useTranslation()
   const { showToast, removeToast } = useToastStore()
 
@@ -25,7 +25,7 @@ const ShareModal = ({ isOpen, url, onClose }: ShareModalProps) => {
   }
 
   return (
-    <Modal isOpen={isOpen}>
+    <Modal isOpen={isOpen} onClickOverlay={onClickOverlay}>
       <div css={ShareModalStyle}>
         <div css={ShareModalContainer}>
           <div className='title'>{t('shareOnSNS')}</div>

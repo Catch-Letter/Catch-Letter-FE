@@ -3,7 +3,7 @@ import { css } from '@emotion/react'
 
 export const ErrorContainer = css`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background-color: ${colors.grey[11]};
   display: flex;
   flex-direction: column;
