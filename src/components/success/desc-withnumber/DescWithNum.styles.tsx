@@ -10,14 +10,14 @@ export const DescWithNumWrapper = (width: string) => css`
   .number {
     width: 24px;
     height: 24px;
-    border-radius: 100%;
+    border-radius: 50%;
     text-align: center;
     background-color: #4e4e4e;
     color: ${colors.white};
     font-size: 14px;
     font-weight: 500;
     line-hegiht: 24px;
-    margin-top: 1px;
+    margin-top: 3px;
   }
 
   .desc {
@@ -25,6 +25,6 @@ export const DescWithNumWrapper = (width: string) => css`
     width: ${width ? width : '100%'};
     font-size: 24px;
     font-weight: 700;
-    line-height: 110%;
+    line-height: 130%;
   }
 `
