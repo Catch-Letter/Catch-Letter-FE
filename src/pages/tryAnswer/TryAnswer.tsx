@@ -72,6 +72,9 @@ const TryAnswer = () => {
           isCorrect={isCorrect}
           message={responseMessage}
         />
+        <div className='Answer-area'>
+          <SeparatedInput length={answerLength} />
+        </div>
         <div
           className={`LetterCard-container ${isShaking ? 'shake' : ''} ${isCorrect ? 'glowing' : ''}`}
           css={letterCardContainer}
@@ -107,12 +110,14 @@ const TryAnswer = () => {
           )}
         </div>
         <div className='Input-area'>
-          {/* <SeparatedInput length={answerLength} onChangeValue={handleInputChange} /> */}
-          <InputField
-            placeholder={t('tryAnswer.inputPlaceholder')}
-            maxLength={answerLength}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
-          />
+          <div className='Input-wrapper'>
+            <InputField
+              maxLength={answerLength}
+              value={inputValue}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
+            />
+            <span className='Input-length'>{`${inputValue.length} / ${answerLength}`}</span>
+          </div>
         </div>
         <div className='button-area'>
           <Button

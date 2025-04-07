@@ -33,21 +33,6 @@ const useTryAnswer = () => {
     }
   }, [drawData])
 
-  useEffect(() => {
-    if (chances === 0) {
-      setTimeLeft(180)
-      const timer = setInterval(() => {
-        setTimeLeft((prev) => {
-          if (prev && prev > 0) return prev - 1
-          clearInterval(timer)
-          setChances(maxChances)
-          return null
-        })
-      }, 1000)
-      return () => clearInterval(timer)
-    }
-  }, [chances])
-
   //정답 상태 가져오기
   useEffect(() => {
     if (answerStatusData) {
@@ -60,10 +45,29 @@ const useTryAnswer = () => {
         const remainingChances = extractRemainingChances(answerStatusData.message)
 
         setResponseMessage(t('tryAnswer.remainingAttempts', { chance: remainingChances }))
-        setChances(3 - answerStatusData.data.try)
+        if (!answerStatusData.data.remaining_seconds) {
+          setChances(3 - answerStatusData.data.try)
+        } else {
+          setChances(0)
+        }
       }
     }
   }, [answerStatusData])
+
+  useEffect(() => {
+    if (chances === 0) {
+      setTimeLeft(answerStatusData.data.remaining_seconds)
+      const timer = setInterval(() => {
+        setTimeLeft((prev) => {
+          if (prev && prev > 0) return prev - 1
+          clearInterval(timer)
+          setChances(maxChances)
+          return null
+        })
+      }, 1000)
+      return () => clearInterval(timer)
+    }
+  }, [chances])
 
   const handleWrongAttempt = () => {
     if (chances > 0) {

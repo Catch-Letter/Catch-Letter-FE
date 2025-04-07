@@ -46,6 +46,9 @@ export const TryAnswerStyle = css`
   .Input-area {
     margin-top: 16px;
   }
+  .Answer-area {
+    margin-bottom: 16px;
+  }
 
   .button-area {
     display: flex;
@@ -58,6 +61,21 @@ export const TryAnswerStyle = css`
 
     width: 70%;
     height: 70%;
+  }
+
+  .Input-wrapper {
+    position: relative;
+    width: fit-content;
+  }
+
+  .Input-length {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: ${colors.grey[11]};
+    pointer-events: none;
   }
 
   .shake {
