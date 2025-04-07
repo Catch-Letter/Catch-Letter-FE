@@ -114,6 +114,7 @@ const TryAnswer = () => {
               maxLength={answerLength}
               value={inputValue}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
+              placeholder={t('tryAnswer.inputPlaceholder')}
             />
             <span className='Input-length'>{`${inputValue.length} / ${answerLength}`}</span>
           </div>
