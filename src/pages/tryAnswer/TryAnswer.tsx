@@ -12,7 +12,6 @@ import {
   tryAnswerWrapper,
 } from '#/pages/tryAnswer/TryAnswer.styles'
 import { Background, Button, DotLoader, InputField } from '#/shared/ui'
-import SeparatedInput from '#/shared/ui/separated-input/separated-input'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { colors } from '#/styles/color'
 import { useState } from 'react'
