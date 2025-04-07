@@ -1,7 +1,12 @@
 import { authApiClient } from '#/api/apiClient'
 import { API_ENDPOINTS } from '#/api/apiEndpoints'
+import { TryAnswerResponse } from '#/types/tryAnswer'
 
-export const postTryAnswer = async (uuid: string, letterId: number, answer: string) => {
+export const postTryAnswer = async (
+  uuid: string,
+  letterId: number,
+  answer: string
+): Promise<TryAnswerResponse> => {
   try {
     const res = await authApiClient.post(API_ENDPOINTS.TRY_ANSWER(uuid, letterId), { answer })
 
@@ -16,7 +21,12 @@ export const postTryAnswer = async (uuid: string, letterId: number, answer: stri
         message: res.data?.message ?? '틀렸습니다. 다시 시도하세요!',
         remainingAttempts: res.data?.data?.try ?? 0,
         hints: res.data?.data?.hints ?? [],
+        remaining_seconds: res.data?.data?.remaining_seconds ?? 0,
       }
+    }
+    return {
+      success: false,
+      message: '응답이 예상과 다릅니다.',
     }
   } catch (error) {
     return {

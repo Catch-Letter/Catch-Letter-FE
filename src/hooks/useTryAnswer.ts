@@ -6,6 +6,7 @@ import { extractRemainingChances } from '#/shared/utils'
 import { extractFontStyle } from '#/shared/utils/extractFontStyle'
 import { extractPatternStyle } from '#/shared/utils/extractPattern'
 import { extractColorToString } from '#/types/extractColor'
+import { TryAnswerResponse } from '#/types/tryAnswer'
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
@@ -22,6 +23,7 @@ const useTryAnswer = () => {
   const [isShaking, setIsShaking] = useState(false)
   const [timeLeft, setTimeLeft] = useState<number | null>(null)
   const [isFlipped, setIsFlipped] = useState(false)
+  const [response, setResponse] = useState<TryAnswerResponse | null>(null)
 
   const { data: letterData } = useGetLetterData(uuid!, Number(id!))
   const { data: drawData } = useGetDrawData(uuid!, Number(id!))
@@ -55,8 +57,13 @@ const useTryAnswer = () => {
   }, [answerStatusData])
 
   useEffect(() => {
-    if (chances === 0) {
-      setTimeLeft(answerStatusData.data.remaining_seconds)
+    if (
+      (chances === 0 && answerStatusData.data.remaining_seconds) ||
+      (chances === 0 && response?.remaining_seconds)
+    ) {
+      const remainingSeconds =
+        response?.remaining_seconds || answerStatusData.data.remaining_seconds
+      setTimeLeft(remainingSeconds)
       const timer = setInterval(() => {
         setTimeLeft((prev) => {
           if (prev && prev > 0) return prev - 1
@@ -69,9 +76,15 @@ const useTryAnswer = () => {
     }
   }, [chances])
 
-  const handleWrongAttempt = () => {
+  const handleWrongAttempt = (remaining_seconds: number) => {
     if (chances > 0) {
-      setChances(chances - 1)
+      setChances((prevChances) => {
+        const newChances = prevChances - 1
+        if (newChances === 0) {
+          setTimeLeft(remaining_seconds)
+        }
+        return newChances
+      })
       setIsShaking(true)
       setTimeout(() => setIsShaking(false), 500)
     }
@@ -88,13 +101,16 @@ const useTryAnswer = () => {
         return
       }
 
+      setResponse(response)
+
       if (response.success) {
         setIsCorrect(true)
         setResponseMessage(t('tryAnswer.correctAnswer'))
         setButtonText(t('tryAnswer.checkAnswer'))
         setIsFlipped(true)
       } else {
-        handleWrongAttempt()
+        const remainingSeconds = response.remaining_seconds ?? 0
+        handleWrongAttempt(remainingSeconds)
         const remainingChances = extractRemainingChances(response.message)
         setResponseMessage(t('tryAnswer.remainingAttempts', { chance: remainingChances }))
         setButtonText(t('tryAnswer.submit'))
@@ -109,7 +125,6 @@ const useTryAnswer = () => {
     if (isCorrect) {
       setIsFlipped((prev) => !prev)
     }
-    // setIsFlipped((prev) => !prev)
   }
 
   const backgroundColor = useMemo(() => {

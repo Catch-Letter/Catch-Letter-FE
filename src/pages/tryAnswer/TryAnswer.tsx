@@ -59,6 +59,7 @@ const TryAnswer = () => {
 
   const handleTryAnswer = () => {
     tryAnswer(inputValue)
+    console.log(chances)
   }
 
   return (
