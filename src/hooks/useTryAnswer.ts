@@ -145,6 +145,8 @@ const useTryAnswer = () => {
 
   const cycle = answerStatusData?.data?.cycle ?? 1
 
+  const hints = answerStatusData?.data?.hints ?? []
+
   return {
     imageUrl,
     drawData,
@@ -162,6 +164,7 @@ const useTryAnswer = () => {
     fontStlye,
     handleCardClick,
     cycle,
+    hints,
   }
 }
 

@@ -10,8 +10,8 @@ interface TryCounterProps {
   isCorrect: boolean
   message: string | null
   cycle: number
-
   answerLength: number
+  hints: Array<{ index: number; value: string }>
 }
 
 const TryCounter: React.FC<TryCounterProps> = ({
@@ -21,6 +21,7 @@ const TryCounter: React.FC<TryCounterProps> = ({
   message,
   cycle,
   answerLength,
+  hints,
 }) => {
   const { t } = useTranslation()
 
@@ -33,6 +34,12 @@ const TryCounter: React.FC<TryCounterProps> = ({
   const emojiArray = Array(3 - chances)
     .fill(failedEmoji)
     .concat(Array(chances).fill(successEmoji))
+
+  const answerHint = Array(answerLength).fill(' ')
+  hints.forEach((hint) => {
+    answerHint[hint.index] = hint.value
+  })
+  const answerString = answerHint.join('')
 
   return (
     <div css={TryCounterStyle}>
@@ -55,7 +62,7 @@ const TryCounter: React.FC<TryCounterProps> = ({
       </div>
       <p className='Text'>
         {cycle > 1 ? (
-          <SeparatedInput length={answerLength} />
+          <SeparatedInput length={answerLength} value={answerString} />
         ) : isCorrect ? (
           t('tryAnswer.passwordUnlock')
         ) : chances === 0 ? (

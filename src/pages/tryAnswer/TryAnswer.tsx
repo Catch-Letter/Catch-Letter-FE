@@ -46,11 +46,8 @@ const TryAnswer = () => {
     fontStlye,
     handleCardClick,
     cycle,
+    hints,
   } = useTryAnswer()
-
-  const handleInputChange = (value: string) => {
-    setInputValue(value)
-  }
 
   const handleNavigate = () => {
     if (isCorrect) {
@@ -74,6 +71,7 @@ const TryAnswer = () => {
           message={responseMessage}
           cycle={cycle}
           answerLength={answerLength}
+          hints={hints}
         />
 
         <div
