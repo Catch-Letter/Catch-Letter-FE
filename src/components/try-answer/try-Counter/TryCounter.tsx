@@ -1,5 +1,6 @@
 import { failedEmoji, successEmoji } from '#/assets/emoji'
 import { TryCounterStyle } from '#/components/try-answer/try-Counter/TryCounter.styles'
+import { SeparatedInput } from '#/shared/ui'
 import { extractRemainingChances } from '#/shared/utils/extractRemainingChances'
 import { useTranslation } from 'react-i18next'
 
@@ -8,9 +9,19 @@ interface TryCounterProps {
   timeLeft: number | null
   isCorrect: boolean
   message: string | null
+  cycle: number
+
+  answerLength: number
 }
 
-const TryCounter: React.FC<TryCounterProps> = ({ chances, timeLeft, isCorrect, message }) => {
+const TryCounter: React.FC<TryCounterProps> = ({
+  chances,
+  timeLeft,
+  isCorrect,
+  message,
+  cycle,
+  answerLength,
+}) => {
   const { t } = useTranslation()
 
   const translatedMessage = isCorrect
@@ -43,11 +54,15 @@ const TryCounter: React.FC<TryCounterProps> = ({ chances, timeLeft, isCorrect, m
         )}
       </div>
       <p className='Text'>
-        {isCorrect
-          ? t('tryAnswer.passwordUnlock')
-          : chances === 0
-            ? t('tryAnswer.tryAgain')
-            : translatedMessage}
+        {cycle > 1 ? (
+          <SeparatedInput length={answerLength} />
+        ) : isCorrect ? (
+          t('tryAnswer.passwordUnlock')
+        ) : chances === 0 ? (
+          t('tryAnswer.tryAgain')
+        ) : (
+          translatedMessage
+        )}
       </p>
     </div>
   )

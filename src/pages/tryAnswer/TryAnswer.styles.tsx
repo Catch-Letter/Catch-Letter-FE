@@ -46,9 +46,6 @@ export const TryAnswerStyle = css`
   .Input-area {
     margin-top: 16px;
   }
-  .Answer-area {
-    margin-bottom: 16px;
-  }
 
   .button-area {
     display: flex;

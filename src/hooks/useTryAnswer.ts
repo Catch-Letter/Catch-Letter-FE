@@ -28,6 +28,7 @@ const useTryAnswer = () => {
   const { data: letterData } = useGetLetterData(uuid!, Number(id!))
   const { data: drawData } = useGetDrawData(uuid!, Number(id!))
   const { data: answerStatusData } = useGetAnswerStatus(uuid!, Number(id!))
+
   //그림가져오기
   useEffect(() => {
     if (drawData && drawData.data.presigned_url) {
@@ -142,6 +143,8 @@ const useTryAnswer = () => {
     return extractPatternStyle(etc)
   }, [letterData])
 
+  const cycle = answerStatusData?.data?.cycle ?? 1
+
   return {
     imageUrl,
     drawData,
@@ -158,6 +161,7 @@ const useTryAnswer = () => {
     patternStyle,
     fontStlye,
     handleCardClick,
+    cycle,
   }
 }
 

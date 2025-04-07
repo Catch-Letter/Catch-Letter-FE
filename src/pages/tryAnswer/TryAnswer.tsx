@@ -45,6 +45,7 @@ const TryAnswer = () => {
     patternStyle,
     fontStlye,
     handleCardClick,
+    cycle,
   } = useTryAnswer()
 
   const handleInputChange = (value: string) => {
@@ -59,7 +60,6 @@ const TryAnswer = () => {
 
   const handleTryAnswer = () => {
     tryAnswer(inputValue)
-    console.log(chances)
   }
 
   return (
@@ -72,10 +72,10 @@ const TryAnswer = () => {
           timeLeft={timeLeft}
           isCorrect={isCorrect}
           message={responseMessage}
+          cycle={cycle}
+          answerLength={answerLength}
         />
-        <div className='Answer-area'>
-          <SeparatedInput length={answerLength} />
-        </div>
+
         <div
           className={`LetterCard-container ${isShaking ? 'shake' : ''} ${isCorrect ? 'glowing' : ''}`}
           css={letterCardContainer}
