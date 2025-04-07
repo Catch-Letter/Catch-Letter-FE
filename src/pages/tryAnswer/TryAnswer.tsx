@@ -11,7 +11,7 @@ import {
   TryAnswerStyle,
   tryAnswerWrapper,
 } from '#/pages/tryAnswer/TryAnswer.styles'
-import { Background, Button, DotLoader } from '#/shared/ui'
+import { Background, Button, DotLoader, InputField } from '#/shared/ui'
 import SeparatedInput from '#/shared/ui/separated-input/separated-input'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { colors } from '#/styles/color'
@@ -107,7 +107,12 @@ const TryAnswer = () => {
           )}
         </div>
         <div className='Input-area'>
-          <SeparatedInput length={answerLength} onChangeValue={handleInputChange} />
+          {/* <SeparatedInput length={answerLength} onChangeValue={handleInputChange} /> */}
+          <InputField
+            placeholder={t('tryAnswer.inputPlaceholder')}
+            maxLength={answerLength}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
+          />
         </div>
         <div className='button-area'>
           <Button
