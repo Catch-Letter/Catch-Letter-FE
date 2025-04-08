@@ -1,4 +1,5 @@
 // TODO: 비번 value 초기화시에 input ui에 적용되지 않는 문제 있음
+import { getPostInfo } from '#/api'
 import { Toast } from '#/components'
 import { FallingLetters, TextSection } from '#/components/inbox'
 import { PasswordModal } from '#/components/inbox/PasswordModal'
@@ -30,6 +31,12 @@ const LetterReceived: FC<Props> = ({ uuid, total_letter_count, incorrect_letter_
     try {
       // 이미 로그인 되어 있는 경우
       const postInfo = await getPostInfo()
+
+      // 이미 로그인 되어 있는 경우
+      if (postInfo.uuid === uuid) {
+        navigate(`/myletters/${uuid}`)
+        return
+      }
 
       if (postInfo.uuid === uuid) {
         navigate(`/myletters/${uuid}`)
