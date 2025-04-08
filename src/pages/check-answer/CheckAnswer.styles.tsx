@@ -22,7 +22,7 @@ export const CheckAnswerStyles = (isFlipped: boolean) => css`
   .content {
     flex-basis: 70%;
     min-width: 70%;
-    min-height: 64vh;
+    min-height: 64dvh;
     margin: 16px 63px 34px;
     box-sizing: border-box;
     position: relative;
@@ -81,7 +81,7 @@ export const SkeletonCardStyle = css`
   left: 63px;
   margin: 0 auto;
   width: 100%;
-  min-height: 64vh;
+  min-height: 64dvh;
   border-radius: 24px;
   background-color: ${colors.grey[3]};
   background-size: 200% 100%;
