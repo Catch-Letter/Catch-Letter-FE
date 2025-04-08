@@ -26,10 +26,18 @@ const LetterReceived: FC<Props> = ({ uuid, total_letter_count, incorrect_letter_
   const { t } = useTranslation()
 
   // 확인하기 버튼
-  const onClickCheckButton = useCallback(() => {
-    // TODO : access token 검증 단계 추가
+  const onClickCheckButton = useCallback(async () => {
+    try {
+      // 이미 로그인 되어 있는 경우
+      const postInfo = await getPostInfo()
 
-    openModal()
+      if (postInfo.uuid === uuid) {
+        navigate(`/myletters/${uuid}`)
+        return
+      }
+    } catch {
+      openModal()
+    }
   }, [])
 
   // modal

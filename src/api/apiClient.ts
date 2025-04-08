@@ -1,4 +1,5 @@
 import { refreshAuthToken } from '#/api/refresh'
+import { AuthError } from '#/app/Errors'
 import { useAuthStore } from '#/store/authStore'
 import axios, { CreateAxiosDefaults } from 'axios'
 
@@ -20,9 +21,11 @@ authApiClient.interceptors.request.use(
   // store에 토큰이 있는 경우 요청에 토큰을 실어서 요청
   (config) => {
     const { accessToken } = useAuthStore.getState()
-    if (accessToken) {
-      config.headers['Authorization'] = `Bearer ${accessToken}`
+    if (!accessToken) {
+      return Promise.reject(new AuthError('token이 존재하지 않습니다.'))
     }
+
+    config.headers['Authorization'] = `Bearer ${accessToken}`
 
     return config
   },
@@ -41,11 +44,12 @@ authApiClient.interceptors.response.use(
       // 재귀 실행 방지
       originalRequest._retry = true
 
-      const { setAccessToken, deleteAccessToken } = useAuthStore.getState()
+      const { setAccessToken, deleteAccessToken, accessToken } = useAuthStore.getState()
 
       try {
         // 기존 토큰을 통해 refresh 시도
         const { access_token } = await refreshAuthToken()
+
         setAccessToken(access_token)
 
         originalRequest.headers.Authorization = `Bearer ${access_token}`

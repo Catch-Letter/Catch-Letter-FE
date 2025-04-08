@@ -27,7 +27,7 @@ export const fetchMyLetters = async ({
 }
 
 export const useMyLettersQuery = (uuid: string) => {
-  const { accessToken } = useAuthStore()
+  // const { accessToken } = useAuthStore()
 
   return useInfiniteQuery<LettersResponse>({
     queryKey: ['myLetters', uuid],
@@ -38,6 +38,6 @@ export const useMyLettersQuery = (uuid: string) => {
       }),
     initialPageParam: null,
     getNextPageParam: (lastPage) => lastPage?.next_cursor ?? null,
-    enabled: !!accessToken,
+    // enabled: !!accessToken,
   })
 }
