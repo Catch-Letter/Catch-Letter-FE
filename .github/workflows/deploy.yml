@@ -34,7 +34,7 @@ jobs:
           echo "VITE_BASE_URL=${{ secrets.VITE_BASE_URL }}" >> .env.production
           echo "VITE_KAKAO_KEY=${{ secrets.VITE_KAKAO_KEY }}" >> .env.production
           echo "VITE_KAKAO_TEMPLATE_KEY=${{ secrets.VITE_KAKAO_TEMPLATE_KEY }}" >> .env.production
-          echo "VITE_ROUTER_BASENAME=/${{ steps.vars.outputs.target_path }}" >> .env.production
+          echo "VITE_ROUTER_BASENAME=${{ steps.vars.outputs.target_path }}" >> .env.production
 
       # 배포 경로 구분: 운영이면 루트, preview면 pr-번호로
       - name: Set target path
