@@ -14,7 +14,7 @@ export const ErrorWrapper = css`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 80vh;
+  height: 80dvh;
 
   img {
     margin-bottom: 32px;

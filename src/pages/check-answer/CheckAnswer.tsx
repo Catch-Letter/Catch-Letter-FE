@@ -82,13 +82,21 @@ const CheckAnswer = () => {
         ) : answerError ? (
           <p>{t('checkAnswer.loadingAnswerFail')}</p>
         ) : answer ? (
-          <SeparatedInput length={answerLength} value={answer} />
+          <SeparatedInput length={answerLength} value={answer} readOnly={true} />
         ) : null}
         <div className='content' onClick={handleCardClick}>
           <div className='cardFront'>
             {imageUrl ? (
               <LetterCard type={selectedColor}>
-                {<img src={imageUrl} alt={answer} width={'100%'} />}
+                {
+                  <img
+                    src={imageUrl}
+                    alt={answer}
+                    width={'100%'}
+                    height={'100%'}
+                    style={{ objectFit: 'contain' }}
+                  />
+                }
               </LetterCard>
             ) : (
               <div css={SkeletonCardStyle}>

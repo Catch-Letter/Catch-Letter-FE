@@ -37,6 +37,11 @@ const CreatePostForm = () => {
     setPassword(value)
   }
 
+  const handleName = (value: string) => {
+    if (value.length > 15) return
+    setName(value)
+  }
+
   return (
     <div css={CreateFormStyle}>
       <Background gradientType='halfGradient' />
@@ -47,8 +52,9 @@ const CreatePostForm = () => {
             label={t('create.name')}
             placeholder={t('create.name_desc')}
             value={name}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
-            maxLength={15}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              handleName(e.target.value)
+            }}
             helpMessage={t('create.helpMessage')}
             isInvalid={name.trim().length === 0}
             validMessage={t('create.validMessage')}
