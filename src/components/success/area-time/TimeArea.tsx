@@ -1,16 +1,11 @@
 import { TimeAreaStyle } from './TimeArea.styles'
 
 interface TimeAreaProps {
-  title: string
   time: string
 }
 
-const TimeArea = ({ title, time }: TimeAreaProps) => {
-  return (
-    <div css={TimeAreaStyle}>
-      {title} <span className='time'>{time}</span>
-    </div>
-  )
+const TimeArea = ({ time }: TimeAreaProps) => {
+  return <span css={TimeAreaStyle}>{time}</span>
 }
 
 export default TimeArea

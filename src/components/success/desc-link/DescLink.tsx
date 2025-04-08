@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Toast } from '#/components/toast'
 
 interface DescLinkProps {
-  title: string
+  title?: string
   link: string
   btnName?: string
   desc: ReactNode

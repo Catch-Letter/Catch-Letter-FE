@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from 'react-router'
 import { SuccessStyle, SuccessWrapper } from './Success.styles'
 import { ShareModal } from '#/components/share-modal'
 import useModal from '#/hooks/useModal'
+import { DescWithNum } from '#/components/success/desc-withnumber'
 
 // from createPostForm
 const Success = () => {
@@ -24,14 +25,13 @@ const Success = () => {
       <BackHeader />
       <div css={SuccessWrapper}>
         <div className='area_desc'>
-          <DescLink
-            title={t('create.link')}
-            link={user.mailboxUrl}
-            btnName={t('create.btncopy')}
-            desc={t('create.desc')}
-          />
+          <DescWithNum number={1}>{t('create.link')}</DescWithNum>
+          <DescLink link={user.mailboxUrl} btnName={t('create.btncopy')} desc={t('create.desc')} />
+          <DescWithNum className='second' number={2}>
+            {t('create.opentime')} <TimeArea time={leftTime} /> <br />
+            {t('create.check')}
+          </DescWithNum>
         </div>
-        <TimeArea title={t('create.opentime')} time={leftTime} />
         <Button
           className='btn_share'
           variant='secondary'
