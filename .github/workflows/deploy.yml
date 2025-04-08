@@ -1,0 +1,89 @@
+name: Auto Deploy to S3 + CloudFront
+
+on:
+  push:
+    branches:
+      - main # main 브랜치에 머지되면 운영 배포
+  pull_request:
+    branches:
+      - main
+      - develop # 둘 다 PR 열릴 때 preview 배포
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write # PR 댓글을 달기 위해 필요
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      # .env.production 생성 (Secrets 사용)
+      - name: Create .env.production
+        run: |
+          echo "VITE_BASE_URL=${{ secrets.VITE_BASE_URL }}" >> .env.production
+          echo "VITE_KAKAO_KEY=${{ secrets.VITE_KAKAO_KEY }}" >> .env.production
+          echo "VITE_KAKAO_TEMPLATE_KEY=${{ secrets.VITE_KAKAO_TEMPLATE_KEY }}" >> .env.production
+          echo "VITE_ROUTER_BASENAME=/${{ steps.vars.outputs.target_path }}" >> .env.production
+
+      # 배포 경로 구분: 운영이면 루트, preview면 pr-번호로
+      - name: Set target path
+        id: vars
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "target_path=preview/pr-${{ github.event.pull_request.number }}/" >> $GITHUB_OUTPUT
+            echo "cf_path=/preview/pr-${{ github.event.pull_request.number }}/*" >> $GITHUB_OUTPUT
+          else
+            echo "target_path=" >> $GITHUB_OUTPUT
+            echo "cf_path=/*" >> $GITHUB_OUTPUT
+          fi
+
+      # Vite가 preview base 경로로 빌드할 수 있도록 환경변수 등록
+      - name: Set PR_PREVIEW_PATH for Vite base
+        run: echo "PR_PREVIEW_PATH=/${{ steps.vars.outputs.target_path }}" >> $GITHUB_ENV
+
+      - name: Build project
+        run: npm run build
+
+      - name: Upload to S3
+        env:
+          AWS_S3_BUCKET: ${{ secrets.BUCKET_NAME }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws s3 sync dist/ s3://$AWS_S3_BUCKET/${{ steps.vars.outputs.target_path }} --delete --region $AWS_REGION
+
+      - name: Invalidate CloudFront cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CF_ID }} \
+            --paths "${{ steps.vars.outputs.cf_path }}"
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+
+      # PR일 경우, 댓글로 preview 링크 남기기
+      - name: Comment preview URL on PR
+        if: github.event_name == 'pull_request'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: preview-link
+          message: |
+            🚀 Preview 환경이 배포되었습니다!
+
+            👉 **확인하러 가기:**  
+            https://catchletter.kr/preview/pr-${{ github.event.pull_request.number }}/
+        env:
+          GITHUB_TOKEN: ${{ github.token }}

@@ -31,7 +31,7 @@ const Drawing = () => {
   return (
     <div css={DrawingWrapper}>
       <Background color='grey' />
-      <BackHeader Center={<span>{t('draw.header')}</span>} goBackPath={`/inbox/${uuid}`} />
+      <BackHeader Center={t('draw.header')} goBackPath={`/inbox/${uuid}`} />
       <div css={FormWrapper}>
         <InputField
           placeholder={t('draw.placeholder')}
