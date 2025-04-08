@@ -88,7 +88,15 @@ const CheckAnswer = () => {
           <div className='cardFront'>
             {imageUrl ? (
               <LetterCard type={selectedColor}>
-                {<img src={imageUrl} alt={answer} width={'100%'} height={'100%'} />}
+                {
+                  <img
+                    src={imageUrl}
+                    alt={answer}
+                    width={'100%'}
+                    height={'100%'}
+                    style={{ objectFit: 'contain' }}
+                  />
+                }
               </LetterCard>
             ) : (
               <div css={SkeletonCardStyle}>
