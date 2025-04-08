@@ -20,7 +20,7 @@ import { Navigate, useLocation, useNavigate, useParams } from 'react-router'
 
 const TryAnswer = () => {
   // const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
-  const { uuid, id } = useParams()
+  const { uuid } = useParams()
   const { t } = useTranslation()
   const navigate = useNavigate()
   const location = useLocation()
