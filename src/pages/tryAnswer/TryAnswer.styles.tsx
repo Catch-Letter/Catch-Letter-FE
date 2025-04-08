@@ -45,11 +45,13 @@ export const TryAnswerStyle = css`
 
   .Input-area {
     margin-top: 16px;
+    max-width: 70%;
   }
 
   .button-area {
     display: flex;
     margin-top: 20px;
+    margin-bottom: 10px;
   }
 
   .LetterCard-container {
