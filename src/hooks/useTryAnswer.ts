@@ -25,9 +25,14 @@ const useTryAnswer = () => {
   const [isFlipped, setIsFlipped] = useState(false)
   const [response, setResponse] = useState<TryAnswerResponse | null>(null)
 
-  const { data: letterData } = useGetLetterData(uuid!, Number(id!))
-  const { data: drawData } = useGetDrawData(uuid!, Number(id!))
-  const { data: answerStatusData } = useGetAnswerStatus(uuid!, Number(id!))
+  const { data: letterData, isError: isLetterError } = useGetLetterData(uuid!, Number(id!))
+  const { data: drawData, isError: isDrawError } = useGetDrawData(uuid!, Number(id!))
+  const { data: answerStatusData, isError: isAnswerStatusError } = useGetAnswerStatus(
+    uuid!,
+    Number(id!)
+  )
+
+  const isNotFound = isLetterError || isDrawError || isAnswerStatusError
 
   //그림가져오기
   useEffect(() => {
@@ -165,6 +170,7 @@ const useTryAnswer = () => {
     handleCardClick,
     cycle,
     hints,
+    isNotFound,
   }
 }
 
