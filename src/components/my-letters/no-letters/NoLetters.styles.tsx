@@ -2,7 +2,7 @@ import { colors } from '#/styles/color'
 import { css } from '@emotion/react'
 
 export const NoLettersContainer = css`
-  height: 80vh;
+  height: 80dvh;
   display: flex;
   justify-content: center;
   align-items: center;
