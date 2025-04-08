@@ -17,19 +17,24 @@ interface LetterCreationStore {
 }
 
 export const useLetterCreationStore = create<LetterCreationStore>((set) => ({
-  receiver: '',
+  receiver: localStorage.getItem('receiver') || '',
   selectedColor: 'grey',
   selectedPattern: 'default',
   selectedFont: 'NotoSansKR',
-  setReceiver: (receiver) => set({ receiver }),
+  setReceiver: (receiver) => {
+    localStorage.setItem('receiver', receiver)
+    set({ receiver })
+  },
   setSelectedColor: (color) => set({ selectedColor: color }),
   setSelectedPattern: (pattern) => set({ selectedPattern: pattern }),
   setSelectedFont: (font) => set({ selectedFont: font }),
-  resetStore: () =>
+  resetStore: () => {
+    localStorage.removeItem('receiver')
     set({
       selectedColor: 'grey',
       selectedPattern: 'default',
       selectedFont: 'NotoSansKR',
       receiver: '',
-    }),
+    })
+  },
 }))
