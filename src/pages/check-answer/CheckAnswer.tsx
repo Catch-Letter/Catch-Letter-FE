@@ -82,7 +82,7 @@ const CheckAnswer = () => {
         ) : answerError ? (
           <p>{t('checkAnswer.loadingAnswerFail')}</p>
         ) : answer ? (
-          <SeparatedInput length={answerLength} value={answer} disabled={true} />
+          <SeparatedInput length={answerLength} value={answer} readOnly={true} />
         ) : null}
         <div className='content' onClick={handleCardClick}>
           <div className='cardFront'>

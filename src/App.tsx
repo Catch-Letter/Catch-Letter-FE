@@ -23,7 +23,7 @@ const App = () => {
 
   return (
     <I18nProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.VITE_ROUTER_BASENAME || '/'}>
         <ErrorBoundary>
           <Suspense fallback={<Loading />}>
             <Routes>

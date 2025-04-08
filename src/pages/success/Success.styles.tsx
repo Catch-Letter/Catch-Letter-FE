@@ -30,4 +30,7 @@ export const SuccessWrapper = css`
       width: 60%;
     }
   }
+  .second {
+    margin-top: 58px;
+  }
 `

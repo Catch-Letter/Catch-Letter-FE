@@ -29,7 +29,7 @@ const CreatePost = () => {
       >
         {t('create.createPost')}
       </Button>
-      <Toast offset='20vh' />
+      <Toast offset='20dvh' />
     </div>
   )
 }
