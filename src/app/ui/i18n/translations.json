@@ -315,6 +315,10 @@
   },
 
   "tryAnswer": {
+    "inputPlaceholder": {
+      "KO": "정답을 입력하세요",
+      "EN": "Enter the answer"
+    },
     "remainingAttempts": {
       "KO": "{{chance}} 번의 기회가 남았어요!",
       "EN": " {{chance}} attempts left!"

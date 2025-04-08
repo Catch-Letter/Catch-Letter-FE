@@ -28,7 +28,6 @@ const Inbox = () => {
       {/* // )} */}
     </>
   )
-  // return <LetterReceived uuid={uuid} />
 }
 
 export default Inbox

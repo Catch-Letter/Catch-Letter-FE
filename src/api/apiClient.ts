@@ -1,3 +1,4 @@
+import { getPostInfo } from '#/api'
 import { refreshAuthToken } from '#/api/refresh'
 import { AuthError } from '#/app/Errors'
 import { useAuthStore } from '#/store/authStore'
@@ -34,6 +35,8 @@ authApiClient.interceptors.request.use(
   }
 )
 
+const { setAccessToken, deleteAccessToken } = useAuthStore.getState()
+
 authApiClient.interceptors.response.use(
   (response) => response,
   // 응답이 실패인 경우
@@ -44,9 +47,10 @@ authApiClient.interceptors.response.use(
       // 재귀 실행 방지
       originalRequest._retry = true
 
-      const { setAccessToken, deleteAccessToken, accessToken } = useAuthStore.getState()
-
       try {
+        // 기존 토큰이 정상인지 확인
+        await getPostInfo()
+
         // 기존 토큰을 통해 refresh 시도
         const { access_token } = await refreshAuthToken()
 
@@ -54,11 +58,14 @@ authApiClient.interceptors.response.use(
 
         originalRequest.headers.Authorization = `Bearer ${access_token}`
         return authApiClient(originalRequest)
-      } catch (refreshError) {
-        // refresh 시도 후에도 실패인 경우
+      } catch (error) {
+        // 유효하지 않은 토큰이거나 refresh에 실패한 경우
         deleteAccessToken()
-        return Promise.reject(refreshError)
+        return Promise.reject(error)
       }
+    } else if (error.response?.status === 419 && !originalRequest._retry) {
+      deleteAccessToken()
+      return Promise.reject(error)
     }
 
     return Promise.reject(error)

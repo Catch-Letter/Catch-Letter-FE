@@ -38,10 +38,7 @@ const LetterReceived: FC<Props> = ({ uuid, total_letter_count, incorrect_letter_
         return
       }
 
-      if (postInfo.uuid === uuid) {
-        navigate(`/myletters/${uuid}`)
-        return
-      }
+      throw new Error()
     } catch {
       openModal()
     }

@@ -11,8 +11,7 @@ import {
   TryAnswerStyle,
   tryAnswerWrapper,
 } from '#/pages/tryAnswer/TryAnswer.styles'
-import { Background, Button, DotLoader } from '#/shared/ui'
-import SeparatedInput from '#/shared/ui/separated-input/separated-input'
+import { Background, Button, DotLoader, InputField } from '#/shared/ui'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { colors } from '#/styles/color'
 import { useState } from 'react'
@@ -45,11 +44,9 @@ const TryAnswer = () => {
     patternStyle,
     fontStlye,
     handleCardClick,
+    cycle,
+    hints,
   } = useTryAnswer()
-
-  const handleInputChange = (value: string) => {
-    setInputValue(value)
-  }
 
   const handleNavigate = () => {
     if (isCorrect) {
@@ -71,7 +68,11 @@ const TryAnswer = () => {
           timeLeft={timeLeft}
           isCorrect={isCorrect}
           message={responseMessage}
+          cycle={cycle}
+          answerLength={answerLength}
+          hints={hints}
         />
+
         <div
           className={`LetterCard-container ${isShaking ? 'shake' : ''} ${isCorrect ? 'glowing' : ''}`}
           css={letterCardContainer}
@@ -107,7 +108,15 @@ const TryAnswer = () => {
           )}
         </div>
         <div className='Input-area'>
-          <SeparatedInput length={answerLength} onChangeValue={handleInputChange} />
+          <div className='Input-wrapper'>
+            <InputField
+              maxLength={answerLength}
+              value={inputValue}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
+              placeholder={t('tryAnswer.inputPlaceholder')}
+            />
+            <span className='Input-length'>{`${inputValue.length} / ${answerLength}`}</span>
+          </div>
         </div>
         <div className='button-area'>
           <Button
