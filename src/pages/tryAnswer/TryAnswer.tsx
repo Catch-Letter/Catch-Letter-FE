@@ -58,6 +58,11 @@ const TryAnswer = () => {
     tryAnswer(inputValue)
   }
 
+  const handleAnswerLength = (value: string) => {
+    if (value.length > answerLength) return
+    setInputValue(value)
+  }
+
   return (
     <div css={tryAnswerWrapper}>
       <Background color={backgroundColor} />
@@ -112,7 +117,9 @@ const TryAnswer = () => {
             <InputField
               maxLength={answerLength}
               value={inputValue}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleAnswerLength(e.target.value)
+              }
               placeholder={t('tryAnswer.inputPlaceholder')}
             />
             <span className='Input-length'>{`${inputValue.length} / ${answerLength}`}</span>
