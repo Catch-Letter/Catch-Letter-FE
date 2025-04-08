@@ -19,16 +19,15 @@ const Inbox = () => {
     return
   }
 
-  // return (
-  //   <>
-  //     {inboxStatus.isExpired ? (
-  //       <LetterReceived uuid={uuid} {...inboxStatus} />
-  //     ) : (
-  //       <LetterReceiving uuid={uuid} {...inboxStatus} />
-  //     )}
-  //   </>
-  // )
-  return <LetterReceived uuid={uuid} {...inboxStatus} />
+  return (
+    <>
+      {inboxStatus.isExpired ? (
+        <LetterReceived uuid={uuid} {...inboxStatus} />
+      ) : (
+        <LetterReceiving uuid={uuid} {...inboxStatus} />
+      )}
+    </>
+  )
 }
 
 export default Inbox
