@@ -1,17 +1,17 @@
 import { useAutoFocus } from '#/hooks'
+import { InputHTMLAttributes, useRef, useState } from 'react'
 import {
-  separatedInputContainer,
-  separateInputs,
-  separateInput,
   labels,
+  separatedInputContainer,
+  separateInput,
+  separateInputs,
 } from './separated-input.styles'
-import { InputHTMLAttributes, useEffect, useRef, useState } from 'react'
 
 export interface SeparatedInputProps extends InputHTMLAttributes<HTMLInputElement> {
   length: number
   label?: string
   type?: string
-  onChangeValue?: (value: string) => void
+  onChangeValue: (value: string) => void
   value?: string
   autoFocus?: boolean
 }
@@ -27,28 +27,19 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
   ...props
 }) => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([])
-  const [inputValues, setInputValues] = useState<string[]>(() =>
-    Array.from({ length }, (_, i) => value[i] ?? '')
-  )
   const [isComposing, setIsComposing] = useState(false)
 
   useAutoFocus(autoFocus, inputRefs)
 
-  const updateValues = (newValues: string[]) => {
-    setInputValues(newValues)
-    onChangeValue?.(newValues.join(''))
-  }
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     if (isComposing) return
 
-    const { value } = e.target
-    const newValues = [...inputValues]
-    newValues[index] = value
-    updateValues(newValues)
+    const newValues = [...value]
+    newValues[index] = e.currentTarget.value // 조합 한글을 저장
+    onChangeValue(newValues.join(''))
 
     // 다음 입력칸으로 이동
-    if (value.length === 1 && inputRefs.current[index + 1]) {
+    if (e.target.value.length === 1) {
       inputRefs.current[index + 1]?.focus()
     }
   }
@@ -59,13 +50,11 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
     } else if (e.type === 'compositionend') {
       setIsComposing(false)
 
-      const newValues = [...inputValues]
+      const newValues = [...value]
       newValues[index] = e.currentTarget.value // 조합 한글을 저장
-      updateValues(newValues)
+      onChangeValue(newValues.join(''))
 
-      if (inputRefs.current[index + 1]) {
-        inputRefs.current[index + 1]?.focus()
-      }
+      inputRefs.current[index + 1]?.focus()
     }
   }
 
@@ -89,7 +78,7 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
       key={index}
       type={type}
       ref={(el) => (inputRefs.current[index] = el)}
-      value={isComposing ? undefined : (inputValues[index] ?? '')}
+      value={isComposing ? undefined : (value[index] ?? '')}
       onChange={(e) => handleInputChange(e, index)}
       onCompositionStart={(e) => handleComposition(e, index)}
       onCompositionEnd={(e) => handleComposition(e, index)}
