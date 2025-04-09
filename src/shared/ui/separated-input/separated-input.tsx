@@ -13,7 +13,7 @@ export interface SeparatedInputProps extends InputHTMLAttributes<HTMLInputElemen
   length: number
   label?: string
   type?: string
-  onChangeValue: (value: string) => void
+  onChangeValue?: (value: string) => void
   value?: string
   autoFocus?: boolean
 }
@@ -51,7 +51,7 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
     const newValues = Array.from({ length }, (_, i) => value[i] ?? ' ')
     newValues[index] = e.currentTarget.value[0]
-    onChangeValue(newValues.join(''))
+    onChangeValue?.(newValues.join(''))
 
     // 다음 입력칸으로 이동
     // if (!isComposing && e.currentTarget.value.length === 1) {
@@ -85,7 +85,7 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
         e.preventDefault()
         const newValues = Array.from({ length }, (_, i) => value[i] ?? ' ')
         newValues[index] = ' '
-        onChangeValue(newValues.join(''))
+        onChangeValue?.(newValues.join(''))
         if (!e.currentTarget.value) {
           inputRefs.current[index - 1]?.focus()
         }
