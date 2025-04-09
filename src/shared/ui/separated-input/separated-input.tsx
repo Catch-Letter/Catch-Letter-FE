@@ -1,3 +1,4 @@
+import { useAutoFocus } from '#/hooks'
 import {
   separatedInputContainer,
   separateInputs,
@@ -22,6 +23,7 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
   onChangeValue,
   value = '',
   autoFocus = false,
+  disabled,
   ...props
 }) => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([])
@@ -30,16 +32,7 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
   )
   const [isComposing, setIsComposing] = useState(false)
 
-  useEffect(() => {
-    // 화면에 보이는 순간 비어 있는 첫째 input에 focus
-    if (!autoFocus || !inputRefs.current) return
-    for (const input of inputRefs.current) {
-      if (input && input.value === '') {
-        input.focus()
-        break
-      }
-    }
-  }, [])
+  useAutoFocus(autoFocus, inputRefs)
 
   const updateValues = (newValues: string[]) => {
     setInputValues(newValues)
