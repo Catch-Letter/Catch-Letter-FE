@@ -14,6 +14,11 @@ const GlobalStyles = () => (
         letter-spacing: -0.0025rem;
         background-color: #444;
         color: ${colors.grey[1]};
+
+        a {
+          text-decoration: none;
+          color: inherit;
+        }
       }
     `}
   />
