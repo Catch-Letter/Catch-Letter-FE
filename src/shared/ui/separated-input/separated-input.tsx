@@ -12,6 +12,7 @@ export interface SeparatedInputProps extends InputHTMLAttributes<HTMLInputElemen
   type?: string
   onChangeValue?: (value: string) => void
   value?: string
+  padding?: string | number
 }
 
 const SeparatedInput: React.FC<SeparatedInputProps> = ({
@@ -21,6 +22,7 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
   onChangeValue,
   value,
   disabled = false,
+  padding,
   ...props
 }) => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([])
@@ -98,6 +100,7 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
       maxLength={1}
       css={separateInput}
       disabled={disabled}
+      style={{ padding }}
       {...props}
     />
   ))

@@ -62,7 +62,12 @@ const TryCounter: React.FC<TryCounterProps> = ({
       </div>
       <p className='Text'>
         {cycle > 0 ? (
-          <SeparatedInput length={answerLength} value={answerString} disabled={true} />
+          <SeparatedInput
+            length={answerLength}
+            value={answerString}
+            padding='4px'
+            readOnly={true}
+          />
         ) : isCorrect ? (
           t('tryAnswer.passwordUnlock')
         ) : chances === 0 ? (
