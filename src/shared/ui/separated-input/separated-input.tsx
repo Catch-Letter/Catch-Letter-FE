@@ -1,5 +1,7 @@
 import { useAutoFocus } from '#/hooks'
+import { useToastStore } from '#/store/toastStore'
 import { InputHTMLAttributes, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   labels,
   separatedInputContainer,
@@ -28,6 +30,8 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
 }) => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([])
   const [isComposing, setIsComposing] = useState(false)
+  const { showToast } = useToastStore()
+  const { t } = useTranslation()
 
   useAutoFocus(autoFocus, inputRefs)
 
@@ -67,8 +71,9 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
       return
     }
 
-    //숫자만 입력 가능한 비밀번호
+    // 숫자만 입력 가능한 비밀번호
     if (type === 'password' && /^[0-9]$/.test(e.key) === false) {
+      showToast(t('numberPWD'), 'error')
       e.preventDefault()
     }
   }

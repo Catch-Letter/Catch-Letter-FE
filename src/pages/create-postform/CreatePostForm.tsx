@@ -5,11 +5,9 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import { CreateFormStyle, FormWrapper } from './CreatePostForm.styles'
-import { useToastStore } from '#/store/toastStore'
 
 const CreatePostForm = () => {
   const navigate = useNavigate()
-  const { showToast } = useToastStore()
   const { t } = useTranslation()
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
@@ -27,14 +25,6 @@ const CreatePostForm = () => {
     } catch (error) {
       throw error
     }
-  }
-
-  const onCheckPassword = (value: string) => {
-    if (value.length === 5 && isNaN(Number(value))) {
-      showToast(t('numberPWD'), 'error')
-      return
-    }
-    setPassword(value)
   }
 
   const handleName = (value: string) => {
@@ -67,7 +57,7 @@ const CreatePostForm = () => {
             pattern='[0-9]*'
             inputMode='numeric'
             value={password}
-            onChangeValue={onCheckPassword}
+            onChangeValue={setPassword}
           />
           <span className='notice'>{t('create.password_desc')}</span>
         </div>
