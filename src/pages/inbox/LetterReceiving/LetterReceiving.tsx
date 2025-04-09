@@ -4,7 +4,7 @@ import { Background, Flex, Header } from '#/shared/ui'
 import { Button } from '#/shared/ui/button'
 import { FC, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import { bottomButtonStyles, containerStyles, headerStyles } from '../Inbox.styles'
 import useModal from '#/hooks/useModal'
 import { ShareModal } from '#/components/share-modal'
@@ -35,9 +35,9 @@ const LetterReciving: FC<Props> = ({ uuid, name, expired_at, total_letter_count,
       <Header
         css={headerStyles}
         Left={
-          <span className='left'>
+          <Link to='/' className='left'>
             Catch Letter <div>💌</div>
-          </span>
+          </Link>
         }
       />
 
