@@ -148,7 +148,7 @@ const useTryAnswer = () => {
     return extractPatternStyle(etc)
   }, [letterData])
 
-  const cycle = answerStatusData?.data?.cycle ?? 1
+  const cycle = answerStatusData?.data?.cycle ?? 0
 
   const hints = answerStatusData?.data?.hints ?? []
 
