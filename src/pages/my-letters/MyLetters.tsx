@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { useNavigate, useParams } from 'react-router'
+import { useLocation, useNavigate, useParams } from 'react-router'
 import { BackHeader, LetterGrid, NoLetters, SkeletonCard } from '#/components'
 import { MyLettersWrapper, TitleStyle, BadgeStyle, GridContainer } from './MyLetters.styles'
 import { useTranslation } from 'react-i18next'
@@ -18,16 +18,28 @@ const MyLetters = () => {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const [_loadedMap, setLoadedMap] = useState<Record<string, boolean>>({})
   const navigate = useNavigate()
+  const location = useLocation()
   const { accessToken } = useAuthStore()
 
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useMyLettersQuery(
-    uuid ?? ''
-  )
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } =
+    useMyLettersQuery(uuid ?? '')
   useScrollRestoration(scrollContainerRef, SCROLL_STORAGE_KEY, !isLoading)
 
   const handleCardLoad = (id: number, loaded: boolean) => {
     setLoadedMap((prev) => ({ ...prev, [id]: loaded }))
   }
+
+  useEffect(() => {
+    console.log(location.state)
+    if (location.state?.refetch) {
+      refetch()
+
+      navigate(location.pathname, {
+        replace: true,
+        state: {},
+      })
+    }
+  }, [location.state, location.pathname, navigate, refetch])
 
   const letters = data?.pages[0]?.data ?? []
   const shakingCard = useRandomShakingCard(letters)

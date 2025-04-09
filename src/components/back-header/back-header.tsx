@@ -8,13 +8,20 @@ interface Props extends ComponentProps<'header'> {
   Center?: ReactNode
   Right?: ReactNode
   goBackPath?: string
+  goBackState?: unknown
 }
 
-const BackHeader: FC<Props> = ({ Center, Right, goBackPath, ...props }) => {
+const BackHeader: FC<Props> = ({ Center, Right, goBackPath, goBackState, ...props }) => {
   const navigate = useNavigate()
   const goBack = useCallback(() => {
-    goBackPath ? navigate(goBackPath) : navigate(-1)
-  }, [navigate, goBackPath])
+    if (goBackPath) {
+      navigate(goBackPath, {
+        state: goBackState,
+      })
+    } else {
+      navigate(-1)
+    }
+  }, [navigate, goBackPath, goBackState])
 
   return (
     <Header

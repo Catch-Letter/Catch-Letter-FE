@@ -19,7 +19,6 @@ import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate, useParams } from 'react-router'
 
 const TryAnswer = () => {
-  // const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
   const { uuid } = useParams()
   const { t } = useTranslation()
   const navigate = useNavigate()
@@ -50,7 +49,9 @@ const TryAnswer = () => {
 
   const handleNavigate = () => {
     if (isCorrect) {
-      navigate(`/myletters/${uuid}`)
+      navigate(`/myletters/${uuid}`, {
+        state: { refetch: true }, // 추가
+      })
     }
   }
 
@@ -66,7 +67,10 @@ const TryAnswer = () => {
   return (
     <div css={tryAnswerWrapper}>
       <Background color={backgroundColor} />
-      <BackHeader />
+      <BackHeader
+        goBackPath={`/myletters/${uuid}`}
+        goBackState={isCorrect ? { refetch: true } : undefined}
+      />
       <div css={TryAnswerStyle}>
         <TryCounter
           chances={chances}
