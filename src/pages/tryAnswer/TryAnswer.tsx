@@ -16,7 +16,7 @@ import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { colors } from '#/styles/color'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useLocation, useNavigate, useParams } from 'react-router'
+import { Navigate, useLocation, useNavigate, useParams } from 'react-router'
 
 const TryAnswer = () => {
   // const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
@@ -46,7 +46,12 @@ const TryAnswer = () => {
     handleCardClick,
     cycle,
     hints,
+    isNotFound,
   } = useTryAnswer()
+
+  if (isNotFound) {
+    return <Navigate to='/not-found' replace />
+  }
 
   const handleNavigate = () => {
     if (isCorrect) {
