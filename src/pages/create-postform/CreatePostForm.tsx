@@ -66,7 +66,7 @@ const CreatePostForm = () => {
         className='btn_submit'
         width={343}
         onClick={handleCreatePost}
-        disabled={!name || !password}
+        disabled={!name || /^[0-9]{5}$/.test(password) === false}
       >
         {t('submit')}
       </Button>

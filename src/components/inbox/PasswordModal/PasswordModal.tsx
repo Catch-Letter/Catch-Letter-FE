@@ -39,7 +39,7 @@ const PasswordModal: FC<Props> = ({
         <Button
           width={99}
           onClick={onClickConfirmButton}
-          disabled={password.length < 5}
+          disabled={/^[0-9]{5}$/.test(password) === false}
           type='button'
         >
           {t('confirm')}
