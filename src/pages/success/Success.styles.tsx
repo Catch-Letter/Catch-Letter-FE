@@ -8,7 +8,7 @@ export const SuccessStyle = css`
   color: ${colors.white};
 
   .btn_share {
-    margin-top: 10px;
+    margin-top: 12px;
     @media (width >= 768px) {
       width: 60%;
     }
@@ -29,5 +29,8 @@ export const SuccessWrapper = css`
     @media (width >= 768px) {
       width: 60%;
     }
+  }
+  .second {
+    margin-top: 58px;
   }
 `

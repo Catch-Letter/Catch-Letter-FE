@@ -22,10 +22,6 @@ export const initialStyles = css`
 export const validStyles = css`
   ${initialStyles}
 
-  .input-field-label {
-    color: ${colors.success};
-  }
-
   .input-field-help-message {
     color: ${colors.success};
   }
@@ -33,10 +29,6 @@ export const validStyles = css`
 
 export const invalidStyles = css`
   ${initialStyles}
-
-  .input-field-label {
-    color: ${colors.error};
-  }
 
   .input-field-help-message {
     color: ${colors.error};

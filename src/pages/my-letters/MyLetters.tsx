@@ -8,17 +8,22 @@ import { useRandomShakingCard } from '#/hooks/useRandomShakingCard'
 import { useInfiniteScroll } from '#/hooks/useInfiniteScroll'
 import { useInboxStatus } from '#/hooks'
 import { useAuthStore } from '#/store/authStore'
+import { useScrollRestoration } from '#/hooks/useScrollRestoration'
 
 const MyLetters = () => {
   const { uuid } = useParams()
+  const SCROLL_STORAGE_KEY = `myLettersScroll_${uuid}`
+
   const { t } = useTranslation()
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const [_loadedMap, setLoadedMap] = useState<Record<string, boolean>>({})
   const navigate = useNavigate()
   const { accessToken } = useAuthStore()
 
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
-    useMyLettersQuery(uuid ?? '')
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useMyLettersQuery(
+    uuid ?? ''
+  )
+  useScrollRestoration(scrollContainerRef, SCROLL_STORAGE_KEY, !isLoading)
 
   const handleCardLoad = (id: number, loaded: boolean) => {
     setLoadedMap((prev) => ({ ...prev, [id]: loaded }))
@@ -52,13 +57,14 @@ const MyLetters = () => {
             <span css={BadgeStyle}>{total_letter_count ?? 0}</span>
           </div>
         }
+        goBackPath={`/inbox/${uuid}`}
       />
       {total_letter_count === 0 ? (
         <NoLetters />
       ) : (
         <div css={GridContainer} ref={scrollContainerRef}>
-          {isLoading || isFetching ? (
-            <SkeletonCard count={15} />
+          {isLoading ? (
+            <SkeletonCard count={8} />
           ) : (
             <LetterGrid
               pages={data?.pages ?? []}
@@ -67,6 +73,7 @@ const MyLetters = () => {
               onLoad={handleCardLoad}
             />
           )}
+          {isFetchingNextPage && <SkeletonCard count={8} />}
         </div>
       )}
     </div>

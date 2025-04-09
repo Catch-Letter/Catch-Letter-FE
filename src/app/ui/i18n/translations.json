@@ -70,28 +70,36 @@
       "EN": "You need the letterbox password every time you open it!"
     },
     "link": {
-      "KO": "링크가 생성되었어요!",
-      "EN": "Link created!"
+      "KO": "링크를 복사해두세요!",
+      "EN": "Please copy the link!"
     },
     "copyLink": {
       "KO": "링크가 복사되었어요!",
       "EN": "Link copied!"
     },
     "desc": {
-      "KO": "링크 복사 버튼을 클릭하면 링크가 클립보드에 복사됩니다.\n 링크는 재발급 되지 않으므로 링크 복사 후 기억할 수 있는 곳에 저장해두세요!",
-      "EN": "When you click the Copy Link button, the link will be copied to your clipboard.\n Since the link cannot be reissued, please save it in a place where you can remember it!"
+      "KO": " 링크는 재전송 되지 않아요! 링크 복사 후 기억할 수 있는 곳에 저장해두세요!",
+      "EN": "the link cannot be reissued, please save it in a place where you can remember it!"
     },
     "btncopy": {
       "KO": "링크복사",
       "EN": "Copy Link"
     },
     "opentime": {
-      "KO": "우체통 열람가능 시간",
-      "EN": "Mailbox Access Time"
+      "KO": "받은편지는 ",
+      "EN": "You can check the received letter "
+    },
+    "check": {
+      "KO": " 뒤에 확인 할 수 있어요!",
+      "EN": "24 hours later!"
     },
     "btnshare": {
       "KO": "내 우체통 공유하기!",
-      "EN": "Share My Mailbox!"
+      "EN": "Share my mailbox!"
+    },
+    "btnPost": {
+      "KO": "내 우체통 보러가기",
+      "EN": "Go check my mailbox"
     }
   },
 
@@ -142,6 +150,10 @@
     "invalidMessage3": {
       "KO": "특수문자 및 띄어쓰기는 사용할 수 없어요! :(",
       "EN": "You can't use special characters and spaces! :("
+    },
+    "invalidMessage4": {
+      "KO": "정확한 단어를 입력해주세요! :(",
+      "EN": "Please enter a valid word! :("
     }
   },
 
@@ -303,6 +315,10 @@
   },
 
   "tryAnswer": {
+    "inputPlaceholder": {
+      "KO": "정답을 입력하세요",
+      "EN": "Enter the answer"
+    },
     "remainingAttempts": {
       "KO": "{{chance}} 번의 기회가 남았어요!",
       "EN": " {{chance}} attempts left!"

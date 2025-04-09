@@ -3,7 +3,7 @@ import { css } from '@emotion/react'
 
 export const ErrorContainer = css`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background-color: ${colors.grey[11]};
   display: flex;
   flex-direction: column;
@@ -14,7 +14,7 @@ export const ErrorWrapper = css`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 80vh;
+  height: 80dvh;
 
   img {
     margin-bottom: 32px;

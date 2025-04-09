@@ -32,7 +32,7 @@ const glowAnimation = keyframes`
 
 export const tryAnswerWrapper = css`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
 `
@@ -41,15 +41,17 @@ export const TryAnswerStyle = css`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  height: 100%;
 
   .Input-area {
     margin-top: 16px;
+    max-width: 70%;
   }
 
   .button-area {
     display: flex;
     margin-top: 20px;
+    margin-bottom: 10px;
   }
 
   .LetterCard-container {
@@ -58,6 +60,21 @@ export const TryAnswerStyle = css`
 
     width: 70%;
     height: 70%;
+  }
+
+  .Input-wrapper {
+    position: relative;
+    width: fit-content;
+  }
+
+  .Input-length {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: ${colors.grey[11]};
+    pointer-events: none;
   }
 
   .shake {

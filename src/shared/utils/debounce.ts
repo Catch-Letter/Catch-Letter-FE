@@ -1,5 +1,5 @@
 function debounce(task: any, duration: number = 500) {
-  let timer: number | undefined
+  let timer: ReturnType<typeof setTimeout> | undefined
 
   return (...args: unknown[]) => {
     clearTimeout(timer)

@@ -7,7 +7,7 @@ export const LoadingContainer = css`
   justify-content: center;
   align-items: center;
   gap: 32px;
-  height: 100vh;
+  height: 100dvh;
 `
 
 export const infoTextStyle = css`

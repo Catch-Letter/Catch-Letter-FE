@@ -5,7 +5,6 @@ import { requestDrawUpload, uploadImageToPresignedUrl } from '#/api/draw'
 import { convertStageToSVG } from '#/shared/utils/convertToSvg'
 import { LineData } from '#/types/drawing'
 import { useToastStore } from '#/store/toastStore'
-import { error } from '#/assets/error'
 
 export const useDrawingSubmit = (
   uuid: string | undefined,

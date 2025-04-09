@@ -103,6 +103,7 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
       onKeyDown={(e) => handleKeyDown(e, index)}
       maxLength={1}
       css={separateInput}
+      disabled={disabled}
       {...props}
     />
   ))

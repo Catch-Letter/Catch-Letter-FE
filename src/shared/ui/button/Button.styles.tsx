@@ -16,9 +16,12 @@ export const buttonStyle = ({ variant, width, full }: ButtonProps) => css`
   font-size: 18px;
   font-weight: 700;
   font-family: 'NotoSansKR';
+  opacity: 1;
 
-  &:hover:not(:disabled) {
-    background-color: ${variant === 'primary' ? colors.neonGreen[8] : colors.grey[9]};
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(:disabled) {
+      background-color: ${variant === 'primary' ? colors.neonGreen[8] : colors.grey[9]};
+    }
   }
 
   &:disabled {
