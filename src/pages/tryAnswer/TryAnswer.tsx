@@ -1,6 +1,4 @@
-import { BackHeader, LetterCard, LetterContent } from '#/components'
-import { TryIntro } from '#/components/try-answer'
-import { TryCounter } from '#/components/try-answer/try-Counter'
+import { BackHeader, LetterCard, LetterContent, TryCounter, TryIntro } from '#/components'
 import useTryAnswer from '#/hooks/useTryAnswer'
 import {
   backCardStyle,
