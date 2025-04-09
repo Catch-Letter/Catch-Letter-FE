@@ -29,19 +29,19 @@ const App = () => {
             <Routes>
               <Route path='/' element={<Layout />}>
                 <Route path='/' element={<CreatePost />} />
-                <Route path='/postform' element={<CreatePostForm />} />
-                <Route path='/success' element={<Success />} />
+                <Route path='postform' element={<CreatePostForm />} />
+                <Route path='success' element={<Success />} />
                 <Route element={<ProtectedRoute />}>
                   <Route path='drawing/:uuid' element={<Drawing />} />
                   <Route path='writeletter/:uuid/:id' element={<LetterWrite />} />
                   <Route path='choiceletter/:uuid/:id' element={<ChoiceLetter />} />
                   <Route path='sendletter/:uuid' element={<SendLetter />} />
                 </Route>
-                <Route path='/inbox/:uuid' element={<Inbox />} />
-                <Route path='/myletters/:uuid' element={<MyLetters />} />
-                <Route path='/tryAnswer/:uuid/:id' element={<TryAnswer />} />
-                <Route path='/checkanswer/:uuid/:id' element={<CheckAnswer />} />
-                <Route path='/not-found' element={<NotFound />} />
+                <Route path='inbox/:uuid' element={<Inbox />} />
+                <Route path='myletters/:uuid' element={<MyLetters />} />
+                <Route path='tryAnswer/:uuid/:id' element={<TryAnswer />} />
+                <Route path='checkanswer/:uuid/:id' element={<CheckAnswer />} />
+                <Route path='not-found' element={<NotFound />} />
                 <Route path='*' element={<NotFound />} />
               </Route>
             </Routes>

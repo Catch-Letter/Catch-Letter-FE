@@ -11,7 +11,7 @@ import { colors } from '#/styles/color'
 import { extractColorToString } from '#/types/extractColor'
 import { useEffect, useMemo, useState } from 'react'
 import { IoTriangle } from 'react-icons/io5'
-import { useParams } from 'react-router'
+import { Navigate, useParams } from 'react-router'
 import { CheckAnswerStyles, checkAnswerWrapper, SkeletonCardStyle } from './CheckAnswer.styles'
 import { useTranslation } from 'react-i18next'
 
@@ -30,12 +30,21 @@ const CheckAnswer = () => {
     error: answerError,
   } = useGetAnswer(uuid!, Number(id!))
 
-  const { data: drawData } = useGetDrawData(uuid!, Number(id!))
+  const { data: drawData, error: drawError } = useGetDrawData(uuid!, Number(id!))
   const {
     data: letterResponse,
     isLoading: letterLoading,
     error: letterError,
   } = useGetLetterData(uuid!, Number(id!))
+
+  const isNotFound =
+    answerError?.message === 'NotFound' ||
+    drawError?.message === 'NotFound' ||
+    letterError?.message === 'NotFound'
+
+  if (isNotFound) {
+    return <Navigate to='/not-found' replace />
+  }
 
   //정답 가져오기
   useEffect(() => {
