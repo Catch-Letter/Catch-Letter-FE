@@ -30,7 +30,6 @@ const MyLetters = () => {
   }
 
   useEffect(() => {
-    console.log(location.state)
     if (location.state?.refetch) {
       refetch()
 

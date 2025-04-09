@@ -53,7 +53,7 @@ const TryAnswer = () => {
   const handleNavigate = () => {
     if (isCorrect) {
       navigate(`/myletters/${uuid}`, {
-        state: { refetch: true }, // 추가
+        state: { refetch: true },
       })
     }
   }
