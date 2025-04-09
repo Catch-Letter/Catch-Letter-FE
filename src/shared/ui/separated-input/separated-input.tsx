@@ -1,6 +1,6 @@
 import { useAutoFocus } from '#/hooks'
 import { useToastStore } from '#/store/toastStore'
-import { InputHTMLAttributes, useRef } from 'react'
+import { ChangeEvent, CompositionEvent, InputHTMLAttributes, KeyboardEvent, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   labels,
@@ -35,7 +35,20 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
 
   useAutoFocus(autoFocus, inputRefs)
 
-  const handleInputChange = (e: React.FormEvent<HTMLInputElement>, index: number) => {
+  const handleBeforeInput = (e: CompositionEvent<HTMLInputElement>) => {
+    const input = e.data
+
+    // null은 Backspace 등에서 올 수 있으니 무시
+    if (input === null) return
+
+    // 숫자만 입력 가능한 비밀번호
+    if (type === 'password' && /^[0-9]$/.test(input) === false) {
+      e.preventDefault()
+      showToast(t('numberPWD'), 'error')
+    }
+  }
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
     const newValues = Array.from({ length }, (_, i) => value[i] ?? ' ')
     newValues[index] = e.currentTarget.value[0]
     onChangeValue(newValues.join(''))
@@ -64,7 +77,7 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
   //   inputRefs.current[index + 1]?.focus()
   // }
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>, index: number) => {
     // if (isComposing) return
 
     switch (e.key) {
@@ -89,12 +102,6 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
       case 'Shift':
         return
     }
-
-    // 숫자만 입력 가능한 비밀번호
-    if (type === 'password' && /^[0-9]$/.test(e.key) === false) {
-      showToast(t('numberPWD'), 'error')
-      e.preventDefault()
-    }
   }
 
   const inputs = Array.from({ length }, (_, index) => (
@@ -104,6 +111,7 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
       ref={(el) => (inputRefs.current[index] = el)}
       value={value[index] === ' ' ? '' : (value[index] ?? '')}
       onChange={(e) => handleInputChange(e, index)}
+      onBeforeInput={handleBeforeInput}
       // onCompositionStart={handleCompositionStart}
       // onCompositionEnd={(e) => handleCompositionEnd(e, index)}
       onKeyDown={(e) => handleKeyDown(e, index)}
