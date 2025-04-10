@@ -17,13 +17,7 @@ const EmblaCarousel: FC<Props> = ({ slides, options }) => {
   return (
     <section css={CarouselStyle}>
       <div className='embla__viewport' ref={emblaRef}>
-        <div className='embla__container'>
-          {slides.map((slide, index) => (
-            <div className='embla__slide' key={index}>
-              <div className='embla__slide__number'>{index + 1}</div>
-            </div>
-          ))}
-        </div>
+        <div className='embla__container'>{slides.map((slide) => slide)}</div>
       </div>
 
       <div className='embla__controls'>

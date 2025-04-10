@@ -11,36 +11,19 @@ export const CarouselStyle = css`
   }
   .embla__container {
     display: flex;
+    gap: 24px;
     height: fit-content;
     touch-action: pan-y pinch-zoom;
-    margin-left: calc(var(--slide-spacing, 1rem) * -1);
+    margin: 0 24px;
   }
-  .embla__slide {
-    height: fit-content;
-    transform: translate3d(0, 0, 0);
-    flex: 0 0 var(--slide-size, 90%);
-    min-width: 0;
-    padding-left: var(--slide-spacing, 1rem);
-  }
-  .embla__slide__number {
-    /* box-shadow: inset 0 0 0 0.2rem var(--detail-medium-contrast); */
-    /* border-radius: 1.8rem; */
-    border: 1px solid yellow;
-    color: white;
-    font-size: 4rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: var(--slide-height, 19rem);
-    user-select: none;
-  }
+
   // dots
   .embla__controls {
     display: flex;
     justify-content: center;
     gap: 1.2rem;
     margin-top: 1.8rem;
+    margin-bottom: 1.8rem;
   }
   .embla__dots {
     display: flex;
@@ -59,23 +42,22 @@ export const CarouselStyle = css`
     border: 0;
     padding: 0;
     margin: 0;
-    width: 2.6rem;
-    height: 2.6rem;
+    width: 2.4rem;
+    height: 2.4rem;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
   }
   .embla__dot:after {
-    box-shadow: inset 0 0 0 0.1rem ${colors.neonGreen[10]};
-    width: 1.4rem;
-    height: 1.4rem;
+    box-shadow: inset 0 0 0 0.1rem ${colors.neonGreen[9]};
+    width: 1.1rem;
+    height: 1.1rem;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
     content: '';
   }
+
   .embla__dot--selected:after {
-    background-color: ${colors.neonGreen[10]};
+    background-color: ${colors.neonGreen[9]};
   }
 `
