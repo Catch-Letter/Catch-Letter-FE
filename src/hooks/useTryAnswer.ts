@@ -27,10 +27,11 @@ const useTryAnswer = () => {
 
   const { data: letterData, isError: isLetterError } = useGetLetterData(uuid!, Number(id!))
   const { data: drawData, isError: isDrawError } = useGetDrawData(uuid!, Number(id!))
-  const { data: answerStatusData, isError: isAnswerStatusError } = useGetAnswerStatus(
-    uuid!,
-    Number(id!)
-  )
+  const {
+    data: answerStatusData,
+    isError: isAnswerStatusError,
+    refetch: refetchAnswerStatus,
+  } = useGetAnswerStatus(uuid!, Number(id!))
 
   const isNotFound = isLetterError || isDrawError || isAnswerStatusError
 
@@ -75,12 +76,13 @@ const useTryAnswer = () => {
           if (prev && prev > 0) return prev - 1
           clearInterval(timer)
           setChances(maxChances)
+          refetchAnswerStatus()
           return null
         })
       }, 1000)
       return () => clearInterval(timer)
     }
-  }, [chances])
+  }, [chances, answerStatusData, response, refetchAnswerStatus])
 
   const handleWrongAttempt = (remaining_seconds: number) => {
     if (chances > 0) {
