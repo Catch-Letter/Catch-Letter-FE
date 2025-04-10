@@ -17,7 +17,7 @@ const EmblaCarousel: FC<Props> = ({ slides, options }) => {
   return (
     <section css={CarouselStyle}>
       <div className='embla__viewport' ref={emblaRef}>
-        <div className='embla__container'>{slides.map((slide) => slide)}</div>
+        <ol className='embla__container'>{slides.map((slide) => slide)}</ol>
       </div>
 
       <div className='embla__controls'>
