@@ -58,7 +58,6 @@ const useTryAnswer = () => {
           setChances(3 - answerStatusData.data.try)
         } else {
           setChances(0)
-          // setTimeLeft(answerStatusData.data.remaining_seconds)
         }
       }
     }
