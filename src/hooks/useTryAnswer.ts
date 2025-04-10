@@ -77,7 +77,7 @@ const useTryAnswer = () => {
           if (prev && prev > 0) return prev - 1
           clearInterval(timer)
           setChances(maxChances)
-          refetchAnswerStatus()
+          // refetchAnswerStatus()
           return null
         })
       }, 1000)
@@ -120,6 +120,9 @@ const useTryAnswer = () => {
       } else {
         const remainingSeconds = response.remaining_seconds ?? 0
         handleWrongAttempt(remainingSeconds)
+        if (response.hints && response.hints.length > 0) {
+          refetchAnswerStatus()
+        }
         const remainingChances = extractRemainingChances(response.message)
         setResponseMessage(t('tryAnswer.remainingAttempts', { chance: remainingChances }))
         setButtonText(t('tryAnswer.submit'))
