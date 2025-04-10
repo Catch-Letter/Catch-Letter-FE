@@ -58,6 +58,7 @@ const useTryAnswer = () => {
           setChances(3 - answerStatusData.data.try)
         } else {
           setChances(0)
+          // setTimeLeft(answerStatusData.data.remaining_seconds)
         }
       }
     }
@@ -140,7 +141,7 @@ const useTryAnswer = () => {
     return extractColorToString(etc)
   }, [letterData])
 
-  const fontStlye = useMemo(() => {
+  const fontStyle = useMemo(() => {
     const etc = letterData?.data?.etc
     return extractFontStyle(etc)
   }, [letterData])
@@ -168,7 +169,7 @@ const useTryAnswer = () => {
     backgroundColor,
     letterData,
     patternStyle,
-    fontStlye,
+    fontStyle,
     handleCardClick,
     cycle,
     hints,

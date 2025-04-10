@@ -39,7 +39,7 @@ const TryAnswer = () => {
     isFlipped,
     letterData,
     patternStyle,
-    fontStlye,
+    fontStyle,
     handleCardClick,
     cycle,
     hints,
@@ -108,7 +108,7 @@ const TryAnswer = () => {
                     from={letterData.data.from}
                     color={backgroundColor}
                     pattern={patternStyle}
-                    font={fontStlye}
+                    font={fontStyle}
                   />
                 </LetterCard>
               </div>

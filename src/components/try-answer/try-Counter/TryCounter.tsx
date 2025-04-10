@@ -42,8 +42,6 @@ const TryCounter: React.FC<TryCounterProps> = ({
 
   const answerString = answerHint.join('')
 
-  console.log(cycle, hints, answerHint, answerString)
-
   return (
     <div css={TryCounterStyle}>
       <div className='Emoji'>
@@ -63,7 +61,7 @@ const TryCounter: React.FC<TryCounterProps> = ({
         )}
       </div>
       <p className='Text'>
-        {cycle > 0 ? (
+        {cycle > 0 && !isCorrect ? (
           <SeparatedInput
             length={answerLength}
             value={answerString}
