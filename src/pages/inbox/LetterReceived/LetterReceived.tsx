@@ -1,6 +1,6 @@
 // TODO: 비번 value 초기화시에 input ui에 적용되지 않는 문제 있음
 import { Toast } from '#/components'
-import { FallingLetters, TextSection } from '#/components/inbox'
+import { FallingLetters, TextSection, Tutorial } from '#/components/inbox'
 import { PasswordModal } from '#/components/inbox/PasswordModal'
 import { useLogin, useModal, usePasswordModal } from '#/hooks'
 import { Flex, Header, Modal } from '#/shared/ui'
@@ -89,7 +89,7 @@ const LetterReceived: FC<Props> = ({ uuid, total_letter_count, incorrect_letter_
       />
 
       <Modal isOpen={isOpenTutorial} onClickOverlay={closeTutorial}>
-        hello
+        <Tutorial />
       </Modal>
 
       <FallingLetters />
