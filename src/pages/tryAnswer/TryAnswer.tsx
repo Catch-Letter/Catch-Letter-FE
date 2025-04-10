@@ -1,6 +1,4 @@
-import { BackHeader, LetterCard, LetterContent } from '#/components'
-import { TryIntro } from '#/components/try-answer'
-import { TryCounter } from '#/components/try-answer/try-Counter'
+import { BackHeader, LetterCard, LetterContent, TryCounter, TryIntro } from '#/components'
 import useTryAnswer from '#/hooks/useTryAnswer'
 import {
   backCardStyle,
@@ -41,7 +39,7 @@ const TryAnswer = () => {
     isFlipped,
     letterData,
     patternStyle,
-    fontStlye,
+    fontStyle,
     handleCardClick,
     cycle,
     hints,
@@ -55,7 +53,7 @@ const TryAnswer = () => {
   const handleNavigate = () => {
     if (isCorrect) {
       navigate(`/myletters/${uuid}`, {
-        state: { refetch: true }, // 추가
+        state: { refetch: true },
       })
     }
   }
@@ -110,7 +108,7 @@ const TryAnswer = () => {
                     from={letterData.data.from}
                     color={backgroundColor}
                     pattern={patternStyle}
-                    font={fontStlye}
+                    font={fontStyle}
                   />
                 </LetterCard>
               </div>
