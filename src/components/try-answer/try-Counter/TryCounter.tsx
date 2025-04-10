@@ -35,14 +35,14 @@ const TryCounter: React.FC<TryCounterProps> = ({
     .fill(failedEmoji)
     .concat(Array(chances).fill(successEmoji))
 
-  const answerHint = Array.from({ length: answerLength }, (_, i) => {
-    const foundHint = hints.find((hint) => hint.index === i)
-    return foundHint ? foundHint.value : ' '
+  const answerHint = Array(answerLength).fill(' ')
+  hints.forEach((hint) => {
+    answerHint[hint.index] = hint.value
   })
 
   const answerString = answerHint.join('')
 
-  console.log(cycle, hints, answerHint)
+  console.log(cycle, hints, answerHint, answerString)
 
   return (
     <div css={TryCounterStyle}>

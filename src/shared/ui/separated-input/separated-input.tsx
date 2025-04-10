@@ -35,7 +35,7 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
       const filledValues = [...newValues, ...Array(length - newValues.length).fill('')]
       setInputValues(filledValues)
     }
-  }, [length])
+  }, [length, value])
 
   const updateValues = (newValues: string[]) => {
     setInputValues(newValues)
