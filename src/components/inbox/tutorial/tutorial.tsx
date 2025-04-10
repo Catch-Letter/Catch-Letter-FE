@@ -1,25 +1,27 @@
 import { TutorialImg1, TutorialImg2, TutorialImg3 } from '#/assets/tutorial'
 import { EmblaOptionsType } from 'embla-carousel'
+import { useTranslation } from 'react-i18next'
 import { Carousel } from './carousel'
 import { Slide } from './slide'
 
 const Tutorial = () => {
+  const { t } = useTranslation()
   const OPTIONS: EmblaOptionsType = {}
   const slideData = [
     {
-      title: '그림 암호 만들기',
+      title: t('inbox.tutorial.step1.title'),
       image: TutorialImg1,
-      description: '내가 그린 그림으로 친구에게 퀴즈를 보내보아요!',
+      description: t('inbox.tutorial.step1.description'),
     },
     {
-      title: '마음 전하기',
+      title: t('inbox.tutorial.step2.title'),
       image: TutorialImg2,
-      description: '친구에게 마음을 담은 편지를 작성해보아요!',
+      description: t('inbox.tutorial.step2.description'),
     },
     {
-      title: '편지 공개',
+      title: t('inbox.tutorial.step3.title'),
       image: TutorialImg3,
-      description: '친구가 내 그림 퀴즈를 맞추면 편지 내용을 확인할 수 있어요!',
+      description: t('inbox.tutorial.step3.description'),
     },
   ]
 
