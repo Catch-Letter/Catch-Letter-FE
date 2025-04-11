@@ -1,5 +1,3 @@
-import { getPostInfo } from '#/api'
-import { refreshAuthToken } from '#/api/refresh'
 import { AuthError } from '#/app/Errors'
 import { useAuthStore } from '#/store/authStore'
 import axios, { CreateAxiosDefaults } from 'axios'
@@ -35,39 +33,38 @@ authApiClient.interceptors.request.use(
   }
 )
 
-const { setAccessToken, deleteAccessToken } = useAuthStore.getState()
+// const { setAccessToken, deleteAccessToken } = useAuthStore.getState()
 
-authApiClient.interceptors.response.use(
-  (response) => response,
-  // 응답이 실패인 경우
-  async (error) => {
-    const originalRequest = error.config
+// authApiClient.interceptors.response.use(
+//   (response) => response,
+//   // 응답이 실패인 경우
+//   async (error) => {
+//     const originalRequest = error.config
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      // 재귀 실행 방지
-      originalRequest._retry = true
+//     if (error.response?.status === 401 && !originalRequest._retry) {
+//       // 재귀 실행 방지
+//       originalRequest._retry = true
 
-      try {
-        // 기존 토큰이 정상인지 확인
-        await getPostInfo()
+//       try {
+//         console.log(1)
+//         // 기존 토큰을 통해 refresh 시도
+//         const { access_token } = await refreshAuthToken()
+//         console.log(2)
 
-        // 기존 토큰을 통해 refresh 시도
-        const { access_token } = await refreshAuthToken()
+//         setAccessToken(access_token)
 
-        setAccessToken(access_token)
+//         originalRequest.headers.Authorization = `Bearer ${access_token}`
+//         return authApiClient(originalRequest)
+//       } catch (refreshError) {
+//         deleteAccessToken()
+//         return Promise.reject(refreshError)
+//       }
+//     }
 
-        originalRequest.headers.Authorization = `Bearer ${access_token}`
-        return authApiClient(originalRequest)
-      } catch (error) {
-        // 유효하지 않은 토큰이거나 refresh에 실패한 경우
-        deleteAccessToken()
-        return Promise.reject(error)
-      }
-    } else if (error.response?.status === 419 && !originalRequest._retry) {
-      deleteAccessToken()
-      return Promise.reject(error)
-    }
+//     if (error.response?.status === 419 && !originalRequest._retry) {
+//       deleteAccessToken()
+//     }
 
-    return Promise.reject(error)
-  }
-)
+//     return Promise.reject(error)
+//   }
+// )

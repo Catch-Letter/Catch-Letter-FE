@@ -7,11 +7,11 @@ import { useLogin, usePasswordModal } from '#/hooks'
 import { Flex, Header } from '#/shared/ui'
 import { Button } from '#/shared/ui/button'
 import { useToastStore } from '#/store/toastStore'
+import { useQueryClient } from '@tanstack/react-query'
 import { FC, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import { bottomButtonStyles, containerStyles, headerStyles } from '../Inbox.styles'
-import { Link } from 'react-router'
 
 interface Props {
   uuid: string
@@ -26,21 +26,23 @@ const LetterReceived: FC<Props> = ({ uuid, total_letter_count, incorrect_letter_
   const navigate = useNavigate()
   const { showToast } = useToastStore()
   const { t } = useTranslation()
+  const queryClient = useQueryClient()
 
   // 확인하기 버튼
   const onClickCheckButton = useCallback(async () => {
     try {
-      // 이미 로그인 되어 있는 경우
-      const postInfo = await getPostInfo()
+      const postInfo = await queryClient.fetchQuery({
+        queryKey: ['postInfo', uuid],
+        queryFn: () => getPostInfo(),
+      })
 
-      // 이미 로그인 되어 있는 경우
-      if (postInfo.uuid === uuid) {
-        navigate(`/myletters/${uuid}`)
-        return
+      if (postInfo.uuid !== uuid) {
+        throw Error()
       }
 
-      throw new Error()
-    } catch {
+      // 이미 로그인 된 경우
+      navigate(`/myletters/${uuid}`)
+    } catch (err) {
       openModal()
     }
   }, [])

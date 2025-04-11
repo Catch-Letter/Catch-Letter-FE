@@ -1,13 +1,12 @@
-import { useState, useEffect, useRef } from 'react'
-import { useLocation, useNavigate, useParams } from 'react-router'
+import { useMyLettersQuery } from '#/api/myLetters'
 import { BackHeader, LetterGrid, NoLetters, SkeletonCard } from '#/components'
 import { useInboxStatus } from '#/hooks'
 import { useInfiniteScroll } from '#/hooks/useInfiniteScroll'
 import { useRandomShakingCard } from '#/hooks/useRandomShakingCard'
 import { useScrollRestoration } from '#/hooks/useScrollRestoration'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useParams } from 'react-router'
+import { useLocation, useNavigate, useParams } from 'react-router'
 import { BadgeStyle, GridContainer, MyLettersWrapper, TitleStyle } from './MyLetters.styles'
 
 const MyLetters = () => {
@@ -19,7 +18,6 @@ const MyLetters = () => {
   const [_loadedMap, setLoadedMap] = useState<Record<string, boolean>>({})
   const navigate = useNavigate()
   const location = useLocation()
-  const { accessToken } = useAuthStore()
 
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } =
     useMyLettersQuery(uuid ?? '')
