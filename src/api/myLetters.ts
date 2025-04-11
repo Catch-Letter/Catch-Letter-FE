@@ -39,5 +39,8 @@ export const useMyLettersQuery = (uuid: string) => {
     initialPageParam: null,
     getNextPageParam: (lastPage) => lastPage?.next_cursor ?? null,
     // enabled: !!accessToken,
+    staleTime: Infinity,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   })
 }

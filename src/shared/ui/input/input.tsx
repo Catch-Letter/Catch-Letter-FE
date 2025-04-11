@@ -27,6 +27,7 @@ const Input: FC<InputProps> = ({
       placeholder={placeholder}
       aria-invalid={isUsed && isInvalid}
       onBlur={handleOnBlur}
+      autoComplete='off'
       {...props}
     />
   )

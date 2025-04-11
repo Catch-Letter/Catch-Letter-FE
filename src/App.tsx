@@ -29,8 +29,8 @@ const App = () => {
             <Routes>
               <Route path='/' element={<Layout />}>
                 <Route path='/' element={<CreatePost />} />
-                <Route path='/postform' element={<CreatePostForm />} />
-                <Route path='/success' element={<Success />} />
+                <Route path='postform' element={<CreatePostForm />} />
+                <Route path='success' element={<Success />} />
                 <Route element={<ProtectedRoute />}>
                   <Route path='drawing/:uuid' element={<Drawing />} />
                   <Route path='writeletter/:uuid/:id' element={<LetterWrite />} />
@@ -43,8 +43,8 @@ const App = () => {
                   <Route path='/tryAnswer/:uuid/:id' element={<TryAnswer />} />
                   <Route path='/checkanswer/:uuid/:id' element={<CheckAnswer />} />
                 </Route>
-                <Route path='*' element={<NotFound />} />
               </Route>
+              <Route path='*' element={<NotFound />} />
             </Routes>
           </Suspense>
         </ErrorBoundary>

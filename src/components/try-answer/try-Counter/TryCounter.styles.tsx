@@ -22,5 +22,6 @@ export const TryCounterStyle = css`
     font-size: 32px;
     color: black;
     font-weight: bold;
+    margin-bottom: 2px;
   }
 `

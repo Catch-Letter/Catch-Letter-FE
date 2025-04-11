@@ -11,6 +11,7 @@ import { FC, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import { bottomButtonStyles, containerStyles, headerStyles } from '../Inbox.styles'
+import { Link } from 'react-router'
 
 interface Props {
   uuid: string
@@ -62,9 +63,9 @@ const LetterReceived: FC<Props> = ({ uuid, total_letter_count, incorrect_letter_
       <Header
         css={headerStyles}
         Left={
-          <span className='left'>
+          <Link to='/' className='left'>
             Catch Letter <div>💌</div>
-          </span>
+          </Link>
         }
       />
 

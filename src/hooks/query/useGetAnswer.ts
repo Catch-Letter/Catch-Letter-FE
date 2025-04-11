@@ -7,6 +7,12 @@ const useGetAnswer = (uuid: string, letterId: number) => {
     queryFn: () => getAnswer(uuid, letterId),
     staleTime: Infinity,
     gcTime: 1000 * 60 * 30,
+    retry: (failureCount, error) => {
+      if (error instanceof Error && error.name === 'NotFound') {
+        return failureCount < 1
+      }
+      return failureCount < 3
+    },
   })
 }
 

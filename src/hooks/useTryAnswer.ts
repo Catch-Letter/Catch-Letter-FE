@@ -25,9 +25,15 @@ const useTryAnswer = () => {
   const [isFlipped, setIsFlipped] = useState(false)
   const [response, setResponse] = useState<TryAnswerResponse | null>(null)
 
-  const { data: letterData } = useGetLetterData(uuid!, Number(id!))
-  const { data: drawData } = useGetDrawData(uuid!, Number(id!))
-  const { data: answerStatusData } = useGetAnswerStatus(uuid!, Number(id!))
+  const { data: letterData, isError: isLetterError } = useGetLetterData(uuid!, Number(id!))
+  const { data: drawData, isError: isDrawError } = useGetDrawData(uuid!, Number(id!))
+  const {
+    data: answerStatusData,
+    isError: isAnswerStatusError,
+    refetch: refetchAnswerStatus,
+  } = useGetAnswerStatus(uuid!, Number(id!))
+
+  const isNotFound = isLetterError || isDrawError || isAnswerStatusError
 
   //그림가져오기
   useEffect(() => {
@@ -70,12 +76,13 @@ const useTryAnswer = () => {
           if (prev && prev > 0) return prev - 1
           clearInterval(timer)
           setChances(maxChances)
+          // refetchAnswerStatus()
           return null
         })
       }, 1000)
       return () => clearInterval(timer)
     }
-  }, [chances])
+  }, [chances, answerStatusData, response, refetchAnswerStatus])
 
   const handleWrongAttempt = (remaining_seconds: number) => {
     if (chances > 0) {
@@ -112,6 +119,9 @@ const useTryAnswer = () => {
       } else {
         const remainingSeconds = response.remaining_seconds ?? 0
         handleWrongAttempt(remainingSeconds)
+        if (response.hints && response.hints.length > 0) {
+          refetchAnswerStatus()
+        }
         const remainingChances = extractRemainingChances(response.message)
         setResponseMessage(t('tryAnswer.remainingAttempts', { chance: remainingChances }))
         setButtonText(t('tryAnswer.submit'))
@@ -133,7 +143,7 @@ const useTryAnswer = () => {
     return extractColorToString(etc)
   }, [letterData])
 
-  const fontStlye = useMemo(() => {
+  const fontStyle = useMemo(() => {
     const etc = letterData?.data?.etc
     return extractFontStyle(etc)
   }, [letterData])
@@ -143,7 +153,7 @@ const useTryAnswer = () => {
     return extractPatternStyle(etc)
   }, [letterData])
 
-  const cycle = answerStatusData?.data?.cycle ?? 1
+  const cycle = answerStatusData?.data?.cycle ?? 0
 
   const hints = answerStatusData?.data?.hints ?? []
 
@@ -161,10 +171,11 @@ const useTryAnswer = () => {
     backgroundColor,
     letterData,
     patternStyle,
-    fontStlye,
+    fontStyle,
     handleCardClick,
     cycle,
     hints,
+    isNotFound,
   }
 }
 

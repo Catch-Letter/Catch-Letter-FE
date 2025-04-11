@@ -1,6 +1,4 @@
-import { BackHeader, LetterCard, LetterContent } from '#/components'
-import { TryIntro } from '#/components/try-answer'
-import { TryCounter } from '#/components/try-answer/try-Counter'
+import { BackHeader, LetterCard, LetterContent, TryCounter, TryIntro } from '#/components'
 import useTryAnswer from '#/hooks/useTryAnswer'
 import {
   backCardStyle,
@@ -16,10 +14,9 @@ import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { colors } from '#/styles/color'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useLocation, useNavigate, useParams } from 'react-router'
+import { Navigate, useLocation, useNavigate, useParams } from 'react-router'
 
 const TryAnswer = () => {
-  // const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
   const { uuid } = useParams()
   const { t } = useTranslation()
   const navigate = useNavigate()
@@ -42,15 +39,22 @@ const TryAnswer = () => {
     isFlipped,
     letterData,
     patternStyle,
-    fontStlye,
+    fontStyle,
     handleCardClick,
     cycle,
     hints,
+    isNotFound,
   } = useTryAnswer()
+
+  if (isNotFound) {
+    return <Navigate to='/not-found' replace />
+  }
 
   const handleNavigate = () => {
     if (isCorrect) {
-      navigate(`/myletters/${uuid}`)
+      navigate(`/myletters/${uuid}`, {
+        state: { refetch: true },
+      })
     }
   }
 
@@ -58,10 +62,18 @@ const TryAnswer = () => {
     tryAnswer(inputValue)
   }
 
+  const handleAnswerLength = (value: string) => {
+    if (value.length > answerLength) return
+    setInputValue(value)
+  }
+
   return (
     <div css={tryAnswerWrapper}>
       <Background color={backgroundColor} />
-      <BackHeader />
+      <BackHeader
+        goBackPath={`/myletters/${uuid}`}
+        goBackState={isCorrect ? { refetch: true } : undefined}
+      />
       <div css={TryAnswerStyle}>
         <TryCounter
           chances={chances}
@@ -96,7 +108,7 @@ const TryAnswer = () => {
                     from={letterData.data.from}
                     color={backgroundColor}
                     pattern={patternStyle}
-                    font={fontStlye}
+                    font={fontStyle}
                   />
                 </LetterCard>
               </div>
@@ -112,7 +124,9 @@ const TryAnswer = () => {
             <InputField
               maxLength={answerLength}
               value={inputValue}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleAnswerLength(e.target.value)
+              }
               placeholder={t('tryAnswer.inputPlaceholder')}
             />
             <span className='Input-length'>{`${inputValue.length} / ${answerLength}`}</span>
