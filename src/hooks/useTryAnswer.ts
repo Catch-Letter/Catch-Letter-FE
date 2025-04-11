@@ -25,7 +25,12 @@ const useTryAnswer = () => {
   const [isFlipped, setIsFlipped] = useState(false)
   const [response, setResponse] = useState<TryAnswerResponse | null>(null)
 
-  const { data: letterData, isError: isLetterError } = useGetLetterData(uuid!, Number(id!))
+  const { data: letterData, isError: isLetterError } = useGetLetterData({
+    uuid: uuid!,
+    letterId: Number(id!),
+    enabled: isCorrect,
+  })
+
   const { data: drawData, isError: isDrawError } = useGetDrawData(uuid!, Number(id!))
   const {
     data: answerStatusData,

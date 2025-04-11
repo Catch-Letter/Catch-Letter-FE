@@ -91,7 +91,7 @@ const TryAnswer = () => {
         >
           {!isTryStarted ? (
             <TryIntro onStart={() => setIsTryStarted(true)} />
-          ) : drawData && letterData ? (
+          ) : drawData ? (
             <div
               css={letterCardStyle}
               onClick={handleCardClick}
@@ -103,9 +103,9 @@ const TryAnswer = () => {
               <div css={backCardStyle}>
                 <LetterCard type={selectedColor}>
                   <LetterContent
-                    to={letterData.data.to}
-                    content={letterData.data.contents}
-                    from={letterData.data.from}
+                    to={letterData?.data?.to ?? ''}
+                    content={letterData?.data?.contents ?? ''}
+                    from={letterData?.data?.from ?? ''}
                     color={backgroundColor}
                     pattern={patternStyle}
                     font={fontStyle}

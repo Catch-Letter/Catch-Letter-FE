@@ -35,7 +35,10 @@ const CheckAnswer = () => {
     data: letterResponse,
     isLoading: letterLoading,
     error: letterError,
-  } = useGetLetterData(uuid!, Number(id!))
+  } = useGetLetterData({
+    uuid: uuid!,
+    letterId: Number(id!),
+  })
 
   const isNotFound =
     answerError?.message === 'NotFound' ||
