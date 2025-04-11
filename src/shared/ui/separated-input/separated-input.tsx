@@ -16,6 +16,7 @@ export interface SeparatedInputProps extends InputHTMLAttributes<HTMLInputElemen
   onChangeValue?: (value: string) => void
   value?: string
   autoFocus?: boolean
+  padding?: string | number
 }
 
 const SeparatedInput: React.FC<SeparatedInputProps> = ({
@@ -25,7 +26,8 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
   onChangeValue,
   value = '',
   autoFocus = false,
-  disabled,
+  disabled = false,
+  padding,
   ...props
 }) => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([])
@@ -118,6 +120,7 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
       maxLength={1}
       css={separateInput}
       disabled={disabled}
+      style={{ padding }}
       {...props}
     />
   ))
