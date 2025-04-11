@@ -47,7 +47,7 @@ const LetterReciving: FC<Props> = ({ uuid, name, expired_at, total_letter_count,
         value1={leftTime}
         title2={t('inbox.lettersReceived')}
         value2={total_letter_count}
-        openTutorial={openTutorial}
+        onClickInformationButton={openTutorial}
       />
 
       <Flex justify='space-between' gap={16} css={bottomButtonStyles}>
