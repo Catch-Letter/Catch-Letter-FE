@@ -1,7 +1,8 @@
-import { CarouselStyle } from '#/components/inbox/tutorial/carousel/Carousel.styles'
 import { EmblaOptionsType } from 'embla-carousel'
 import useEmblaCarousel from 'embla-carousel-react'
 import { FC, ReactNode } from 'react'
+import { CarouselStyle } from './Carousel.styles'
+import { NextButton, PrevButton, usePrevNextButtons } from './CarouselArrowButton'
 import { DotButton, useDotButton } from './CarouselDotButton'
 
 interface Props {
@@ -13,6 +14,9 @@ const EmblaCarousel: FC<Props> = ({ slides, options }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel(options)
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi)
+
+  const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } =
+    usePrevNextButtons(emblaApi)
 
   return (
     <section css={CarouselStyle}>
@@ -31,6 +35,11 @@ const EmblaCarousel: FC<Props> = ({ slides, options }) => {
               )}
             />
           ))}
+        </div>
+
+        <div className='embla__buttons'>
+          <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
+          <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
         </div>
       </div>
     </section>

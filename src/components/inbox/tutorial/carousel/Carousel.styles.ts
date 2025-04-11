@@ -17,20 +17,21 @@ export const CarouselStyle = css`
     margin: 0 24px;
   }
 
-  // dots
   .embla__controls {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     gap: 1.2rem;
-    margin-top: 1.8rem;
-    margin-bottom: 1.8rem;
+    margin: 1.8rem 24px;
+    margin-right: 0;
   }
+
+  // dots
   .embla__dots {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
     align-items: center;
-    margin-right: calc((2.6rem - 1.4rem) / 2 * -1);
+    margin-right: calc((2.4rem - 1.1rem) / 2 * -1);
   }
   .embla__dot {
     -webkit-appearance: none;
@@ -40,8 +41,6 @@ export const CarouselStyle = css`
     text-decoration: none;
     cursor: pointer;
     border: 0;
-    padding: 0;
-    margin: 0;
     width: 2.4rem;
     height: 2.4rem;
     display: flex;
@@ -59,5 +58,39 @@ export const CarouselStyle = css`
 
   .embla__dot--selected:after {
     background-color: ${colors.neonGreen[9]};
+  }
+
+  // arrow
+  .embla__buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.4rem;
+    align-items: center;
+  }
+  .embla__button {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    touch-action: manipulation;
+    display: inline-flex;
+    text-decoration: none;
+    cursor: pointer;
+    border: 0;
+    width: 2.4rem;
+    height: 2.4rem;
+    color: ${colors.grey[5]};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      width: 1.2rem;
+      height: 1.2rem;
+      stroke-width: 20;
+    }
+  }
+  .embla__button:disabled {
+    color: ${colors.grey[9]};
+    cursor: default;
   }
 `
