@@ -1,6 +1,7 @@
 import { informationButtonStyles } from '#/components/inbox/tutorial/information-button/InformaitonButton.styles'
 import { useIsFirstRender } from '#/hooks'
 import { FC, useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { GrCircleInformation } from 'react-icons/gr'
 
 interface Props {
@@ -9,6 +10,7 @@ interface Props {
 
 const InformationButton: FC<Props> = ({ onClick }) => {
   const { isFirstRender } = useIsFirstRender()
+  const { t } = useTranslation()
   const [showTooltip, setShowTooltip] = useState(false)
   const HELP_RENDER_AFTER = 3
 
@@ -43,7 +45,7 @@ const InformationButton: FC<Props> = ({ onClick }) => {
       <GrCircleInformation />
       {showTooltip && (
         <div className='help'>
-          <div className='bubble'>{`캐치레터 사용이 처음인가요?\n튜토리얼을 살펴보세요!`}</div>
+          <div className='bubble'>{t('inbox.tutorial.help-message')}</div>
         </div>
       )}
     </button>

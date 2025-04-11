@@ -400,6 +400,10 @@
           "KO": "친구가 내 그림 암호를 맞추면 편지 내용을 확인할 수 있어요!",
           "EN": "If your friend solves the picture quiz, the contents of the letter disclosed!"
         }
+      },
+      "help-message": {
+        "KO": "캐치레터 사용이 처음인가요?\n튜토리얼을 살펴보세요!",
+        "EN": "New to Catchletter?\nCheck out tutorial!"
       }
     }
   },
