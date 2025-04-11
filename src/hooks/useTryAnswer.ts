@@ -143,11 +143,6 @@ const useTryAnswer = () => {
     }
   }
 
-  const backgroundColor = useMemo(() => {
-    const etc = letterData?.data?.etc
-    return extractColorToString(etc)
-  }, [letterData])
-
   const fontStyle = useMemo(() => {
     const etc = letterData?.data?.etc
     return extractFontStyle(etc)
@@ -173,7 +168,6 @@ const useTryAnswer = () => {
     timeLeft,
     tryAnswer,
     isFlipped,
-    backgroundColor,
     letterData,
     patternStyle,
     fontStyle,
