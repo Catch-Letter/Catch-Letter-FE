@@ -1,3 +1,4 @@
+import { getPostInfo } from '#/api'
 import { Toast } from '#/components'
 import { FallingLetters, TextSection, Tutorial } from '#/components/inbox'
 import { PasswordModal } from '#/components/inbox/PasswordModal'
@@ -5,6 +6,7 @@ import { useLogin, useModal, usePasswordModal } from '#/hooks'
 import { Flex, Header, Modal } from '#/shared/ui'
 import { Button } from '#/shared/ui/button'
 import { useToastStore } from '#/store/toastStore'
+import { useQueryClient } from '@tanstack/react-query'
 import { FC, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router'
@@ -24,12 +26,25 @@ const LetterReceived: FC<Props> = ({ uuid, total_letter_count, incorrect_letter_
   const navigate = useNavigate()
   const { showToast } = useToastStore()
   const { t } = useTranslation()
+  const queryClient = useQueryClient()
 
   // 확인하기 버튼
-  const onClickCheckButton = useCallback(() => {
-    // TODO : access token 검증 단계 추가
+  const onClickCheckButton = useCallback(async () => {
+    try {
+      const postInfo = await queryClient.fetchQuery({
+        queryKey: ['postInfo', uuid],
+        queryFn: () => getPostInfo(),
+      })
 
-    openModal()
+      if (postInfo.uuid !== uuid) {
+        throw Error()
+      }
+
+      // 이미 로그인 된 경우
+      navigate(`/myletters/${uuid}`)
+    } catch (err) {
+      openModal()
+    }
   }, [])
 
   // modal

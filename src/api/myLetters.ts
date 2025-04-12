@@ -1,6 +1,5 @@
 import { authApiClient } from '#/api/apiClient'
 import { API_ENDPOINTS } from '#/api/apiEndpoints'
-import { useAuthStore } from '#/store/authStore'
 import { LettersResponse } from '#/types/myLetters'
 import { useInfiniteQuery } from '@tanstack/react-query'
 
@@ -27,8 +26,6 @@ export const fetchMyLetters = async ({
 }
 
 export const useMyLettersQuery = (uuid: string) => {
-  const { accessToken } = useAuthStore()
-
   return useInfiniteQuery<LettersResponse>({
     queryKey: ['myLetters', uuid],
     queryFn: ({ pageParam }) =>
@@ -38,7 +35,6 @@ export const useMyLettersQuery = (uuid: string) => {
       }),
     initialPageParam: null,
     getNextPageParam: (lastPage) => lastPage?.next_cursor ?? null,
-    enabled: !!accessToken,
     staleTime: Infinity,
     refetchOnMount: false,
     refetchOnWindowFocus: false,

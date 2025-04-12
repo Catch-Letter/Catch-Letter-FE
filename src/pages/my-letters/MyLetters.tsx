@@ -1,14 +1,13 @@
-import { useState, useEffect, useRef } from 'react'
-import { useLocation, useNavigate, useParams } from 'react-router'
-import { BackHeader, LetterGrid, NoLetters, SkeletonCard } from '#/components'
-import { MyLettersWrapper, TitleStyle, BadgeStyle, GridContainer } from './MyLetters.styles'
-import { useTranslation } from 'react-i18next'
 import { useMyLettersQuery } from '#/api/myLetters'
-import { useRandomShakingCard } from '#/hooks/useRandomShakingCard'
-import { useInfiniteScroll } from '#/hooks/useInfiniteScroll'
+import { BackHeader, LetterGrid, NoLetters, SkeletonCard } from '#/components'
 import { useInboxStatus } from '#/hooks'
-import { useAuthStore } from '#/store/authStore'
+import { useInfiniteScroll } from '#/hooks/useInfiniteScroll'
+import { useRandomShakingCard } from '#/hooks/useRandomShakingCard'
 import { useScrollRestoration } from '#/hooks/useScrollRestoration'
+import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useLocation, useNavigate, useParams } from 'react-router'
+import { BadgeStyle, GridContainer, MyLettersWrapper, TitleStyle } from './MyLetters.styles'
 
 const MyLetters = () => {
   const { uuid } = useParams()
@@ -19,7 +18,6 @@ const MyLetters = () => {
   const [_loadedMap, setLoadedMap] = useState<Record<string, boolean>>({})
   const navigate = useNavigate()
   const location = useLocation()
-  const { accessToken } = useAuthStore()
 
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } =
     useMyLettersQuery(uuid ?? '')
@@ -50,14 +48,6 @@ const MyLetters = () => {
     isFetchingNextPage,
     fetchNextPage,
   })
-
-  useEffect(() => {
-    if (!accessToken) {
-      navigate(`/inbox/${uuid}`)
-    }
-  }, [accessToken, navigate, uuid])
-
-  if (!accessToken) return null
 
   return (
     <div css={MyLettersWrapper}>
