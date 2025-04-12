@@ -2,7 +2,7 @@ import { colors } from '#/styles/color'
 import { css } from '@emotion/react'
 
 const variables = {
-  background: 'rgba(54, 54, 54, 0.8)',
+  background: 'rgba(54, 54, 54, 0.86)',
   color: colors.grey[3],
   arrowSize: '10px',
 }
