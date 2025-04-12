@@ -8,8 +8,11 @@ import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate, useParams } from 'react-router'
 import { BadgeStyle, GridContainer, MyLettersWrapper, TitleStyle } from './MyLetters.styles'
+import { useValidateUuid } from '#/hooks/useValidateUuid'
 
 const MyLetters = () => {
+  useValidateUuid()
+
   const { uuid } = useParams()
   const SCROLL_STORAGE_KEY = `myLettersScroll_${uuid}`
 
