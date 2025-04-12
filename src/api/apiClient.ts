@@ -1,6 +1,7 @@
 import { AuthError } from '#/app/Errors'
 import { useAuthStore } from '#/store/authStore'
 import axios, { CreateAxiosDefaults } from 'axios'
+import * as Sentry from '@sentry/react'
 
 export const API_BASE_URL = import.meta.env.VITE_BASE_URL
 
@@ -30,6 +31,23 @@ authApiClient.interceptors.request.use(
   },
   (err) => {
     return Promise.reject(err)
+  }
+)
+
+// 에러 발생 시 Sentry로 전송
+apiClient.interceptors.response.use(
+  (res) => res,
+  (error) => {
+    Sentry.captureException(error)
+    return Promise.reject(error)
+  }
+)
+
+authApiClient.interceptors.response.use(
+  (res) => res,
+  (error) => {
+    Sentry.captureException(error)
+    return Promise.reject(error)
   }
 )
 
