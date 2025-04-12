@@ -1,6 +1,7 @@
-import { lazy, Suspense } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router'
-import { Layout, I18nProvider } from '#/app/ui'
+import { I18nProvider, Layout } from '#/app/ui'
+import { AuthGuard, Loading } from '#/components'
+import ErrorBoundary from '#/components/ErrorBoundary'
+import ProtectedRoute from '#/components/ProtectdRoute'
 import {
   CheckAnswer,
   ChoiceLetter,
@@ -11,9 +12,8 @@ import {
   NotFound,
   TryAnswer,
 } from '#/pages'
-import { Loading } from '#/components'
-import ErrorBoundary from '#/components/ErrorBoundary'
-import ProtectedRoute from '#/components/ProtectdRoute'
+import { lazy, Suspense } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router'
 
 const App = () => {
   const SendLetter = lazy(() => import('#/pages/letter-send/SendLetter'))
@@ -38,12 +38,13 @@ const App = () => {
                   <Route path='sendletter/:uuid' element={<SendLetter />} />
                 </Route>
                 <Route path='inbox/:uuid' element={<Inbox />} />
-                <Route path='myletters/:uuid' element={<MyLetters />} />
-                <Route path='tryAnswer/:uuid/:id' element={<TryAnswer />} />
-                <Route path='checkanswer/:uuid/:id' element={<CheckAnswer />} />
-                <Route path='not-found' element={<NotFound />} />
-                <Route path='*' element={<NotFound />} />
+                <Route element={<AuthGuard />}>
+                  <Route path='myletters/:uuid' element={<MyLetters />} />
+                  <Route path='tryAnswer/:uuid/:id' element={<TryAnswer />} />
+                  <Route path='checkanswer/:uuid/:id' element={<CheckAnswer />} />
+                </Route>
               </Route>
+              <Route path='*' element={<NotFound />} />
             </Routes>
           </Suspense>
         </ErrorBoundary>

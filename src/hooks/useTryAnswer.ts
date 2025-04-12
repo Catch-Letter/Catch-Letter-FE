@@ -5,7 +5,6 @@ import useGetLetterData from '#/hooks/query/useGetLetterData'
 import { extractRemainingChances } from '#/shared/utils'
 import { extractFontStyle } from '#/shared/utils/extractFontStyle'
 import { extractPatternStyle } from '#/shared/utils/extractPattern'
-import { extractColorToString } from '#/types/extractColor'
 import { TryAnswerResponse } from '#/types/tryAnswer'
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -25,12 +24,18 @@ const useTryAnswer = () => {
   const [isFlipped, setIsFlipped] = useState(false)
   const [response, setResponse] = useState<TryAnswerResponse | null>(null)
 
-  const { data: letterData, isError: isLetterError } = useGetLetterData(uuid!, Number(id!))
+  const { data: letterData, isError: isLetterError } = useGetLetterData({
+    uuid: uuid!,
+    letterId: Number(id!),
+    enabled: isCorrect,
+  })
+
   const { data: drawData, isError: isDrawError } = useGetDrawData(uuid!, Number(id!))
-  const { data: answerStatusData, isError: isAnswerStatusError } = useGetAnswerStatus(
-    uuid!,
-    Number(id!)
-  )
+  const {
+    data: answerStatusData,
+    isError: isAnswerStatusError,
+    refetch: refetchAnswerStatus,
+  } = useGetAnswerStatus(uuid!, Number(id!))
 
   const isNotFound = isLetterError || isDrawError || isAnswerStatusError
 
@@ -75,12 +80,13 @@ const useTryAnswer = () => {
           if (prev && prev > 0) return prev - 1
           clearInterval(timer)
           setChances(maxChances)
+          // refetchAnswerStatus()
           return null
         })
       }, 1000)
       return () => clearInterval(timer)
     }
-  }, [chances])
+  }, [chances, answerStatusData, response, refetchAnswerStatus])
 
   const handleWrongAttempt = (remaining_seconds: number) => {
     if (chances > 0) {
@@ -117,6 +123,9 @@ const useTryAnswer = () => {
       } else {
         const remainingSeconds = response.remaining_seconds ?? 0
         handleWrongAttempt(remainingSeconds)
+        if (response.hints && response.hints.length > 0) {
+          refetchAnswerStatus()
+        }
         const remainingChances = extractRemainingChances(response.message)
         setResponseMessage(t('tryAnswer.remainingAttempts', { chance: remainingChances }))
         setButtonText(t('tryAnswer.submit'))
@@ -133,12 +142,7 @@ const useTryAnswer = () => {
     }
   }
 
-  const backgroundColor = useMemo(() => {
-    const etc = letterData?.data?.etc
-    return extractColorToString(etc)
-  }, [letterData])
-
-  const fontStlye = useMemo(() => {
+  const fontStyle = useMemo(() => {
     const etc = letterData?.data?.etc
     return extractFontStyle(etc)
   }, [letterData])
@@ -148,7 +152,7 @@ const useTryAnswer = () => {
     return extractPatternStyle(etc)
   }, [letterData])
 
-  const cycle = answerStatusData?.data?.cycle ?? 1
+  const cycle = answerStatusData?.data?.cycle ?? 0
 
   const hints = answerStatusData?.data?.hints ?? []
 
@@ -163,10 +167,9 @@ const useTryAnswer = () => {
     timeLeft,
     tryAnswer,
     isFlipped,
-    backgroundColor,
     letterData,
     patternStyle,
-    fontStlye,
+    fontStyle,
     handleCardClick,
     cycle,
     hints,

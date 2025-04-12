@@ -8,21 +8,22 @@ import { extractFontStyle } from '#/shared/utils/extractFontStyle'
 import { extractPatternStyle } from '#/shared/utils/extractPattern'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { colors } from '#/styles/color'
-import { extractColorToString } from '#/types/extractColor'
 import { useEffect, useMemo, useState } from 'react'
-import { IoTriangle } from 'react-icons/io5'
-import { Navigate, useParams } from 'react-router'
-import { CheckAnswerStyles, checkAnswerWrapper, SkeletonCardStyle } from './CheckAnswer.styles'
 import { useTranslation } from 'react-i18next'
+import { IoTriangle } from 'react-icons/io5'
+import { Navigate, useLocation, useParams } from 'react-router'
+import { CheckAnswerStyles, checkAnswerWrapper, SkeletonCardStyle } from './CheckAnswer.styles'
 
 const CheckAnswer = () => {
   const { t } = useTranslation()
   const { uuid, id } = useParams()
   const { selectedColor } = useLetterCreationStore()
+  const location = useLocation()
   const [isFlipped, setIsFlipped] = useState(false)
   const [answerLength, setAnswerLength] = useState(4)
   const [imageUrl, setImageUrl] = useState<string | null>(null)
   const [answer, setAnswer] = useState<string>('')
+  const backgroundColor = location.state?.letterColor || colors.grey[3]
 
   const {
     data: answerData,
@@ -35,7 +36,10 @@ const CheckAnswer = () => {
     data: letterResponse,
     isLoading: letterLoading,
     error: letterError,
-  } = useGetLetterData(uuid!, Number(id!))
+  } = useGetLetterData({
+    uuid: uuid!,
+    letterId: Number(id!),
+  })
 
   const isNotFound =
     answerError?.message === 'NotFound' ||
@@ -65,11 +69,6 @@ const CheckAnswer = () => {
     setIsFlipped((prev) => !prev)
   }
 
-  const backgroundColor = useMemo(() => {
-    const etc = letterResponse?.data?.etc
-    return extractColorToString(etc)
-  }, [letterResponse])
-
   const fontStlye = useMemo(() => {
     const etc = letterResponse?.data?.etc
     return extractFontStyle(etc)
@@ -91,7 +90,7 @@ const CheckAnswer = () => {
         ) : answerError ? (
           <p>{t('checkAnswer.loadingAnswerFail')}</p>
         ) : answer ? (
-          <SeparatedInput length={answerLength} value={answer} readOnly={true} />
+          <SeparatedInput length={answerLength} value={answer} padding='4px' readOnly={true} />
         ) : null}
         <div className='content' onClick={handleCardClick}>
           <div className='cardFront'>
@@ -124,7 +123,7 @@ const CheckAnswer = () => {
                   to={letterResponse.data.to}
                   content={letterResponse.data.contents}
                   from={letterResponse.data.from}
-                  color={selectedColor}
+                  color={backgroundColor}
                   pattern={patternStyle}
                   font={fontStlye}
                 />

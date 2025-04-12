@@ -1,4 +1,4 @@
-import { refreshAuthToken } from '#/api/refresh'
+import { AuthError } from '#/app/Errors'
 import { useAuthStore } from '#/store/authStore'
 import axios, { CreateAxiosDefaults } from 'axios'
 
@@ -20,9 +20,11 @@ authApiClient.interceptors.request.use(
   // store에 토큰이 있는 경우 요청에 토큰을 실어서 요청
   (config) => {
     const { accessToken } = useAuthStore.getState()
-    if (accessToken) {
-      config.headers['Authorization'] = `Bearer ${accessToken}`
+    if (!accessToken) {
+      return Promise.reject(new AuthError('token이 존재하지 않습니다.'))
     }
+
+    config.headers['Authorization'] = `Bearer ${accessToken}`
 
     return config
   },
@@ -31,32 +33,38 @@ authApiClient.interceptors.request.use(
   }
 )
 
-authApiClient.interceptors.response.use(
-  (response) => response,
-  // 응답이 실패인 경우
-  async (error) => {
-    const originalRequest = error.config
+// const { setAccessToken, deleteAccessToken } = useAuthStore.getState()
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      // 재귀 실행 방지
-      originalRequest._retry = true
+// authApiClient.interceptors.response.use(
+//   (response) => response,
+//   // 응답이 실패인 경우
+//   async (error) => {
+//     const originalRequest = error.config
 
-      const { setAccessToken, deleteAccessToken } = useAuthStore.getState()
+//     if (error.response?.status === 401 && !originalRequest._retry) {
+//       // 재귀 실행 방지
+//       originalRequest._retry = true
 
-      try {
-        // 기존 토큰을 통해 refresh 시도
-        const { access_token } = await refreshAuthToken()
-        setAccessToken(access_token)
+//       try {
+//         console.log(1)
+//         // 기존 토큰을 통해 refresh 시도
+//         const { access_token } = await refreshAuthToken()
+//         console.log(2)
 
-        originalRequest.headers.Authorization = `Bearer ${access_token}`
-        return authApiClient(originalRequest)
-      } catch (refreshError) {
-        // refresh 시도 후에도 실패인 경우
-        deleteAccessToken()
-        return Promise.reject(refreshError)
-      }
-    }
+//         setAccessToken(access_token)
 
-    return Promise.reject(error)
-  }
-)
+//         originalRequest.headers.Authorization = `Bearer ${access_token}`
+//         return authApiClient(originalRequest)
+//       } catch (refreshError) {
+//         deleteAccessToken()
+//         return Promise.reject(refreshError)
+//       }
+//     }
+
+//     if (error.response?.status === 419 && !originalRequest._retry) {
+//       deleteAccessToken()
+//     }
+
+//     return Promise.reject(error)
+//   }
+// )

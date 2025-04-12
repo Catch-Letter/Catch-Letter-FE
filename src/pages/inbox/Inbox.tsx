@@ -1,9 +1,12 @@
 // TODO:  uuid를 통해 형재 우체통이 유효한지 확인하는 로직 필요.
 import { useInboxStatus } from '#/hooks'
+import { useValidateUuid } from '#/hooks/useValidateUuid'
 import { LetterReceived, LetterReceiving } from '#/pages/inbox'
 import { useNavigate, useParams } from 'react-router'
 
 const Inbox = () => {
+  useValidateUuid()
+
   const navigate = useNavigate()
   const { uuid } = useParams()
 

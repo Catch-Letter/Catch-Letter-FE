@@ -369,6 +369,42 @@
     "goWrite": {
       "KO": "편지 쓰러 가기!",
       "EN": "let's go write a letter"
+    },
+    "tutorial": {
+      "step1": {
+        "title": {
+          "KO": "그림 암호 만들기",
+          "EN": "Create a picture quiz"
+        },
+        "description": {
+          "KO": "내가 그린 그림으로 친구에게 퀴즈를 보내보아요!",
+          "EN": "Send a quiz on the picture you drew to your friends!"
+        }
+      },
+      "step2": {
+        "title": {
+          "KO": "마음 전하기",
+          "EN": "Express your feelings with the letter"
+        },
+        "description": {
+          "KO": "친구에게 마음을 담은 편지를 작성해보아요!",
+          "EN": "Try sending a letter to a friend!"
+        }
+      },
+      "step3": {
+        "title": {
+          "KO": "편지 공개",
+          "EN": "Disclose the letter"
+        },
+        "description": {
+          "KO": "친구가 내 그림 암호를 맞추면 편지 내용을 확인할 수 있어요!",
+          "EN": "If your friend solves the picture quiz, the contents of the letter disclosed!"
+        }
+      },
+      "help-message": {
+        "KO": "캐치레터 사용이 처음인가요?\n튜토리얼을 살펴보세요!",
+        "EN": "New to Catchletter?\nCheck out tutorial!"
+      }
     }
   },
 

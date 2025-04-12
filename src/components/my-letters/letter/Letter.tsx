@@ -3,6 +3,7 @@ import { lock } from '#/assets/create'
 import { LockLetterStyle } from './Letter.styles'
 import { useTranslation } from 'react-i18next'
 import { LetterData } from '#/types/myLetters'
+import { extractColorToString } from '#/types/extractColor'
 
 interface LettersProps {
   letter: LetterData
@@ -20,7 +21,10 @@ const Letter = ({ letter, uuid, backgroundColor }: LettersProps) => {
       : `/tryAnswer/${uuid}/${letter.id}`
 
     navigate(path, {
-      state: { answerLength: letter.answer_length },
+      state: {
+        answerLength: letter.answer_length,
+        letterColor: extractColorToString(letter.letter.etc),
+      },
     })
   }
 

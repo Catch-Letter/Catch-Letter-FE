@@ -39,19 +39,19 @@ const TryCounter: React.FC<TryCounterProps> = ({
   hints.forEach((hint) => {
     answerHint[hint.index] = hint.value
   })
+
   const answerString = answerHint.join('')
 
   return (
     <div css={TryCounterStyle}>
       <div className='Emoji'>
-        {isCorrect ? ( // 정답일 경우
+        {isCorrect ? (
           <span className='correct-message'>{translatedMessage}</span>
-        ) : chances > 0 ? ( // 기회가 남아 있을 경우
+        ) : chances > 0 ? (
           emojiArray.map((emoji, index) => (
             <img key={index} src={emoji} alt='emoji' width={24} height={24} />
           ))
         ) : (
-          // 기회가 없을 경우
           <span className='timer'>
             {Math.floor((timeLeft ?? 0) / 60)
               .toString()
@@ -61,8 +61,13 @@ const TryCounter: React.FC<TryCounterProps> = ({
         )}
       </div>
       <p className='Text'>
-        {cycle > 1 ? (
-          <SeparatedInput length={answerLength} value={answerString} disabled={true} />
+        {cycle > 0 && !isCorrect ? (
+          <SeparatedInput
+            length={answerLength}
+            value={answerString}
+            padding='4px'
+            readOnly={true}
+          />
         ) : isCorrect ? (
           t('tryAnswer.passwordUnlock')
         ) : chances === 0 ? (

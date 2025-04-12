@@ -1,14 +1,14 @@
-import { FallingLetters, TextSection } from '#/components/inbox'
+import { FallingLetters, TextSection, Tutorial } from '#/components/inbox'
+import { ShareModal } from '#/components/share-modal'
 import { useCountdownTimer } from '#/hooks'
-import { Background, Flex, Header } from '#/shared/ui'
+import useModal from '#/hooks/useModal'
+import { Background, Flex, Header, Modal } from '#/shared/ui'
 import { Button } from '#/shared/ui/button'
+import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { FC, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router'
 import { bottomButtonStyles, containerStyles, headerStyles } from '../Inbox.styles'
-import useModal from '#/hooks/useModal'
-import { ShareModal } from '#/components/share-modal'
-import { useLetterCreationStore } from '#/store/letterCreateStore'
 
 interface Props {
   uuid: string
@@ -21,6 +21,7 @@ interface Props {
 const LetterReciving: FC<Props> = ({ uuid, name, expired_at, total_letter_count, inboxUrl }) => {
   const { leftTime } = useCountdownTimer(expired_at)
   const { isOpen, openModal, closeModal } = useModal()
+  const { isOpen: isOpenTutorial, openModal: openTutorial, closeModal: closeTutorial } = useModal()
   const { setReceiver } = useLetterCreationStore()
   const navigate = useNavigate()
   const { t } = useTranslation()
@@ -46,6 +47,7 @@ const LetterReciving: FC<Props> = ({ uuid, name, expired_at, total_letter_count,
         value1={leftTime}
         title2={t('inbox.lettersReceived')}
         value2={total_letter_count}
+        onClickInformationButton={openTutorial}
       />
 
       <Flex justify='space-between' gap={16} css={bottomButtonStyles}>
@@ -54,6 +56,11 @@ const LetterReciving: FC<Props> = ({ uuid, name, expired_at, total_letter_count,
         </Button>
         <Button onClick={() => navigate(`/drawing/${uuid}`)}>{t('inbox.goWrite')}</Button>
       </Flex>
+
+      <Modal isOpen={isOpenTutorial} onClickOverlay={closeTutorial}>
+        <Tutorial />
+      </Modal>
+
       <FallingLetters />
       <ShareModal
         url={inboxUrl as string}

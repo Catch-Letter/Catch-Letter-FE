@@ -34,11 +34,12 @@ const PasswordModal: FC<Props> = ({
           pattern='[0-9]*'
           value={password}
           onChangeValue={onChangeValue}
+          autoFocus
         />
         <Button
           width={99}
           onClick={onClickConfirmButton}
-          disabled={password.length < 5}
+          disabled={/^[0-9]{5}$/.test(password) === false}
           type='button'
         >
           {t('confirm')}
