@@ -2,7 +2,7 @@ import { colors } from '#/styles/color'
 import { css } from '@emotion/react'
 
 const variables = {
-  background: colors.white,
+  background: 'rgba(54, 54, 54, 0.8)',
   color: colors.grey[3],
   arrowSize: '10px',
 }
@@ -29,7 +29,7 @@ export const informationButtonStyles = css`
   }
 
   .help {
-    color: black;
+    color: white;
     position: absolute;
     right: 0;
     bottom: 0;
@@ -44,17 +44,30 @@ export const informationButtonStyles = css`
       white-space: pre;
       font-size: 12px;
       font-weight: 400;
+      border: solid 1px ${colors.neonGreen[5]};
 
       &::after {
         content: '';
         position: absolute;
         top: 0;
         right: 5%;
-        border: ${variables.arrowSize} solid transparent;
-        border-bottom-color: ${variables.background};
-        border-top: 0;
-        margin-left: -${variables.arrowSize};
-        margin-top: -${variables.arrowSize};
+        transform: translateY(-100%);
+        border-width: 10px;
+        border-style: solid;
+        border-color: transparent transparent ${colors.neonGreen[5]} transparent;
+        z-index: 1;
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 1px;
+        right: 5%;
+        transform: translateY(-100%);
+        border-width: 10px;
+        border-style: solid;
+        border-color: transparent transparent rgba(54, 54, 54) transparent;
+        z-index: 2;
       }
     }
   }
