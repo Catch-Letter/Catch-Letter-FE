@@ -19,6 +19,14 @@ const CreatePost = () => {
           <div className='sub-title'>{t('create.introMessage')}</div>
         </div>
         <TurnCard />
+        <button
+          onClick={() => {
+            throw new Error('Sentry Test Error')
+          }}
+          style={{ width: '50%' }}
+        >
+          에러 발생 테스트
+        </button>
       </div>
       <Button
         className='create-btn'
