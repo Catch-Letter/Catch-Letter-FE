@@ -5,8 +5,8 @@ import { css } from '@emotion/react'
 export const textSectionStyles = css`
   background-color: transparent;
   color: ${colors.grey[1]};
+  margin: 0 26px;
   margin-top: 24px;
-  margin-left: 26px;
   position: relative;
   z-index: ${ZIndex.letterInboxUI};
   line-height: 1;
@@ -14,6 +14,10 @@ export const textSectionStyles = css`
   .title1 {
     font-size: 18px;
     font-weight: 400;
+
+    > svg:hover {
+      cursor: pointer;
+    }
   }
 
   .value1 {

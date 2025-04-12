@@ -22,6 +22,7 @@ const TryAnswer = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const answerLength = location.state?.answerLength || 6
+  const backgroundColor = location.state?.letterColor || colors.grey[3]
   const [inputValue, setInputValue] = useState<string>('')
   const [isTryStarted, setIsTryStarted] = useState<boolean>(false)
   const { selectedColor } = useLetterCreationStore()
@@ -35,7 +36,6 @@ const TryAnswer = () => {
     isShaking,
     timeLeft,
     tryAnswer,
-    backgroundColor,
     isFlipped,
     letterData,
     patternStyle,
@@ -91,7 +91,7 @@ const TryAnswer = () => {
         >
           {!isTryStarted ? (
             <TryIntro onStart={() => setIsTryStarted(true)} />
-          ) : drawData && letterData ? (
+          ) : drawData ? (
             <div
               css={letterCardStyle}
               onClick={handleCardClick}
@@ -103,9 +103,9 @@ const TryAnswer = () => {
               <div css={backCardStyle}>
                 <LetterCard type={selectedColor}>
                   <LetterContent
-                    to={letterData.data.to}
-                    content={letterData.data.contents}
-                    from={letterData.data.from}
+                    to={letterData?.data?.to ?? ''}
+                    content={letterData?.data?.contents ?? ''}
+                    from={letterData?.data?.from ?? ''}
                     color={backgroundColor}
                     pattern={patternStyle}
                     font={fontStyle}

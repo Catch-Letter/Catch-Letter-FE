@@ -1,10 +1,8 @@
-// TODO: 비번 value 초기화시에 input ui에 적용되지 않는 문제 있음
-import { getPostInfo } from '#/api'
 import { Toast } from '#/components'
-import { FallingLetters, TextSection } from '#/components/inbox'
+import { FallingLetters, TextSection, Tutorial } from '#/components/inbox'
 import { PasswordModal } from '#/components/inbox/PasswordModal'
-import { useLogin, usePasswordModal } from '#/hooks'
-import { Flex, Header } from '#/shared/ui'
+import { useLogin, useModal, usePasswordModal } from '#/hooks'
+import { Flex, Header, Modal } from '#/shared/ui'
 import { Button } from '#/shared/ui/button'
 import { useToastStore } from '#/store/toastStore'
 import { useQueryClient } from '@tanstack/react-query'
@@ -23,6 +21,7 @@ interface Props {
 const LetterReceived: FC<Props> = ({ uuid, total_letter_count, incorrect_letter_count, name }) => {
   const { isOpen, openModal, closeModal, password, initializePassword, onPasswordChange } =
     usePasswordModal()
+  const { isOpen: isOpenTutorial, openModal: openTutorial, closeModal: closeTutorial } = useModal()
   const navigate = useNavigate()
   const { showToast } = useToastStore()
   const { t } = useTranslation()
@@ -76,6 +75,7 @@ const LetterReceived: FC<Props> = ({ uuid, total_letter_count, incorrect_letter_
         value1={total_letter_count}
         title2={t('inbox.unsolvedLetters')}
         value2={incorrect_letter_count}
+        onClickInformationButton={openTutorial}
       />
 
       <Flex justify='space-between' gap={16} css={bottomButtonStyles}>
@@ -100,6 +100,10 @@ const LetterReceived: FC<Props> = ({ uuid, total_letter_count, incorrect_letter_
           initializePassword()
         }}
       />
+
+      <Modal isOpen={isOpenTutorial} onClickOverlay={closeTutorial}>
+        <Tutorial />
+      </Modal>
 
       <FallingLetters />
       <Toast position='top' offset='24vh' />

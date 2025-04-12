@@ -5,7 +5,6 @@ import useGetLetterData from '#/hooks/query/useGetLetterData'
 import { extractRemainingChances } from '#/shared/utils'
 import { extractFontStyle } from '#/shared/utils/extractFontStyle'
 import { extractPatternStyle } from '#/shared/utils/extractPattern'
-import { extractColorToString } from '#/types/extractColor'
 import { TryAnswerResponse } from '#/types/tryAnswer'
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -25,7 +24,12 @@ const useTryAnswer = () => {
   const [isFlipped, setIsFlipped] = useState(false)
   const [response, setResponse] = useState<TryAnswerResponse | null>(null)
 
-  const { data: letterData, isError: isLetterError } = useGetLetterData(uuid!, Number(id!))
+  const { data: letterData, isError: isLetterError } = useGetLetterData({
+    uuid: uuid!,
+    letterId: Number(id!),
+    enabled: isCorrect,
+  })
+
   const { data: drawData, isError: isDrawError } = useGetDrawData(uuid!, Number(id!))
   const {
     data: answerStatusData,
@@ -138,11 +142,6 @@ const useTryAnswer = () => {
     }
   }
 
-  const backgroundColor = useMemo(() => {
-    const etc = letterData?.data?.etc
-    return extractColorToString(etc)
-  }, [letterData])
-
   const fontStyle = useMemo(() => {
     const etc = letterData?.data?.etc
     return extractFontStyle(etc)
@@ -168,7 +167,6 @@ const useTryAnswer = () => {
     timeLeft,
     tryAnswer,
     isFlipped,
-    backgroundColor,
     letterData,
     patternStyle,
     fontStyle,
