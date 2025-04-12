@@ -1,3 +1,4 @@
+import { getPostInfo } from '#/api'
 import { Toast } from '#/components'
 import { FallingLetters, TextSection, Tutorial } from '#/components/inbox'
 import { PasswordModal } from '#/components/inbox/PasswordModal'
