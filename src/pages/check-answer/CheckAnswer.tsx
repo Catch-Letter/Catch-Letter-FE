@@ -69,7 +69,7 @@ const CheckAnswer = () => {
     setIsFlipped((prev) => !prev)
   }
 
-  const fontStlye = useMemo(() => {
+  const fontStyle = useMemo(() => {
     const etc = letterResponse?.data?.etc
     return extractFontStyle(etc)
   }, [letterResponse])
@@ -125,7 +125,7 @@ const CheckAnswer = () => {
                   from={letterResponse.data.from}
                   color={backgroundColor}
                   pattern={patternStyle}
-                  font={fontStlye}
+                  font={fontStyle}
                 />
               </LetterCard>
             ) : letterError ? (

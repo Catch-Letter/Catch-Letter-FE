@@ -83,15 +83,22 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
     // if (isComposing) return
 
     switch (e.key) {
-      case 'Backspace':
+      case 'Backspace': {
         e.preventDefault()
         const newValues = Array.from({ length }, (_, i) => value[i] ?? ' ')
-        newValues[index] = ' '
-        onChangeValue?.(newValues.join(''))
-        if (!e.currentTarget.value) {
+
+        if ((value[index] === '' || value[index] === ' ') && index > 0) {
+          // 현재 칸이 비어있으면 이전 칸 지우고 포커스
+          newValues[index - 1] = ' '
+          onChangeValue?.(newValues.join(''))
           inputRefs.current[index - 1]?.focus()
+        } else {
+          // 현재 칸만 지우기
+          newValues[index] = ' '
+          onChangeValue?.(newValues.join(''))
         }
         return
+      }
       case 'ArrowLeft':
         e.preventDefault() // 이동 시 focus가 글자 앞으로 가지 않도록
         inputRefs.current[index - 1]?.focus()
