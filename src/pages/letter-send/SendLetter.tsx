@@ -1,11 +1,12 @@
 import { SendCard, SendDesc } from '#/components/letter-send'
 import { Background, Header } from '#/shared/ui'
 import { Button } from '#/shared/ui/button'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate, useParams } from 'react-router'
 import { SendLetterStyle, sendLetterWrapper } from './SendLetter.styles'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
+import useObjectUrl from '#/hooks/\buseObjectUrl'
 
 const SendLetter = () => {
   const navigate = useNavigate()
@@ -13,8 +14,8 @@ const SendLetter = () => {
   const { uuid } = useParams()
   const { t } = useTranslation()
   const info = location.state
-  const [imageUrl, setImageUrl] = useState('')
   const { resetStore } = useLetterCreationStore()
+  const imageUrl = useObjectUrl(info?.img)
 
   const handleCreatePost = () => {
     navigate('/')
@@ -28,24 +29,13 @@ const SendLetter = () => {
     resetStore()
   }, [])
 
-  useEffect(() => {
-    if (info?.img) {
-      const imgUrl = URL.createObjectURL(info?.img)
-      setImageUrl(imgUrl)
-
-      return () => {
-        URL.revokeObjectURL(imgUrl)
-      }
-    }
-  }, [info?.img])
-
   return (
     <div css={sendLetterWrapper}>
       <Background color={info.color} />
       <Header />
       <div css={SendLetterStyle}>
         <SendDesc title={t('send.desc')} subTitle={t('send.keydesc')} />
-        <SendCard color={info.color} content={imageUrl} />
+        <SendCard color={info.color} content={imageUrl!} />
       </div>
       <div className='button-area'>
         <Button width={339} onClick={handleCreatePost}>
