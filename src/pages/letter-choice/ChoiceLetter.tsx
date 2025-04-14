@@ -13,7 +13,7 @@ const ChoiceLetter = () => {
   const location = useLocation()
   const { t } = useTranslation()
   const letter = location.state
-  const { selectedColor, selectedFont, selectedPattern, resetStore } = useLetterCreationStore()
+  const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
 
   const handleSendLetter = async (uuid: string, id: number) => {
     const letterData = {
@@ -28,15 +28,13 @@ const ChoiceLetter = () => {
     }
 
     try {
-      const res = await fetchSendLetter(uuid, id, letterData)
+      await fetchSendLetter(uuid, id, letterData)
       navigate(`/sendletter/${uuid}`, {
         state: {
           color: selectedColor,
           img: location.state?.img,
         },
       })
-      resetStore()
-      return res.data
     } catch (error) {
       throw error
     }
@@ -52,8 +50,6 @@ const ChoiceLetter = () => {
       },
     })
   }
-
-  if (!uuid) return <div>페이지를 찾을 수 없습니다</div>
 
   return (
     <div css={ChoiceLetterWrapper}>
@@ -75,7 +71,7 @@ const ChoiceLetter = () => {
           <Button variant='secondary' width={82} onClick={handlePrev}>
             {t('before')}
           </Button>
-          <Button width={245} onClick={() => handleSendLetter(uuid, Number(id))}>
+          <Button width={245} onClick={() => handleSendLetter(uuid!, Number(id))}>
             {t('theme.sendLetter')}
           </Button>
         </div>

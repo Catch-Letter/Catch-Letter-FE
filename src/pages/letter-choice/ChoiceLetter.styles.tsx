@@ -25,13 +25,12 @@ export const ChoiceLetterStyle = css`
     justify-content: center;
     gap: 12px;
     padding: 16px;
-
     margin-top: 45px;
   }
 
   @media (width>= 700px) {
     .content {
-      width: 90%;
+      width: 85%;
     }
   }
 `

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate, useParams } from 'react-router'
 import { SendLetterStyle, sendLetterWrapper } from './SendLetter.styles'
+import { useLetterCreationStore } from '#/store/letterCreateStore'
 
 const SendLetter = () => {
   const navigate = useNavigate()
@@ -13,6 +14,7 @@ const SendLetter = () => {
   const { t } = useTranslation()
   const info = location.state
   const [imageUrl, setImageUrl] = useState('')
+  const { resetStore } = useLetterCreationStore()
 
   const handleCreatePost = () => {
     navigate('/')
@@ -21,6 +23,10 @@ const SendLetter = () => {
   const handleNewPost = () => {
     navigate(`/inbox/${uuid}`)
   }
+
+  useEffect(() => {
+    resetStore()
+  }, [])
 
   useEffect(() => {
     if (info?.img) {
