@@ -10,7 +10,14 @@ const NoLetters = () => {
       <div css={LettersContainer}>
         <img src={bubbleImgae} alt='bubble' />
         <h1>{t('noLetters.title')}</h1>
-        <span dangerouslySetInnerHTML={{ __html: t('noLetters.desc') }}></span>
+        <span>
+          {(t('noLetters.desc', { returnObjects: true }) as string[]).map((line, idx) => (
+            <span key={idx}>
+              {line}
+              <br />
+            </span>
+          ))}
+        </span>
       </div>
     </div>
   )
