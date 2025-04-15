@@ -48,6 +48,7 @@ jobs:
           echo "VITE_KAKAO_TEMPLATE_KEY=${{ secrets.VITE_KAKAO_TEMPLATE_KEY }}" >> .env.production
           echo "VITE_ROUTER_BASENAME=${{ steps.vars.outputs.target_path }}" >> .env.production
           echo "VITE_SENTRY_DSN=${{ secrets.VITE_SENTRY_DSN }}" >> .env.production
+          echo "VITE_GA_ID=${{ secrets.VITE_GA_ID }}" >> .env.production
 
       # PR_PREVIEW_PATH 환경변수 설정 (Vite의 base 경로 설정용)
       - name: Set PR_PREVIEW_PATH for Vite base

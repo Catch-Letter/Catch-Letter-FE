@@ -14,7 +14,14 @@ const NotFound = () => {
       <div css={ErrorWrapper}>
         <img src={error} alt='error-image' />
         <h1>404 - {t('error.notFoundPage')}</h1>
-        <p dangerouslySetInnerHTML={{ __html: t('error.notFoundDesc') }}></p>
+        <p>
+          {(t('error.notFoundDesc', { returnObjects: true }) as string[]).map((line, idx) => (
+            <span key={idx}>
+              {line}
+              <br />
+            </span>
+          ))}
+        </p>
         <div className='button-wrapper'>
           <Button
             variant='secondary'

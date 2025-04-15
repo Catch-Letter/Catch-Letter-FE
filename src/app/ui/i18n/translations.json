@@ -298,10 +298,10 @@
       "KO": "편지함",
       "EN": "My Letters"
     },
-    "lockDesc": {
-      "KO": "암호를 <br /> 풀어주세요!",
-      "EN": "Unlock <br /> the drawing!"
-    }
+  "lockDesc": {
+    "KO": ["암호를", "풀어주세요!"],
+    "EN": ["Unlock", "the drawing!"]
+    } 
   },
 
   "submit": {
@@ -413,9 +413,9 @@
       "KO": "이번에는 편지가 없어요 🥲",
       "EN": "There are no letters this time 🥲"
     },
-    "desc": {
-      "KO": "새로운 링크로 다시 한 번 <br /> 친구들에게 소식을 전해 볼까요?",
-      "EN": "Let's get letters from your friends <br /> again with a new link"
+  "desc": {
+      "KO": ["새로운 링크로 다시 한 번", "친구들에게 소식을 전해 볼까요?"],
+      "EN": ["Let's get letters from your friends", "again with a new link"]
     }
   },
 
@@ -425,8 +425,8 @@
       "EN": "Page not found"
     },
     "notFoundDesc": {
-      "KO": "요청하신 페이지가 존재하지 않거나, <br /> 삭제되었어요 🥲",
-      "EN": "The page you requested doesn't exist <br /> or has been deleted 🥲"
+      "KO": ["요청하신 페이지가 존재하지 않거나,", "삭제되었어요 🥲"],
+      "EN": ["The page you requested doesn't exist", "or has been deleted 🥲"]
     },
     "serverError": {
       "KO": "서버 응답이 없습니다. 다시 시도해주세요",
