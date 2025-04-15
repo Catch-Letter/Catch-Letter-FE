@@ -3,7 +3,11 @@ import { API_ENDPOINTS } from '#/api/apiEndpoints'
 
 export const refreshAuthToken = async () => {
   try {
-    const res = await authApiClient.post<Response>(API_ENDPOINTS.REFRESH, { withCredentials: true })
+    const res = await authApiClient.post<Response>(
+      API_ENDPOINTS.REFRESH,
+      {},
+      { withCredentials: true }
+    )
     return res.data
   } catch (error) {
     throw error
