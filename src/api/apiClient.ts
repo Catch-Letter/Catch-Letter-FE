@@ -2,6 +2,8 @@ import { AuthError } from '#/app/Errors'
 import { useAuthStore } from '#/store/authStore'
 import axios, { CreateAxiosDefaults } from 'axios'
 import * as Sentry from '@sentry/react'
+import { refreshAuthToken } from '#/api/refresh'
+import { AxiosRequestConfig } from 'axios'
 
 export const API_BASE_URL = import.meta.env.VITE_BASE_URL
 
@@ -34,6 +36,37 @@ authApiClient.interceptors.request.use(
   }
 )
 
+authApiClient.interceptors.response.use(
+  (res) => res,
+  async (error) => {
+    const originalRequest = error.config as AxiosRequestConfig & { _retry?: boolean }
+
+    if (originalRequest.url?.includes('/auth/refresh')) {
+      return Promise.reject(error)
+    }
+
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true
+
+      try {
+        await refreshAuthToken()
+
+        const { accessToken } = useAuthStore.getState()
+        if (!originalRequest.headers) {
+          originalRequest.headers = {}
+        }
+        originalRequest.headers.Authorization = `Bearer ${accessToken}`
+
+        return authApiClient(originalRequest)
+      } catch (refreshError) {
+        return Promise.reject(refreshError)
+      }
+    }
+
+    return Promise.reject(error)
+  }
+)
+
 // 에러 발생 시 Sentry로 전송
 apiClient.interceptors.response.use(
   (res) => res,
@@ -50,39 +83,3 @@ authApiClient.interceptors.response.use(
     return Promise.reject(error)
   }
 )
-
-// const { setAccessToken, deleteAccessToken } = useAuthStore.getState()
-
-// authApiClient.interceptors.response.use(
-//   (response) => response,
-//   // 응답이 실패인 경우
-//   async (error) => {
-//     const originalRequest = error.config
-
-//     if (error.response?.status === 401 && !originalRequest._retry) {
-//       // 재귀 실행 방지
-//       originalRequest._retry = true
-
-//       try {
-//         console.log(1)
-//         // 기존 토큰을 통해 refresh 시도
-//         const { access_token } = await refreshAuthToken()
-//         console.log(2)
-
-//         setAccessToken(access_token)
-
-//         originalRequest.headers.Authorization = `Bearer ${access_token}`
-//         return authApiClient(originalRequest)
-//       } catch (refreshError) {
-//         deleteAccessToken()
-//         return Promise.reject(refreshError)
-//       }
-//     }
-
-//     if (error.response?.status === 419 && !originalRequest._retry) {
-//       deleteAccessToken()
-//     }
-
-//     return Promise.reject(error)
-//   }
-// )
