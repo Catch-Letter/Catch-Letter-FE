@@ -1,16 +1,25 @@
 import { authApiClient } from '#/api/apiClient'
 import { API_ENDPOINTS } from '#/api/apiEndpoints'
+import { useAuthStore } from '#/store/authStore'
 
-export const refreshAuthToken = async () => {
+export const refreshAuthToken = async (): Promise<void> => {
   try {
-    const res = await authApiClient.post<Response>(API_ENDPOINTS.REFRESH)
-    return res.data
+    const res = await authApiClient.post<RefreshResponse>(
+      API_ENDPOINTS.REFRESH,
+      {},
+      { withCredentials: true }
+    )
+
+    const { setAccessToken } = useAuthStore.getState()
+    setAccessToken(res.data.access_token)
   } catch (error) {
+    const { deleteAccessToken } = useAuthStore.getState()
+    deleteAccessToken()
     throw error
   }
 }
 
-interface Response {
+interface RefreshResponse {
   access_token: string
   token_type: 'bearer'
   expires_in: number

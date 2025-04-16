@@ -8,13 +8,13 @@ import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate, useParams } from 'react-router'
 import { BadgeStyle, GridContainer, MyLettersWrapper, TitleStyle } from './MyLetters.styles'
-import { useValidateUuid } from '#/hooks/useValidateUuid'
+import { useToastStore } from '#/store/toastStore'
+import { NotFound } from '#/pages/error'
 
 const MyLetters = () => {
-  useValidateUuid()
-
   const { uuid } = useParams()
   const SCROLL_STORAGE_KEY = `myLettersScroll_${uuid}`
+  const { showToast } = useToastStore()
 
   const { t } = useTranslation()
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
@@ -30,6 +30,9 @@ const MyLetters = () => {
     setLoadedMap((prev) => ({ ...prev, [id]: loaded }))
   }
 
+  const letters = data?.pages[0]?.data ?? []
+  const shakingCard = useRandomShakingCard(letters)
+
   useEffect(() => {
     if (location.state?.refetch) {
       refetch()
@@ -41,9 +44,17 @@ const MyLetters = () => {
     }
   }, [location.state, location.pathname, navigate, refetch])
 
-  const letters = data?.pages[0]?.data ?? []
-  const shakingCard = useRandomShakingCard(letters)
-  const { total_letter_count } = useInboxStatus(uuid ?? '')
+  if (!uuid) {
+    showToast('존재하지 않은 우체통이에요.', 'error')
+    navigate('/', { replace: true })
+    return
+  }
+
+  const inboxStatus = useInboxStatus(uuid)
+
+  if (inboxStatus.error) {
+    return <NotFound />
+  }
 
   useInfiniteScroll({
     containerRef: scrollContainerRef,
@@ -58,12 +69,12 @@ const MyLetters = () => {
         Center={
           <div css={TitleStyle}>
             {t('myLetters.myLetters')}
-            <span css={BadgeStyle}>{total_letter_count ?? 0}</span>
+            <span css={BadgeStyle}>{inboxStatus.total_letter_count ?? 0}</span>
           </div>
         }
         goBackPath={`/inbox/${uuid}`}
       />
-      {total_letter_count === 0 ? (
+      {inboxStatus.total_letter_count === 0 ? (
         <NoLetters />
       ) : (
         <div css={GridContainer} ref={scrollContainerRef}>
