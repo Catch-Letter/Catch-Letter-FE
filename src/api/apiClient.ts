@@ -36,6 +36,9 @@ authApiClient.interceptors.request.use(
   }
 )
 
+let isRefreshing = false
+let refreshPromise: Promise<void> | null = null
+
 authApiClient.interceptors.response.use(
   (res) => res,
   async (error) => {
@@ -48,18 +51,29 @@ authApiClient.interceptors.response.use(
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true
 
+      if (!isRefreshing) {
+        isRefreshing = true
+        refreshPromise = refreshAuthToken()
+          .then(() => {
+            isRefreshing = false
+          })
+          .catch((refreshError) => {
+            isRefreshing = false
+            throw refreshError
+          })
+      }
+
       try {
-        await refreshAuthToken()
+        await refreshPromise
 
         const { accessToken } = useAuthStore.getState()
         if (!originalRequest.headers) {
           originalRequest.headers = {}
         }
         originalRequest.headers.Authorization = `Bearer ${accessToken}`
-
         return authApiClient(originalRequest)
-      } catch (refreshError) {
-        return Promise.reject(refreshError)
+      } catch (err) {
+        return Promise.reject(err)
       }
     }
 
