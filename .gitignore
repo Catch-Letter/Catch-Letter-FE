@@ -24,3 +24,6 @@ dist-ssr
 
 *storybook.log
 storybook-static
+
+#ket files
+/cert

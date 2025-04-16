@@ -4,7 +4,11 @@ import { API_ENDPOINTS } from '#/api/apiEndpoints'
 // 인증
 export const fetchAuthToken = async (uuid: string, name: string, password: string) => {
   try {
-    const res = await apiClient.post<Response>(API_ENDPOINTS.AUTH, { uuid, name, password })
+    const res = await apiClient.post<Response>(
+      API_ENDPOINTS.AUTH,
+      { uuid, name, password },
+      { withCredentials: true }
+    )
     return res.data
   } catch (error) {
     throw error
