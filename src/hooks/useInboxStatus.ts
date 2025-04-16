@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { dayjs } from '#/shared/api'
 
 export default function useInboxStatus(uuid: string) {
-  const { data, isPending, error } = useQuery({
+  const { data, isPending, error, isError } = useQuery({
     queryKey: ['inbox-status', uuid],
     queryFn: () => fetchUUID(uuid),
     retry: false,
@@ -31,6 +31,7 @@ export default function useInboxStatus(uuid: string) {
     isExpired,
     isPending,
     error,
+    isError,
     expired_at,
     incorrect_letter_count,
     total_letter_count,
