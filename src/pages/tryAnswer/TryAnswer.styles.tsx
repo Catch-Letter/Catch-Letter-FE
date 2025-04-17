@@ -125,8 +125,8 @@ export const frontCardStyle = (backgroundImage: string) => css`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  background-color: white;
-  opacity: 0.8;
+  background-color: rgba(241, 241, 242, 0.9);
+  opacity: 0.9;
   border-radius: 24px;
   transform: scaleX(-1);
   transform: rotateY(0deg);
