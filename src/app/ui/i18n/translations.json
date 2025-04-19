@@ -128,7 +128,7 @@
       "EN": "Picture Questions"
     },
     "placeholder": {
-      "KO": "이 그림의 정체는 무엇일까요?",
+      "KO": "이 그림의 정체는 무엇일까요? 예) 소오름, 독감",
       "EN": "What's the mystery in this picture?"
     },
     "helpMessage": {
@@ -370,8 +370,8 @@
       "KO": "{{name}} 님의 받은 비밀편지",
       "EN": "The letters {{name}} received"
     },
-    "goWrite": {
-      "KO": "편지 쓰러 가기!",
+    "goWrite": {  
+      "KO": "그림 남기기 🎨",
       "EN": "let's go write a letter"
     },
     "tutorial": {
@@ -443,8 +443,8 @@
   },
 
   "checkLetters": {
-    "KO": "편지 확인하기!",
-    "EN": "Check letters!"
+    "KO": "그림 보러가기",
+    "EN": "Check letters"
   },
   "showOff": {
     "KO": "우체통 만들기",
@@ -461,6 +461,10 @@
   "shareOnSNS": {
     "KO": "SNS 공유하기",
     "EN": "share on SNS"
+  },
+  "shareWithFriend": {
+    "KO": "친구들에게 공유하기 📮",
+    "EN": "Share with friends"
   },
   "goBack": {
     "KO": "이전으로",
