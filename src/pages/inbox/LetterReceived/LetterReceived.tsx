@@ -18,7 +18,6 @@ import {
   buttonGroupStyles,
 } from '../Inbox.styles'
 import { ShareModal } from '#/components/share-modal'
-import { useInboxStore } from '#/store/inboxStore'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
 
 interface Props {
@@ -49,10 +48,6 @@ const LetterReceived: FC<Props> = ({
   useEffect(() => {
     setReceiver(name)
   }, [name, setReceiver])
-
-  useEffect(() => {
-    useInboxStore.getState().setInboxStatus(uuid, total_letter_count)
-  }, [uuid, total_letter_count])
 
   // 확인하기 버튼
   const onClickCheckButton = useCallback(async () => {
@@ -102,22 +97,19 @@ const LetterReceived: FC<Props> = ({
         value1={total_letter_count}
         title2={t('inbox.unsolvedLetters')}
         value2={incorrect_letter_count}
+        onClickShareButton={openShareModal}
         onClickInformationButton={openTutorial}
       />
 
       <div css={buttonGroupStyles}>
-        <Flex justify='space-between' gap={16} css={bottomButtonStyles}>
-          <Button
-            onClick={() => {
-              navigate(`/drawing/${uuid}`)
-            }}
-          >
-            {t('inbox.goWrite')}
-          </Button>
-          {/* <Button onClick={openShareModal} variant='secondary'>
-            {t('shareOnSNS')}
-          </Button> */}
-        </Flex>
+        <Button
+          full={true}
+          onClick={() => {
+            navigate(`/drawing/${uuid}`)
+          }}
+        >
+          {t('inbox.goWrite')}
+        </Button>
         <Flex justify='space-between' gap={16} css={bottomButtonStyles}>
           <Button
             onClick={() => {
