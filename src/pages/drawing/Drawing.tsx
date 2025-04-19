@@ -53,7 +53,11 @@ const Drawing = () => {
         </div>
 
         <div className='button-wrapper'>
-          <Button width={160} onClick={handleUpload} disabled={!answer || isInvalid}>
+          <Button
+            width={160}
+            onClick={handleUpload}
+            disabled={!answer || isInvalid || lines.length === 0}
+          >
             {t('draw.button')}
           </Button>
         </div>
