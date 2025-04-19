@@ -10,19 +10,33 @@ import { useQueryClient } from '@tanstack/react-query'
 import { FC, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router'
-import { bottomButtonStyles, containerStyles, headerStyles } from '../Inbox.styles'
+import {
+  bottomButtonStyles,
+  containerStyles,
+  headerStyles,
+  buttonGroupStyles,
+} from '../Inbox.styles'
+import { ShareModal } from '#/components/share-modal'
 
 interface Props {
   uuid: string
   total_letter_count: number
   incorrect_letter_count: number
   name: string
+  inboxUrl: string
 }
 
-const LetterReceived: FC<Props> = ({ uuid, total_letter_count, incorrect_letter_count, name }) => {
+const LetterReceived: FC<Props> = ({
+  uuid,
+  total_letter_count,
+  incorrect_letter_count,
+  name,
+  inboxUrl,
+}) => {
   const { isOpen, openModal, closeModal, password, initializePassword, onPasswordChange } =
     usePasswordModal()
   const { isOpen: isOpenTutorial, openModal: openTutorial, closeModal: closeTutorial } = useModal()
+  const { isOpen: isOpenShare, openModal: openShareModal, closeModal: closeShareModal } = useModal()
   const navigate = useNavigate()
   const { showToast } = useToastStore()
   const { t } = useTranslation()
@@ -79,17 +93,31 @@ const LetterReceived: FC<Props> = ({ uuid, total_letter_count, incorrect_letter_
         onClickInformationButton={openTutorial}
       />
 
-      <Flex justify='space-between' gap={16} css={bottomButtonStyles}>
-        <Button
-          onClick={() => {
-            navigate('/postform')
-          }}
-          variant='secondary'
-        >
-          {t('showOff')}
-        </Button>
-        <Button onClick={onClickCheckButton}>{t('checkLetters')}</Button>
-      </Flex>
+      <div css={buttonGroupStyles}>
+        <Flex justify='space-between' gap={16} css={bottomButtonStyles}>
+          <Button
+            onClick={() => {
+              navigate(`/drawing/${uuid}`)
+            }}
+          >
+            {t('inbox.goWrite')}
+          </Button>
+          {/* <Button onClick={openShareModal} variant='secondary'>
+            {t('shareOnSNS')}
+          </Button> */}
+        </Flex>
+        <Flex justify='space-between' gap={16} css={bottomButtonStyles}>
+          <Button
+            onClick={() => {
+              navigate('/postform')
+            }}
+            variant='secondary'
+          >
+            {t('showOff')}
+          </Button>
+          <Button onClick={onClickCheckButton}>{t('checkLetters')}</Button>
+        </Flex>
+      </div>
 
       <PasswordModal
         password={password}
@@ -100,6 +128,13 @@ const LetterReceived: FC<Props> = ({ uuid, total_letter_count, incorrect_letter_
           closeModal()
           initializePassword()
         }}
+      />
+
+      <ShareModal
+        url={inboxUrl as string}
+        isOpen={isOpenShare}
+        onClose={closeShareModal}
+        onClickOverlay={closeShareModal}
       />
 
       <Modal isOpen={isOpenTutorial} onClickOverlay={closeTutorial}>
