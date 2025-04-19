@@ -128,7 +128,7 @@
       "EN": "Picture Questions"
     },
     "placeholder": {
-      "KO": "이 그림의 정체는 무엇일까요? 예) 소오름, 독감",
+      "KO": "예) 소오름, 독감",
       "EN": "What's the mystery in this picture?"
     },
     "helpMessage": {
