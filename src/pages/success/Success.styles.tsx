@@ -30,6 +30,18 @@ export const SuccessWrapper = css`
       width: 60%;
     }
   }
+
+  .create_link {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .create_link_desc {
+    font-size: 22px;
+    font-weight: 500;
+  }
+
   .second {
     margin-top: 58px;
   }

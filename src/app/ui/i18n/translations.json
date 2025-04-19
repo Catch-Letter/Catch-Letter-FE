@@ -70,8 +70,12 @@
       "EN": "You need the letterbox password every time you open it!"
     },
     "link": {
-      "KO": "링크를 복사해두세요!",
-      "EN": "Please copy the link!"
+      "KO": "링크가 생성되었어요!",
+      "EN": "Your link is created!"
+    },
+    "linkShere": {
+      "KO": "이제 친구들한테 공유해볼까요?",
+      "EN": "Now let's share it with your friends"
     },
     "copyLink": {
       "KO": "링크가 복사되었어요!",

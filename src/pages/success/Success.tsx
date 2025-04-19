@@ -1,13 +1,11 @@
 import { BackHeader } from '#/components'
-import { DescLink, TimeArea } from '#/components/success'
-import { useCountdownTimer } from '#/hooks'
+import { DescLink } from '#/components/success'
 import { Background, Button } from '#/shared/ui'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router'
 import { SuccessStyle, SuccessWrapper } from './Success.styles'
 import { ShareModal } from '#/components/share-modal'
 import useModal from '#/hooks/useModal'
-import { DescWithNum } from '#/components/success/desc-withnumber'
 
 // from createPostForm
 const Success = () => {
@@ -16,7 +14,7 @@ const Success = () => {
   const location = useLocation()
   const user = location.state
   const { isOpen, openModal, closeModal } = useModal()
-  const { leftTime } = useCountdownTimer(user.expired)
+  // const { leftTime } = useCountdownTimer(user.expired)
   const uuidMatch = user.mailboxUrl.match(/[^/]+$/)
 
   return (
@@ -25,12 +23,13 @@ const Success = () => {
       <BackHeader />
       <div css={SuccessWrapper}>
         <div className='area_desc'>
-          <DescWithNum number={1}>{t('create.link')}</DescWithNum>
+          <h1 className='create_link'>{t('create.link')}</h1>
+          <h2 className='create_link_desc'>{t('create.linkShere')}</h2>
           <DescLink link={user.mailboxUrl} btnName={t('create.btncopy')} desc={t('create.desc')} />
-          <DescWithNum className='second' number={2}>
+          {/* <DescWithNum className='second' number={2}>
             {t('create.opentime')} <TimeArea time={leftTime} /> <br />
             {t('create.check')}
-          </DescWithNum>
+          </DescWithNum> */}
         </div>
         <Button
           className='btn_share'
