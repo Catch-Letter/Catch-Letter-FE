@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { getPostInfo } from '#/api'
 import { Toast } from '#/components'
 import { FallingLetters, TextSection, Tutorial } from '#/components/inbox'
@@ -17,6 +18,8 @@ import {
   buttonGroupStyles,
 } from '../Inbox.styles'
 import { ShareModal } from '#/components/share-modal'
+import { useInboxStore } from '#/store/inboxStore'
+import { useLetterCreationStore } from '#/store/letterCreateStore'
 
 interface Props {
   uuid: string
@@ -37,10 +40,19 @@ const LetterReceived: FC<Props> = ({
     usePasswordModal()
   const { isOpen: isOpenTutorial, openModal: openTutorial, closeModal: closeTutorial } = useModal()
   const { isOpen: isOpenShare, openModal: openShareModal, closeModal: closeShareModal } = useModal()
+  const { setReceiver } = useLetterCreationStore()
   const navigate = useNavigate()
   const { showToast } = useToastStore()
   const { t } = useTranslation()
   const queryClient = useQueryClient()
+
+  useEffect(() => {
+    setReceiver(name)
+  }, [name, setReceiver])
+
+  useEffect(() => {
+    useInboxStore.getState().setInboxStatus(uuid, total_letter_count)
+  }, [uuid, total_letter_count])
 
   // 확인하기 버튼
   const onClickCheckButton = useCallback(async () => {
@@ -109,7 +121,7 @@ const LetterReceived: FC<Props> = ({
         <Flex justify='space-between' gap={16} css={bottomButtonStyles}>
           <Button
             onClick={() => {
-              navigate('/postform')
+              navigate('/')
             }}
             variant='secondary'
           >
