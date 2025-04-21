@@ -1,4 +1,4 @@
-import { FontType } from '#/store/letterCreateStore'
+import { FontType } from '#/types/letterStyle'
 import { colors } from '#/styles/color'
 import { css } from '@emotion/react'
 
