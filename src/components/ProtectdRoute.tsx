@@ -9,7 +9,7 @@ const ProtectedRoute = () => {
   const navigate = useNavigate()
   const { showToast } = useToastStore()
 
-  const { isPending, error, isExpired } = useInboxStatus(uuid || '')
+  const { isPending, error } = useInboxStatus(uuid || '')
 
   useEffect(() => {
     if (!uuid) {
