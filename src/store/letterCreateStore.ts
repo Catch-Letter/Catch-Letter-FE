@@ -1,8 +1,6 @@
 import { create } from 'zustand'
 
-export type ColorType = 'grey' | 'pink' | 'violet' | 'green' | 'blue'
-export type PatternType = 'default' | 'dot' | 'line' | 'grid'
-export type FontType = 'NotoSansKR' | 'Ownglyph' | 'NanumPen'
+import { ColorType, FontType, PatternType } from '#/types/letterStyle'
 
 interface LetterCreationStore {
   receiver: string

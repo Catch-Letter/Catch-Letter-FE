@@ -1,4 +1,4 @@
-import { ColorType } from '#/store/letterCreateStore'
+import { ColorType } from '#/types/letterStyle'
 
 const validColor: ColorType[] = ['grey', 'pink', 'violet', 'green', 'blue']
 export const extractColorStyle = (etc: string | null | undefined): ColorType => {

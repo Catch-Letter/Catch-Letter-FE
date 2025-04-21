@@ -1,4 +1,4 @@
-import { FontType } from '#/store/letterCreateStore'
+import { FontType } from '#/types/letterStyle'
 
 const validFonts: FontType[] = ['NotoSansKR', 'NanumPen', 'Ownglyph']
 
