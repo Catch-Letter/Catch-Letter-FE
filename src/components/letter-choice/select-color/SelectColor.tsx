@@ -1,4 +1,5 @@
-import { ColorType, useLetterCreationStore } from '#/store/letterCreateStore'
+import { useLetterCreationStore } from '#/store/letterCreateStore'
+import { ColorType } from '#/types/letterStyle'
 import { ColorStyle, SelectColorStyle, backgroundColors } from './SelectColor.styles'
 
 export const colors = Object.keys(backgroundColors) as ColorType[]

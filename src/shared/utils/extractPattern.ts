@@ -1,4 +1,4 @@
-import { PatternType } from '#/store/letterCreateStore'
+import { PatternType } from '#/types/letterStyle'
 
 const validPatterns: PatternType[] = ['default', 'line', 'dot', 'grid']
 

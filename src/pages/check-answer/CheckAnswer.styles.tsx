@@ -20,8 +20,7 @@ export const CheckAnswerStyles = (isFlipped: boolean) => css`
   align-items: center;
 
   .content {
-    flex-basis: 70%;
-    min-width: 70%;
+    min-width: 75%;
     min-height: 64dvh;
     margin: 16px 63px 34px;
     box-sizing: border-box;

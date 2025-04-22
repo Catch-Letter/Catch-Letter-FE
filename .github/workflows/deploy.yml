@@ -43,7 +43,11 @@ jobs:
       # .env.production 생성 (Secrets + preview base 경로 설정)
       - name: Create .env.production
         run: |
-          echo "VITE_BASE_URL=${{ secrets.VITE_BASE_URL }}" >> .env.production
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "VITE_BASE_URL=${{ secrets.VITE_DEV_BASE_URL }}" >> .env.production
+          else
+            echo "VITE_BASE_URL=${{ secrets.VITE_BASE_URL }}" >> .env.production
+          fi
           echo "VITE_KAKAO_KEY=${{ secrets.VITE_KAKAO_KEY }}" >> .env.production
           echo "VITE_KAKAO_TEMPLATE_KEY=${{ secrets.VITE_KAKAO_TEMPLATE_KEY }}" >> .env.production
           echo "VITE_ROUTER_BASENAME=${{ steps.vars.outputs.target_path }}" >> .env.production

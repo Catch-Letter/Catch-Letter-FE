@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate, useParams } from 'react-router'
 import { SendLetterStyle, sendLetterWrapper } from './SendLetter.styles'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
-import useObjectUrl from '#/hooks/\buseObjectUrl'
+import useObjectUrl from '#/hooks/useObjectUrl'
 
 const SendLetter = () => {
   const navigate = useNavigate()

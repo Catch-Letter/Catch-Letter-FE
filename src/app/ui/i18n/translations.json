@@ -70,8 +70,12 @@
       "EN": "You need the letterbox password every time you open it!"
     },
     "link": {
-      "KO": "링크를 복사해두세요!",
-      "EN": "Please copy the link!"
+      "KO": "링크가 생성되었어요!",
+      "EN": "Your link is created!"
+    },
+    "linkShere": {
+      "KO": "이제 친구들한테 공유해볼까요?",
+      "EN": "Now let's share it with your friends"
     },
     "copyLink": {
       "KO": "링크가 복사되었어요!",
@@ -124,7 +128,7 @@
       "EN": "Picture Questions"
     },
     "placeholder": {
-      "KO": "이 그림의 정체는 무엇일까요?",
+      "KO": "예) 소오름, 독감",
       "EN": "What's the mystery in this picture?"
     },
     "helpMessage": {
@@ -366,8 +370,8 @@
       "KO": "{{name}} 님의 받은 비밀편지",
       "EN": "The letters {{name}} received"
     },
-    "goWrite": {
-      "KO": "편지 쓰러 가기!",
+    "goWrite": {  
+      "KO": "그림 남기기 🎨",
       "EN": "let's go write a letter"
     },
     "tutorial": {
@@ -439,8 +443,8 @@
   },
 
   "checkLetters": {
-    "KO": "편지 확인하기!",
-    "EN": "Check letters!"
+    "KO": "그림 맞추기!",
+    "EN": "Check letters"
   },
   "showOff": {
     "KO": "우체통 만들기",
@@ -457,6 +461,10 @@
   "shareOnSNS": {
     "KO": "SNS 공유하기",
     "EN": "share on SNS"
+  },
+  "shareWithFriend": {
+    "KO": "친구들에게 공유하기 📮",
+    "EN": "Share with friends"
   },
   "goBack": {
     "KO": "이전으로",

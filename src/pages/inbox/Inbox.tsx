@@ -2,7 +2,7 @@
 import { Loading } from '#/components'
 import { useInboxStatus } from '#/hooks'
 import { NotFound } from '#/pages/error'
-import { LetterReceived, LetterReceiving } from '#/pages/inbox'
+import { LetterReceived } from '#/pages/inbox'
 import { useNavigate, useParams } from 'react-router'
 
 const Inbox = () => {
@@ -25,15 +25,7 @@ const Inbox = () => {
     return <NotFound />
   }
 
-  return (
-    <>
-      {inboxStatus.isExpired ? (
-        <LetterReceived uuid={uuid} {...inboxStatus} />
-      ) : (
-        <LetterReceiving uuid={uuid} {...inboxStatus} />
-      )}
-    </>
-  )
+  return <LetterReceived uuid={uuid} {...inboxStatus} />
 }
 
 export default Inbox

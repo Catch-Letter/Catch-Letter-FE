@@ -20,6 +20,16 @@ export const textSectionStyles = css`
     }
   }
 
+  .btn-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    > :first-of-type {
+      cursor: pointer;
+    }
+  }
+
   .value1 {
     font-size: 56px;
     font-weight: 900;

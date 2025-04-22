@@ -3,6 +3,7 @@ import useGetAnswerStatus from '#/hooks/query/useGetAnswerStatus'
 import useGetDrawData from '#/hooks/query/useGetDrawData'
 import useGetLetterData from '#/hooks/query/useGetLetterData'
 import { extractRemainingChances } from '#/shared/utils'
+import { extractColorStyle } from '#/shared/utils/extractColor'
 import { extractFontStyle } from '#/shared/utils/extractFontStyle'
 import { extractPatternStyle } from '#/shared/utils/extractPattern'
 import { TryAnswerResponse } from '#/types/tryAnswer'
@@ -152,6 +153,11 @@ const useTryAnswer = () => {
     return extractPatternStyle(etc)
   }, [letterData])
 
+  const colorStyle = useMemo(() => {
+    const etc = letterData?.data?.etc
+    return extractColorStyle(etc)
+  }, [letterData])
+
   const cycle = answerStatusData?.data?.cycle ?? 0
 
   const hints = answerStatusData?.data?.hints ?? []
@@ -170,6 +176,7 @@ const useTryAnswer = () => {
     letterData,
     patternStyle,
     fontStyle,
+    colorStyle,
     handleCardClick,
     cycle,
     hints,

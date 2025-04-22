@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next'
 import { IoTriangle } from 'react-icons/io5'
 import { Navigate, useLocation, useParams } from 'react-router'
 import { CheckAnswerStyles, checkAnswerWrapper, SkeletonCardStyle } from './CheckAnswer.styles'
+import { extractColorStyle } from '#/shared/utils/extractColor'
 
 const CheckAnswer = () => {
   const { t } = useTranslation()
@@ -79,6 +80,11 @@ const CheckAnswer = () => {
     return extractPatternStyle(etc)
   }, [letterResponse])
 
+  const colorStyle = useMemo(() => {
+    const etc = letterResponse?.data?.etc
+    return extractColorStyle(etc)
+  }, [letterResponse])
+
   return (
     <div css={checkAnswerWrapper}>
       <Background color={backgroundColor} />
@@ -95,7 +101,7 @@ const CheckAnswer = () => {
         <div className='content' onClick={handleCardClick}>
           <div className='cardFront'>
             {imageUrl ? (
-              <LetterCard type={selectedColor}>
+              <LetterCard type={selectedColor} background='rgba(241, 241, 242, 0.7)'>
                 {
                   <img
                     src={imageUrl}
@@ -118,7 +124,7 @@ const CheckAnswer = () => {
                 <DotLoader color={colors.grey[9]} backgroundColor={colors.grey[3]} />
               </div>
             ) : letterResponse && letterResponse.data ? (
-              <LetterCard type={selectedColor}>
+              <LetterCard type={colorStyle}>
                 <LetterContent
                   to={letterResponse.data.to}
                   content={letterResponse.data.contents}

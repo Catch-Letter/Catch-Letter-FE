@@ -7,10 +7,11 @@ import path from 'path'
 const basePath = process.env.PR_PREVIEW_PATH || '/'
 
 const isLocal = process.env.NODE_ENV !== 'production'
-const keyPath = path.resolve(__dirname, 'cert/catchletter.kr-key.pem')
-const certPath = path.resolve(__dirname, 'cert/catchletter.kr.pem')
+const devHost = process.env.DEV_HOST || 'localhost'
 
-// https://vite.dev/config/
+const keyPath = path.resolve(__dirname, `cert/${devHost}-key.pem`)
+const certPath = path.resolve(__dirname, `cert/${devHost}.pem`)
+
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   base: basePath,

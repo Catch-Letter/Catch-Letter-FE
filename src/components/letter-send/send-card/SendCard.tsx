@@ -1,6 +1,6 @@
 import { SendCardStyle } from './SendCard.styles'
 import { LetterCard } from '#/components'
-import { ColorType } from '#/store/letterCreateStore'
+import { ColorType } from '#/types/letterStyle'
 
 export interface SendCardProps {
   color: ColorType
