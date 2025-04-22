@@ -15,6 +15,10 @@ export const TabStyle = css`
     align-self: stretch;
     justify-content: center;
   }
+
+  .tab-area {
+    height: 54px;
+  }
 `
 export const TabItem = css`
   color: ${colors.white};
