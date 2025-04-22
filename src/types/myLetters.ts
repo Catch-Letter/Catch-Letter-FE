@@ -23,6 +23,7 @@ export interface LettersResponse {
   next_page_url: string | null
   prev_cursor: string | null
   prev_page_url: string | null
+  total_letter_count: number
 }
 
 // LetterGrid

@@ -10,7 +10,6 @@ import {
   tryAnswerWrapper,
 } from '#/pages/tryAnswer/TryAnswer.styles'
 import { Background, Button, DotLoader, InputField } from '#/shared/ui'
-import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { colors } from '#/styles/color'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -25,7 +24,6 @@ const TryAnswer = () => {
   const backgroundColor = location.state?.letterColor || colors.grey[3]
   const [inputValue, setInputValue] = useState<string>('')
   const [isTryStarted, setIsTryStarted] = useState<boolean>(false)
-  const { selectedColor } = useLetterCreationStore()
 
   const {
     imageUrl,
@@ -40,6 +38,7 @@ const TryAnswer = () => {
     letterData,
     patternStyle,
     fontStyle,
+    colorStyle,
     handleCardClick,
     cycle,
     hints,
@@ -101,7 +100,7 @@ const TryAnswer = () => {
             >
               <div css={frontCardStyle(imageUrl || '')}></div>
               <div css={backCardStyle}>
-                <LetterCard type={selectedColor}>
+                <LetterCard type={colorStyle}>
                   <LetterContent
                     to={letterData?.data?.to ?? ''}
                     content={letterData?.data?.contents ?? ''}

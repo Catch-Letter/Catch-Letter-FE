@@ -9,7 +9,7 @@ const ProtectedRoute = () => {
   const navigate = useNavigate()
   const { showToast } = useToastStore()
 
-  const { isPending, error, isExpired } = useInboxStatus(uuid || '')
+  const { isPending, error } = useInboxStatus(uuid || '')
 
   useEffect(() => {
     if (!uuid) {
@@ -25,12 +25,12 @@ const ProtectedRoute = () => {
     }
   }, [error, navigate])
 
-  useEffect(() => {
-    if (isExpired) {
-      showToast('해당 우체통은 만료되었습니다.', 'error')
-      navigate('/', { replace: true })
-    }
-  }, [isExpired, navigate])
+  // useEffect(() => {
+  //   if (isExpired) {
+  //     showToast('해당 우체통은 만료되었습니다.', 'error')
+  //     navigate('/', { replace: true })
+  //   }
+  // }, [isExpired, navigate])
 
   if (isPending) return <Loading />
 

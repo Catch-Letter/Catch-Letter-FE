@@ -36,12 +36,12 @@ const App = () => {
                   <Route path='writeletter/:uuid/:id' element={<LetterWrite />} />
                   <Route path='choiceletter/:uuid/:id' element={<ChoiceLetter />} />
                   <Route path='sendletter/:uuid' element={<SendLetter />} />
-                </Route>
-                <Route path='inbox/:uuid' element={<Inbox />} />
-                <Route element={<AuthGuard />}>
-                  <Route path='myletters/:uuid' element={<MyLetters />} />
-                  <Route path='tryAnswer/:uuid/:id' element={<TryAnswer />} />
-                  <Route path='checkanswer/:uuid/:id' element={<CheckAnswer />} />
+                  <Route path='inbox/:uuid' element={<Inbox />} />
+                  <Route element={<AuthGuard />}>
+                    <Route path='myletters/:uuid' element={<MyLetters />} />
+                    <Route path='tryAnswer/:uuid/:id' element={<TryAnswer />} />
+                    <Route path='checkanswer/:uuid/:id' element={<CheckAnswer />} />
+                  </Route>
                 </Route>
               </Route>
               <Route path='*' element={<NotFound />} />

@@ -1,4 +1,4 @@
-import { ColorType, FontType, PatternType } from '#/store/letterCreateStore'
+import { ColorType, FontType, PatternType } from '#/types/letterStyle'
 import { LetterContentStyle } from './LetterContent.styles'
 
 interface LetterProps {
