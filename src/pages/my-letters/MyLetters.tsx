@@ -50,11 +50,11 @@ const MyLetters = () => {
     return
   }
 
-  const inboxStatus = useInboxStatus(uuid)
+  // const inboxStatus = useInboxStatus(uuid)
 
-  if (inboxStatus.error) {
-    return <NotFound />
-  }
+  // if (inboxStatus.error) {
+  //   return <NotFound />
+  // }
 
   useInfiniteScroll({
     containerRef: scrollContainerRef,
@@ -69,12 +69,12 @@ const MyLetters = () => {
         Center={
           <div css={TitleStyle}>
             {t('myLetters.myLetters')}
-            <span css={BadgeStyle}>{inboxStatus.total_letter_count ?? 0}</span>
+            <span css={BadgeStyle}>{data?.pages[0].total_letter_count ?? 0}</span>
           </div>
         }
         goBackPath={`/inbox/${uuid}`}
       />
-      {inboxStatus.total_letter_count === 0 ? (
+      {data?.pages[0].total_letter_count === 0 ? (
         <NoLetters />
       ) : (
         <div css={GridContainer} ref={scrollContainerRef}>
