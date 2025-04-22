@@ -3,7 +3,7 @@ import { BackHeader, LetterGrid, NoLetters, SkeletonCard } from '#/components'
 import { useInfiniteScroll } from '#/hooks/useInfiniteScroll'
 import { useRandomShakingCard } from '#/hooks/useRandomShakingCard'
 import { useScrollRestoration } from '#/hooks/useScrollRestoration'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate, useParams } from 'react-router'
 import { BadgeStyle, GridContainer, MyLettersWrapper, TitleStyle } from './MyLetters.styles'
@@ -14,17 +14,12 @@ const MyLetters = () => {
 
   const { t } = useTranslation()
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
-  const [_loadedMap, setLoadedMap] = useState<Record<string, boolean>>({})
   const navigate = useNavigate()
   const location = useLocation()
 
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } =
     useMyLettersQuery(uuid ?? '')
   useScrollRestoration(scrollContainerRef, SCROLL_STORAGE_KEY, !isLoading)
-
-  const handleCardLoad = (id: number, loaded: boolean) => {
-    setLoadedMap((prev) => ({ ...prev, [id]: loaded }))
-  }
 
   const letters = data?.pages[0]?.data ?? []
   const shakingCard = useRandomShakingCard(letters)
@@ -65,12 +60,7 @@ const MyLetters = () => {
           {isLoading ? (
             <SkeletonCard count={8} />
           ) : (
-            <LetterGrid
-              pages={data?.pages ?? []}
-              shakingCard={shakingCard}
-              uuid={uuid ?? ''}
-              onLoad={handleCardLoad}
-            />
+            <LetterGrid pages={data?.pages ?? []} shakingCard={shakingCard} uuid={uuid ?? ''} />
           )}
           {isFetchingNextPage && <SkeletonCard count={8} />}
         </div>
