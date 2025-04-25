@@ -2,28 +2,48 @@ import { failedEmoji, successEmoji } from '#/assets/emoji'
 import { TryCounterStyle } from '#/components/try-answer/try-Counter/TryCounter.styles'
 import { SeparatedInput } from '#/shared/ui'
 import { extractRemainingChances } from '#/shared/utils/extractRemainingChances'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 interface TryCounterProps {
   chances: number
-  timeLeft: number | null
   isCorrect: boolean
   message: string | null
   cycle: number
   answerLength: number
   hints: Array<{ index: number; value: string }>
+  remainingSeconds: number | null
+  onResetChances: () => void
 }
 
 const TryCounter: React.FC<TryCounterProps> = ({
   chances,
-  timeLeft,
   isCorrect,
   message,
   cycle,
   answerLength,
   hints,
+  remainingSeconds,
+  onResetChances,
 }) => {
   const { t } = useTranslation()
+  const [timeLeft, setTimeLeft] = useState<number | null>(null)
+
+  useEffect(() => {
+    if (chances === 0 && remainingSeconds) {
+      setTimeLeft(remainingSeconds)
+      const timer = setInterval(() => {
+        setTimeLeft((prev) => {
+          if (prev && prev > 0) return prev - 1
+          clearInterval(timer)
+          onResetChances()
+          return null
+        })
+      }, 1000)
+
+      return () => clearInterval(timer)
+    }
+  }, [chances, message, remainingSeconds])
 
   const translatedMessage = isCorrect
     ? t('tryAnswer.correctAnswer')

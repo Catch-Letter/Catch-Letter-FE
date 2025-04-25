@@ -32,7 +32,6 @@ const TryAnswer = () => {
     responseMessage,
     chances,
     isShaking,
-    timeLeft,
     tryAnswer,
     isFlipped,
     letterData,
@@ -43,6 +42,8 @@ const TryAnswer = () => {
     cycle,
     hints,
     isNotFound,
+    remainingSeconds,
+    resetChances,
   } = useTryAnswer()
 
   if (isNotFound) {
@@ -76,12 +77,13 @@ const TryAnswer = () => {
       <div css={TryAnswerStyle}>
         <TryCounter
           chances={chances}
-          timeLeft={timeLeft}
           isCorrect={isCorrect}
           message={responseMessage}
           cycle={cycle}
           answerLength={answerLength}
           hints={hints}
+          remainingSeconds={remainingSeconds}
+          onResetChances={resetChances}
         />
 
         <div
