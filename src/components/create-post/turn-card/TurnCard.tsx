@@ -17,7 +17,7 @@ const TurnCard = () => {
         </span>
       </Card>
       <Card css={BackCard} height='300px'>
-        <img src={santa} alt='santa' width={178} height={299} style={{ objectFit: 'cover' }} />
+        <img src={santa} alt='santa' width={177} height={290} srcSet={`${santa} 178w`} />
       </Card>
     </div>
   )
