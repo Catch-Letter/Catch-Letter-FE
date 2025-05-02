@@ -16,8 +16,8 @@ const TurnCard = () => {
           {t('create.cardMessageBottom')}
         </span>
       </Card>
-      <Card css={BackCard}>
-        <img src={santa} alt='santa' width={178} height={'100%'} style={{ objectFit: 'cover' }} />
+      <Card css={BackCard} height='300px'>
+        <img src={santa} alt='santa' width={178} height={299} style={{ objectFit: 'cover' }} />
       </Card>
     </div>
   )
