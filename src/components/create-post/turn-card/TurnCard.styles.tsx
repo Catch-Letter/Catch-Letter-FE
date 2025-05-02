@@ -6,7 +6,11 @@ export const TurnCardStyle = css`
   height: 303px;
   transform-style: preserve-3d;
   perspective: 800px;
+`
+
+export const TurnCardAnimate = css`
   animation: rotate-and-separate 4s ease-in-out forwards;
+  animation-delay: 0.5s;
 
   @keyframes rotate-and-separate {
     0% {
@@ -39,6 +43,7 @@ export const FrontCard = css`
   );
   transform-origin: center;
   animation: front-card-move 4s ease-in-out forwards;
+  animation-delay: 0.5s;
 
   @keyframes front-card-move {
     0% {
@@ -71,6 +76,7 @@ export const BackCard = css`
   padding: 0;
   backface-visibility: hidden;
   animation: back-card-move 4s ease-in-out forwards;
+  animation-delay: 0.5s;
 
   @keyframes back-card-move {
     0% {

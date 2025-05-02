@@ -1,13 +1,13 @@
 import { lock, santa } from '#/assets/create'
 import { Card } from '#/shared/ui'
 import { useTranslation } from 'react-i18next'
-import { FrontCard, BackCard, TurnCardStyle, boldFont } from './TurnCard.styles'
+import { FrontCard, BackCard, TurnCardStyle, boldFont, TurnCardAnimate } from './TurnCard.styles'
 
 const TurnCard = () => {
   const { t } = useTranslation()
 
   return (
-    <div css={TurnCardStyle}>
+    <div css={[TurnCardStyle, TurnCardAnimate]}>
       <Card css={FrontCard}>
         <img src={lock} alt='lock' width={50} height={50} />
         <span className='top'>
