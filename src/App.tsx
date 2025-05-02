@@ -2,24 +2,19 @@ import { I18nProvider, Layout } from '#/app/ui'
 import { AuthGuard, Loading } from '#/components'
 import ErrorBoundary from '#/components/ErrorBoundary'
 import ProtectedRoute from '#/components/ProtectdRoute'
-import {
-  CheckAnswer,
-  ChoiceLetter,
-  CreatePost,
-  CreatePostForm,
-  Drawing,
-  MyLetters,
-  NotFound,
-  TryAnswer,
-} from '#/pages'
+import { CreatePost, CreatePostForm, Drawing, NotFound } from '#/pages'
 import { lazy, Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router'
 
 const App = () => {
   const SendLetter = lazy(() => import('#/pages/letter-send/SendLetter'))
   const LetterWrite = lazy(() => import('#/pages/letter-write/LetterWrite'))
+  const ChoiceLetter = lazy(() => import('#/pages/letter-choice/ChoiceLetter'))
   const Success = lazy(() => import('#/pages/success/Success'))
   const Inbox = lazy(() => import('#/pages/inbox/Inbox'))
+  const CheckAnswer = lazy(() => import('#/pages/check-answer/CheckAnswer'))
+  const TryAnswer = lazy(() => import('#/pages/tryAnswer/TryAnswer'))
+  const MyLetters = lazy(() => import('#/pages/my-letters/MyLetters'))
 
   return (
     <I18nProvider>
