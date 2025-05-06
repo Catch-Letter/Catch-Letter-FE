@@ -1,6 +1,7 @@
 import { I18nProvider, Layout } from '#/app/ui'
 import { AuthGuard, Loading } from '#/components'
 import ErrorBoundary from '#/components/ErrorBoundary'
+import PageViewTracker from '#/components/PageViewTracker'
 import ProtectedRoute from '#/components/ProtectdRoute'
 import {
   CheckAnswer,
@@ -24,6 +25,7 @@ const App = () => {
   return (
     <I18nProvider>
       <BrowserRouter basename={import.meta.env.VITE_ROUTER_BASENAME || '/'}>
+        <PageViewTracker />
         <ErrorBoundary>
           <Suspense fallback={<Loading />}>
             <Routes>

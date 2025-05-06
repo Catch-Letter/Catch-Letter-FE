@@ -6,13 +6,6 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import * as Sentry from '@sentry/react'
 import { browserTracingIntegration } from '@sentry/react'
 
-declare global {
-  interface Window {
-    Kakao: any
-    liff: any
-  }
-}
-
 const queryClient = new QueryClient()
 
 Sentry.init({
