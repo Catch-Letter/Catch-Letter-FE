@@ -19,6 +19,7 @@ import {
 } from '../Inbox.styles'
 import { ShareModal } from '#/components/share-modal'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
+import { event } from '#/utils/gtag'
 
 interface Props {
   uuid: string
@@ -68,6 +69,17 @@ const LetterReceived: FC<Props> = ({
     }
   }, [])
 
+  // 그림 그리러 가기 버튼
+  const onClickGoWrite = useCallback(() => {
+    event({
+      action: 'click',
+      category: 'button',
+      label: 'goWriteFromInbox',
+    })
+
+    navigate(`/drawing/${uuid}`)
+  }, [navigate, uuid])
+
   // modal
   const onAuthSuccess = useCallback(() => {
     initializePassword()
@@ -102,12 +114,7 @@ const LetterReceived: FC<Props> = ({
       />
 
       <div css={buttonGroupStyles}>
-        <Button
-          full={true}
-          onClick={() => {
-            navigate(`/drawing/${uuid}`)
-          }}
-        >
+        <Button full={true} onClick={onClickGoWrite}>
           {t('inbox.goWrite')}
         </Button>
         <Flex justify='space-between' gap={16} css={bottomButtonStyles}>
