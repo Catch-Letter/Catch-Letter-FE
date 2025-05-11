@@ -19,7 +19,7 @@ import {
 } from '../Inbox.styles'
 import { ShareModal } from '#/components/share-modal'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
-import { event } from '#/utils/gtag'
+import { event } from '#/shared/utils/gtag'
 
 interface Props {
   uuid: string
