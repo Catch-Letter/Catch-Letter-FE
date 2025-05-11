@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import { CreateFormStyle, FormWrapper } from './CreatePostForm.styles'
+import { trackBtnClick } from '#/shared/utils/gtag'
 
 const CreatePostForm = () => {
   const navigate = useNavigate()
@@ -13,6 +14,7 @@ const CreatePostForm = () => {
   const [password, setPassword] = useState('')
 
   const handleCreatePost = async () => {
+    trackBtnClick('createPostSubmit')
     try {
       const res = await fetchCreatePost(name, password)
       navigate('/success', {
