@@ -2,6 +2,7 @@ import { ShareItems } from '#/components/share-modal/shareItem'
 import { ShareModalContainer, ShareModalStyle } from '#/components/share-modal/ShareModal.styles'
 import { Toast } from '#/components/toast'
 import { Button, Modal, ModalProps } from '#/shared/ui'
+import { trackBtnClick } from '#/shared/utils/gtag'
 import { useToastStore } from '#/store/toastStore'
 import { useTranslation } from 'react-i18next'
 
@@ -20,6 +21,7 @@ const ShareModal = ({ isOpen, url, onClose, onClickOverlay }: ShareModalProps) =
   }
 
   const copyLink = () => {
+    trackBtnClick('copyLink')
     showToast(t('create.copyLink') + ' ✨', 'success', 'modal')
     navigator.clipboard.writeText(url)
   }
