@@ -495,12 +495,12 @@
     "EN": "Send a quiz and get a coffee ✉️✨"
   },
   "event_desc": {
-    "KO": "이벤트 기간 동안 퀴즈를 보내주신 분들 중 추첨을 통해 커피 기프티콘을 보내드립니다!",
-    "EN": "During the event, we'll send a coffee gift ,card to selected participants who submit a quiz"
+    "KO": "이벤트 기간 동안 퀴즈를 보내주신 분들 중 추첨을 통해 커피 기프티콘을 보내드려요!",
+    "EN": "During the event, we'll send a coffee gift ,card to selected participants who submit a quiz!"
   },
   "placeholder_phone": {
     "KO": "커피 받으실 번호를 입력해주세요 ☕️",
-    "EN": "Enter your phone number☕️"
+    "EN": "Enter your phone number ☕️"
   },
   "input_phone": {
     "KO": "전화번호를 입력해주세요. (- 제외)",

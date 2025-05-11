@@ -55,7 +55,7 @@ const EventModal = ({ isOpen, onSubmit, onClose }: ShareModalProps) => {
             <Button width={100} variant='secondary' onClick={handleClose}>
               {t('close')}
             </Button>
-            <Button width={100} disabled={!isValid}>
+            <Button width={100} disabled={!isValid} onClick={() => handleSubmit(phoneNumber)}>
               참여
             </Button>
           </div>
