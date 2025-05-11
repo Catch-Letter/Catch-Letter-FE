@@ -34,7 +34,7 @@ const EventModal = ({ isOpen, onSubmit, onClose }: ShareModalProps) => {
       <div css={EventModalWrapper}>
         <div css={EventModalContainer}>
           <div className='title'>{t('event')}</div>
-          <img src='/src/assets/event.png' alt='event' width={230} height={235} />
+          <img src='/src/assets/event.webp' alt='event' width={230} height={235} />
           <div className='event-font'>
             {renderColorTranslation(targetWord, text, colors.neonGreen[6])}
           </div>
