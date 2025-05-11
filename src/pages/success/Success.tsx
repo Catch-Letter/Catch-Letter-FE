@@ -23,6 +23,11 @@ const Success = () => {
     navigate(`/inbox/${uuidMatch?.[0]}`)
   }
 
+  const onClickShare = () => {
+    trackBtnClick('shareFromSuccess')
+    openModal()
+  }
+
   return (
     <div css={SuccessStyle}>
       <Background gradientType='halfGradient' />
@@ -40,7 +45,7 @@ const Success = () => {
         <Button className='btn_share' variant='secondary' width={343} onClick={onClickBtnPost}>
           {t('create.btnPost')}
         </Button>
-        <Button className='btn_share' width={343} onClick={openModal}>
+        <Button className='btn_share' width={343} onClick={onClickShare}>
           {t('create.btnshare')}
         </Button>
       </div>
