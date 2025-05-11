@@ -83,6 +83,12 @@ const LetterReceived: FC<Props> = ({
     navigate('/')
   }
 
+  // 공유 버튼
+  const onClickShare = () => {
+    trackBtnClick('shareFromInbox')
+    openShareModal()
+  }
+
   // modal
   const onAuthSuccess = useCallback(() => {
     initializePassword()
@@ -112,7 +118,7 @@ const LetterReceived: FC<Props> = ({
         value1={total_letter_count}
         title2={t('inbox.unsolvedLetters')}
         value2={incorrect_letter_count}
-        onClickShareButton={openShareModal}
+        onClickShareButton={onClickShare}
         onClickInformationButton={openTutorial}
       />
 
