@@ -1,7 +1,10 @@
 import { EventModalContainer, EventModalWrapper } from '#/components/event-modal/EvnetModal.styles'
 import { Button, InputField, Modal, ModalProps } from '#/shared/ui'
 import { isValidPhoneNumber } from '#/shared/utils/eventValidation'
+import { renderColorTranslation } from '#/shared/utils/extractTranslation'
+import { colors } from '#/styles/color'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 export type ShareModalProps = Omit<ModalProps, 'children'> & {
   onSubmit: (phoneNumber: string) => void
@@ -9,8 +12,11 @@ export type ShareModalProps = Omit<ModalProps, 'children'> & {
 }
 
 const EventModal = ({ isOpen, onSubmit, onClose }: ShareModalProps) => {
+  const { t } = useTranslation()
   const [phoneNumber, setPhoneNumber] = useState('')
   const isValid = phoneNumber.trim().length !== 0 && isValidPhoneNumber(phoneNumber)
+  const text = t('coffee')
+  const targetWord = text.includes('coffee') ? 'coffee' : '커피'
 
   const handleSubmit = (phoneNumber: string) => {
     if (phoneNumber.trim()) {
@@ -27,29 +33,27 @@ const EventModal = ({ isOpen, onSubmit, onClose }: ShareModalProps) => {
     <Modal isOpen={isOpen} onClickOverlay={handleClose}>
       <div css={EventModalWrapper}>
         <div css={EventModalContainer}>
-          <div className='title'>이벤트 도착 🎁</div>
+          <div className='title'>{t('event')}</div>
           <img src='/src/assets/event.png' alt='event' width={230} height={235} />
           <div className='event-font'>
-            퀴즈내고 <span className='font-neon'>커피</span>도 받아가세요 ✉️✨
+            {renderColorTranslation(targetWord, text, colors.neonGreen[6])}
           </div>
           <div className='desc'>
-            <div className='desc-message'>
-              이벤트 기간 동안 퀴즈를 보내주신 분들 중 추첨을 통해 커피 기프티콘을 보내드려요!
-            </div>
+            <div className='desc-message'>{t('event_desc')}</div>
             <InputField
-              placeholder='커피 받으실 번호를 입력해주세요 ☕️'
+              placeholder={t('placeholder_phone')}
               value={phoneNumber}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPhoneNumber(e.target.value)}
               isInvalid={!isValid}
-              helpMessage='전화번호를 입력해주세요. (- 제외)'
-              invalidMessage='올바른 전화번호를 입력해주세요. (- 제외)'
-              validMessage='올바른 전화번호 입니다.'
+              helpMessage={t('input_phone')}
+              invalidMessage={t('invalid_phone')}
+              validMessage={t('correct_phone')}
               maxLength={11}
             />
           </div>
           <div className='button-area'>
             <Button width={100} variant='secondary' onClick={handleClose}>
-              닫기
+              {t('close')}
             </Button>
             <Button width={100} disabled={!isValid}>
               참여

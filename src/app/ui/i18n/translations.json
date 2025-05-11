@@ -302,10 +302,10 @@
       "KO": "편지함",
       "EN": "My Letters"
     },
-  "lockDesc": {
-    "KO": ["암호를", "풀어주세요!"],
-    "EN": ["Unlock", "the drawing!"]
-    } 
+    "lockDesc": {
+      "KO": ["암호를", "풀어주세요!"],
+      "EN": ["Unlock", "the drawing!"]
+    }
   },
 
   "submit": {
@@ -370,7 +370,7 @@
       "KO": "{{name}} 님의 받은 비밀편지",
       "EN": "The letters {{name}} received"
     },
-    "goWrite": {  
+    "goWrite": {
       "KO": "그림 남기기 🎨",
       "EN": "let's go write a letter"
     },
@@ -417,7 +417,7 @@
       "KO": "이번에는 편지가 없어요 🥲",
       "EN": "There are no letters this time 🥲"
     },
-  "desc": {
+    "desc": {
       "KO": ["새로운 링크로 다시 한 번", "친구들에게 소식을 전해 볼까요?"],
       "EN": ["Let's get letters from your friends", "again with a new link"]
     }
@@ -485,5 +485,33 @@
   "numberPWD": {
     "KO": "비밀번호는 숫자만 가능해요!",
     "EN": "Password can only contain numbers!"
+  },
+  "event": {
+    "KO": "이벤트가 도착했어요 🎁",
+    "EN": "Surprise event 🎁"
+  },
+  "coffee": {
+    "KO": "퀴즈내고 커피도 받아가세요 ✉️✨",
+    "EN": "Send a quiz and get a coffee ✉️✨"
+  },
+  "event_desc": {
+    "KO": "이벤트 기간 동안 퀴즈를 보내주신 분들 중 추첨을 통해 커피 기프티콘을 보내드립니다!",
+    "EN": "During the event, we'll send a coffee gift ,card to selected participants who submit a quiz"
+  },
+  "placeholder_phone": {
+    "KO": "커피 받으실 번호를 입력해주세요 ☕️",
+    "EN": "Enter your phone number☕️"
+  },
+  "input_phone": {
+    "KO": "전화번호를 입력해주세요. (- 제외)",
+    "EN": "Please enter your phone number (numbers only, no hyphens)"
+  },
+  "invalid_phone": {
+    "KO": "올바른 전화번호를 입력해주세요. (- 제외)",
+    "EN": "Please enter a valid phone number (numbers only, no hyphens)"
+  },
+  "correct_phone": {
+    "KO": "올바른 전화번호 입니다 :)",
+    "EN": "This is a valid phone number :)"
   }
 }
