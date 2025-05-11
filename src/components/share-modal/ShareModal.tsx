@@ -21,7 +21,7 @@ const ShareModal = ({ isOpen, url, onClose, onClickOverlay }: ShareModalProps) =
   }
 
   const copyLink = () => {
-    trackBtnClick('copyLink')
+    trackBtnClick('copyLinkFromModal')
     showToast(t('create.copyLink') + ' ✨', 'success', 'modal')
     navigator.clipboard.writeText(url)
   }
