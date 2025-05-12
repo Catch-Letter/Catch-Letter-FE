@@ -5,6 +5,7 @@ import { requestDrawUpload, uploadImageToPresignedUrl } from '#/api/draw'
 import { convertStageToSVG } from '#/shared/utils/convertToSvg'
 import { LineData } from '#/types/drawing'
 import { useToastStore } from '#/store/toastStore'
+import { trackBtnClick } from '#/shared/utils/gtag'
 
 export const useDrawingSubmit = (
   uuid: string | undefined,
@@ -17,6 +18,8 @@ export const useDrawingSubmit = (
   const { showToast } = useToastStore()
 
   const handleUpload = useCallback(async () => {
+    trackBtnClick('draw')
+
     if (!uuid) {
       navigate('/')
       showToast('우체통이 존재하지 않습니다', 'error')
