@@ -1,19 +1,38 @@
 import { fetchSendLetter } from '#/api/sendLetter'
-import { LetterCard } from '#/components'
+import { LetterCard, Toast } from '#/components'
 import { LetterContent, Tab } from '#/components/letter-choice'
 import { Background, Button, Header } from '#/shared/ui'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate, useParams } from 'react-router'
 import { ChoiceLetterStyle, ChoiceLetterWrapper } from './ChoiceLetter.styles'
+import { EventModal } from '#/components/event-modal'
+import { useModal } from '#/hooks'
+import { useState } from 'react'
+import { fetchEventList, fetchParticipantEvent } from '#/api/event'
+import { useToastStore } from '#/store/toastStore'
+import axios from 'axios'
 
 const ChoiceLetter = () => {
   const { uuid, id } = useParams()
   const navigate = useNavigate()
   const location = useLocation()
   const { t } = useTranslation()
+  const { openModal, closeModal, isOpen } = useModal()
+  const [isSentLetter, setIsSentLetter] = useState(false)
+  const [event, setEvent] = useState('')
   const letter = location.state
+  const { showToast } = useToastStore()
   const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
+
+  const navigateSendLetter = () => {
+    navigate(`/sendletter/${uuid}`, {
+      state: {
+        color: selectedColor,
+        img: location.state?.img,
+      },
+    })
+  }
 
   const handleSendLetter = async (uuid: string, id: number) => {
     const letterData = {
@@ -29,14 +48,40 @@ const ChoiceLetter = () => {
 
     try {
       await fetchSendLetter(uuid, id, letterData)
-      navigate(`/sendletter/${uuid}`, {
-        state: {
-          color: selectedColor,
-          img: location.state?.img,
-        },
-      })
+      setIsSentLetter(true)
+      const res = await fetchEventList()
+
+      if (res.data.length > 0) {
+        setEvent(res.data[0].id)
+        openModal()
+      } else {
+        navigateSendLetter()
+      }
     } catch (error) {
       throw error
+    }
+  }
+
+  const handleCloseModal = () => {
+    if (isSentLetter) {
+      navigateSendLetter()
+    }
+    closeModal()
+  }
+
+  const handleEventModal = async (phoneNumber: string) => {
+    try {
+      const res = await fetchParticipantEvent(event, phoneNumber)
+      showToast('응모가 완료되었습니다!', 'success', 'page')
+      setTimeout(() => {
+        navigateSendLetter()
+      }, 1000)
+      return res.data
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const message = error.response?.data.message || '에러가 발생했습니다.'
+        showToast(message, 'error', 'page')
+      }
     }
   }
 
@@ -76,6 +121,13 @@ const ChoiceLetter = () => {
           </Button>
         </div>
       </div>
+      <EventModal
+        isOpen={isOpen}
+        onClose={handleCloseModal}
+        onClickOverlay={handleCloseModal}
+        onSubmit={(phoneNumber: string) => handleEventModal(phoneNumber)}
+      />
+      <Toast />
     </div>
   )
 }
