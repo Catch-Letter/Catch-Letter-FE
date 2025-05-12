@@ -4,6 +4,8 @@ export const API_ENDPOINTS = {
   AUTH: '/auth/login',
   ME: '/auth/me',
   REFRESH: '/auth/refresh',
+  GET_EVENT: '/events',
+  EVENT: (eventId: string) => `/events/${eventId}/participants`,
   DRAW: (uuId: string) => `/users/${uuId}/images`,
   SEND_LETTER: (uuId: string, letterId: number) => `/users/${uuId}/images/${letterId}/letters`,
   MY_LETTERS: (uuId: string) => `/users/${uuId}/images`,

@@ -34,5 +34,5 @@ export const ToastStyle = css`
   color: ${colors.white};
   font-size: 14px;
   animation: ${fadeIn} 0.2s ease-out;
-  min-width: 200px;
+  min-width: 220px;
 `
