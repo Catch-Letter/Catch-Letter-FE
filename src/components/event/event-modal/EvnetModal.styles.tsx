@@ -15,19 +15,6 @@ export const EventModalContainer = css`
   flex-direction: column;
   align-items: center;
 
-  .title {
-    font-weight: 700;
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-
-  .event-date {
-    font-size: 12px;
-    margin-bottom: 20px;
-    text-align: center;
-    color: ${colors.green[3]};
-  }
-
   .font-neon {
     color: ${colors.neonGreen[6]};
     font-weight: 700;
@@ -39,16 +26,6 @@ export const EventModalContainer = css`
     line-height: 18px;
     color: ${colors.green[3]};
     margin: 12px 0;
-
-    .desc-message {
-      width: 250px;
-      margin: 0 auto 14px;
-    }
-  }
-
-  .event-font {
-    font-size: 16px;
-    font-weight: 700;
   }
 
   .notice-event {

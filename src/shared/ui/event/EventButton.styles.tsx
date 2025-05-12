@@ -15,7 +15,7 @@ export const EventButtonWrapper = css`
   background-color: inherit;
   border: none;
   cursor: pointer;
-  animation: ${shake} 3s ease-in-out infinite;
+  animation: ${shake} 2.7s ease-in-out infinite;
   transform-origin: center;
   display: flex;
   flex-direction: column;

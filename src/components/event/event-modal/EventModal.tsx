@@ -1,9 +1,10 @@
-import { eventImg } from '#/assets/event'
-import { EventModalContainer, EventModalWrapper } from '#/components/event-modal/EvnetModal.styles'
+import {
+  EventModalContainer,
+  EventModalWrapper,
+} from '#/components/event/event-modal/EvnetModal.styles'
+import { EventNotice } from '#/components/event/event-notice'
 import { Button, InputField, Modal, ModalProps } from '#/shared/ui'
 import { isValidPhoneNumber } from '#/shared/utils/eventValidation'
-import { renderColorTranslation } from '#/shared/utils/extractTranslation'
-import { colors } from '#/styles/color'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -18,8 +19,6 @@ const EventModal = ({ isOpen, startDate, endDate, onSubmit, onClose }: EventModa
   const { t } = useTranslation()
   const [phoneNumber, setPhoneNumber] = useState('')
   const isValid = phoneNumber.trim().length !== 0 && isValidPhoneNumber(phoneNumber)
-  const text = t('coffee')
-  const targetWord = text.includes('coffee') ? 'coffee' : '커피'
 
   const handleSubmit = (phoneNumber: string) => {
     if (phoneNumber.trim()) {
@@ -36,16 +35,8 @@ const EventModal = ({ isOpen, startDate, endDate, onSubmit, onClose }: EventModa
     <Modal isOpen={isOpen} onClickOverlay={handleClose}>
       <div css={EventModalWrapper}>
         <div css={EventModalContainer}>
-          <div className='title'>{t('event')}</div>
-          <span className='event-date'>
-            {t('eventDate')} {startDate} ~ {endDate}
-          </span>
-          <img src={eventImg} alt='event' width={200} height={205} />
-          <div className='event-font'>
-            {renderColorTranslation(targetWord, text, colors.neonGreen[6])}
-          </div>
+          <EventNotice startDate={startDate} endDate={endDate} />
           <div className='desc'>
-            <div className='desc-message'>{t('event_desc')}</div>
             <InputField
               placeholder={t('placeholder_phone')}
               value={phoneNumber}
