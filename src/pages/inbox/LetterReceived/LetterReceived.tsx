@@ -20,6 +20,9 @@ import {
 import { ShareModal } from '#/components/share-modal'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { trackBtnClick } from '#/shared/utils/gtag'
+import { EventNotice } from '#/components/event'
+import useEventStatus from '#/hooks/useEventStatus'
+import { EventModalWrapper } from '#/components/event/event-modal/EvnetModal.styles'
 
 interface Props {
   uuid: string
@@ -40,6 +43,8 @@ const LetterReceived: FC<Props> = ({
     usePasswordModal()
   const { isOpen: isOpenTutorial, openModal: openTutorial, closeModal: closeTutorial } = useModal()
   const { isOpen: isOpenShare, openModal: openShareModal, closeModal: closeShareModal } = useModal()
+  const { isOpen: isOpenEvent, openModal: openEvent, closeModal: closeEvent } = useModal()
+  const { event, startDate, endDate } = useEventStatus()
   const { setReceiver } = useLetterCreationStore()
   const navigate = useNavigate()
   const { showToast } = useToastStore()
@@ -120,6 +125,7 @@ const LetterReceived: FC<Props> = ({
         value2={incorrect_letter_count}
         onClickShareButton={onClickShare}
         onClickInformationButton={openTutorial}
+        onClickEventButton={event ? openEvent : undefined}
       />
 
       <div css={buttonGroupStyles}>
@@ -155,6 +161,15 @@ const LetterReceived: FC<Props> = ({
       <Modal isOpen={isOpenTutorial} onClickOverlay={closeTutorial}>
         <Tutorial />
       </Modal>
+
+      {event && (
+        <Modal isOpen={isOpenEvent} onClickOverlay={closeEvent}>
+          <div css={EventModalWrapper}>
+            <EventNotice startDate={startDate} endDate={endDate} />
+            <Button onClick={onClickGoWrite}>퀴즈 보내러 가기</Button>
+          </div>
+        </Modal>
+      )}
 
       <FallingLetters />
       <Toast position='top' offset='24vh' />
