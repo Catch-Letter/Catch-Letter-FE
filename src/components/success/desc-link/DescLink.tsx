@@ -3,6 +3,7 @@ import { DescLinkStyle } from './DescLink.styles'
 import { useToastStore } from '#/store/toastStore'
 import { useTranslation } from 'react-i18next'
 import { Toast } from '#/components/toast'
+import { trackBtnClick } from '#/shared/utils/gtag'
 
 interface DescLinkProps {
   title?: string
@@ -16,6 +17,7 @@ const DescLink = ({ title, link, btnName, desc }: DescLinkProps) => {
   const { showToast } = useToastStore()
 
   const copyLink = () => {
+    trackBtnClick('copyLinkFromSuccess')
     navigator.clipboard.writeText(link)
     showToast(t('create.copyLink') + ' ✨', 'success', 'page')
   }

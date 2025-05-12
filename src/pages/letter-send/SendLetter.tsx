@@ -7,6 +7,7 @@ import { useLocation, useNavigate, useParams } from 'react-router'
 import { SendLetterStyle, sendLetterWrapper } from './SendLetter.styles'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
 import useObjectUrl from '#/hooks/useObjectUrl'
+import { trackBtnClick } from '#/shared/utils/gtag'
 
 const SendLetter = () => {
   const navigate = useNavigate()
@@ -18,10 +19,12 @@ const SendLetter = () => {
   const imageUrl = useObjectUrl(info?.img)
 
   const handleCreatePost = () => {
+    trackBtnClick('createPostFromSendLetter')
     navigate('/')
   }
 
   const handleNewPost = () => {
+    trackBtnClick('newPostFromSendLetter')
     navigate(`/inbox/${uuid}`)
   }
 

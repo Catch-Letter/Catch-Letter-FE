@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from 'react-router'
 import { SuccessStyle, SuccessWrapper } from './Success.styles'
 import { ShareModal } from '#/components/share-modal'
 import useModal from '#/hooks/useModal'
+import { trackBtnClick } from '#/shared/utils/gtag'
 
 // from createPostForm
 const Success = () => {
@@ -16,6 +17,16 @@ const Success = () => {
   const { isOpen, openModal, closeModal } = useModal()
   // const { leftTime } = useCountdownTimer(user.expired)
   const uuidMatch = user.mailboxUrl.match(/[^/]+$/)
+
+  const onClickBtnPost = () => {
+    trackBtnClick('btnPostFromSuccess')
+    navigate(`/inbox/${uuidMatch?.[0]}`)
+  }
+
+  const onClickShare = () => {
+    trackBtnClick('shareFromSuccess')
+    openModal()
+  }
 
   return (
     <div css={SuccessStyle}>
@@ -31,15 +42,10 @@ const Success = () => {
             {t('create.check')}
           </DescWithNum> */}
         </div>
-        <Button
-          className='btn_share'
-          variant='secondary'
-          width={343}
-          onClick={() => navigate(`/inbox/${uuidMatch?.[0]}`)}
-        >
+        <Button className='btn_share' variant='secondary' width={343} onClick={onClickBtnPost}>
           {t('create.btnPost')}
         </Button>
-        <Button className='btn_share' width={343} onClick={openModal}>
+        <Button className='btn_share' width={343} onClick={onClickShare}>
           {t('create.btnshare')}
         </Button>
       </div>

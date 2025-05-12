@@ -19,7 +19,7 @@ import {
 } from '../Inbox.styles'
 import { ShareModal } from '#/components/share-modal'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
-import { event } from '#/utils/gtag'
+import { trackBtnClick } from '#/shared/utils/gtag'
 
 interface Props {
   uuid: string
@@ -50,8 +50,10 @@ const LetterReceived: FC<Props> = ({
     setReceiver(name)
   }, [name, setReceiver])
 
-  // 확인하기 버튼
+  // 그림 맞추기 버튼
   const onClickCheckButton = useCallback(async () => {
+    trackBtnClick('checkLetters')
+
     try {
       const postInfo = await queryClient.fetchQuery({
         queryKey: ['postInfo', uuid],
@@ -69,16 +71,23 @@ const LetterReceived: FC<Props> = ({
     }
   }, [])
 
-  // 그림 그리러 가기 버튼
-  const onClickGoWrite = useCallback(() => {
-    event({
-      action: 'click',
-      category: 'button',
-      label: 'goWriteFromInbox',
-    })
-
+  // 그림 남기기 버튼
+  const onClickGoWrite = () => {
+    trackBtnClick('goWrite')
     navigate(`/drawing/${uuid}`)
-  }, [navigate, uuid])
+  }
+
+  // 우체통 만들기 버튼
+  const onClickCreatePost = () => {
+    trackBtnClick('createPostFromInbox')
+    navigate('/')
+  }
+
+  // 공유 버튼
+  const onClickShare = () => {
+    trackBtnClick('shareFromInbox')
+    openShareModal()
+  }
 
   // modal
   const onAuthSuccess = useCallback(() => {
@@ -109,7 +118,7 @@ const LetterReceived: FC<Props> = ({
         value1={total_letter_count}
         title2={t('inbox.unsolvedLetters')}
         value2={incorrect_letter_count}
-        onClickShareButton={openShareModal}
+        onClickShareButton={onClickShare}
         onClickInformationButton={openTutorial}
       />
 
@@ -118,12 +127,7 @@ const LetterReceived: FC<Props> = ({
           {t('inbox.goWrite')}
         </Button>
         <Flex justify='space-between' gap={16} css={bottomButtonStyles}>
-          <Button
-            onClick={() => {
-              navigate('/')
-            }}
-            variant='secondary'
-          >
+          <Button onClick={onClickCreatePost} variant='secondary'>
             {t('showOff')}
           </Button>
           <Button onClick={onClickCheckButton}>{t('checkLetters')}</Button>
