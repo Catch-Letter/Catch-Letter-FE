@@ -486,6 +486,14 @@
     "KO": "비밀번호는 숫자만 가능해요!",
     "EN": "Password can only contain numbers!"
   },
+  "enter": {
+    "KO": "참여",
+    "EN": "enter"
+  },
+  "eventDate": {
+    "KO": "응모기간",
+    "EN": "Entry Period"
+  },
   "event": {
     "KO": "이벤트가 도착했어요 🎁",
     "EN": "Surprise event 🎁"
@@ -513,5 +521,9 @@
   "correct_phone": {
     "KO": "올바른 전화번호 입니다 :)",
     "EN": "This is a valid phone number :)"
+  },
+  "event_notice": {
+    "KO": "전화번호는 이벤트 추첨을 위한 용도로만 수집·이용됩니다.",
+    "EN": "Your phone number will be used only for the event draw."
   }
 }

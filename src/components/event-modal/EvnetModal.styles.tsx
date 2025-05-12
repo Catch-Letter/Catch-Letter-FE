@@ -18,7 +18,14 @@ export const EventModalContainer = css`
   .title {
     font-weight: 700;
     font-size: 24px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+  }
+
+  .event-date {
+    font-size: 12px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: ${colors.green[3]};
   }
 
   .font-neon {
@@ -42,6 +49,11 @@ export const EventModalContainer = css`
   .event-font {
     font-size: 16px;
     font-weight: 700;
+  }
+
+  .notice-event {
+    font-size: 10px;
+    margin-bottom: 10px;
   }
 
   .button-area {
