@@ -13,6 +13,7 @@ import { useState } from 'react'
 import { fetchEventList, fetchParticipantEvent } from '#/api/event'
 import { useToastStore } from '#/store/toastStore'
 import axios from 'axios'
+import useEventStatus from '#/hooks/useEventStatus'
 
 const ChoiceLetter = () => {
   const { uuid, id } = useParams()
@@ -21,7 +22,7 @@ const ChoiceLetter = () => {
   const { t } = useTranslation()
   const { openModal, closeModal, isOpen } = useModal()
   const [isSentLetter, setIsSentLetter] = useState(false)
-  const [event, setEvent] = useState('')
+  const { event, setEvent, startDate, endDate, onStartDate, onEndDate } = useEventStatus()
   const letter = location.state
   const { showToast } = useToastStore()
   const { selectedColor, selectedFont, selectedPattern } = useLetterCreationStore()
@@ -56,6 +57,8 @@ const ChoiceLetter = () => {
 
       if (res.data.length > 0) {
         setEvent(res.data[0].id)
+        onStartDate(res.data[0].start_at)
+        onEndDate(res.data[0].end_at)
         openModal()
       } else {
         navigateSendLetter()
@@ -125,6 +128,8 @@ const ChoiceLetter = () => {
         </div>
       </div>
       <EventModal
+        startDate={startDate}
+        endDate={endDate}
         isOpen={isOpen}
         onClose={handleCloseModal}
         onClickOverlay={handleCloseModal}
