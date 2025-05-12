@@ -11,6 +11,7 @@ import { useModal } from '#/hooks'
 import { useState } from 'react'
 import { fetchEventList, fetchParticipantEvent } from '#/api/event'
 import { useToastStore } from '#/store/toastStore'
+import axios from 'axios'
 
 const ChoiceLetter = () => {
   const { uuid, id } = useParams()
@@ -76,8 +77,11 @@ const ChoiceLetter = () => {
         navigateSendLetter()
       }, 1000)
       return res.data
-    } catch {
-      showToast('진행 중인 이벤트가 없습니다.', 'error', 'page')
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const message = error.response?.data.message || '에러가 발생했습니다.'
+        showToast(message, 'error', 'page')
+      }
     }
   }
 
