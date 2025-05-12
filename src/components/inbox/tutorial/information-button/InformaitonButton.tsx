@@ -1,5 +1,6 @@
 import { informationButtonStyles } from '#/components/inbox/tutorial/information-button/InformaitonButton.styles'
 import { useIsFirstRender } from '#/hooks'
+import { trackBtnClick } from '#/shared/utils/gtag'
 import { FC, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GrCircleInformation } from 'react-icons/gr'
@@ -31,6 +32,7 @@ const InformationButton: FC<Props> = ({ onClick }) => {
   }, [])
 
   const handleButtonClick = () => {
+    trackBtnClick('information')
     onClick()
 
     if (tooltipTimerRef.current) {

@@ -5,6 +5,7 @@ import { Input, Button, Header } from '#/shared/ui'
 import { WriteDesc, TextCard } from '#/components/letter-write'
 import { useTranslation } from 'react-i18next'
 import { useLetterCreationStore } from '#/store/letterCreateStore'
+import { trackBtnClick } from '#/shared/utils/gtag'
 
 const LetterWrite = () => {
   const { t } = useTranslation()
@@ -17,6 +18,8 @@ const LetterWrite = () => {
   const [content, setContent] = useState(location.state?.content || '')
 
   const handleChoiceLetter = () => {
+    trackBtnClick('chooseTheme')
+
     navigate(`/choiceletter/${uuid}/${id}`, {
       state: {
         ...location.state,

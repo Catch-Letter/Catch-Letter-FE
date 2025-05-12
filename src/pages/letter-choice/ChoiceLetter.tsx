@@ -6,6 +6,7 @@ import { useLetterCreationStore } from '#/store/letterCreateStore'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate, useParams } from 'react-router'
 import { ChoiceLetterStyle, ChoiceLetterWrapper } from './ChoiceLetter.styles'
+import { trackBtnClick } from '#/shared/utils/gtag'
 import { EventModal } from '#/components/event-modal'
 import { useModal } from '#/hooks'
 import { useState } from 'react'
@@ -35,6 +36,8 @@ const ChoiceLetter = () => {
   }
 
   const handleSendLetter = async (uuid: string, id: number) => {
+    trackBtnClick('sendLetter')
+
     const letterData = {
       to: letter.to,
       from: letter.from,

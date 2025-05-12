@@ -4,10 +4,16 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import { CreatePostStyle, CreateWrapper } from './CreatePost.styles'
 import { Toast } from '#/components'
+import { trackBtnClick } from '#/shared/utils/gtag'
 
 const CreatePost = () => {
   const navigate = useNavigate()
   const { t } = useTranslation()
+
+  const onClickCreatePost = () => {
+    trackBtnClick('createPost')
+    navigate('/postform')
+  }
 
   return (
     <div css={CreatePostStyle}>
@@ -20,13 +26,7 @@ const CreatePost = () => {
         </div>
         <TurnCard />
       </div>
-      <Button
-        className='create-btn'
-        width={343}
-        onClick={() => {
-          navigate('/postform')
-        }}
-      >
+      <Button className='create-btn' width={343} onClick={onClickCreatePost}>
         {t('create.createPost')}
       </Button>
       <Toast offset='20dvh' />

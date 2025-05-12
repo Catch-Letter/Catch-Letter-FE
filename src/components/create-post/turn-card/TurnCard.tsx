@@ -9,7 +9,7 @@ const TurnCard = () => {
   return (
     <div css={TurnCardStyle}>
       <Card css={FrontCard}>
-        <img src={lock} alt='lock' width={50} />
+        <img src={lock} alt='lock' width={50} height={50} />
         <span className='top'>
           <b css={boldFont}>{t('create.cardMessageTop')}</b>
           <br />
@@ -17,7 +17,7 @@ const TurnCard = () => {
         </span>
       </Card>
       <Card css={BackCard}>
-        <img src={santa} alt='santa' />
+        <img src={santa} alt='santa' width={178} height={288} />
       </Card>
     </div>
   )
