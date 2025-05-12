@@ -74,7 +74,7 @@ const ChoiceLetter = () => {
   const handleEventModal = async (phoneNumber: string) => {
     try {
       const res = await fetchParticipantEvent(event, phoneNumber)
-      showToast('응모가 완료되었습니다!', 'success', 'page')
+      showToast(t('success_entry'), 'success', 'page')
       setTimeout(() => {
         navigateSendLetter()
       }, 1000)

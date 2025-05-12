@@ -166,7 +166,7 @@ const LetterReceived: FC<Props> = ({
         <Modal isOpen={isOpenEvent} onClickOverlay={closeEvent}>
           <div css={EventModalWrapper}>
             <EventNotice startDate={startDate} endDate={endDate} />
-            <Button onClick={onClickGoWrite}>퀴즈 보내러 가기</Button>
+            <Button onClick={onClickGoWrite}>{t('inbox.goWrite')}</Button>
           </div>
         </Modal>
       )}

@@ -525,5 +525,9 @@
   "event_notice": {
     "KO": "전화번호는 이벤트 추첨을 위한 용도로만 수집·이용됩니다.",
     "EN": "Your phone number will be used only for the event draw."
+  },
+  "success_entry": {
+    "KO": "응모가 완료되었습니다!",
+    "EN": "Entry Successful!"
   }
 }
