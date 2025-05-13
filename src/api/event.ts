@@ -5,6 +5,7 @@ import dayjs from 'dayjs'
 //이벤트 조회
 export const fetchEventList = async () => {
   const date = dayjs(new Date()).format('YYYY-MM-DD')
+
   try {
     const res = await apiClient.get(`${API_ENDPOINTS.GET_EVENT}/?date=${date}`)
     return res.data

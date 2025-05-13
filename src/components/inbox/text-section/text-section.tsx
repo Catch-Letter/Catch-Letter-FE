@@ -3,6 +3,7 @@ import { ComponentProps, ReactNode } from 'react'
 import { InformaitonButton } from '../tutorial'
 import { textSectionStyles } from './text-section styles'
 import { IoShareSocial } from 'react-icons/io5'
+import { EventButton } from '#/shared/ui/event'
 
 interface Props extends ComponentProps<'section'> {
   title1: ReactNode
@@ -10,6 +11,7 @@ interface Props extends ComponentProps<'section'> {
   title2: ReactNode
   value2: ReactNode
   onClickShareButton?: () => void
+  onClickEventButton?: () => void
   onClickInformationButton: () => void
 }
 
@@ -19,6 +21,7 @@ const TextSection = ({
   title2,
   value2,
   onClickShareButton,
+  onClickEventButton,
   onClickInformationButton,
 }: Props) => {
   return (
@@ -33,9 +36,12 @@ const TextSection = ({
         </Flex>
         <span className='value1'>{value1}</span>
       </Flex>
-      <Flex direction='column' gap={8} role='group'>
-        <span className='title2'>{title2}</span>
-        <span className='value2'>{value2}</span>
+      <Flex justify='space-between' role='group'>
+        <Flex direction='column' gap={8} role='group'>
+          <span className='title2'>{title2}</span>
+          <span className='value2'>{value2}</span>
+        </Flex>
+        {onClickEventButton && <EventButton onClick={onClickEventButton} />}
       </Flex>
     </Flex>
   )
