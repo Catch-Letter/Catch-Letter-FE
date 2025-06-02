@@ -128,7 +128,7 @@
       "EN": "Picture Questions"
     },
     "placeholder": {
-      "KO": "예) 소오름, 독감",
+      "KO": "{{word}}(을)를 그려보는 건 어떨까요?",
       "EN": "What's the mystery in this picture?"
     },
     "helpMessage": {

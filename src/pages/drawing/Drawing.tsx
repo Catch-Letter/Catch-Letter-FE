@@ -43,7 +43,7 @@ const Drawing = () => {
       <BackHeader Center={t('draw.header')} goBackPath={`/inbox/${uuid}`} />
       <div css={FormWrapper}>
         <InputField
-          placeholder={`'${randomWord}' (을)를 그려보는 건 어떨까요?`}
+          placeholder={t('draw.placeholder', { word: randomWord })}
           value={answer}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAnswer(e.target.value)}
           isInvalid={isInvalid}
