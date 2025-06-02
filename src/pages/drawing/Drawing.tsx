@@ -1,3 +1,4 @@
+import { fetchRandomWord } from '#/api/koreanDict'
 import { BackHeader } from '#/components'
 import { Canvas, DrawingIntro } from '#/components/drawing'
 import { useDrawingSubmit } from '#/hooks/useDrawingSubmit'
@@ -6,7 +7,7 @@ import { Background, Button, InputField } from '#/shared/ui'
 import { answerValidate, isAnswerInvalid } from '#/shared/utils/answerValidation'
 import { LineData } from '#/types/drawing'
 import Konva from 'konva'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useParams } from 'react-router'
 
@@ -20,7 +21,7 @@ const Drawing = () => {
     location.state?.isDrawingMode || false
   )
   const [lines, setLines] = useState<LineData[]>(location.state?.lines || [])
-
+  const [randomWord, setRandomWord] = useState<string>('')
   const stageRef = useRef<Konva.Stage | null>(null)
 
   const invalidMessage = answerValidate(answer, t)
@@ -28,13 +29,21 @@ const Drawing = () => {
 
   const { handleUpload } = useDrawingSubmit(uuid, answer, stageRef, lines)
 
+  useEffect(() => {
+    const loadWord = async () => {
+      const word = await fetchRandomWord()
+      setRandomWord(word)
+    }
+    loadWord()
+  }, [])
+
   return (
     <div css={DrawingWrapper}>
       <Background color='grey' />
       <BackHeader Center={t('draw.header')} goBackPath={`/inbox/${uuid}`} />
       <div css={FormWrapper}>
         <InputField
-          placeholder={t('draw.placeholder')}
+          placeholder={`'${randomWord}' (을)를 그려보는 건 어떨까요?`}
           value={answer}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAnswer(e.target.value)}
           isInvalid={isInvalid}

@@ -15,7 +15,7 @@ Sentry.init({
   enabled: import.meta.env.PROD,
 })
 
-if (import.meta.env.PROD) {
+if (import.meta.env.PROD === false) {
   const script1 = document.createElement('script')
   script1.src = `https://www.googletagmanager.com/gtag/js?id=${import.meta.env.VITE_GA_ID}`
   script1.async = true
