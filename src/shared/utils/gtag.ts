@@ -25,7 +25,7 @@ export const event = ({ action, category, label, value }: GAEventParams) => {
 
 // GA 버튼 클릭 이벤트 전송
 export const trackBtnClick = (label: string) => {
-  if (!GA_ID || typeof window === 'undefined') return
+  if (!GA_ID || typeof window === 'undefined' || typeof window.gtag !== 'function') return
   window.gtag('event', 'click', {
     event_category: 'button',
     event_label: label,
