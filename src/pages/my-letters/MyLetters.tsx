@@ -66,7 +66,7 @@ const MyLetters = () => {
           {isFetchingNextPage && <SkeletonCard count={8} />}
         </div>
       )}
-      <RefreshButton />
+      <RefreshButton refetch={refetch} />
     </div>
   )
 }
