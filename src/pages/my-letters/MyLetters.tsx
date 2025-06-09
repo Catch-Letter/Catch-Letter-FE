@@ -7,6 +7,7 @@ import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate, useParams } from 'react-router'
 import { BadgeStyle, GridContainer, MyLettersWrapper, TitleStyle } from './MyLetters.styles'
+import { RefreshButton } from '#/components/my-letters/refresh'
 
 const MyLetters = () => {
   const { uuid } = useParams()
@@ -17,7 +18,7 @@ const MyLetters = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } =
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, refetch, isRefetching } =
     useMyLettersQuery(uuid ?? '')
   useScrollRestoration(scrollContainerRef, SCROLL_STORAGE_KEY, !isLoading)
 
@@ -65,6 +66,7 @@ const MyLetters = () => {
           {isFetchingNextPage && <SkeletonCard count={8} />}
         </div>
       )}
+      <RefreshButton refetch={refetch} isRefetching={isRefetching} />
     </div>
   )
 }

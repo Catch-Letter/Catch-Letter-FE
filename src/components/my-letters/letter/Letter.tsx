@@ -32,7 +32,7 @@ const Letter = ({ letter, uuid, backgroundColor }: LettersProps) => {
     <div onClick={handleNavigate} style={{ width: '100%', height: '100%' }} />
   ) : (
     <div css={LockLetterStyle(backgroundColor)} onClick={handleNavigate}>
-      <img src={lock} alt='lock-icon' />
+      <img src={lock} alt='lock-icon' width={50} height={50} />
       <div className='lock-text'>
         {(t('myLetters.lockDesc', { returnObjects: true }) as string[]).map((line, idx) => (
           <span key={idx}>
