@@ -37,5 +37,6 @@ export const useMyLettersQuery = (uuid: string) => {
     getNextPageParam: (lastPage) => lastPage?.next_cursor ?? null,
     refetchInterval: 1 * 60 * 1000,
     refetchOnWindowFocus: false,
+    refetchOnMount: false,
   })
 }
