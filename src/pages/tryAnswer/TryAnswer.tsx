@@ -1,4 +1,5 @@
 import { BackHeader, LetterCard, LetterContent, TryCounter, TryIntro } from '#/components'
+import { useUpdateLetter } from '#/hooks/query'
 import useTryAnswer from '#/hooks/useTryAnswer'
 import {
   backCardStyle,
@@ -11,12 +12,12 @@ import {
 } from '#/pages/tryAnswer/TryAnswer.styles'
 import { Background, Button, DotLoader, InputField } from '#/shared/ui'
 import { colors } from '#/styles/color'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router'
 
 const TryAnswer = () => {
-  const { uuid } = useParams()
+  const { uuid, id } = useParams()
   const { t } = useTranslation()
   const navigate = useNavigate()
   const location = useLocation()
@@ -24,6 +25,7 @@ const TryAnswer = () => {
   const backgroundColor = location.state?.letterColor || colors.grey[3]
   const [inputValue, setInputValue] = useState<string>('')
   const [isTryStarted, setIsTryStarted] = useState<boolean>(false)
+  const updateLetter = useUpdateLetter()
 
   const {
     imageUrl,
@@ -50,11 +52,15 @@ const TryAnswer = () => {
     return <Navigate to='/not-found' replace />
   }
 
+  useEffect(() => {
+    if (isCorrect && id && uuid) {
+      updateLetter(uuid, Number(id))
+    }
+  }, [isCorrect, uuid, id, updateLetter])
+
   const handleNavigate = () => {
     if (isCorrect) {
-      navigate(`/myletters/${uuid}`, {
-        state: { refetch: true },
-      })
+      navigate(`/myletters/${uuid}`)
     }
   }
 
@@ -70,10 +76,7 @@ const TryAnswer = () => {
   return (
     <div css={tryAnswerWrapper}>
       <Background color={backgroundColor} />
-      <BackHeader
-        goBackPath={`/myletters/${uuid}`}
-        goBackState={isCorrect ? { refetch: true } : undefined}
-      />
+      <BackHeader goBackPath={`/myletters/${uuid}`} />
       <div css={TryAnswerStyle}>
         <TryCounter
           chances={chances}

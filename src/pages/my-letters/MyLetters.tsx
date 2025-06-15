@@ -1,39 +1,24 @@
+import { useRef } from 'react'
+import { useParams } from 'react-router'
 import { useMyLettersQuery } from '#/api/myLetters'
 import { BackHeader, LetterGrid, NoLetters, SkeletonCard } from '#/components'
-import { useInfiniteScroll } from '#/hooks/useInfiniteScroll'
-import { useRandomShakingCard } from '#/hooks/useRandomShakingCard'
-import { useScrollRestoration } from '#/hooks/useScrollRestoration'
-import { useEffect, useRef } from 'react'
+import { useInfiniteScroll, useRandomShakingCard, useScrollRestoration } from '#/hooks'
 import { useTranslation } from 'react-i18next'
-import { useLocation, useNavigate, useParams } from 'react-router'
 import { BadgeStyle, GridContainer, MyLettersWrapper, TitleStyle } from './MyLetters.styles'
+import { RefreshButton } from '#/components/my-letters/refresh'
 
 const MyLetters = () => {
   const { uuid } = useParams()
   const SCROLL_STORAGE_KEY = `myLettersScroll_${uuid}`
-
   const { t } = useTranslation()
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
-  const navigate = useNavigate()
-  const location = useLocation()
 
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } =
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, refetch, isRefetching } =
     useMyLettersQuery(uuid ?? '')
   useScrollRestoration(scrollContainerRef, SCROLL_STORAGE_KEY, !isLoading)
 
   const letters = data?.pages[0]?.data ?? []
   const shakingCard = useRandomShakingCard(letters)
-
-  useEffect(() => {
-    if (location.state?.refetch) {
-      refetch()
-
-      navigate(location.pathname, {
-        replace: true,
-        state: {},
-      })
-    }
-  }, [location.state, location.pathname, navigate, refetch])
 
   useInfiniteScroll({
     containerRef: scrollContainerRef,
@@ -65,6 +50,7 @@ const MyLetters = () => {
           {isFetchingNextPage && <SkeletonCard count={8} />}
         </div>
       )}
+      <RefreshButton refetch={refetch} isRefetching={isRefetching} />
     </div>
   )
 }

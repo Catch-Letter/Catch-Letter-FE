@@ -2,7 +2,6 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import GlobalStyles from './styles/GlobalStyles.tsx'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import * as Sentry from '@sentry/react'
 import { browserTracingIntegration } from '@sentry/react'
 
@@ -35,6 +34,5 @@ createRoot(document.getElementById('root')!).render(
   <QueryClientProvider client={queryClient}>
     <GlobalStyles />
     <App />
-    <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>
 )
