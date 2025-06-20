@@ -10,7 +10,7 @@ export const CardStyle = ({ background, height, width }: CardProps) => css`
   width: ${width || '100%'};
   height: ${height || '100%'};
   padding: 25px 21px;
-
+  overflow: hidden;
   background: ${background || colors.grey[3]};
   border: 1.5px solid #fff;
 `

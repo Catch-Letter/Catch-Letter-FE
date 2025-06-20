@@ -6,6 +6,9 @@ export const TurnCardStyle = css`
   height: 303px;
   transform-style: preserve-3d;
   perspective: 800px;
+`
+
+export const TurnCardAnimate = css`
   animation: rotate-and-separate 4s ease-in-out forwards;
 
   @keyframes rotate-and-separate {
