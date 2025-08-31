@@ -17,55 +17,68 @@ const fontStyles = css`
   @font-face {
     font-family: 'NotoSansKR';
     font-weight: 100;
-    src: url(${Thin}) format (woff);
+    src: url(${Thin}) format('woff');
+    font-display: block;
   }
   @font-face {
     font-family: 'NotoSansKR';
     font-weight: 200;
-    src: url(${ExtraLight}) format(woff);
+    src: url(${ExtraLight}) format('woff');
+    font-display: block;
   }
   @font-face {
     font-family: 'NotoSansKR';
     font-weight: 300;
-    src: url(${Light}) format(woff);
+    src: url(${Light}) format('woff');
+    font-display: block;
   }
   @font-face {
     font-family: 'NotoSansKR';
     font-weight: 400;
-    src: url(${Regular}) format(woff);
+    src: url(${Regular}) format('woff');
+    font-display: block;
   }
   @font-face {
     font-family: 'NotoSansKR';
     font-weight: 500;
-    src: url(${Medium}) format(woff);
+    src: url(${Medium}) format('woff');
+    font-display: block;
   }
   @font-face {
     font-family: 'NotoSansKR';
     font-weight: 600;
-    src: url(${SemiBold}) format(woff);
+    src: url(${SemiBold}) format('woff');
+    font-display: block;
   }
   @font-face {
     font-family: 'NotoSansKR';
     font-weight: 700;
-    src: url(${Bold}) format(woff);
+    src: url(${Bold}) format('woff');
+    font-display: block;
   }
   @font-face {
     font-family: 'NotoSansKR';
     font-weight: 800;
-    src: url(${ExtraBold}) format(woff);
+    src: url(${ExtraBold}) format('woff');
+    font-display: block;
   }
   @font-face {
     font-family: 'NotoSansKR';
     font-weight: 900;
-    src: url(${BlackBold}) format(woff);
+    src: url(${BlackBold}) format('woff');
+    font-display: block;
   }
+
   @font-face {
     font-family: 'NanumPen';
-    src: url(${NanumPen}) format(woff);
+    src: url(${NanumPen}) format('woff');
+    font-display: block;
   }
+
   @font-face {
     font-family: 'Ownglyph';
-    src: url(${OwnglyphEuiyeon}) format(woff);
+    src: url(${OwnglyphEuiyeon}) format('woff');
+    font-display: block;
   }
 `
 export default fontStyles
