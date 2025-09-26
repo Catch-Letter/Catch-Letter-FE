@@ -2,7 +2,6 @@ import * as Letters from '#/assets/letters'
 import { ContainerSizeType } from '#/hooks/useResizeContainer'
 import Matter from 'matter-js'
 import { RefObject, useEffect, useRef } from 'react'
-import { orderedLetters } from './orderedLetters'
 
 export interface FallingLettersHookArgs {
   ref: RefObject<HTMLDivElement | null>
@@ -14,7 +13,7 @@ const useFallingLetters = ({ ref, size }: FallingLettersHookArgs) => {
     [...list].sort(() => Math.random() - 0.5).slice(0, count)
 
   const letters =
-    size.width < 768 ? getRandomLetters(orderedLetters.slice(0, 11), 8) : Object.values(Letters)
+    size.width < 768 ? getRandomLetters(Object.values(Letters), 8) : Object.values(Letters)
 
   const engineRef = useRef<Matter.Engine | null>(null)
   const renderRef = useRef<Matter.Render | null>(null)
