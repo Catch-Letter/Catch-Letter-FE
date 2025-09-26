@@ -36,3 +36,7 @@ export const ToastStyle = css`
   animation: ${fadeIn} 0.2s ease-out;
   min-width: 220px;
 `
+export const TextStyle = css`
+  flex: 1;
+  text-align: center;
+`

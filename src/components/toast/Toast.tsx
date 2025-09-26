@@ -1,4 +1,4 @@
-import { ToastContainer, ToastStyle } from '#/components/toast/Toast.styles'
+import { ToastContainer, ToastStyle, TextStyle } from '#/components/toast/Toast.styles'
 import { useToastStore } from '#/store/toastStore'
 import { colors } from '#/styles/color'
 import { FiCheckCircle } from 'react-icons/fi'
@@ -24,7 +24,7 @@ const Toast = ({ position = 'bottom', offset = '200px', location = 'page' }: Toa
         ) : (
           <FiXCircle color={colors.error} />
         )}
-        <div>{toast.message}</div>
+        <div css={TextStyle}>{toast.message}</div>
       </div>
     </div>,
     document.body
