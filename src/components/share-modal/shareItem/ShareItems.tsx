@@ -29,7 +29,7 @@ const ShareItems = ({ url }: shareItemProps) => {
   }
 
   useEffect(() => {
-    setTimeout(() => setIsLoading(false), 200)
+    setTimeout(() => setIsLoading(false), 300)
   }, [])
 
   return (
