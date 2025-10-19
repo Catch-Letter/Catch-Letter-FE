@@ -23,6 +23,7 @@ import { trackBtnClick } from '#/shared/utils/gtag'
 import { EventNotice } from '#/components/event'
 import useEventStatus from '#/hooks/useEventStatus'
 import { EventModalWrapper } from '#/components/event/event-modal/EvnetModal.styles'
+import { shareItems } from '#/shared/config/shareSNS'
 
 interface Props {
   uuid: string
@@ -50,6 +51,18 @@ const LetterReceived: FC<Props> = ({
   const { showToast } = useToastStore()
   const { t } = useTranslation()
   const queryClient = useQueryClient()
+
+  const preloadIcons = () => {
+    Object.values(shareItems).forEach((src) => {
+      const img = new Image()
+      img.src = src
+      img.decode?.()
+    })
+  }
+
+  useEffect(() => {
+    preloadIcons()
+  }, [])
 
   useEffect(() => {
     setReceiver(name)
