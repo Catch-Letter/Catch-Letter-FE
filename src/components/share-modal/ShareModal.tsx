@@ -1,6 +1,7 @@
 import { ShareItems } from '#/components/share-modal/shareItem'
 import { ShareModalContainer, ShareModalStyle } from '#/components/share-modal/ShareModal.styles'
 import { Toast } from '#/components/toast'
+import { shareItems } from '#/shared/config/shareSNS'
 import { Button, Modal, ModalProps } from '#/shared/ui'
 import { trackBtnClick } from '#/shared/utils/gtag'
 import { useToastStore } from '#/store/toastStore'
@@ -31,7 +32,7 @@ const ShareModal = ({ isOpen, url, onClose, onClickOverlay }: ShareModalProps) =
       <div css={ShareModalStyle}>
         <div css={ShareModalContainer}>
           <div className='title'>{t('shareOnSNS')}</div>
-          <ShareItems url={url} />
+          <ShareItems url={url} shareIcon={shareItems} />
           <div className='area-copy'>
             <span className='url'>{url}</span>
             <button className='btn-copy' onClick={copyLink}>
