@@ -1,24 +1,15 @@
-import { Facebook, Kakao, LINE, X, Insta } from '#/assets/shareSNS'
 import { ShareModalProps } from '#/components/share-modal/ShareModal'
 import { shareHandlers } from '#/shared/utils/shareHandlers'
 import { useTranslation } from 'react-i18next'
 import { ShareItemStyle } from './ShareItems.styles'
 import { trackBtnClick } from '#/shared/utils/gtag'
-import { useEffect, useState } from 'react'
-import { SkeltonSquare } from '#/shared/ui'
+import { shareItems } from '#/shared/config/shareSNS'
 
-const shareItems = {
-  Kakao,
-  Facebook,
-  LINE,
-  Insta,
-  X,
+type shareItemProps = Pick<ShareModalProps, 'url'> & {
+  shareIcon: typeof shareItems
 }
 
-type shareItemProps = Pick<ShareModalProps, 'url'>
-
-const ShareItems = ({ url }: shareItemProps) => {
-  const [isLoading, setIsLoading] = useState(true)
+const ShareItems = ({ url, shareIcon }: shareItemProps) => {
   const { t } = useTranslation()
   const shareText = t('shareSNS')
 
@@ -28,20 +19,12 @@ const ShareItems = ({ url }: shareItemProps) => {
     handlers[item]()
   }
 
-  useEffect(() => {
-    setTimeout(() => setIsLoading(false), 300)
-  }, [])
-
   return (
     <div>
       <ul css={ShareItemStyle}>
-        {Object.keys(shareItems).map((item) => (
+        {Object.keys(shareIcon).map((item) => (
           <li key={item} onClick={() => handleItemClick(item)}>
-            {isLoading ? (
-              <SkeltonSquare />
-            ) : (
-              <img src={shareItems[item as keyof typeof shareItems]} alt={item} />
-            )}
+            <img src={shareIcon[item as keyof typeof shareIcon]} alt={item} decoding='sync' />
           </li>
         ))}
       </ul>
