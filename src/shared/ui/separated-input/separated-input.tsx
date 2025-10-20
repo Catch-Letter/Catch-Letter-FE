@@ -1,6 +1,13 @@
 import { useAutoFocus } from '#/hooks'
 import { useToastStore } from '#/store/toastStore'
-import { ChangeEvent, CompositionEvent, InputHTMLAttributes, KeyboardEvent, useRef } from 'react'
+import {
+  ChangeEvent,
+  CompositionEvent,
+  InputHTMLAttributes,
+  KeyboardEvent,
+  useRef,
+  useState,
+} from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   labels,
@@ -35,6 +42,11 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
   const { showToast } = useToastStore()
   const { t } = useTranslation()
 
+  //type = password 일 때 값 입력시 •로 가려지는 상태를 관리하기 위한 상태값
+  const [displayValue, setDisplayValue] = useState<string[]>(
+    Array.from({ length }, (_, i) => (type === 'password' && value[i] ? '•' : (value[i] ?? '')))
+  )
+
   useAutoFocus(autoFocus, inputRefs)
 
   const handleBeforeInput = (e: CompositionEvent<HTMLInputElement>) => {
@@ -51,8 +63,18 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
   }
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
-    const newValues = Array.from({ length }, (_, i) => value[i] ?? ' ')
-    newValues[index] = e.currentTarget.value[0]
+    const char = e.currentTarget.value[0] ?? ''
+
+    //실제값에 대응하는 •값
+    const newDisplayValues = [...displayValue]
+    newDisplayValues[index] = type === 'password' ? (char ? '•' : '') : char
+    setDisplayValue(newDisplayValues)
+
+    //실제값
+    const newValues = value
+      .padEnd(length, ' ')
+      .split('')
+      .map((v, i) => (i === index ? char : v))
     onChangeValue?.(newValues.join(''))
 
     // 다음 입력칸으로 이동
@@ -85,16 +107,21 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
     switch (e.key) {
       case 'Backspace': {
         e.preventDefault()
-        const newValues = Array.from({ length }, (_, i) => value[i] ?? ' ')
+        const newDisplayValues = [...displayValue]
+        const newValues = value.padEnd(length, ' ').split('')
 
         if ((value[index] === '' || value[index] === ' ') && index > 0) {
           // 현재 칸이 비어있으면 이전 칸 지우고 포커스
+          newDisplayValues[index - 1] = ' '
           newValues[index - 1] = ' '
+          setDisplayValue(newDisplayValues)
           onChangeValue?.(newValues.join(''))
           inputRefs.current[index - 1]?.focus()
         } else {
           // 현재 칸만 지우기
+          newDisplayValues[index] = ' '
           newValues[index] = ' '
+          setDisplayValue(newDisplayValues)
           onChangeValue?.(newValues.join(''))
         }
         return
@@ -118,7 +145,7 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
       key={index}
       type={type}
       ref={(el) => (inputRefs.current[index] = el)}
-      value={value[index] === ' ' ? '' : (value[index] ?? '')}
+      value={displayValue[index] === ' ' ? '' : (displayValue[index] ?? '')}
       onChange={(e) => handleInputChange(e, index)}
       onBeforeInput={handleBeforeInput}
       // onCompositionStart={handleCompositionStart}
