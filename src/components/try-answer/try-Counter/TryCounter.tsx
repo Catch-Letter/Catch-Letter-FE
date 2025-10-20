@@ -80,7 +80,7 @@ const TryCounter: React.FC<TryCounterProps> = ({
           </span>
         )}
       </div>
-      <p className='Text'>
+      <div className='Text'>
         {cycle > 0 && !isCorrect ? (
           <SeparatedInput
             length={answerLength}
@@ -95,7 +95,7 @@ const TryCounter: React.FC<TryCounterProps> = ({
         ) : (
           translatedMessage
         )}
-      </p>
+      </div>
     </div>
   )
 }
