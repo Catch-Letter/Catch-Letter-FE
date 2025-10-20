@@ -42,7 +42,7 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
   const { showToast } = useToastStore()
   const { t } = useTranslation()
 
-  //비밀번호
+  //type = password 일 때 값 입력시 •로 가려지는 상태를 관리하기 위한 상태값
   const [displayValue, setDisplayValue] = useState<string[]>(
     Array.from({ length }, (_, i) => (type === 'password' && value[i] ? '•' : (value[i] ?? '')))
   )
@@ -65,18 +65,17 @@ const SeparatedInput: React.FC<SeparatedInputProps> = ({
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
     const char = e.currentTarget.value[0] ?? ''
 
+    //실제값에 대응하는 •값
     const newDisplayValues = [...displayValue]
     newDisplayValues[index] = type === 'password' ? (char ? '•' : '') : char
     setDisplayValue(newDisplayValues)
 
+    //실제값
     const newValues = value
       .padEnd(length, ' ')
       .split('')
       .map((v, i) => (i === index ? char : v))
     onChangeValue?.(newValues.join(''))
-
-    console.log('화면에표시:', displayValue)
-    console.log('실제전달:', newValues)
 
     // 다음 입력칸으로 이동
     // if (!isComposing && e.currentTarget.value.length === 1) {
