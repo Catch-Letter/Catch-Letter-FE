@@ -1,6 +1,6 @@
 # 💌 Catch-Letter 
 > 그림으로 마음을 전하는 비밀 편지
-
+<img width="4160" height="2370" alt="Group 157" src="https://github.com/user-attachments/assets/68ab383d-b7e6-4015-a443-6e5a9b06bcd1" />
 
 <p align="center">
   🔗 <a href="https://catchletter.kr/" target="_blank">Catch-Letter</a>
