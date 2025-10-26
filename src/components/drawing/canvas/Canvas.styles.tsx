@@ -9,7 +9,7 @@ export const CanvasWrapper = css`
   width: 100%;
   height: 100%;
   padding: 24px 16px;
-  background: rgba(230, 230, 230, 0.7);
+  background: ${colors.white};
   border-radius: 8px;
   backdrop-filter: blur(2px);
 `

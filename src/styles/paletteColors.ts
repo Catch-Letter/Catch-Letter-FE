@@ -1,6 +1,6 @@
 export const paletteColors = [
   { color: 'Black', hex: '#000000' },
-  { color: 'White', hex: '#FFFFFF' },
+  { color: 'Gray', hex: '#5b5b5b' },
   { color: 'Red', hex: '#F8596A' },
   { color: 'Orange', hex: '#FF9061' },
   { color: 'Yellow', hex: '#FFDE55' },
