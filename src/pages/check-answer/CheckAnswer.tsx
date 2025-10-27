@@ -101,7 +101,7 @@ const CheckAnswer = () => {
         <div className='content' onClick={handleCardClick}>
           <div className='cardFront'>
             {imageUrl ? (
-              <LetterCard type={selectedColor} background='rgba(241, 241, 242, 0.7)'>
+              <LetterCard type={selectedColor} background={colors.white}>
                 {
                   <img
                     src={imageUrl}
