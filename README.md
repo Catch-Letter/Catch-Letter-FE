@@ -1,6 +1,7 @@
-# 💌 Catch-Letter 
+# 💌 Catch-Letter
+
 > 그림으로 마음을 전하는 비밀 편지
-<img width="4160" height="2370" alt="Group 157" src="https://github.com/user-attachments/assets/68ab383d-b7e6-4015-a443-6e5a9b06bcd1" />
+> <img width="4160" height="2370" alt="Group 157" src="https://github.com/user-attachments/assets/68ab383d-b7e6-4015-a443-6e5a9b06bcd1" />
 
 <p align="center">
   🔗 <a href="https://catchletter.kr/" target="_blank">Catch-Letter</a>
@@ -18,9 +19,9 @@
 가볍게 웃기고 싶을 때, <br>
 고마운 마음을 전하고 싶을 때, <br>
 혹은 조금 어색한 친구와도 부담 없이 소통하고 싶을 때, <br>
-**Catch-Letter**가 그 사이를 자연스럽게 이어줍니다. 
+**Catch-Letter**가 그 사이를 자연스럽게 이어줍니다.
 
-- 가입 없이 바로 쓸 수 있고, 
+- 가입 없이 바로 쓸 수 있고,
 - 회사나 학교에서도 가볍게 즐길 수 있으며,
 - 그림을 맞혀야만 편지를 볼 수 있어서 게임처럼 재미있게 즐길 수 있어요 🎨
 
@@ -30,6 +31,7 @@
 <br>
 
 ## 📱 사용 방법
+
 <img width="4644" height="2264" alt="Group 156" src="https://github.com/user-attachments/assets/3ec1ee43-b676-4eaf-a307-7826487611dd" />
 
 1️⃣ 우체통 만들기 - 나만의 우체통 이름을 정하고 비밀번호를 설정해요.
@@ -43,17 +45,19 @@
 <br>
 
 ## 📮 Test 계정
+
 > Test 계정으로 Catch-Letter를 잠깐 체험해보세요!
 
-| URL | [Test 링크](https://catchletter.kr/inbox/54e1fb33-d2a2-4d32-9b28-742897d1b873) |
-| --- | --- |
-| **비밀번호** | **`11111`** |
+| URL          | [Test 링크](https://catchletter.kr/inbox/7c893308-c387-4e41-9658-b16ecdbd79b6) |
+| ------------ | ------------------------------------------------------------------------------ |
+| **비밀번호** | **`11111`**                                                                    |
 
 <br>
 
 ## 🖥️ 기술 스택
 
 ### 🛠️ Tech Stack
+
 - React, TypeScript, Vite
 - Tanstack Query, Axios, Zustand
 - Emotion
@@ -61,23 +65,27 @@
 - i18next
 
 ### 📈 Monitoring
+
 - Sentry
 - Google Analytics (GA)
 
 ### ⚙️ Dev Tools
+
 - ESLint, Prettier
 - AWS S3 + CloudFront + GitHub Actions
 
 <br>
 
 ## 👩🏻‍💻 Developers
-| FE | FE | FE | BE |
-| :--: | :--: | :--: | :--: |
-| **김수민** | **박지영** | **손성오** | **유남균** |
+
+|                                                                FE                                                                 |                                                                FE                                                                 |                                                                   FE                                                                    |                                                                     BE                                                                     |
+| :-------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                            **김수민**                                                             |                                                            **박지영**                                                             |                                                               **손성오**                                                                |                                                                 **유남균**                                                                 |
 | [<img src="https://avatars.githubusercontent.com/ssuminii?v=4" height=150 width=150><br/> @ssuminii](https://github.com/ssuminii) | [<img src="https://avatars.githubusercontent.com/jizerozz?v=4" height=150 width=150><br/> @jizerozz](https://github.com/jizerozz) | [<img src="https://avatars.githubusercontent.com/Sonseongoh?v=4" height=150 width=150><br/> @Sonseongoh](https://github.com/Sonseongoh) | [<img src="https://avatars.githubusercontent.com/namgyun1201?v=4" height=150 width=150><br/> @namgyun1201](https://github.com/namgyun1201) |
 
 <br>
 
 ## ✉️ Contact
+
 Email: catchletter.kr@gmail.com <br>
-Insta: [ctchletter_official](https://www.instagram.com/catchletter_official/)
+Insta: [catchletter_official](https://www.instagram.com/catchletter_official/)
