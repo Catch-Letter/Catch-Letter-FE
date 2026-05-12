@@ -16,6 +16,11 @@ const Success = () => {
   const user = location.state
   const { isOpen, openModal, closeModal } = useModal()
   // const { leftTime } = useCountdownTimer(user.expired)
+
+  //생성된 우체통 URL 표시용 변수
+  const displayMailboxUrl = user.mailboxUrl.replace(/(https?:\/\/[^/]+)\/(.+)$/, '$1/inbox/$2')
+
+  //생성된 우체통의 uuid
   const uuidMatch = user.mailboxUrl.match(/[^/]+$/)
 
   const onClickBtnPost = () => {
@@ -36,7 +41,11 @@ const Success = () => {
         <div className='area_desc'>
           <h1 className='create_link'>{t('create.link')}</h1>
           <h2 className='create_link_desc'>{t('create.linkShere')}</h2>
-          <DescLink link={user.mailboxUrl} btnName={t('create.btncopy')} desc={t('create.desc')} />
+          <DescLink
+            link={displayMailboxUrl}
+            btnName={t('create.btncopy')}
+            desc={t('create.desc')}
+          />
           {/* <DescWithNum className='second' number={2}>
             {t('create.opentime')} <TimeArea time={leftTime} /> <br />
             {t('create.check')}
@@ -49,7 +58,7 @@ const Success = () => {
           {t('create.btnshare')}
         </Button>
       </div>
-      <ShareModal isOpen={isOpen} onClose={closeModal} url={user.mailboxUrl} />
+      <ShareModal isOpen={isOpen} onClose={closeModal} url={displayMailboxUrl} />
     </div>
   )
 }
