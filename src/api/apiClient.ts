@@ -81,11 +81,24 @@ authApiClient.interceptors.response.use(
   }
 )
 
-// 에러 발생 시 Sentry로 전송
+const captureApiError = (error: unknown) => {
+  if (error && typeof error === 'object' && 'response' in error) {
+    const status = (error as { response?: { status?: number } }).response?.status
+    if (status && status >= 500) {
+      Sentry.captureException(error, { level: 'error' })
+    } else if (status && status >= 400) {
+      Sentry.captureException(error, { level: 'warning' })
+    }
+  } else {
+    Sentry.captureException(error, { level: 'error' })
+  }
+}
+
+// 에러 발생 시 Sentry로 전송 (5xx → error / 4xx → warning)
 apiClient.interceptors.response.use(
   (res) => res,
   (error) => {
-    Sentry.captureException(error)
+    captureApiError(error)
     return Promise.reject(error)
   }
 )
@@ -93,7 +106,7 @@ apiClient.interceptors.response.use(
 authApiClient.interceptors.response.use(
   (res) => res,
   (error) => {
-    Sentry.captureException(error)
+    captureApiError(error)
     return Promise.reject(error)
   }
 )
