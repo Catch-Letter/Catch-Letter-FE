@@ -11,6 +11,8 @@ on:
 
 jobs:
   deploy:
+    # AWS에서 Vercel로 이전, 비활성화
+    if: false
     runs-on: ubuntu-latest
     permissions:
       contents: read
