@@ -28,3 +28,4 @@ storybook-static
 
 #ket files
 /cert
+.gstack/
